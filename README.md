@@ -33,6 +33,8 @@
 
 أضف الإعدادات من: Settings ← Secrets and variables ← Actions. كل منصة مستقلة، والمنصة التي لا تُضاف إعداداتها تُتخطّى.
 
+أسماء الحسابات (`YOUTUBE_CHANNEL` و`TELEGRAM_CHANNEL` و`X_USERNAME`) تكفي كتابتها في حقل `handle` داخل `accounts` في `data/stats.json`، ولا حاجة لإضافتها كمتغيرات إلا إذا أردت تجاوز تلك القيم.
+
 | المنصة | ما تحتاجه | النوع في GitHub | ملاحظات |
 |---|---|---|---|
 | **يوتيوب** | `YOUTUBE_API_KEY` | Secret | مجاني. من Google Cloud Console فعّل «YouTube Data API v3» وأنشئ مفتاح API. |

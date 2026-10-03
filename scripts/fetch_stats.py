@@ -241,6 +241,12 @@ def main():
     data = json.loads(DATA.read_text(encoding="utf-8")) if DATA.exists() else {"accounts": {}, "periods": [], "posts": []}
     data.setdefault("posts", [])
     data.setdefault("periods", [])
+    # Account names can live in data/stats.json; an environment variable overrides them.
+    accounts = data.get("accounts", {})
+    for platform, var in (("youtube", "YOUTUBE_CHANNEL"), ("telegram", "TELEGRAM_CHANNEL"), ("x", "X_USERNAME")):
+        handle = (accounts.get(platform) or {}).get("handle", "").strip()
+        if handle and not env(var):
+            os.environ[var] = handle
     changed = False
     for platform, fn in (("youtube", fetch_youtube), ("telegram", fetch_telegram), ("tiktok", fetch_tiktok), ("x", fetch_x)):
         try:
