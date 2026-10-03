@@ -1,0 +1,86 @@
+{
+  "updated": "2026-09-24",
+  "accounts": {
+    "x": {
+      "handle": "",
+      "url": ""
+    },
+    "telegram": {
+      "handle": "",
+      "url": ""
+    },
+    "youtube": {
+      "handle": "",
+      "url": ""
+    },
+    "tiktok": {
+      "handle": "",
+      "url": ""
+    }
+  },
+  "periods": [
+    {
+      "platform": "tiktok",
+      "from": "2026-08-27",
+      "to": "2026-09-23",
+      "views": 45500,
+      "label": "مشاهدات المنشورات",
+      "source": "manual"
+    },
+    {
+      "platform": "youtube",
+      "from": "2026-08-27",
+      "to": "2026-09-23",
+      "views": 4100,
+      "label": "مشاهدات القناة",
+      "source": "manual"
+    }
+  ],
+  "posts": [
+    {
+      "platform": "telegram",
+      "id": "tg-2026-09-24",
+      "date": "2026-09-24",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 57,
+      "url": "",
+      "source": "manual"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-2026-09-23",
+      "date": "2026-09-23",
+      "title": "دارٌ الحَبيبِ أحقّ أن تهواه...",
+      "views": 1700,
+      "url": "",
+      "source": "manual"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-2026-09-21",
+      "date": "2026-09-21",
+      "title": "ترقبوا 🌟 قصيدة في مديح النبي ﷺ",
+      "views": 1000,
+      "url": "",
+      "source": "manual"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-2026-09-20",
+      "date": "2026-09-20",
+      "title": "#اقتباسات_أسوة",
+      "views": 894,
+      "url": "",
+      "source": "manual"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-2026-09-17",
+      "date": "2026-09-17",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 1400,
+      "url": "",
+      "source": "manual"
+    }
+  ]
+}
