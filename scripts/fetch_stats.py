@@ -222,6 +222,10 @@ def merge(data, platform, fetched):
 
     kept = [p for p in data["posts"] if not superseded(p)]
     data["posts"] = kept + list(fresh.values())
+    if fetched:
+        # Per-post API numbers replace hand-typed account totals for this platform,
+        # otherwise the same views would be counted twice or by two different methods.
+        data["periods"] = [r for r in data["periods"] if not (r["platform"] == platform and r.get("source") != "api")]
 
 
 def embed_in_page(data):
