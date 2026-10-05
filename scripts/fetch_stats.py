@@ -11,7 +11,7 @@ Settings (all optional):
   TELEGRAM_CHANNEL                          public channel username, e.g. "uswah"
   TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET, TIKTOK_REFRESH_TOKEN
   X_BEARER_TOKEN, X_USERNAME
-  LOOKBACK_DAYS                             how far back to collect (default 365)
+  START_DATE                                first day to count (default: "since" in data/stats.json, 2026-08-27)
 
 Standard library only: no pip install needed.
 """
@@ -29,12 +29,24 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "stats.json"
 PAGE = ROOT / "uswah.html"
 UA = "Mozilla/5.0 (compatible; UswahStats/1.0)"
-LOOKBACK = int(os.environ.get("LOOKBACK_DAYS") or 365)
-SINCE = (dt.date.today() - dt.timedelta(days=LOOKBACK)).isoformat()
+
 
 
 def env(name):
     return (os.environ.get(name) or "").strip()
+
+
+def _since():
+    """Start of counting: START_DATE env, else "since" in data/stats.json, else 2026-08-27."""
+    if env("START_DATE"):
+        return env("START_DATE")
+    try:
+        return json.loads(DATA.read_text(encoding="utf-8")).get("since") or "2026-08-27"
+    except (OSError, ValueError):
+        return "2026-08-27"
+
+
+SINCE = _since()
 
 
 def http(url, *, data=None, headers=None, method=None):
@@ -51,6 +63,15 @@ def http_json(url, **kw):
 
 
 # --------------------------------------------------------------------------- YouTube
+def iso_seconds(d):
+    """PT1M5S -> 65"""
+    m = re.fullmatch(r"P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", d or "")
+    if not m:
+        return 0
+    days, h, mi, sec = (int(x or 0) for x in m.groups())
+    return days * 86400 + h * 3600 + mi * 60 + sec
+
+
 def fetch_youtube():
     key, channel = env("YOUTUBE_API_KEY"), env("YOUTUBE_CHANNEL")
     if not (key and channel):
@@ -65,6 +86,11 @@ def fetch_youtube():
         ch = call("channels", part="contentDetails", id=channel)
     else:
         ch = call("channels", part="contentDetails", forHandle=channel if channel.startswith("@") else "@" + channel)
+    if not ch.get("items"):
+        # Help to find the right identifier: list the closest channels by name.
+        found = call("search", part="snippet", type="channel", maxResults=5, q=channel.lstrip("@"))
+        names = "; ".join(f'{i["snippet"]["channelTitle"]} ({i["snippet"]["channelId"]})' for i in found.get("items", []))
+        raise RuntimeError(f"channel '{channel}' not found. Closest matches: {names or 'none'}")
     uploads = ch["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
     ids, token = [], ""
@@ -80,15 +106,18 @@ def fetch_youtube():
 
     posts = []
     for i in range(0, len(ids), 50):
-        v = call("videos", part="snippet,statistics", id=",".join(ids[i:i + 50]))
+        v = call("videos", part="snippet,statistics,contentDetails", id=",".join(ids[i:i + 50]))
         for it in v["items"]:
             date = it["snippet"]["publishedAt"][:10]
             if date < SINCE:
                 continue
+            seconds = iso_seconds(it.get("contentDetails", {}).get("duration"))
+            is_short = 0 < seconds <= 180 or "#shorts" in it["snippet"]["title"].lower()
             posts.append({
                 "platform": "youtube", "id": it["id"], "date": date,
                 "title": it["snippet"]["title"], "views": int(it["statistics"].get("viewCount", 0)),
-                "url": f"https://www.youtube.com/watch?v={it['id']}",
+                "url": f"https://www.youtube.com/{'shorts' if is_short else 'watch?v='}{'/' if is_short else ''}{it['id']}",
+                "kind": "short" if is_short else "video",
             })
     return posts
 
@@ -220,8 +249,12 @@ def merge(data, platform, fetched):
             return False
         return p.get("source") == "api" or p["id"] in fresh or p["date"] >= covered_from
 
-    kept = [p for p in data["posts"] if not superseded(p)]
+    kept = [p for p in data["posts"] if not superseded(p) and p["date"] >= SINCE]
     data["posts"] = kept + list(fresh.values())
+    if fetched:
+        # Per-post API numbers replace hand-typed account totals for this platform,
+        # otherwise the same views would be counted twice or by two different methods.
+        data["periods"] = [r for r in data["periods"] if not (r["platform"] == platform and r.get("source") != "api")]
 
 
 def embed_in_page(data):
@@ -235,12 +268,20 @@ def embed_in_page(data):
     )
     if n:
         PAGE.write_text(new, encoding="utf-8")
+        # index.html is an identical copy so the bare domain (uswah.sa) opens the site directly.
+        (ROOT / "index.html").write_text(new, encoding="utf-8")
 
 
 def main():
     data = json.loads(DATA.read_text(encoding="utf-8")) if DATA.exists() else {"accounts": {}, "periods": [], "posts": []}
     data.setdefault("posts", [])
     data.setdefault("periods", [])
+    # Account names can live in data/stats.json; an environment variable overrides them.
+    accounts = data.get("accounts", {})
+    for platform, var in (("youtube", "YOUTUBE_CHANNEL"), ("telegram", "TELEGRAM_CHANNEL"), ("x", "X_USERNAME")):
+        handle = (accounts.get(platform) or {}).get("handle", "").strip()
+        if handle and not env(var):
+            os.environ[var] = handle
     changed = False
     for platform, fn in (("youtube", fetch_youtube), ("telegram", fetch_telegram), ("tiktok", fetch_tiktok), ("x", fetch_x)):
         try:
@@ -253,7 +294,9 @@ def main():
             continue
         merge(data, platform, fetched)
         changed = True
-        print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views")
+        shorts = [p for p in fetched if p.get("kind") == "short"]
+        extra = f" (incl. {len(shorts)} shorts, {sum(p['views'] for p in shorts):,} views)" if any("kind" in p for p in fetched) else ""
+        print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views{extra}")
 
     if changed or "--embed-only" in sys.argv:
         if changed:

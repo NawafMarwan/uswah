@@ -1,86 +1,312 @@
 {
-  "updated": "2026-09-24",
+  "since": "2026-08-27",
+  "updated": "2026-10-05",
   "accounts": {
     "x": {
-      "handle": "",
-      "url": ""
+      "handle": "OSWAHH1",
+      "url": "https://x.com/OSWAHH1"
     },
     "telegram": {
-      "handle": "",
-      "url": ""
+      "handle": "OSWAHH1",
+      "url": "https://t.me/OSWAHH1"
     },
     "youtube": {
-      "handle": "",
-      "url": ""
+      "handle": "@OSWAHH1",
+      "url": "https://www.youtube.com/@OSWAHH1"
     },
     "tiktok": {
-      "handle": "",
-      "url": ""
+      "handle": "OSWAHH1",
+      "url": "https://www.tiktok.com/@oswahh1"
     }
   },
   "periods": [
     {
       "platform": "tiktok",
-      "from": "2026-08-27",
-      "to": "2026-09-23",
-      "views": 45500,
+      "from": "2026-09-06",
+      "to": "2026-09-26",
+      "views": 46000,
       "label": "مشاهدات المنشورات",
       "source": "manual"
     },
     {
-      "platform": "youtube",
-      "from": "2026-08-27",
-      "to": "2026-09-23",
-      "views": 4100,
-      "label": "مشاهدات القناة",
+      "platform": "tiktok",
+      "from": "2026-09-27",
+      "to": "2026-10-03",
+      "views": 4600,
+      "label": "مشاهدات المنشورات",
       "source": "manual"
     }
   ],
   "posts": [
     {
+      "platform": "youtube",
+      "id": "YfGTMPa_h2U",
+      "date": "2026-10-05",
+      "title": "قريبًا... كتاب الشمائل المحمدية #السعودية #الشمائل_المحمدية #كتب_صوتية #أسوة #shorts #السيرة_النبوية",
+      "views": 22,
+      "url": "https://www.youtube.com/shorts/YfGTMPa_h2U",
+      "kind": "short",
+      "source": "api"
+    },
+    {
       "platform": "telegram",
-      "id": "tg-2026-09-24",
+      "id": "tg-4799",
+      "date": "2026-10-05",
+      "title": "قريبًا... ⏳ 📖 كتاب الشمائل المحمدية - لأبي عيسى الترمذي رحمه الله على قناة أسوة #كتاب_صوتي…",
+      "views": 82,
+      "url": "https://t.me/OSWAHH1/4799",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4798",
+      "date": "2026-10-04",
+      "title": "#اقتباسات_أسوة",
+      "views": 453,
+      "url": "https://t.me/OSWAHH1/4798",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4796",
+      "date": "2026-10-01",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 998,
+      "url": "https://t.me/OSWAHH1/4796",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "psZ3YEy17ig",
+      "date": "2026-09-29",
+      "title": "وتَحِنُ من طربٍ إلى ذكراها... #المدينة_المنورة #أسوة # #صلى_الله_عليه_وسلم #السعودية #fyp #shots",
+      "views": 104,
+      "url": "https://www.youtube.com/shorts/psZ3YEy17ig",
+      "kind": "short",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4795",
+      "date": "2026-09-29",
+      "title": "وتَحِنُ من طربٍ إلى ذكراها... اسمع القصيدة كاملة على قناة أسوة ا #دار_الحبيب #أسوة",
+      "views": 1110,
+      "url": "https://t.me/OSWAHH1/4795",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "TVzXuxwC1io",
+      "date": "2026-09-27",
+      "title": "#الشمائل #السيرة_النبوية #أسوة #السعودية #shorts",
+      "views": 217,
+      "url": "https://www.youtube.com/shorts/TVzXuxwC1io",
+      "kind": "short",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4794",
+      "date": "2026-09-27",
+      "title": "قولُه: (حَسَنَ الجِسْمِ) وصفُ جسمِهِ بالحُسْن صادقٌ من جِهتَي العقل والحس؛ أما الأولى: فبا…",
+      "views": 1220,
+      "url": "https://t.me/OSWAHH1/4794",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4793",
       "date": "2026-09-24",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 57,
-      "url": "",
-      "source": "manual"
+      "views": 4040,
+      "url": "https://t.me/OSWAHH1/4793",
+      "source": "api"
     },
     {
-      "platform": "telegram",
-      "id": "tg-2026-09-23",
+      "platform": "youtube",
+      "id": "XJsjK2dkJhE",
       "date": "2026-09-23",
-      "title": "دارٌ الحَبيبِ أحقّ أن تهواه...",
-      "views": 1700,
-      "url": "",
-      "source": "manual"
+      "title": "قصيدة دار الحبيب | نظم لأبي محمد البَسْكَريّ",
+      "views": 4777,
+      "url": "https://www.youtube.com/watch?v=XJsjK2dkJhE",
+      "kind": "video",
+      "source": "api"
     },
     {
       "platform": "telegram",
-      "id": "tg-2026-09-21",
+      "id": "tg-4791",
+      "date": "2026-09-23",
+      "title": "دَار ُ الْحَبِيبِ أحـقُّ أَن تهواهـا و تَحنُ من طربٍ الى ذكراها 📜 قصيدة: (دار الحبيب) في م…",
+      "views": 9000,
+      "url": "https://t.me/OSWAHH1/4791",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "ORYVTooT6Tg",
       "date": "2026-09-21",
-      "title": "ترقبوا 🌟 قصيدة في مديح النبي ﷺ",
-      "views": 1000,
-      "url": "",
-      "source": "manual"
+      "title": "ترقبوا .. 🌟قصيدة في مدح #النبي ﷺ، وفضائله وفضائل مدينته المنوَّرة طابة الطيَّبة 🕌✨#حصرية",
+      "views": 847,
+      "url": "https://www.youtube.com/shorts/ORYVTooT6Tg",
+      "kind": "short",
+      "source": "api"
     },
     {
       "platform": "telegram",
-      "id": "tg-2026-09-20",
+      "id": "tg-4789",
+      "date": "2026-09-21",
+      "title": "ترقبوا .. 🌟 قصيدة في مدح النبي ﷺ، وفضائله وفضائل مدينته طابة الطيَّبة 🕌 ✨ #حصرية",
+      "views": 2070,
+      "url": "https://t.me/OSWAHH1/4789",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4788",
       "date": "2026-09-20",
       "title": "#اقتباسات_أسوة",
-      "views": 894,
-      "url": "",
-      "source": "manual"
+      "views": 1750,
+      "url": "https://t.me/OSWAHH1/4788",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "yngRGtHQnhY",
+      "date": "2026-09-18",
+      "title": "بداية السول في تفضيل #الرسول  #صلى_الله_عليه_وسلم #السيرة_النبوية #الشمائل #كتب_صوتية",
+      "views": 219,
+      "url": "https://www.youtube.com/shorts/yngRGtHQnhY",
+      "kind": "short",
+      "source": "api"
     },
     {
       "platform": "telegram",
-      "id": "tg-2026-09-17",
+      "id": "tg-4786",
       "date": "2026-09-17",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 1400,
-      "url": "",
-      "source": "manual"
+      "views": 2310,
+      "url": "https://t.me/OSWAHH1/4786",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "sWln0iHe8-8",
+      "date": "2026-09-14",
+      "title": "من غرائب معجزاته ﷺ #السيرة_النبوية #الشمائل #السعودية #السيرة_النبوية",
+      "views": 661,
+      "url": "https://www.youtube.com/shorts/sWln0iHe8-8",
+      "kind": "short",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4785",
+      "date": "2026-09-14",
+      "title": "«من غرَائِبِ معجِزَاتِه [ﷺ] الباهرة أنه إذا دخل بين جماعة طوال كان في بصر الناظرين أطول من…",
+      "views": 2270,
+      "url": "https://t.me/OSWAHH1/4785",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4783",
+      "date": "2026-09-12",
+      "title": "ربّ حرفٍ تنشره عن سيرة المصطفى ﷺ، يحيي قلباً، ويثقل ميزاناً.. شاركنا شرف الأثر. linktr.ee/…",
+      "views": 2300,
+      "url": "https://t.me/OSWAHH1/4783",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4781",
+      "date": "2026-09-10",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 2710,
+      "url": "https://t.me/OSWAHH1/4781",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "awjAz8IIaoA",
+      "date": "2026-09-09",
+      "title": "بداية السول في تفضيل الرسول ﷺ | للعز بن عبد السلام",
+      "views": 1286,
+      "url": "https://www.youtube.com/watch?v=awjAz8IIaoA",
+      "kind": "video",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4780",
+      "date": "2026-09-09",
+      "title": "مَن أمعن التفكر في سيرته ﷺ، طابت نفسه، وقرّت عينه، وتهذبت جوارحه. رحلة إيمانية في ربيع الس…",
+      "views": 10100,
+      "url": "https://t.me/OSWAHH1/4780",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4779",
+      "date": "2026-09-08",
+      "title": "📖 غدًا.. إطلاق أول كتبنا الصوتية «بداية السُّول في تفضيل الرسول ﷺ» للعلّامة العزّ بن عبدال…",
+      "views": 2330,
+      "url": "https://t.me/OSWAHH1/4779",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4777",
+      "date": "2026-09-07",
+      "title": "#اقتباسات_أسوة",
+      "views": 2370,
+      "url": "https://t.me/OSWAHH1/4777",
+      "source": "api"
+    },
+    {
+      "platform": "youtube",
+      "id": "apoWoVhZAD0",
+      "date": "2026-09-05",
+      "title": "سيرةٌ تُروى… وأثرٌ يُصنع | تعرّف على أسوة",
+      "views": 313,
+      "url": "https://www.youtube.com/shorts/apoWoVhZAD0",
+      "kind": "short",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4773",
+      "date": "2026-09-04",
+      "title": "هل تعلم أن أكثر من ملياري إنسان يحملون في قلوبهم حب النبي ﷺ؟ أسوة.. جاءت لتخدم هذا الحب. ت…",
+      "views": 3840,
+      "url": "https://t.me/OSWAHH1/4773",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4771",
+      "date": "2026-09-03",
+      "title": "نُبشِّركم بتحوّل مبادرة أسوة إلى مركزٍ يُعنــى بالسـيـرة النبويـــة تأصيلًا وتقريبًا وتمكي…",
+      "views": 5920,
+      "url": "https://t.me/OSWAHH1/4771",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4768",
+      "date": "2026-09-01",
+      "title": "منشور وسائط",
+      "views": 3430,
+      "url": "https://t.me/OSWAHH1/4768",
+      "source": "api"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4765",
+      "date": "2026-08-30",
+      "title": "منشور وسائط",
+      "views": 3840,
+      "url": "https://t.me/OSWAHH1/4765",
+      "source": "api"
     }
   ]
 }
