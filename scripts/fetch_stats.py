@@ -65,6 +65,11 @@ def fetch_youtube():
         ch = call("channels", part="contentDetails", id=channel)
     else:
         ch = call("channels", part="contentDetails", forHandle=channel if channel.startswith("@") else "@" + channel)
+    if not ch.get("items"):
+        # Help to find the right identifier: list the closest channels by name.
+        found = call("search", part="snippet", type="channel", maxResults=5, q=channel.lstrip("@"))
+        names = "; ".join(f'{i["snippet"]["channelTitle"]} ({i["snippet"]["channelId"]})' for i in found.get("items", []))
+        raise RuntimeError(f"channel '{channel}' not found. Closest matches: {names or 'none'}")
     uploads = ch["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
     ids, token = [], ""
