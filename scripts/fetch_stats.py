@@ -51,6 +51,15 @@ def http_json(url, **kw):
 
 
 # --------------------------------------------------------------------------- YouTube
+def iso_seconds(d):
+    """PT1M5S -> 65"""
+    m = re.fullmatch(r"P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", d or "")
+    if not m:
+        return 0
+    days, h, mi, sec = (int(x or 0) for x in m.groups())
+    return days * 86400 + h * 3600 + mi * 60 + sec
+
+
 def fetch_youtube():
     key, channel = env("YOUTUBE_API_KEY"), env("YOUTUBE_CHANNEL")
     if not (key and channel):
@@ -85,15 +94,18 @@ def fetch_youtube():
 
     posts = []
     for i in range(0, len(ids), 50):
-        v = call("videos", part="snippet,statistics", id=",".join(ids[i:i + 50]))
+        v = call("videos", part="snippet,statistics,contentDetails", id=",".join(ids[i:i + 50]))
         for it in v["items"]:
             date = it["snippet"]["publishedAt"][:10]
             if date < SINCE:
                 continue
+            seconds = iso_seconds(it.get("contentDetails", {}).get("duration"))
+            is_short = 0 < seconds <= 180 or "#shorts" in it["snippet"]["title"].lower()
             posts.append({
                 "platform": "youtube", "id": it["id"], "date": date,
                 "title": it["snippet"]["title"], "views": int(it["statistics"].get("viewCount", 0)),
-                "url": f"https://www.youtube.com/watch?v={it['id']}",
+                "url": f"https://www.youtube.com/{'shorts' if is_short else 'watch?v='}{'/' if is_short else ''}{it['id']}",
+                "kind": "short" if is_short else "video",
             })
     return posts
 
@@ -270,7 +282,9 @@ def main():
             continue
         merge(data, platform, fetched)
         changed = True
-        print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views")
+        shorts = [p for p in fetched if p.get("kind") == "short"]
+        extra = f" (incl. {len(shorts)} shorts, {sum(p['views'] for p in shorts):,} views)" if any("kind" in p for p in fetched) else ""
+        print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views{extra}")
 
     if changed or "--embed-only" in sys.argv:
         if changed:
