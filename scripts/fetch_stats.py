@@ -11,7 +11,7 @@ Settings (all optional):
   TELEGRAM_CHANNEL                          public channel username, e.g. "uswah"
   TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET, TIKTOK_REFRESH_TOKEN
   X_BEARER_TOKEN, X_USERNAME
-  LOOKBACK_DAYS                             how far back to collect (default 365)
+  START_DATE                                first day to count (default: "since" in data/stats.json, 2026-08-27)
 
 Standard library only: no pip install needed.
 """
@@ -29,12 +29,24 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "stats.json"
 PAGE = ROOT / "uswah.html"
 UA = "Mozilla/5.0 (compatible; UswahStats/1.0)"
-LOOKBACK = int(os.environ.get("LOOKBACK_DAYS") or 365)
-SINCE = (dt.date.today() - dt.timedelta(days=LOOKBACK)).isoformat()
+
 
 
 def env(name):
     return (os.environ.get(name) or "").strip()
+
+
+def _since():
+    """Start of counting: START_DATE env, else "since" in data/stats.json, else 2026-08-27."""
+    if env("START_DATE"):
+        return env("START_DATE")
+    try:
+        return json.loads(DATA.read_text(encoding="utf-8")).get("since") or "2026-08-27"
+    except (OSError, ValueError):
+        return "2026-08-27"
+
+
+SINCE = _since()
 
 
 def http(url, *, data=None, headers=None, method=None):
@@ -237,7 +249,7 @@ def merge(data, platform, fetched):
             return False
         return p.get("source") == "api" or p["id"] in fresh or p["date"] >= covered_from
 
-    kept = [p for p in data["posts"] if not superseded(p)]
+    kept = [p for p in data["posts"] if not superseded(p) and p["date"] >= SINCE]
     data["posts"] = kept + list(fresh.values())
     if fetched:
         # Per-post API numbers replace hand-typed account totals for this platform,
