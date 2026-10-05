@@ -246,10 +246,6 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
   .custom-range input{flex:1;min-width:0}
 }
 
-.range-note{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13.5px;margin:-6px 0 16px;flex-wrap:wrap}
-.range-note b{color:var(--ink-2);font-weight:600}
-.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
-.tag.warn{background:color-mix(in srgb,var(--copper) 14%,var(--surface));border-color:color-mix(in srgb,var(--copper) 40%,var(--line));color:var(--copper-ink)}
 
 /* hero KPI */
 .kpi-hero{position:relative;overflow:hidden;border-radius:26px;padding:28px clamp(20px,4vw,40px);background:linear-gradient(125deg,#3a2236 0%,#52304b 55%,#6a3a3c 100%);color:#fffaf6;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;box-shadow:0 20px 40px -24px rgba(58,34,54,.7)}
@@ -360,52 +356,9 @@ table.posts{width:100%;border-collapse:collapse;font-size:14.5px}
 }
 .posts .mdt{display:none;color:var(--muted);font-size:12.5px}
 
-/* sources */
-details.box{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
-details.box>summary{list-style:none;cursor:pointer;padding:16px 22px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
-details.box>summary::-webkit-details-marker{display:none}
-details.box>summary svg{width:18px;height:18px;color:var(--muted)}
-details.box>summary .chev{margin-inline-start:auto;transition:transform .2s ease}
-details.box[open]>summary .chev{transform:rotate(180deg)}
-details.box .inner{padding:0 22px 22px}
-.src-list{display:grid;gap:8px;font-size:14px}
-.src-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
-.src-item .grow{flex:1;min-width:160px}
-.src-item svg{width:16px;height:16px;color:var(--c)}
-.local-list svg{width:14px;height:14px}
-.src-item small{color:var(--muted)}
-.foot-note{font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.7}
-
-/* data management */
-.mgmt{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media (max-width:860px){.mgmt{grid-template-columns:1fr}}
-.card-s{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--bg)}
-.card-s h3{margin:0 0 10px;font-size:15.5px;display:flex;align-items:center;gap:8px}
-.card-s h3 svg{width:17px;height:17px;color:var(--copper-ink)}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form .full{grid-column:1/-1}
-.form label{display:grid;gap:4px;font-size:12.5px;color:var(--ink-2);font-weight:600}
-.form input,.form select{border:1px solid var(--line-2);background:var(--surface);border-radius:10px;padding:8px 10px;font-size:14.5px;font-weight:400;min-height:40px;width:100%}
-.status-grid{display:grid;gap:8px}
-.st{display:flex;align-items:center;gap:10px;font-size:14px;padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
-.st i{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--c);color:#fff;flex:none}
-.st i svg{width:13px;height:13px}
-.st .grow{flex:1}
-.st small{display:block;color:var(--muted);font-size:12px;line-height:1.4}
-.badge{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
-.badge.ok{background:color-mix(in srgb,#16967a 16%,transparent);color:#0f7a62}
-.badge.off{background:var(--surface-2);color:var(--muted)}
-:root[data-theme="dark"] .badge.ok{color:#5fd1b4}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge.ok{color:#5fd1b4}}
-.local-list{display:grid;gap:6px;margin-top:10px;max-height:220px;overflow:auto}
-.local-list .row{display:flex;gap:8px;align-items:center;font-size:13px;padding:6px 8px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
-.local-list .row .grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.link-btn{appearance:none;border:0;background:none;color:var(--copper-ink);font-weight:600;cursor:pointer;padding:4px 6px;font-size:13px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:all .25s ease;z-index:100;pointer-events:none;max-width:calc(100% - 32px)}
-.toast.on{opacity:1;transform:translateX(-50%)}
 
 /* presentation mode */
-body.present .topbar,body.present .dash-actions .hide-present,body.present #mgmt,body.present .no-present{display:none!important}
+body.present .topbar,body.present .dash-actions .hide-present,body.present .no-present{display:none!important}
 body.present .filters{top:0}
 body.present #stats{padding-top:12px}
 body.present .exit-present{display:inline-flex!important}
@@ -415,12 +368,11 @@ body.present .exit-present{display:inline-flex!important}
 @media print{
   .reveal{opacity:1!important;transform:none!important}
   :root{--bg:#fff;--surface:#fff}
-  .topbar,.filters .custom-range,.dash-actions,#mgmt,.more,.tbl-tools,.no-print{display:none!important}
+  .topbar,.filters .custom-range,.dash-actions,.more,.tbl-tools,.no-print{display:none!important}
   .filters{position:static;border:0}
-  .panel,.pcard,details.box{box-shadow:none;break-inside:avoid}
+  .panel,.pcard{box-shadow:none;break-inside:avoid}
   .kpi-hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .pcard,.cmp-row .track span,.posts .pf i,.chart svg{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  details.box:not([open]){display:none}
 }
 
 /* forced colors / high contrast: keep marks distinguishable */
@@ -453,13 +405,6 @@ body.present .exit-present{display:inline-flex!important}
     <symbol id="i-screen" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></g></symbol>
     <symbol id="i-print" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></g></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
-    <symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></g></symbol>
-    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></g></symbol>
-    <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></symbol>
-    <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="i-upload" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></g></symbol>
-    <symbol id="i-sync" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M3 21v-5h5"/></g></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g></symbol>
     <symbol id="i-arch" viewBox="0 0 100 100"><path fill="none" stroke="currentColor" stroke-width="7" d="M10 100V48q0-10 9-15L50 14l31 19q9 5 9 15v52"/><path fill="none" stroke="currentColor" stroke-width="7" d="M26 100V52q0-6 5-9l19-12 19 12q5 3 5 9v48"/></symbol>
     <symbol id="i-notch" viewBox="0 0 200 12" preserveAspectRatio="none"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M0 1h80l20 10 20-10h80"/></symbol>
   </defs>
@@ -687,58 +632,6 @@ body.present .exit-present{display:inline-flex!important}
       <div class="more"><button class="btn btn-ghost btn-sm" id="moreBtn" type="button" hidden>عرض المزيد</button></div>
     </section>
 
-    <details class="box" id="mgmt" hidden>
-      <summary><svg><use href="#i-db"/></svg>إدارة البيانات وربط الحسابات<svg class="chev"><use href="#i-chev"/></svg></summary>
-      <div class="inner">
-        <div class="mgmt">
-          <div class="card-s">
-            <h3><svg><use href="#i-sync"/></svg>حالة الربط</h3>
-            <div class="status-grid" id="statusGrid"></div>
-            <p class="foot-note" id="dataSourceNote"></p>
-          </div>
-
-          <div class="card-s">
-            <h3><svg><use href="#i-plus"/></svg>إضافة رقم يدويًا</h3>
-            <form class="form" id="addForm">
-              <label>النوع
-                <select name="kind" id="kindSel"><option value="post">منشور واحد</option><option value="period">إجمالي فترة لحساب كامل</option></select>
-              </label>
-              <label>المنصة
-                <select name="platform" id="platformSel"></select>
-              </label>
-              <label class="post-only">تاريخ النشر<input type="date" name="date"></label>
-              <label class="period-only" hidden>من<input type="date" name="from"></label>
-              <label class="period-only" hidden>إلى<input type="date" name="to"></label>
-              <label>المشاهدات<input type="number" name="views" min="0" step="1" inputmode="numeric" required></label>
-              <label class="full post-only">عنوان المنشور<input type="text" name="title" placeholder="مثال: مقطع عن الشمائل النبوية"></label>
-              <label class="full post-only">رابط المنشور (اختياري)<input type="url" name="url" placeholder="https://"></label>
-              <div class="full"><button class="btn btn-primary btn-sm" type="submit"><svg><use href="#i-plus"/></svg>إضافة</button></div>
-            </form>
-            <div class="local-list" id="localList"></div>
-          </div>
-
-          <div class="card-s">
-            <h3><svg width="17" height="17" style="color:var(--s-youtube)"><use href="#i-youtube"/></svg>مزامنة يوتيوب مباشرة</h3>
-            <form class="form" id="ytForm">
-              <label class="full">مفتاح YouTube Data API<input type="password" name="key" autocomplete="off" placeholder="AIza..."></label>
-              <label class="full">القناة (معرّف @ أو UC...)<input type="text" name="channel" placeholder="@uswah"></label>
-              <div class="full" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" type="submit"><svg><use href="#i-sync"/></svg>جلب مشاهدات الفيديوهات</button></div>
-            </form>
-            <p class="foot-note">يُحفظ المفتاح في هذا المتصفح فقط. قيّد المفتاح من Google Cloud على «YouTube Data API» وعلى نطاق موقعك.</p>
-          </div>
-
-          <div class="card-s">
-            <h3><svg><use href="#i-upload"/></svg>استيراد وتصدير</h3>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <label class="btn btn-ghost btn-sm" style="cursor:pointer"><svg><use href="#i-upload"/></svg>استيراد JSON / CSV<input type="file" id="importFile" accept=".json,.csv,application/json,text/csv" hidden></label>
-              <button class="btn btn-ghost btn-sm" type="button" id="exportBtn">تصدير stats.json</button>
-              <button class="btn btn-ghost btn-sm" type="button" id="resetBtn">حذف التعديلات المحلية</button>
-            </div>
-            <p class="foot-note">صيغة CSV: <span class="num">platform,date,title,views,url</span> للمنشورات، أو <span class="num">platform,from,to,views</span> لإجمالي فترة. قيم المنصة: <span class="num">x, telegram, youtube, tiktok</span>.<br>بعد التصدير ارفع الملف إلى <span class="num">data/stats.json</span> في المستودع ليراه الجميع.</p>
-          </div>
-        </div>
-      </div>
-    </details>
   </div>
 </main>
 
@@ -752,7 +645,6 @@ body.present .exit-present{display:inline-flex!important}
 </footer>
 
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- Baseline data. scripts/fetch_stats.py rewrites this block from data/stats.json. -->
 <script id="seed" type="application/json">{"updated":"2026-09-24","accounts":{"x":{"handle":"","url":""},"telegram":{"handle":"","url":""},"youtube":{"handle":"","url":""},"tiktok":{"handle":"","url":""}},"periods":[{"platform":"tiktok","from":"2026-08-27","to":"2026-09-23","views":45500,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"youtube","from":"2026-08-27","to":"2026-09-23","views":4100,"label":"مشاهدات القناة","source":"manual"}],"posts":[{"platform":"telegram","id":"tg-2026-09-24","date":"2026-09-24","title":"#صلى_الله_عليه_وسلم","views":57,"url":"","source":"manual"},{"platform":"telegram","id":"tg-2026-09-23","date":"2026-09-23","title":"دارٌ الحَبيبِ أحقّ أن تهواه...","views":1700,"url":"","source":"manual"},{"platform":"telegram","id":"tg-2026-09-21","date":"2026-09-21","title":"ترقبوا 🌟 قصيدة في مديح النبي ﷺ","views":1000,"url":"","source":"manual"},{"platform":"telegram","id":"tg-2026-09-20","date":"2026-09-20","title":"#اقتباسات_أسوة","views":894,"url":"","source":"manual"},{"platform":"telegram","id":"tg-2026-09-17","date":"2026-09-17","title":"#صلى_الله_عليه_وسلم","views":1400,"url":"","source":"manual"}]}</script>
@@ -796,12 +688,9 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
   del(k) { try { localStorage.removeItem(k); } catch {} },
 };
-const LOCAL_KEY = 'uswah.local.v1';
 
 /* ---------------- Data ---------------- */
 let base = { updated: '', accounts: {}, posts: [], periods: [] };
-let baseSource = 'embedded';
-let local = store.get(LOCAL_KEY, { posts: [], periods: [] });
 let data = base;
 
 function normalize(d) {
@@ -819,17 +708,7 @@ function normalize(d) {
   }
   return out;
 }
-const postKey = p => `${p.platform}:${p.id}`;
-const periodKey = r => `${r.platform}:${r.from}:${r.to}`;
-function mergeData() {
-  const posts = new Map(base.posts.map(p => [postKey(p), p]));
-  for (const p of local.posts) posts.set(postKey(p), { ...p, local: true });
-  const periods = new Map(base.periods.map(r => [periodKey(r), r]));
-  for (const r of local.periods) periods.set(periodKey(r), { ...r, local: true });
-  const localUpdated = [...local.posts, ...local.periods].map(x => x.addedAt || '').sort().pop() || '';
-  data = { updated: [base.updated, localUpdated.slice(0, 10)].sort().pop(), accounts: base.accounts || {}, posts: [...posts.values()], periods: [...periods.values()] };
-}
-function saveLocal() { store.set(LOCAL_KEY, local); mergeData(); renderAll(); }
+function mergeData() { data = base; }
 
 /* ---------------- Aggregation ---------------- */
 function dataBounds() {
@@ -904,16 +783,13 @@ function currentRange() {
     default: return dataBounds();
   }
 }
-let isAdmin = false;
 const hasData = p => data.posts.some(x => x.platform === p) || data.periods.some(x => x.platform === p);
-const visiblePlatforms = () => isAdmin ? ORDER.slice() : ORDER.filter(hasData);
+const visiblePlatforms = () => ORDER.filter(hasData);
 const selectedPlatforms = () => state.platform !== 'all' && visiblePlatforms().includes(state.platform) ? [state.platform] : visiblePlatforms();
 
 /* ---------------- DOM helpers ---------------- */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
-let toastTimer;
-function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2600); }
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function countUp(el, to, fmt = full) {
   const from = Number(el.dataset.v || 0); el.dataset.v = to;
@@ -1117,28 +993,6 @@ function renderPosts(res) {
 $('#moreBtn').addEventListener('click', () => { state.limit = 1e9; renderPosts(lastRes); });
 $$('.seg [data-sort]').forEach(b => b.addEventListener('click', () => { state.sort = b.dataset.sort; $$('.seg [data-sort]').forEach(x => x.setAttribute('aria-pressed', x === b)); renderPosts(lastRes); }));
 
-/* ---------------- Render: sources & status ---------------- */
-function renderStatus() {
-  const lastBy = p => {
-    const ds = [...data.posts.filter(x => x.platform === p).map(x => x.date), ...data.periods.filter(x => x.platform === p).map(x => x.to)].sort();
-    return ds.pop();
-  };
-  const how = { x: 'X API v2 (اشتراك مدفوع) — عبر السكربت', telegram: 'صفحة القناة العامة — عبر السكربت', youtube: 'YouTube Data API — هنا أو عبر السكربت', tiktok: 'TikTok Display API — عبر السكربت' };
-  $('#statusGrid').innerHTML = ORDER.map(p => {
-    const auto = data.posts.some(x => x.platform === p && x.source === 'api') || data.periods.some(x => x.platform === p && x.source === 'api');
-    const last = lastBy(p);
-    return `<div class="st" style="--c:${PLATFORMS[p].color}"><i>${icon(p)}</i><div class="grow"><b>${PLATFORMS[p].name}</b><small>${last ? `آخر بيانات: ${fmtDay(toDay(last), true)}` : 'لا بيانات'} · ${how[p]}</small></div><span class="badge ${auto ? 'ok' : 'off'}">${auto ? 'مربوط' : 'يدوي'}</span></div>`;
-  }).join('');
-  const n = local.posts.length + local.periods.length;
-  $('#dataSourceNote').innerHTML = `المصدر: ${baseSource === 'file' ? '<b class="num">data/stats.json</b>' : 'النسخة المضمّنة في الصفحة'}${n ? ` + <b>${full(n)}</b> إدخال محلي في هذا المتصفح` : ''}.`;
-  $('#localList').innerHTML = [...local.posts.map((x, i) => ({ ...x, kind: 'posts', i })), ...local.periods.map((x, i) => ({ ...x, kind: 'periods', i }))]
-    .map(x => `<div class="row"><span style="color:${PLATFORMS[x.platform].color}">${icon(x.platform)}</span><span class="grow">${x.kind === 'posts' ? `${esc(x.title || 'منشور')} · ${x.date}` : `إجمالي ${x.from} → ${x.to}`}</span><b class="num">${full(x.views)}</b><button class="link-btn" type="button" data-del="${x.kind}:${x.i}">حذف</button></div>`).join('');
-}
-$('#localList').addEventListener('click', e => {
-  const b = e.target.closest('[data-del]'); if (!b) return;
-  const [k, i] = b.dataset.del.split(':'); local[k].splice(+i, 1); saveLocal(); toast('تم الحذف');
-});
-
 /* ---------------- Render all ---------------- */
 let lastRes = null;
 function renderAll() {
@@ -1151,7 +1005,6 @@ function renderAll() {
   renderCompare(res);
   renderTimeline(res, a, b);
   renderPosts(res);
-  renderStatus();
   renderTeaser();
   renderSocials();
 }
@@ -1166,119 +1019,6 @@ function renderSocials() {
   const acc = data.accounts || {};
   $('#socials').innerHTML = ORDER.filter(p => acc[p] && acc[p].url).map(p => `<a href="${esc(acc[p].url)}" target="_blank" rel="noopener" aria-label="${PLATFORMS[p].name}">${icon(p)}</a>`).join('');
 }
-
-/* ---------------- Manual entry ---------------- */
-$('#platformSel').innerHTML = ORDER.map(p => `<option value="${p}">${PLATFORMS[p].name}</option>`).join('');
-$('#kindSel').addEventListener('change', e => {
-  const period = e.target.value === 'period';
-  $$('.post-only').forEach(x => x.hidden = period); $$('.period-only').forEach(x => x.hidden = !period);
-});
-$('#addForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const f = Object.fromEntries(new FormData(e.target));
-  const views = Number(f.views);
-  if (!isFinite(views) || views < 0) return toast('أدخل عدد مشاهدات صحيحًا');
-  const now = new Date().toISOString();
-  if (f.kind === 'period') {
-    if (!validDate(f.from) || !validDate(f.to)) return toast('حدّد تاريخ البداية والنهاية');
-    const [from, to] = [f.from, f.to].sort();
-    local.periods = local.periods.filter(r => periodKey(r) !== periodKey({ platform: f.platform, from, to }));
-    local.periods.push({ platform: f.platform, from, to, views, label: 'إدخال يدوي', source: 'manual', addedAt: now });
-  } else {
-    if (!validDate(f.date)) return toast('حدّد تاريخ النشر');
-    local.posts.push({ platform: f.platform, id: `m-${Date.now()}`, date: f.date, title: f.title || '', views, url: f.url || '', source: 'manual', addedAt: now });
-  }
-  e.target.reset(); $('#kindSel').dispatchEvent(new Event('change'));
-  saveLocal(); toast('تمت الإضافة');
-});
-
-/* ---------------- Import / export ---------------- */
-function parseCSV(text) {
-  const rows = []; let row = [], cur = '', q = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (q) { if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
-    else if (c === '"') q = true;
-    else if (c === ',') { row.push(cur); cur = ''; }
-    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
-    else cur += c;
-  }
-  if (cur || row.length) { row.push(cur); rows.push(row); }
-  const head = (rows.shift() || []).map(h => h.trim().toLowerCase().replace(/^﻿/, ''));
-  const out = { posts: [], periods: [] };
-  for (const r of rows) {
-    if (!r.some(Boolean)) continue;
-    const o = Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()]));
-    o.platform = (o.platform || '').toLowerCase();
-    if (o.from && o.to) out.periods.push(o); else out.posts.push(o);
-  }
-  return out;
-}
-$('#importFile').addEventListener('change', async e => {
-  const file = e.target.files[0]; if (!file) return;
-  try {
-    const text = await file.text();
-    const raw = /\.csv$/i.test(file.name) ? parseCSV(text) : JSON.parse(text);
-    const n = normalize(raw), now = new Date().toISOString();
-    const pk = new Map(local.posts.map(p => [postKey(p), p])); for (const p of n.posts) pk.set(postKey(p), { ...p, addedAt: now });
-    const rk = new Map(local.periods.map(p => [periodKey(p), p])); for (const r of n.periods) rk.set(periodKey(r), { ...r, addedAt: now });
-    local = { posts: [...pk.values()], periods: [...rk.values()] };
-    saveLocal(); toast(`تم استيراد ${n.posts.length} منشور و${n.periods.length} إجمالي فترة`);
-  } catch (err) { toast('تعذّر قراءة الملف — تأكد من الصيغة'); }
-  e.target.value = '';
-});
-$('#exportBtn').addEventListener('click', () => {
-  const strip = ({ local: _l, addedAt: _a, ...rest }) => rest;
-  const out = { updated: fromDay(todayDay()), accounts: data.accounts, periods: data.periods.map(strip), posts: data.posts.map(strip).sort((a, b) => b.date.localeCompare(a.date)) };
-  const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
-  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: 'stats.json' });
-  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-});
-$('#resetBtn').addEventListener('click', () => {
-  if (!local.posts.length && !local.periods.length) return toast('لا توجد تعديلات محلية');
-  if (!confirm('حذف كل الإدخالات المحلية من هذا المتصفح؟')) return;
-  local = { posts: [], periods: [] }; store.del(LOCAL_KEY); saveLocal(); toast('تم الحذف');
-});
-
-/* ---------------- YouTube live sync (browser, API key) ---------------- */
-const yt = store.get('uswah.yt.v1', {});
-$('#ytForm').key.value = yt.key || ''; $('#ytForm').channel.value = yt.channel || '';
-$('#ytForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  const key = e.target.key.value.trim(), channel = e.target.channel.value.trim();
-  if (!key || !channel) return toast('أدخل المفتاح والقناة');
-  store.set('uswah.yt.v1', { key, channel });
-  const btn = e.target.querySelector('button'); btn.disabled = true; const label = btn.innerHTML; btn.textContent = 'جارٍ الجلب...';
-  try {
-    const api = async (path, params) => {
-      const u = new URL('https://www.googleapis.com/youtube/v3/' + path);
-      for (const [k, v] of Object.entries({ ...params, key })) u.searchParams.set(k, v);
-      const r = await fetch(u); const j = await r.json();
-      if (!r.ok) throw new Error(j.error?.message || r.status); return j;
-    };
-    const chParams = channel.startsWith('UC') ? { id: channel } : { forHandle: channel.startsWith('@') ? channel : '@' + channel };
-    const ch = await api('channels', { part: 'contentDetails', ...chParams });
-    const uploads = ch.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-    if (!uploads) throw new Error('لم يتم العثور على القناة');
-    let ids = [], token = '';
-    do {
-      const pl = await api('playlistItems', { part: 'contentDetails', playlistId: uploads, maxResults: 50, ...(token ? { pageToken: token } : {}) });
-      ids.push(...pl.items.map(i => i.contentDetails.videoId)); token = pl.nextPageToken || '';
-    } while (token && ids.length < 500);
-    const now = new Date().toISOString(); let n = 0;
-    const map = new Map(local.posts.map(p => [postKey(p), p]));
-    for (let i = 0; i < ids.length; i += 50) {
-      const v = await api('videos', { part: 'snippet,statistics', id: ids.slice(i, i + 50).join(',') });
-      for (const it of v.items) {
-        const p = { platform: 'youtube', id: it.id, date: it.snippet.publishedAt.slice(0, 10), title: it.snippet.title, views: Number(it.statistics.viewCount || 0), url: `https://www.youtube.com/watch?v=${it.id}`, source: 'api', addedAt: now };
-        map.set(postKey(p), p); n++;
-      }
-    }
-    local.posts = [...map.values()];
-    saveLocal(); toast(`تم تحديث ${n} فيديو من يوتيوب`);
-  } catch (err) { toast('تعذّر الجلب: ' + err.message); }
-  btn.disabled = false; btn.innerHTML = label;
-});
 
 /* ---------------- Presentation & print ---------------- */
 $('#presentBtn').addEventListener('click', () => {
@@ -1308,9 +1048,7 @@ $('#themeBtn').addEventListener('click', () => {
 
 /* ---------------- Router ---------------- */
 function route() {
-  isAdmin = location.hash.startsWith('#/admin');
-  const page = location.hash.startsWith('#/stats') || isAdmin ? 'stats' : 'home';
-  $('#mgmt').hidden = !isAdmin; if (isAdmin) $('#mgmt').open = true;
+  const page = location.hash.startsWith('#/stats') ? 'stats' : 'home';
   $$('[data-page]').forEach(m => m.hidden = m.dataset.page !== page);
   $$('.tab').forEach(t => t.dataset.route === page ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
   document.title = page === 'stats' ? 'أثر أسوة على منصات التواصل' : 'مركز أسوة للسيرة النبوية';
@@ -1334,12 +1072,11 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 /* ---------------- Boot ---------------- */
 $('#year').textContent = new Date().getFullYear();
 try { base = normalize(JSON.parse($('#seed').textContent)); } catch { base = normalize({}); }
-local = { posts: (local && local.posts) || [], periods: (local && local.periods) || [] };
 mergeData(); route(); renderAll();
 // Prefer the live data file when the site is served over http(s) (e.g. GitHub Pages).
 if (location.protocol.startsWith('http')) {
   fetch('data/stats.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject())
-    .then(j => { const n = normalize(j); if (n.posts.length || n.periods.length) { base = n; baseSource = 'file'; mergeData(); renderAll(); } })
+    .then(j => { const n = normalize(j); if (n.posts.length || n.periods.length) { base = n; mergeData(); renderAll(); } })
     .catch(() => {});
 }
 })();
