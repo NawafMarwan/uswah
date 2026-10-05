@@ -244,6 +244,8 @@ def embed_in_page(data):
     )
     if n:
         PAGE.write_text(new, encoding="utf-8")
+        # index.html is an identical copy so the bare domain (uswah.sa) opens the site directly.
+        (ROOT / "index.html").write_text(new, encoding="utf-8")
 
 
 def main():
