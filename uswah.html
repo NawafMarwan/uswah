@@ -1068,8 +1068,11 @@ $('#themeBtn').addEventListener('click', () => {
 });
 
 /* ---------------- Router ---------------- */
+// /stats/ is a copy of this page with ROOT='../' that opens the statistics view directly.
+const ROOT = window.__ROOT__ || '';
+const onStatsPath = ROOT !== '';
 function route() {
-  const page = location.hash.startsWith('#/stats') ? 'stats' : 'home';
+  const page = onStatsPath || location.hash.startsWith('#/stats') ? 'stats' : 'home';
   $$('[data-page]').forEach(m => m.hidden = m.dataset.page !== page);
   $$('.tab').forEach(t => t.dataset.route === page ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
   document.title = page === 'stats' ? 'أثر أسوة على منصات التواصل' : 'مركز أسوة للسيرة النبوية';
@@ -1093,10 +1096,14 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 /* ---------------- Boot ---------------- */
 $('#year').textContent = new Date().getFullYear();
 try { base = normalize(JSON.parse($('#seed').textContent)); } catch { base = normalize({}); }
+if (onStatsPath) {
+  $$('.brand, .tab[data-route="home"]').forEach(a => a.setAttribute('href', ROOT));
+  $('.tab[data-route="stats"]').setAttribute('href', './');
+}
 mergeData(); route(); renderAll();
 // Prefer the live data file when the site is served over http(s) (e.g. GitHub Pages).
 if (location.protocol.startsWith('http')) {
-  fetch('data/stats.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject())
+  fetch(ROOT + 'data/stats.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject())
     .then(j => { const n = normalize(j); if (n.posts.length || n.periods.length) { base = n; mergeData(); renderAll(); } })
     .catch(() => {});
 }

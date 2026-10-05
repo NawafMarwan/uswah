@@ -270,6 +270,10 @@ def embed_in_page(data):
         PAGE.write_text(new, encoding="utf-8")
         # index.html is an identical copy so the bare domain (uswah.sa) opens the site directly.
         (ROOT / "index.html").write_text(new, encoding="utf-8")
+        # /stats/ opens the statistics view directly (uswah.sa/stats).
+        stats_page = new.replace("<head>", "<head>\n<script>window.__ROOT__='../';</script>", 1)
+        (ROOT / "stats").mkdir(exist_ok=True)
+        (ROOT / "stats" / "index.html").write_text(stats_page, encoding="utf-8")
 
 
 def main():
