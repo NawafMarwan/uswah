@@ -2,6 +2,9 @@ name: Probe X (free options)
 
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/upbeat-ramanujan-h61nfu]
+    paths: [".github/workflows/probe-x.yml"]
 
 permissions:
   contents: read
