@@ -23,16 +23,40 @@
     {
       "platform": "tiktok",
       "from": "2026-09-06",
+      "to": "2026-09-11",
+      "views": 1200,
+      "label": "مشاهدات المنشورات",
+      "source": "manual"
+    },
+    {
+      "platform": "tiktok",
+      "from": "2026-09-12",
       "to": "2026-09-26",
-      "views": 46000,
+      "views": 44800,
       "label": "مشاهدات المنشورات",
       "source": "manual"
     },
     {
       "platform": "tiktok",
       "from": "2026-09-27",
+      "to": "2026-10-02",
+      "views": 1600,
+      "label": "مشاهدات المنشورات",
+      "source": "manual"
+    },
+    {
+      "platform": "tiktok",
+      "from": "2026-10-03",
       "to": "2026-10-03",
-      "views": 4600,
+      "views": 3000,
+      "label": "مشاهدات المنشورات",
+      "source": "manual"
+    },
+    {
+      "platform": "tiktok",
+      "from": "2026-10-04",
+      "to": "2026-10-09",
+      "views": 1700,
       "label": "مشاهدات المنشورات",
       "source": "manual"
     }
