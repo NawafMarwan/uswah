@@ -133,6 +133,32 @@ def parse_tg_count(s):
     return int(round(float(s) * mult))
 
 
+# Telegram post types, decided from the channel's approved hashtags and wording.
+CATEGORY_LABELS = {
+    "shamail": "مقاطع الشمائل",
+    "quotes": "الاقتباسات",
+    "audio": "الكتب والمنظومات الصوتية",
+    "salawat": "تصاميم الصلاة على النبي ﷺ",
+    "other": "إعلانات ومنشورات أخرى",
+}
+AUDIO_MARKERS = ("#كتاب_صوتي", "#كتب_صوتية", "#منظومات", "كتاب صوتي", "كتبنا الصوتية", "الكتب الصوتية",
+                 "منظومة", "قصيدة", "القصيدة", "#دار_الحبيب")
+
+
+def classify(text):
+    t = text or ""
+    if "#اقتباسات_أسوة" in t:
+        return "quotes"
+    if any(m in t for m in AUDIO_MARKERS):
+        return "audio"
+    body = re.sub(r"#\S+", "", t).strip(" …·-")
+    if "#صلى_الله_عليه_وسلم" in t and len(body) < 12:
+        return "salawat"
+    if "الشمائل" in t:
+        return "shamail"
+    return "other"
+
+
 def fetch_telegram():
     """Reads the public preview (t.me/s/<channel>); works for public channels only."""
     channel = env("TELEGRAM_CHANNEL").lstrip("@")
@@ -162,6 +188,7 @@ def fetch_telegram():
                 "title": (text[:90] + "…") if len(text) > 90 else (text or "منشور وسائط"),
                 "views": parse_tg_count(m_views.group(1)),
                 "url": f"https://t.me/{channel}/{m_id.group(1)}",
+                "category": classify(text),
             })
         if not ids:
             break
@@ -301,6 +328,20 @@ def main():
         shorts = [p for p in fetched if p.get("kind") == "short"]
         extra = f" (incl. {len(shorts)} shorts, {sum(p['views'] for p in shorts):,} views)" if any("kind" in p for p in fetched) else ""
         print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views{extra}")
+
+    # Categories: fill any missing from the title, then apply manual corrections from stats.json.
+    overrides = data.get("category_overrides", {})
+    for p in data["posts"]:
+        if p["platform"] == "telegram" and "category" not in p:
+            p["category"] = classify(p["title"])
+        if p["id"] in overrides and overrides[p["id"]] in CATEGORY_LABELS:
+            p["category"] = overrides[p["id"]]
+    tg = [p for p in data["posts"] if p["platform"] == "telegram"]
+    if tg and "--embed-only" not in sys.argv:
+        counts = {k: sum(1 for p in tg if p.get("category") == k) for k in CATEGORY_LABELS}
+        print("  telegram categories:", ", ".join(f"{k}={v}" for k, v in counts.items()))
+        for p in sorted(tg, key=lambda x: x["date"]):
+            print(f"    {p['date']} [{p.get('category')}] {p['title'][:60]}")
 
     if changed or "--embed-only" in sys.argv:
         if changed:
