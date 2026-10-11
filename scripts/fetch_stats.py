@@ -139,8 +139,21 @@ CATEGORY_LABELS = {
     "quotes": "الاقتباسات",
     "audio": "الكتب والمنظومات الصوتية",
     "salawat": "تصاميم الصلاة على النبي ﷺ",
-    "other": "إعلانات ومنشورات أخرى",
+    "intro": "الفيديو التعريفي",
+    "other": "منشورات أخرى",
+    "announcement": "إعلانات (غير محتسبة)",
 }
+FULL_TEXT = {}  # post id -> full text, for log output only (not stored)
+
+
+def media_kind(block):
+    if "tgme_widget_message_video" in block or "tgme_widget_message_roundvideo" in block:
+        return "video"
+    if "tgme_widget_message_photo_wrap" in block:
+        return "photo"
+    if "tgme_widget_message_voice" in block or "tgme_widget_message_document" in block:
+        return "file"
+    return "text"
 AUDIO_MARKERS = ("#كتاب_صوتي", "#كتب_صوتية", "#منظومات", "كتاب صوتي", "كتبنا الصوتية", "الكتب الصوتية",
                  "منظومة", "قصيدة", "القصيدة", "#دار_الحبيب")
 
@@ -189,7 +202,9 @@ def fetch_telegram():
                 "views": parse_tg_count(m_views.group(1)),
                 "url": f"https://t.me/{channel}/{m_id.group(1)}",
                 "category": classify(text),
+                "media": media_kind(b),
             })
+            FULL_TEXT[f"tg-{m_id.group(1)}"] = text
         if not ids:
             break
         before = min(ids)
@@ -341,7 +356,8 @@ def main():
         counts = {k: sum(1 for p in tg if p.get("category") == k) for k in CATEGORY_LABELS}
         print("  telegram categories:", ", ".join(f"{k}={v}" for k, v in counts.items()))
         for p in sorted(tg, key=lambda x: x["date"]):
-            print(f"    {p['date']} [{p.get('category')}] {p['title'][:60]}")
+            full_text = FULL_TEXT.get(p["id"], p["title"])
+            print(f"    {p['id']} {p['date']} [{p.get('category')}] ({p.get('media', '?')}) {p['views']:,} | {full_text[:150]}")
 
     if changed or "--embed-only" in sys.argv:
         if changed:
