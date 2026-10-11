@@ -1044,7 +1044,8 @@ function worksFor(tab) {
   const top = (arr, n) => arr.sort((a, b) => b.views - a.views).slice(0, n);
   if (tab === 'shamail') {
     const yt = top(data.posts.filter(p => p.platform === 'youtube' && p.category === 'shamail' && p.kind === 'short'), 3).map(p => ({ type: 'yt', p }));
-    const tg = top(data.posts.filter(p => p.platform === 'telegram' && p.category === 'shamail' && p.image), 4 - yt.length).map(p => ({ type: 'tg', p }));
+    // A Telegram clip is shown only when it has no YouTube twin (same day), to avoid duplicates.
+    const tg = top(data.posts.filter(p => p.platform === 'telegram' && p.category === 'shamail' && p.image && !yt.some(y => y.p.date === p.date)), 4 - yt.length).map(p => ({ type: 'tg', p }));
     return [...yt, ...tg];
   }
   return top(data.posts.filter(p => p.platform === 'telegram' && p.category === tab && p.image), 4).map(p => ({ type: 'img', p }));
