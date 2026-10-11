@@ -102,7 +102,9 @@
       "url": "https://t.me/OSWAHH1/4798",
       "category": "quotes",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4798.jpg",
+      "ar": 0.7987
     },
     {
       "platform": "telegram",
@@ -113,7 +115,9 @@
       "url": "https://t.me/OSWAHH1/4796",
       "category": "salawat",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4796.jpg",
+      "ar": 0.7987
     },
     {
       "platform": "youtube",
@@ -157,7 +161,9 @@
       "url": "https://t.me/OSWAHH1/4794",
       "category": "shamail",
       "media": "video",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4794.jpg",
+      "ar": 0.5625
     },
     {
       "platform": "telegram",
@@ -168,7 +174,9 @@
       "url": "https://t.me/OSWAHH1/4793",
       "category": "salawat",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4793.jpg",
+      "ar": 0.8
     },
     {
       "platform": "youtube",
@@ -223,7 +231,9 @@
       "url": "https://t.me/OSWAHH1/4788",
       "category": "quotes",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4788.jpg",
+      "ar": 0.8
     },
     {
       "platform": "youtube",
@@ -245,7 +255,9 @@
       "url": "https://t.me/OSWAHH1/4786",
       "category": "salawat",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4786.jpg",
+      "ar": 0.8
     },
     {
       "platform": "youtube",
@@ -267,7 +279,9 @@
       "url": "https://t.me/OSWAHH1/4785",
       "category": "shamail",
       "media": "video",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4785.jpg",
+      "ar": 0.5563
     },
     {
       "platform": "telegram",
@@ -289,7 +303,9 @@
       "url": "https://t.me/OSWAHH1/4781",
       "category": "salawat",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4781.jpg",
+      "ar": 0.7987
     },
     {
       "platform": "youtube",
@@ -333,7 +349,9 @@
       "url": "https://t.me/OSWAHH1/4777",
       "category": "quotes",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4777.jpg",
+      "ar": 0.7987
     },
     {
       "platform": "youtube",
