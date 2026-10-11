@@ -57,7 +57,8 @@
       "views": 515,
       "url": "https://www.youtube.com/watch?v=lEkKk-q5W_k",
       "kind": "video",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -78,7 +79,8 @@
       "views": 139,
       "url": "https://www.youtube.com/shorts/YfGTMPa_h2U",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -121,7 +123,8 @@
       "views": 116,
       "url": "https://www.youtube.com/shorts/psZ3YEy17ig",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -142,7 +145,8 @@
       "views": 231,
       "url": "https://www.youtube.com/shorts/TVzXuxwC1io",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "shamail"
     },
     {
       "platform": "telegram",
@@ -174,7 +178,8 @@
       "views": 4930,
       "url": "https://www.youtube.com/watch?v=XJsjK2dkJhE",
       "kind": "video",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -195,7 +200,8 @@
       "views": 853,
       "url": "https://www.youtube.com/shorts/ORYVTooT6Tg",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -227,7 +233,8 @@
       "views": 225,
       "url": "https://www.youtube.com/shorts/yngRGtHQnhY",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -248,7 +255,8 @@
       "views": 664,
       "url": "https://www.youtube.com/shorts/sWln0iHe8-8",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "shamail"
     },
     {
       "platform": "telegram",
@@ -291,7 +299,8 @@
       "views": 1336,
       "url": "https://www.youtube.com/watch?v=awjAz8IIaoA",
       "kind": "video",
-      "source": "api"
+      "source": "api",
+      "category": "audio"
     },
     {
       "platform": "telegram",
@@ -334,7 +343,8 @@
       "views": 321,
       "url": "https://www.youtube.com/shorts/apoWoVhZAD0",
       "kind": "short",
-      "source": "api"
+      "source": "api",
+      "category": "intro"
     },
     {
       "platform": "telegram",
@@ -384,6 +394,10 @@
   "category_overrides": {
     "tg-4771": "announcement",
     "tg-4783": "announcement",
-    "tg-4773": "intro"
+    "tg-4773": "intro",
+    "lEkKk-q5W_k": "audio",
+    "awjAz8IIaoA": "audio",
+    "psZ3YEy17ig": "audio",
+    "apoWoVhZAD0": "intro"
   }
 }
