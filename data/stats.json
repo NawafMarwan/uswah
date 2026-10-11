@@ -268,7 +268,7 @@
       "title": "ربّ حرفٍ تنشره عن سيرة المصطفى ﷺ، يحيي قلباً، ويثقل ميزاناً.. شاركنا شرف الأثر. linktr.ee/…",
       "views": 2520,
       "url": "https://t.me/OSWAHH1/4783",
-      "category": "other",
+      "category": "announcement",
       "media": "text",
       "source": "api"
     },
@@ -343,7 +343,7 @@
       "title": "هل تعلم أن أكثر من ملياري إنسان يحملون في قلوبهم حب النبي ﷺ؟ أسوة.. جاءت لتخدم هذا الحب. ت…",
       "views": 3960,
       "url": "https://t.me/OSWAHH1/4773",
-      "category": "other",
+      "category": "intro",
       "media": "video",
       "source": "api"
     },
@@ -354,7 +354,7 @@
       "title": "نُبشِّركم بتحوّل مبادرة أسوة إلى مركزٍ يُعنــى بالسـيـرة النبويـــة تأصيلًا وتقريبًا وتمكي…",
       "views": 6130,
       "url": "https://t.me/OSWAHH1/4771",
-      "category": "other",
+      "category": "announcement",
       "media": "photo",
       "source": "api"
     },
@@ -380,5 +380,10 @@
       "media": "photo",
       "source": "api"
     }
-  ]
+  ],
+  "category_overrides": {
+    "tg-4771": "announcement",
+    "tg-4783": "announcement",
+    "tg-4773": "intro"
+  }
 }
