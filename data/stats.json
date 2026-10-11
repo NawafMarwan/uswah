@@ -43,9 +43,10 @@
       "id": "tg-4803",
       "date": "2026-10-09",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 654,
+      "views": 671,
       "url": "https://t.me/OSWAHH1/4803",
       "category": "salawat",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -63,9 +64,10 @@
       "id": "tg-4800",
       "date": "2026-10-07",
       "title": "🎙️ كتاب «الشمائل المحمدية» - لأبي عيسى الترمذي رحمه الله شمائل خير الخلق ﷺ.. صفةً وخُلُقًا…",
-      "views": 1130,
+      "views": 1150,
       "url": "https://t.me/OSWAHH1/4800",
       "category": "audio",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -83,9 +85,10 @@
       "id": "tg-4799",
       "date": "2026-10-05",
       "title": "قريبًا... ⏳ 📖 كتاب الشمائل المحمدية - لأبي عيسى الترمذي رحمه الله على قناة أسوة #كتاب_صوتي…",
-      "views": 960,
+      "views": 963,
       "url": "https://t.me/OSWAHH1/4799",
       "category": "audio",
+      "media": "video",
       "source": "api"
     },
     {
@@ -96,6 +99,7 @@
       "views": 1120,
       "url": "https://t.me/OSWAHH1/4798",
       "category": "quotes",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -103,9 +107,10 @@
       "id": "tg-4796",
       "date": "2026-10-01",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 1530,
+      "views": 1540,
       "url": "https://t.me/OSWAHH1/4796",
       "category": "salawat",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -123,9 +128,10 @@
       "id": "tg-4795",
       "date": "2026-09-29",
       "title": "وتَحِنُ من طربٍ إلى ذكراها... اسمع القصيدة كاملة على قناة أسوة ا #دار_الحبيب #أسوة",
-      "views": 1480,
+      "views": 1490,
       "url": "https://t.me/OSWAHH1/4795",
       "category": "audio",
+      "media": "video",
       "source": "api"
     },
     {
@@ -143,9 +149,10 @@
       "id": "tg-4794",
       "date": "2026-09-27",
       "title": "قولُه: (حَسَنَ الجِسْمِ) وصفُ جسمِهِ بالحُسْن صادقٌ من جِهتَي العقل والحس؛ أما الأولى: فبا…",
-      "views": 1530,
+      "views": 1540,
       "url": "https://t.me/OSWAHH1/4794",
       "category": "shamail",
+      "media": "video",
       "source": "api"
     },
     {
@@ -156,6 +163,7 @@
       "views": 4600,
       "url": "https://t.me/OSWAHH1/4793",
       "category": "salawat",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -176,6 +184,7 @@
       "views": 10200,
       "url": "https://t.me/OSWAHH1/4791",
       "category": "audio",
+      "media": "text",
       "source": "api"
     },
     {
@@ -196,6 +205,7 @@
       "views": 2310,
       "url": "https://t.me/OSWAHH1/4789",
       "category": "audio",
+      "media": "video",
       "source": "api"
     },
     {
@@ -206,6 +216,7 @@
       "views": 1950,
       "url": "https://t.me/OSWAHH1/4788",
       "category": "quotes",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -226,6 +237,7 @@
       "views": 2560,
       "url": "https://t.me/OSWAHH1/4786",
       "category": "salawat",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -243,9 +255,10 @@
       "id": "tg-4785",
       "date": "2026-09-14",
       "title": "«من غرَائِبِ معجِزَاتِه [ﷺ] الباهرة أنه إذا دخل بين جماعة طوال كان في بصر الناظرين أطول من…",
-      "views": 2490,
+      "views": 2500,
       "url": "https://t.me/OSWAHH1/4785",
       "category": "shamail",
+      "media": "video",
       "source": "api"
     },
     {
@@ -256,6 +269,7 @@
       "views": 2520,
       "url": "https://t.me/OSWAHH1/4783",
       "category": "other",
+      "media": "text",
       "source": "api"
     },
     {
@@ -266,6 +280,7 @@
       "views": 2940,
       "url": "https://t.me/OSWAHH1/4781",
       "category": "salawat",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -286,6 +301,7 @@
       "views": 11200,
       "url": "https://t.me/OSWAHH1/4780",
       "category": "audio",
+      "media": "video",
       "source": "api"
     },
     {
@@ -296,6 +312,7 @@
       "views": 2450,
       "url": "https://t.me/OSWAHH1/4779",
       "category": "audio",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -306,6 +323,7 @@
       "views": 2500,
       "url": "https://t.me/OSWAHH1/4777",
       "category": "quotes",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -326,6 +344,7 @@
       "views": 3960,
       "url": "https://t.me/OSWAHH1/4773",
       "category": "other",
+      "media": "video",
       "source": "api"
     },
     {
@@ -336,6 +355,7 @@
       "views": 6130,
       "url": "https://t.me/OSWAHH1/4771",
       "category": "other",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -343,9 +363,10 @@
       "id": "tg-4768",
       "date": "2026-09-01",
       "title": "منشور وسائط",
-      "views": 3570,
+      "views": 3580,
       "url": "https://t.me/OSWAHH1/4768",
       "category": "other",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -356,6 +377,7 @@
       "views": 3980,
       "url": "https://t.me/OSWAHH1/4765",
       "category": "other",
+      "media": "photo",
       "source": "api"
     }
   ]
