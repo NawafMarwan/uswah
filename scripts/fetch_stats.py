@@ -11,6 +11,7 @@ Settings (all optional):
   TELEGRAM_CHANNEL                          public channel username, e.g. "uswah"
   TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET, TIKTOK_REFRESH_TOKEN
   X_BEARER_TOKEN, X_USERNAME
+  X_WINDOW_DAYS                             days of X posts re-read on each run after the first (default 10)
   START_DATE                                first day to count (default: "since" in data/stats.json, 2026-08-27)
 
 Standard library only: no pip install needed.
@@ -333,19 +334,40 @@ def fetch_tiktok():
 
 
 # --------------------------------------------------------------------------- X
-def fetch_x():
+X_API = "https://api.x.com/2"
+X_USER_ID = ""  # filled after the first successful lookup and cached in data/stats.json
+
+
+def x_get(path, headers, **params):
+    url = f"{X_API}/{path}" + ("?" + urllib.parse.urlencode(params) if params else "")
+    try:
+        return http_json(url, headers=headers)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")[:300]
+        hint = {401: "bearer token rejected", 402: "no credits left on the X developer account", 403: "access not allowed for this plan/app", 429: "rate limited"}.get(e.code, "")
+        raise RuntimeError(f"X API {e.code} {hint}: {detail}") from None
+
+
+def fetch_x(since=None, user_id=""):
+    """Own posts with their view counts (public_metrics.impression_count), billed per post read.
+
+    The first run reads everything since the start date; later runs only re-read the last
+    few days (views of older posts rarely change), which keeps the monthly cost low.
+    """
+    global X_USER_ID
     token, user = env("X_BEARER_TOKEN"), env("X_USERNAME").lstrip("@")
     if not (token and user):
         return None
     h = {"Authorization": f"Bearer {token}"}
-    uid = http_json(f"https://api.twitter.com/2/users/by/username/{user}", headers=h)["data"]["id"]
+    uid = user_id or x_get(f"users/by/username/{user}", h)["data"]["id"]
+    X_USER_ID = uid
     posts, nxt = [], ""
-    start = SINCE + "T00:00:00Z"
+    start = (since or SINCE) + "T00:00:00Z"
     while True:
         q = {"max_results": 100, "tweet.fields": "created_at,public_metrics", "exclude": "retweets,replies", "start_time": start}
         if nxt:
             q["pagination_token"] = nxt
-        r = http_json(f"https://api.twitter.com/2/users/{uid}/tweets?" + urllib.parse.urlencode(q), headers=h)
+        r = x_get(f"users/{uid}/tweets", h, **q)
         for t in r.get("data", []):
             posts.append({
                 "platform": "x", "id": t["id"], "date": t["created_at"][:10],
@@ -361,7 +383,7 @@ def fetch_x():
 
 # --------------------------------------------------------------------------- merge & write
 def merge(data, platform, fetched):
-    """Replace the platform's API posts with fresh ones; keep manual entries untouched."""
+    """Replace the platform's posts inside the freshly read window; older posts are kept as stored."""
     fresh = {p["id"]: {**p, "source": "api"} for p in fetched}
     # Manual entries inside the window the API now covers would be counted twice.
     covered_from = min((p["date"] for p in fetched), default="9999")
@@ -369,7 +391,7 @@ def merge(data, platform, fetched):
     def superseded(p):
         if p["platform"] != platform:
             return False
-        return p.get("source") == "api" or p["id"] in fresh or p["date"] >= covered_from
+        return p["id"] in fresh or p["date"] >= covered_from
 
     kept = [p for p in data["posts"] if not superseded(p) and p["date"] >= SINCE]
     data["posts"] = kept + list(fresh.values())
@@ -409,7 +431,10 @@ def main():
         if handle and not env(var):
             os.environ[var] = handle
     changed = False
-    for platform, fn in (("youtube", fetch_youtube), ("telegram", fetch_telegram), ("tiktok", fetch_tiktok), ("x", fetch_x)):
+    x_known = any(p["platform"] == "x" for p in data["posts"])
+    x_window = (dt.date.today() - dt.timedelta(days=int(env("X_WINDOW_DAYS") or 10))).isoformat()
+    x_fn = lambda: fetch_x(max(SINCE, x_window) if x_known else SINCE, (accounts.get("x") or {}).get("id", ""))
+    for platform, fn in (("youtube", fetch_youtube), ("telegram", fetch_telegram), ("tiktok", fetch_tiktok), ("x", x_fn)):
         try:
             fetched = fn()
         except Exception as e:  # keep going with the other platforms
@@ -419,6 +444,8 @@ def main():
             print(f"- {platform}: not configured, skipped")
             continue
         merge(data, platform, fetched)
+        if platform == "x" and X_USER_ID:
+            data.setdefault("accounts", {}).setdefault("x", {})["id"] = X_USER_ID
         changed = True
         shorts = [p for p in fetched if p.get("kind") == "short"]
         extra = f" (incl. {len(shorts)} shorts, {sum(p['views'] for p in shorts):,} views)" if any("kind" in p for p in fetched) else ""
