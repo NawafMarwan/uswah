@@ -133,6 +133,124 @@ def parse_tg_count(s):
     return int(round(float(s) * mult))
 
 
+# Telegram post types, decided from the channel's approved hashtags and wording.
+CATEGORY_LABELS = {
+    "shamail": "مقاطع الشمائل",
+    "quotes": "الاقتباسات",
+    "audio": "الكتب والمنظومات الصوتية",
+    "salawat": "تصاميم الصلاة على النبي ﷺ",
+    "intro": "الفيديو التعريفي",
+    "other": "منشورات أخرى",
+    "announcement": "إعلانات (غير محتسبة)",
+}
+FULL_TEXT = {}  # post id -> full text, for log output only (not stored)
+
+
+def media_kind(block):
+    if "tgme_widget_message_video" in block or "tgme_widget_message_roundvideo" in block:
+        return "video"
+    if "tgme_widget_message_photo_wrap" in block:
+        return "photo"
+    if "tgme_widget_message_voice" in block or "tgme_widget_message_document" in block:
+        return "file"
+    return "text"
+AUDIO_MARKERS = ("#كتاب_صوتي", "#كتب_صوتية", "#منظومات", "كتاب صوتي", "كتبنا الصوتية", "الكتب الصوتية",
+                 "منظومة", "قصيدة", "القصيدة", "#دار_الحبيب")
+
+
+def classify(text):
+    t = text or ""
+    if "#اقتباسات_أسوة" in t:
+        return "quotes"
+    if any(m in t for m in AUDIO_MARKERS):
+        return "audio"
+    body = re.sub(r"#\S+", "", t).strip(" …·-")
+    if "#صلى_الله_عليه_وسلم" in t and len(body) < 12:
+        return "salawat"
+    if "الشمائل" in t:
+        return "shamail"
+    return "other"
+
+
+IMAGE_URL = {}  # post id -> remote image / video-thumbnail url found in this run
+IMG_DIR = ROOT / "assets" / "designs"
+SHOWCASE = {"salawat": 4, "quotes": 4, "shamail": 4}  # designs kept per type: the most viewed
+
+
+def image_url(block):
+    m = re.search(r"tgme_widget_message_(?:photo_wrap|video_thumb)[^>]*?background-image:url\('([^']+)'\)", block, re.S)
+    return html.unescape(m.group(1)) if m else ""
+
+
+def http_bytes(url):
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read()
+
+
+def image_ext(b):
+    if b[:3] == b"\xff\xd8\xff":
+        return "jpg"
+    if b[:8] == b"\x89PNG\r\n\x1a\n":
+        return "png"
+    if b[:4] == b"RIFF" and b[8:12] == b"WEBP":
+        return "webp"
+    return "jpg"
+
+
+def image_ratio(b):
+    """width / height for JPEG and PNG; 1.0 when unknown."""
+    try:
+        if b[:8] == b"\x89PNG\r\n\x1a\n":
+            return int.from_bytes(b[16:20], "big") / int.from_bytes(b[20:24], "big")
+        if b[:3] == b"\xff\xd8\xff":
+            i = 2
+            while i < len(b):
+                if b[i] != 0xFF:
+                    i += 1
+                    continue
+                marker = b[i + 1]
+                if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                    h = int.from_bytes(b[i + 5:i + 7], "big")
+                    w = int.from_bytes(b[i + 7:i + 9], "big")
+                    return w / h
+                i += 2 + int.from_bytes(b[i + 2:i + 4], "big")
+    except Exception:
+        pass
+    return 1.0
+
+
+def download_showcase(data):
+    """Keep local copies of the most viewed designs per type for the home-page gallery."""
+    IMG_DIR.mkdir(parents=True, exist_ok=True)
+    existing = {f.stem: f for f in IMG_DIR.iterdir() if f.is_file()}
+    keep = set()
+    for p in data["posts"]:
+        p.pop("image", None)
+        p.pop("ar", None)
+    for cat, n in SHOWCASE.items():
+        cands = [p for p in data["posts"] if p["platform"] == "telegram" and p.get("category") == cat
+                 and (p["id"] in IMAGE_URL or p["id"] in existing)]
+        for p in sorted(cands, key=lambda x: -x["views"])[:n]:
+            f = existing.get(p["id"])
+            if f is None and p["id"] in IMAGE_URL:
+                try:
+                    blob = http_bytes(IMAGE_URL[p["id"]])
+                    f = IMG_DIR / f"{p['id']}.{image_ext(blob)}"
+                    f.write_bytes(blob)
+                except Exception as e:
+                    print(f"  ! image {p['id']}: {e}", file=sys.stderr)
+                    continue
+            if f is not None:
+                p["image"] = f"assets/designs/{f.name}"
+                p["ar"] = round(image_ratio(f.read_bytes()), 4)
+                keep.add(f.name)
+    for f in IMG_DIR.iterdir():
+        if f.is_file() and f.name not in keep:
+            f.unlink()
+    print(f"  showcase images kept: {len(keep)}")
+
+
 def fetch_telegram():
     """Reads the public preview (t.me/s/<channel>); works for public channels only."""
     channel = env("TELEGRAM_CHANNEL").lstrip("@")
@@ -162,7 +280,11 @@ def fetch_telegram():
                 "title": (text[:90] + "…") if len(text) > 90 else (text or "منشور وسائط"),
                 "views": parse_tg_count(m_views.group(1)),
                 "url": f"https://t.me/{channel}/{m_id.group(1)}",
+                "category": classify(text),
+                "media": media_kind(b),
             })
+            FULL_TEXT[f"tg-{m_id.group(1)}"] = text
+            IMAGE_URL[f"tg-{m_id.group(1)}"] = image_url(b)
         if not ids:
             break
         before = min(ids)
@@ -301,6 +423,25 @@ def main():
         shorts = [p for p in fetched if p.get("kind") == "short"]
         extra = f" (incl. {len(shorts)} shorts, {sum(p['views'] for p in shorts):,} views)" if any("kind" in p for p in fetched) else ""
         print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views{extra}")
+
+    # Categories: fill any missing from the title, then apply manual corrections from stats.json.
+    overrides = data.get("category_overrides", {})
+    for p in data["posts"]:
+        if p["platform"] == "telegram" and "category" not in p:
+            p["category"] = classify(p["title"])
+        if p["platform"] == "youtube" and "category" not in p:
+            p["category"] = classify(p["title"])
+        if p["id"] in overrides and overrides[p["id"]] in CATEGORY_LABELS:
+            p["category"] = overrides[p["id"]]
+    if "--embed-only" not in sys.argv and IMAGE_URL:
+        download_showcase(data)
+    tg = [p for p in data["posts"] if p["platform"] == "telegram"]
+    if tg and "--embed-only" not in sys.argv:
+        counts = {k: sum(1 for p in tg if p.get("category") == k) for k in CATEGORY_LABELS}
+        print("  telegram categories:", ", ".join(f"{k}={v}" for k, v in counts.items()))
+        for p in sorted(tg, key=lambda x: x["date"]):
+            full_text = FULL_TEXT.get(p["id"], p["title"])
+            print(f"    {p['id']} {p['date']} [{p.get('category')}] ({p.get('media', '?')}) {p['views']:,} | {full_text[:150]}")
 
     if changed or "--embed-only" in sys.argv:
         if changed:
