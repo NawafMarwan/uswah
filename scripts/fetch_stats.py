@@ -16,10 +16,8 @@ Settings (all optional):
 
 Standard library only: no pip install needed.
 """
-import csv
 import datetime as dt
 import html
-import io
 import json
 import os
 import re
@@ -383,51 +381,6 @@ def fetch_x(since=None, user_id=""):
     return posts
 
 
-def _x_date(s):
-    s = (s or "").strip()
-    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s)
-    if m:
-        return "-".join(m.groups())
-    for fmt in ("%b %d, %Y", "%B %d, %Y", "%d/%m/%Y", "%m/%d/%Y", "%d %b %Y"):
-        try:
-            return dt.datetime.strptime(re.sub(r"[ T]\d{1,2}:\d{2}.*$", "", s), fmt).date().isoformat()
-        except ValueError:
-            pass
-    return ""
-
-
-def fetch_x_csv():
-    """Posts from CSV files exported from X analytics (analytics.x.com ← Tweets ← Export data), kept in data/x/.
-
-    Free: no API. Several files may overlap; for the same post the file named last wins.
-    """
-    files = sorted((ROOT / "data" / "x").glob("*.csv")) if (ROOT / "data" / "x").is_dir() else []
-    if not files:
-        return None
-    user = env("X_USERNAME").lstrip("@") or "OSWAHH1"
-    posts = {}
-    for f in files:
-        rows = list(csv.DictReader(io.StringIO(f.read_text(encoding="utf-8-sig", errors="replace"))))
-        for r in rows:
-            low = {k.strip().lower(): (v or "").strip() for k, v in r.items() if k}
-            pick = lambda *names: next((low[n] for n in names if low.get(n)), "")
-            tid = pick("tweet id", "post id", "id")
-            if not tid and pick("tweet permalink", "post permalink", "permalink"):
-                tid = pick("tweet permalink", "post permalink", "permalink").rstrip("/").split("/")[-1]
-            date = _x_date(pick("time", "date", "tweet time", "post time"))
-            views = pick("impressions", "views", "post views")
-            if not (tid and date and views) or date < SINCE:
-                continue
-            text = re.sub(r"\s+", " ", pick("tweet text", "post text", "text"))
-            posts[tid] = {
-                "platform": "x", "id": tid, "date": date, "title": text[:90],
-                "views": int(float(views.replace(",", ""))),
-                "url": f"https://x.com/{user}/status/{tid}",
-            }
-        print(f"  x csv: {f.name} ({len(rows)} rows)")
-    return list(posts.values())
-
-
 # --------------------------------------------------------------------------- merge & write
 def merge(data, platform, fetched):
     """Replace the platform's posts inside the freshly read window; older posts are kept as stored."""
@@ -480,8 +433,7 @@ def main():
     changed = False
     x_known = any(p["platform"] == "x" for p in data["posts"])
     x_window = (dt.date.today() - dt.timedelta(days=int(env("X_WINDOW_DAYS") or 10))).isoformat()
-    x_api = lambda: fetch_x(max(SINCE, x_window) if x_known else SINCE, (accounts.get("x") or {}).get("id", ""))
-    x_fn = lambda: fetch_x_csv() if (ROOT / "data" / "x").is_dir() else x_api()
+    x_fn = lambda: fetch_x(max(SINCE, x_window) if x_known else SINCE, (accounts.get("x") or {}).get("id", ""))
     for platform, fn in (("youtube", fetch_youtube), ("telegram", fetch_telegram), ("tiktok", fetch_tiktok), ("x", x_fn)):
         try:
             fetched = fn()
