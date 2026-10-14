@@ -465,5 +465,32 @@
     "awjAz8IIaoA": "audio",
     "psZ3YEy17ig": "audio",
     "apoWoVhZAD0": "intro"
-  }
+  },
+  "plan_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMtpjr95s_xXTzZgIsXUZrUQkCC7YNRKxyCWXpnXPXxR7Ccjui7McYNWZ31-ixsg/pub?gid=1730564931&single=true&output=csv",
+  "reports": [
+    {
+      "id": "2026-09",
+      "label": "سبتمبر 2026",
+      "from": "2026-09-01",
+      "to": "2026-09-30",
+      "partial": false,
+      "available": false,
+      "pending": false,
+      "file": "",
+      "hash": "",
+      "reason": "بانتظار إدخال بيانات منصة X"
+    },
+    {
+      "id": "2026-10",
+      "label": "أكتوبر 2026",
+      "from": "2026-10-01",
+      "to": "2026-10-14",
+      "partial": false,
+      "available": false,
+      "pending": false,
+      "file": "",
+      "hash": "",
+      "reason": "الشهر لم ينتهِ بعد"
+    }
+  ]
 }

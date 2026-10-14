@@ -81,8 +81,48 @@ button,input,select{font:inherit;color:inherit}
 .icon-btn svg{width:18px;height:18px}
 @media (max-width:560px){
   .brand-text{display:none}
-  .tab{padding:7px 12px;font-size:13.5px}
+  .tab{padding:7px 10px;font-size:13px}
+  .tab svg{display:none}
 }
+
+/* ============ Content plan & monthly reports ============ */
+#plan{padding:22px 0 40px}
+.plan-tools{display:grid;gap:10px;margin:18px 0 6px}
+.chip .dot{flex:none}
+.next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.ncard{border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--surface-2);border-inline-start:4px solid var(--c,var(--copper))}
+.ncard .nd{font-size:13px;color:var(--muted);font-weight:500}
+.ncard .nt{margin-top:4px;font-weight:600;line-height:1.6;font-size:15px}
+.ncard .np{margin-top:6px;font-size:12.5px;color:var(--c,var(--copper-ink));font-weight:600;display:flex;align-items:center;gap:6px}
+.ncard .np i{width:8px;height:8px;border-radius:50%;background:var(--c,var(--copper));display:inline-block}
+.pweek{margin-top:22px}
+.pweek h3{margin:0 0 10px;font-size:15px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:10px}
+.pweek h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.pday{display:grid;grid-template-columns:72px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.pday:last-child{border-bottom:0}
+.pdate{text-align:center;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);padding:8px 4px;align-self:start}
+.pdate b{display:block;font-size:22px;line-height:1.2;color:var(--ink)}
+.pdate span{display:block;font-size:12px;color:var(--muted)}
+.pday.today .pdate{background:var(--plum);border-color:var(--plum)}
+.pday.today .pdate b,.pday.today .pdate span{color:var(--on-brand)}
+.pday.past{opacity:.62}
+.pitems{display:grid;gap:8px;min-width:0}
+.pitem{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;border-inline-start:4px solid var(--c,var(--copper))}
+.pitem .pt{font-weight:600;line-height:1.6;font-size:15px}
+.pitem .pp{display:block;font-size:12.5px;color:var(--muted);margin-top:1px}
+.pitem.note{background:transparent;border-style:dashed;color:var(--ink-2)}
+.todaytag{display:inline-block;margin-inline-start:6px;background:var(--copper);color:#fff;font-size:11.5px;padding:0 8px;border-radius:999px;font-weight:600}
+@media (max-width:560px){.pday{grid-template-columns:58px 1fr;gap:10px}.pdate b{font-size:19px}}
+.reports{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.rcard{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--surface-2);display:flex;flex-direction:column;gap:6px}
+.rcard h3{margin:0;font-size:18px}
+.rcard .rr{font-size:13px;color:var(--muted)}
+.rcard .rs{font-size:12.5px;color:var(--muted);min-height:20px}
+.rcard .btn{justify-content:center;margin-top:6px}
+.rcard .is-locked{background:transparent;border:1px dashed var(--line-2);color:var(--muted);cursor:not-allowed;box-shadow:none}
+.rcard .is-locked:hover{transform:none}
+.rcard.ready{border-color:var(--copper)}
+@media print{#reportsPanel,#planTools{display:none}}
 
 /* ============ Shared section heading (brochure pill) ============ */
 .pill-head{display:flex;align-items:center;gap:14px;margin:0 auto 28px;max-width:640px}
@@ -484,7 +524,10 @@ body.present .exit-present{display:inline-flex!important}
     <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></symbol>
     <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 0 1-5.2 1.7 2.9 2.9 0 0 1 3.2-4.5V9.1a6.3 6.3 0 0 0-5.4 10.7 6.3 6.3 0 0 0 10.8-4.4V8.5a8.2 8.2 0 0 0 4.8 1.5V6.7a4.8 4.8 0 0 1-1 0z"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
-    <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM8 13h2M12 13h2M8 16.5h2M12 16.5h2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 11h12a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1zM8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M7.5 11 12 15.5 16.5 11M5 19h14"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10.5a2 2 0 0 1 1-1.7L12 4l7 4.8a2 2 0 0 1 1 1.7V21"/><path d="M9 21v-6a3 3 0 0 1 6 0v6"/></g></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
@@ -505,6 +548,7 @@ body.present .exit-present{display:inline-flex!important}
     <nav class="tabs" aria-label="الصفحات">
       <a class="tab" href="#/" data-route="home"><svg><use href="#i-home"/></svg>التعريف</a>
       <a class="tab" href="#/stats" data-route="stats"><svg><use href="#i-chart"/></svg>الإحصائيات</a>
+      <a class="tab" href="#/plan" data-route="plan"><svg><use href="#i-cal"/></svg>خطة النشر</a>
     </nav>
     <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل المظهر"><svg><use href="#i-moon"/></svg></button>
   </div>
@@ -765,6 +809,34 @@ body.present .exit-present{display:inline-flex!important}
       <div class="more"><button class="btn btn-ghost btn-sm" id="moreBtn" type="button" hidden>عرض المزيد</button></div>
     </section>
 
+    <section class="panel hide-present" id="reportsPanel" style="margin-top:16px">
+      <div class="panel-h">
+        <h2>تقارير الأثر الشهرية</h2>
+        <p>ملف PDF لكل شهر: المشاهدات والمحتوى المنشور</p>
+      </div>
+      <div class="reports" id="reportsGrid"></div>
+    </section>
+
+  </div>
+</main>
+
+<main id="plan" data-page="plan" hidden>
+  <div class="wrap">
+    <div class="dash-head">
+      <div>
+        <h1>خطة نشر المحتوى</h1>
+        <p id="planNote">برنامج النشر الشهري لمركز أسوة</p>
+      </div>
+    </div>
+    <section class="panel" id="planNext" hidden>
+      <div class="panel-h"><h2>القادم في الخطة</h2><p>أقرب المواد المجدولة للنشر</p></div>
+      <div class="next-grid" id="planNextGrid"></div>
+    </section>
+    <div class="plan-tools" id="planTools" hidden>
+      <div class="chips" id="planMonths" role="group" aria-label="الشهر"></div>
+      <div class="chips" id="planProjects" role="group" aria-label="المشروع"></div>
+    </div>
+    <div id="planBody"></div>
   </div>
 </main>
 
@@ -788,7 +860,7 @@ body.present .exit-present{display:inline-flex!important}
 </div>
 
 <!-- Baseline data. scripts/fetch_stats.py rewrites this block from data/stats.json. -->
-<script id="seed" type="application/json">{"since":"2026-08-27","updated":"2026-10-13","accounts":{"x":{"handle":"OSWAHH1","url":"https://x.com/OSWAHH1"},"telegram":{"handle":"OSWAHH1","url":"https://t.me/OSWAHH1"},"youtube":{"handle":"@OSWAHH1","url":"https://www.youtube.com/@OSWAHH1"},"tiktok":{"handle":"OSWAHH1","url":"https://www.tiktok.com/@oswahh1"}},"periods":[{"platform":"tiktok","from":"2026-09-06","to":"2026-09-11","views":1200,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-09-12","to":"2026-09-26","views":44800,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-09-27","to":"2026-10-02","views":1600,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-10-03","to":"2026-10-03","views":3000,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-10-04","to":"2026-10-09","views":1700,"label":"مشاهدات المنشورات","source":"manual"}],"posts":[{"platform":"youtube","id":"mbqPC4dVxiA","date":"2026-10-11","title":"#الشمائل_المحمدية  #صلى_الله_عليه_وسلم #أسوة #السعودية #shorts #fyp  #السيرة_النبوية","views":41,"url":"https://www.youtube.com/shorts/mbqPC4dVxiA","kind":"short","source":"api","category":"salawat"},{"platform":"telegram","id":"tg-4805","date":"2026-10-11","title":"\" اعلم أن أشرف الألوان في هذه الدار البياض المشرب بحمرة، وفي الآخرة البياض المشرب بصفرة… و…","views":421,"url":"https://t.me/OSWAHH1/4805","category":"shamail","media":"video","source":"api","image":"assets/designs/tg-4805.jpg","ar":0.5625},{"platform":"telegram","id":"tg-4803","date":"2026-10-09","title":"#صلى_الله_عليه_وسلم","views":871,"url":"https://t.me/OSWAHH1/4803","category":"salawat","media":"photo","source":"api"},{"platform":"youtube","id":"lEkKk-q5W_k","date":"2026-10-07","title":"الشمائل المحمدية | لأبي عيسى الترمذي","views":534,"url":"https://www.youtube.com/watch?v=lEkKk-q5W_k","kind":"video","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4800","date":"2026-10-07","title":"🎙️ كتاب «الشمائل المحمدية» - لأبي عيسى الترمذي رحمه الله شمائل خير الخلق ﷺ.. صفةً وخُلُقًا…","views":1400,"url":"https://t.me/OSWAHH1/4800","category":"audio","media":"photo","source":"api"},{"platform":"youtube","id":"YfGTMPa_h2U","date":"2026-10-05","title":"قريبًا... كتاب الشمائل المحمدية #السعودية #الشمائل_المحمدية #كتب_صوتية #أسوة #shorts #السيرة_النبوية","views":149,"url":"https://www.youtube.com/shorts/YfGTMPa_h2U","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4799","date":"2026-10-05","title":"قريبًا... ⏳ 📖 كتاب الشمائل المحمدية - لأبي عيسى الترمذي رحمه الله على قناة أسوة #كتاب_صوتي…","views":1090,"url":"https://t.me/OSWAHH1/4799","category":"audio","media":"video","source":"api"},{"platform":"telegram","id":"tg-4798","date":"2026-10-04","title":"#اقتباسات_أسوة","views":1260,"url":"https://t.me/OSWAHH1/4798","category":"quotes","media":"photo","source":"api","image":"assets/designs/tg-4798.jpg","ar":0.7987},{"platform":"telegram","id":"tg-4796","date":"2026-10-01","title":"#صلى_الله_عليه_وسلم","views":1630,"url":"https://t.me/OSWAHH1/4796","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4796.jpg","ar":0.7987},{"platform":"youtube","id":"psZ3YEy17ig","date":"2026-09-29","title":"وتَحِنُ من طربٍ إلى ذكراها... #المدينة_المنورة #أسوة # #صلى_الله_عليه_وسلم #السعودية #fyp #shots","views":119,"url":"https://www.youtube.com/shorts/psZ3YEy17ig","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4795","date":"2026-09-29","title":"وتَحِنُ من طربٍ إلى ذكراها... اسمع القصيدة كاملة على قناة أسوة ا #دار_الحبيب #أسوة","views":1550,"url":"https://t.me/OSWAHH1/4795","category":"audio","media":"video","source":"api"},{"platform":"youtube","id":"TVzXuxwC1io","date":"2026-09-27","title":"#الشمائل #السيرة_النبوية #أسوة #السعودية #shorts","views":234,"url":"https://www.youtube.com/shorts/TVzXuxwC1io","kind":"short","source":"api","category":"shamail"},{"platform":"telegram","id":"tg-4794","date":"2026-09-27","title":"قولُه: (حَسَنَ الجِسْمِ) وصفُ جسمِهِ بالحُسْن صادقٌ من جِهتَي العقل والحس؛ أما الأولى: فبا…","views":1630,"url":"https://t.me/OSWAHH1/4794","category":"shamail","media":"video","source":"api","image":"assets/designs/tg-4794.jpg","ar":0.5625},{"platform":"telegram","id":"tg-4793","date":"2026-09-24","title":"#صلى_الله_عليه_وسلم","views":4680,"url":"https://t.me/OSWAHH1/4793","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4793.jpg","ar":0.8},{"platform":"youtube","id":"XJsjK2dkJhE","date":"2026-09-23","title":"قصيدة دار الحبيب | نظم لأبي محمد البَسْكَريّ","views":4975,"url":"https://www.youtube.com/watch?v=XJsjK2dkJhE","kind":"video","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4791","date":"2026-09-23","title":"دَار ُ الْحَبِيبِ أحـقُّ أَن تهواهـا و تَحنُ من طربٍ الى ذكراها 📜 قصيدة: (دار الحبيب) في م…","views":10500,"url":"https://t.me/OSWAHH1/4791","category":"audio","media":"text","source":"api"},{"platform":"youtube","id":"ORYVTooT6Tg","date":"2026-09-21","title":"ترقبوا .. 🌟قصيدة في مدح #النبي ﷺ، وفضائله وفضائل مدينته المنوَّرة طابة الطيَّبة 🕌✨#حصرية","views":854,"url":"https://www.youtube.com/shorts/ORYVTooT6Tg","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4789","date":"2026-09-21","title":"ترقبوا .. 🌟 قصيدة في مدح النبي ﷺ، وفضائله وفضائل مدينته طابة الطيَّبة 🕌 ✨ #حصرية","views":2360,"url":"https://t.me/OSWAHH1/4789","category":"audio","media":"video","source":"api"},{"platform":"telegram","id":"tg-4788","date":"2026-09-20","title":"#اقتباسات_أسوة","views":2000,"url":"https://t.me/OSWAHH1/4788","category":"quotes","media":"photo","source":"api","image":"assets/designs/tg-4788.jpg","ar":0.8},{"platform":"youtube","id":"yngRGtHQnhY","date":"2026-09-18","title":"بداية السول في تفضيل #الرسول  #صلى_الله_عليه_وسلم #السيرة_النبوية #الشمائل #كتب_صوتية","views":225,"url":"https://www.youtube.com/shorts/yngRGtHQnhY","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4786","date":"2026-09-17","title":"#صلى_الله_عليه_وسلم","views":2640,"url":"https://t.me/OSWAHH1/4786","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4786.jpg","ar":0.8},{"platform":"youtube","id":"sWln0iHe8-8","date":"2026-09-14","title":"من غرائب معجزاته ﷺ #السيرة_النبوية #الشمائل #السعودية #السيرة_النبوية","views":664,"url":"https://www.youtube.com/shorts/sWln0iHe8-8","kind":"short","source":"api","category":"shamail"},{"platform":"telegram","id":"tg-4785","date":"2026-09-14","title":"«من غرَائِبِ معجِزَاتِه [ﷺ] الباهرة أنه إذا دخل بين جماعة طوال كان في بصر الناظرين أطول من…","views":2550,"url":"https://t.me/OSWAHH1/4785","category":"shamail","media":"video","source":"api","image":"assets/designs/tg-4785.jpg","ar":0.5563},{"platform":"telegram","id":"tg-4783","date":"2026-09-12","title":"ربّ حرفٍ تنشره عن سيرة المصطفى ﷺ، يحيي قلباً، ويثقل ميزاناً.. شاركنا شرف الأثر. linktr.ee/…","views":2560,"url":"https://t.me/OSWAHH1/4783","category":"announcement","media":"text","source":"api"},{"platform":"telegram","id":"tg-4781","date":"2026-09-10","title":"#صلى_الله_عليه_وسلم","views":2980,"url":"https://t.me/OSWAHH1/4781","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4781.jpg","ar":0.7987},{"platform":"youtube","id":"awjAz8IIaoA","date":"2026-09-09","title":"بداية السول في تفضيل الرسول ﷺ | للعز بن عبد السلام","views":1342,"url":"https://www.youtube.com/watch?v=awjAz8IIaoA","kind":"video","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4780","date":"2026-09-09","title":"مَن أمعن التفكر في سيرته ﷺ، طابت نفسه، وقرّت عينه، وتهذبت جوارحه. رحلة إيمانية في ربيع الس…","views":11500,"url":"https://t.me/OSWAHH1/4780","category":"audio","media":"video","source":"api"},{"platform":"telegram","id":"tg-4779","date":"2026-09-08","title":"📖 غدًا.. إطلاق أول كتبنا الصوتية «بداية السُّول في تفضيل الرسول ﷺ» للعلّامة العزّ بن عبدال…","views":2470,"url":"https://t.me/OSWAHH1/4779","category":"audio","media":"photo","source":"api"},{"platform":"telegram","id":"tg-4777","date":"2026-09-07","title":"#اقتباسات_أسوة","views":2530,"url":"https://t.me/OSWAHH1/4777","category":"quotes","media":"photo","source":"api","image":"assets/designs/tg-4777.jpg","ar":0.7987},{"platform":"youtube","id":"apoWoVhZAD0","date":"2026-09-05","title":"سيرةٌ تُروى… وأثرٌ يُصنع | تعرّف على أسوة","views":321,"url":"https://www.youtube.com/shorts/apoWoVhZAD0","kind":"short","source":"api","category":"intro"},{"platform":"telegram","id":"tg-4773","date":"2026-09-04","title":"هل تعلم أن أكثر من ملياري إنسان يحملون في قلوبهم حب النبي ﷺ؟ أسوة.. جاءت لتخدم هذا الحب. ت…","views":3990,"url":"https://t.me/OSWAHH1/4773","category":"intro","media":"video","source":"api"},{"platform":"telegram","id":"tg-4771","date":"2026-09-03","title":"نُبشِّركم بتحوّل مبادرة أسوة إلى مركزٍ يُعنــى بالسـيـرة النبويـــة تأصيلًا وتقريبًا وتمكي…","views":6170,"url":"https://t.me/OSWAHH1/4771","category":"announcement","media":"photo","source":"api"},{"platform":"telegram","id":"tg-4768","date":"2026-09-01","title":"منشور وسائط","views":3620,"url":"https://t.me/OSWAHH1/4768","category":"other","media":"photo","source":"api"},{"platform":"telegram","id":"tg-4765","date":"2026-08-30","title":"منشور وسائط","views":4020,"url":"https://t.me/OSWAHH1/4765","category":"other","media":"photo","source":"api"}],"category_overrides":{"tg-4771":"announcement","tg-4783":"announcement","tg-4773":"intro","lEkKk-q5W_k":"audio","awjAz8IIaoA":"audio","psZ3YEy17ig":"audio","apoWoVhZAD0":"intro"}}</script>
+<script id="seed" type="application/json">{"since":"2026-08-27","updated":"2026-10-13","accounts":{"x":{"handle":"OSWAHH1","url":"https://x.com/OSWAHH1"},"telegram":{"handle":"OSWAHH1","url":"https://t.me/OSWAHH1"},"youtube":{"handle":"@OSWAHH1","url":"https://www.youtube.com/@OSWAHH1"},"tiktok":{"handle":"OSWAHH1","url":"https://www.tiktok.com/@oswahh1"}},"periods":[{"platform":"tiktok","from":"2026-09-06","to":"2026-09-11","views":1200,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-09-12","to":"2026-09-26","views":44800,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-09-27","to":"2026-10-02","views":1600,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-10-03","to":"2026-10-03","views":3000,"label":"مشاهدات المنشورات","source":"manual"},{"platform":"tiktok","from":"2026-10-04","to":"2026-10-09","views":1700,"label":"مشاهدات المنشورات","source":"manual"}],"posts":[{"platform":"youtube","id":"mbqPC4dVxiA","date":"2026-10-11","title":"#الشمائل_المحمدية  #صلى_الله_عليه_وسلم #أسوة #السعودية #shorts #fyp  #السيرة_النبوية","views":41,"url":"https://www.youtube.com/shorts/mbqPC4dVxiA","kind":"short","source":"api","category":"salawat"},{"platform":"telegram","id":"tg-4805","date":"2026-10-11","title":"\" اعلم أن أشرف الألوان في هذه الدار البياض المشرب بحمرة، وفي الآخرة البياض المشرب بصفرة… و…","views":421,"url":"https://t.me/OSWAHH1/4805","category":"shamail","media":"video","source":"api","image":"assets/designs/tg-4805.jpg","ar":0.5625},{"platform":"telegram","id":"tg-4803","date":"2026-10-09","title":"#صلى_الله_عليه_وسلم","views":871,"url":"https://t.me/OSWAHH1/4803","category":"salawat","media":"photo","source":"api"},{"platform":"youtube","id":"lEkKk-q5W_k","date":"2026-10-07","title":"الشمائل المحمدية | لأبي عيسى الترمذي","views":534,"url":"https://www.youtube.com/watch?v=lEkKk-q5W_k","kind":"video","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4800","date":"2026-10-07","title":"🎙️ كتاب «الشمائل المحمدية» - لأبي عيسى الترمذي رحمه الله شمائل خير الخلق ﷺ.. صفةً وخُلُقًا…","views":1400,"url":"https://t.me/OSWAHH1/4800","category":"audio","media":"photo","source":"api"},{"platform":"youtube","id":"YfGTMPa_h2U","date":"2026-10-05","title":"قريبًا... كتاب الشمائل المحمدية #السعودية #الشمائل_المحمدية #كتب_صوتية #أسوة #shorts #السيرة_النبوية","views":149,"url":"https://www.youtube.com/shorts/YfGTMPa_h2U","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4799","date":"2026-10-05","title":"قريبًا... ⏳ 📖 كتاب الشمائل المحمدية - لأبي عيسى الترمذي رحمه الله على قناة أسوة #كتاب_صوتي…","views":1090,"url":"https://t.me/OSWAHH1/4799","category":"audio","media":"video","source":"api"},{"platform":"telegram","id":"tg-4798","date":"2026-10-04","title":"#اقتباسات_أسوة","views":1260,"url":"https://t.me/OSWAHH1/4798","category":"quotes","media":"photo","source":"api","image":"assets/designs/tg-4798.jpg","ar":0.7987},{"platform":"telegram","id":"tg-4796","date":"2026-10-01","title":"#صلى_الله_عليه_وسلم","views":1630,"url":"https://t.me/OSWAHH1/4796","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4796.jpg","ar":0.7987},{"platform":"youtube","id":"psZ3YEy17ig","date":"2026-09-29","title":"وتَحِنُ من طربٍ إلى ذكراها... #المدينة_المنورة #أسوة # #صلى_الله_عليه_وسلم #السعودية #fyp #shots","views":119,"url":"https://www.youtube.com/shorts/psZ3YEy17ig","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4795","date":"2026-09-29","title":"وتَحِنُ من طربٍ إلى ذكراها... اسمع القصيدة كاملة على قناة أسوة ا #دار_الحبيب #أسوة","views":1550,"url":"https://t.me/OSWAHH1/4795","category":"audio","media":"video","source":"api"},{"platform":"youtube","id":"TVzXuxwC1io","date":"2026-09-27","title":"#الشمائل #السيرة_النبوية #أسوة #السعودية #shorts","views":234,"url":"https://www.youtube.com/shorts/TVzXuxwC1io","kind":"short","source":"api","category":"shamail"},{"platform":"telegram","id":"tg-4794","date":"2026-09-27","title":"قولُه: (حَسَنَ الجِسْمِ) وصفُ جسمِهِ بالحُسْن صادقٌ من جِهتَي العقل والحس؛ أما الأولى: فبا…","views":1630,"url":"https://t.me/OSWAHH1/4794","category":"shamail","media":"video","source":"api","image":"assets/designs/tg-4794.jpg","ar":0.5625},{"platform":"telegram","id":"tg-4793","date":"2026-09-24","title":"#صلى_الله_عليه_وسلم","views":4680,"url":"https://t.me/OSWAHH1/4793","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4793.jpg","ar":0.8},{"platform":"youtube","id":"XJsjK2dkJhE","date":"2026-09-23","title":"قصيدة دار الحبيب | نظم لأبي محمد البَسْكَريّ","views":4975,"url":"https://www.youtube.com/watch?v=XJsjK2dkJhE","kind":"video","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4791","date":"2026-09-23","title":"دَار ُ الْحَبِيبِ أحـقُّ أَن تهواهـا و تَحنُ من طربٍ الى ذكراها 📜 قصيدة: (دار الحبيب) في م…","views":10500,"url":"https://t.me/OSWAHH1/4791","category":"audio","media":"text","source":"api"},{"platform":"youtube","id":"ORYVTooT6Tg","date":"2026-09-21","title":"ترقبوا .. 🌟قصيدة في مدح #النبي ﷺ، وفضائله وفضائل مدينته المنوَّرة طابة الطيَّبة 🕌✨#حصرية","views":854,"url":"https://www.youtube.com/shorts/ORYVTooT6Tg","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4789","date":"2026-09-21","title":"ترقبوا .. 🌟 قصيدة في مدح النبي ﷺ، وفضائله وفضائل مدينته طابة الطيَّبة 🕌 ✨ #حصرية","views":2360,"url":"https://t.me/OSWAHH1/4789","category":"audio","media":"video","source":"api"},{"platform":"telegram","id":"tg-4788","date":"2026-09-20","title":"#اقتباسات_أسوة","views":2000,"url":"https://t.me/OSWAHH1/4788","category":"quotes","media":"photo","source":"api","image":"assets/designs/tg-4788.jpg","ar":0.8},{"platform":"youtube","id":"yngRGtHQnhY","date":"2026-09-18","title":"بداية السول في تفضيل #الرسول  #صلى_الله_عليه_وسلم #السيرة_النبوية #الشمائل #كتب_صوتية","views":225,"url":"https://www.youtube.com/shorts/yngRGtHQnhY","kind":"short","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4786","date":"2026-09-17","title":"#صلى_الله_عليه_وسلم","views":2640,"url":"https://t.me/OSWAHH1/4786","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4786.jpg","ar":0.8},{"platform":"youtube","id":"sWln0iHe8-8","date":"2026-09-14","title":"من غرائب معجزاته ﷺ #السيرة_النبوية #الشمائل #السعودية #السيرة_النبوية","views":664,"url":"https://www.youtube.com/shorts/sWln0iHe8-8","kind":"short","source":"api","category":"shamail"},{"platform":"telegram","id":"tg-4785","date":"2026-09-14","title":"«من غرَائِبِ معجِزَاتِه [ﷺ] الباهرة أنه إذا دخل بين جماعة طوال كان في بصر الناظرين أطول من…","views":2550,"url":"https://t.me/OSWAHH1/4785","category":"shamail","media":"video","source":"api","image":"assets/designs/tg-4785.jpg","ar":0.5563},{"platform":"telegram","id":"tg-4783","date":"2026-09-12","title":"ربّ حرفٍ تنشره عن سيرة المصطفى ﷺ، يحيي قلباً، ويثقل ميزاناً.. شاركنا شرف الأثر. linktr.ee/…","views":2560,"url":"https://t.me/OSWAHH1/4783","category":"announcement","media":"text","source":"api"},{"platform":"telegram","id":"tg-4781","date":"2026-09-10","title":"#صلى_الله_عليه_وسلم","views":2980,"url":"https://t.me/OSWAHH1/4781","category":"salawat","media":"photo","source":"api","image":"assets/designs/tg-4781.jpg","ar":0.7987},{"platform":"youtube","id":"awjAz8IIaoA","date":"2026-09-09","title":"بداية السول في تفضيل الرسول ﷺ | للعز بن عبد السلام","views":1342,"url":"https://www.youtube.com/watch?v=awjAz8IIaoA","kind":"video","source":"api","category":"audio"},{"platform":"telegram","id":"tg-4780","date":"2026-09-09","title":"مَن أمعن التفكر في سيرته ﷺ، طابت نفسه، وقرّت عينه، وتهذبت جوارحه. رحلة إيمانية في ربيع الس…","views":11500,"url":"https://t.me/OSWAHH1/4780","category":"audio","media":"video","source":"api"},{"platform":"telegram","id":"tg-4779","date":"2026-09-08","title":"📖 غدًا.. إطلاق أول كتبنا الصوتية «بداية السُّول في تفضيل الرسول ﷺ» للعلّامة العزّ بن عبدال…","views":2470,"url":"https://t.me/OSWAHH1/4779","category":"audio","media":"photo","source":"api"},{"platform":"telegram","id":"tg-4777","date":"2026-09-07","title":"#اقتباسات_أسوة","views":2530,"url":"https://t.me/OSWAHH1/4777","category":"quotes","media":"photo","source":"api","image":"assets/designs/tg-4777.jpg","ar":0.7987},{"platform":"youtube","id":"apoWoVhZAD0","date":"2026-09-05","title":"سيرةٌ تُروى… وأثرٌ يُصنع | تعرّف على أسوة","views":321,"url":"https://www.youtube.com/shorts/apoWoVhZAD0","kind":"short","source":"api","category":"intro"},{"platform":"telegram","id":"tg-4773","date":"2026-09-04","title":"هل تعلم أن أكثر من ملياري إنسان يحملون في قلوبهم حب النبي ﷺ؟ أسوة.. جاءت لتخدم هذا الحب. ت…","views":3990,"url":"https://t.me/OSWAHH1/4773","category":"intro","media":"video","source":"api"},{"platform":"telegram","id":"tg-4771","date":"2026-09-03","title":"نُبشِّركم بتحوّل مبادرة أسوة إلى مركزٍ يُعنــى بالسـيـرة النبويـــة تأصيلًا وتقريبًا وتمكي…","views":6170,"url":"https://t.me/OSWAHH1/4771","category":"announcement","media":"photo","source":"api"},{"platform":"telegram","id":"tg-4768","date":"2026-09-01","title":"منشور وسائط","views":3620,"url":"https://t.me/OSWAHH1/4768","category":"other","media":"photo","source":"api"},{"platform":"telegram","id":"tg-4765","date":"2026-08-30","title":"منشور وسائط","views":4020,"url":"https://t.me/OSWAHH1/4765","category":"other","media":"photo","source":"api"}],"category_overrides":{"tg-4771":"announcement","tg-4783":"announcement","tg-4773":"intro","lEkKk-q5W_k":"audio","awjAz8IIaoA":"audio","psZ3YEy17ig":"audio","apoWoVhZAD0":"intro"},"plan_url":"https://docs.google.com/spreadsheets/d/e/2PACX-1vSMtpjr95s_xXTzZgIsXUZrUQkCC7YNRKxyCWXpnXPXxR7Ccjui7McYNWZ31-ixsg/pub?gid=1730564931&single=true&output=csv","reports":[{"id":"2026-09","label":"سبتمبر 2026","from":"2026-09-01","to":"2026-09-30","partial":false,"available":false,"pending":false,"file":"","hash":"","reason":"بانتظار إدخال بيانات منصة X"},{"id":"2026-10","label":"أكتوبر 2026","from":"2026-10-01","to":"2026-10-14","partial":false,"available":false,"pending":false,"file":"","hash":"","reason":"الشهر لم ينتهِ بعد"}]}</script>
 
 <script>
 (() => {
@@ -836,7 +908,7 @@ let data = base;
 
 function normalize(d) {
   const since = validDate(d.since) ? String(d.since).slice(0, 10) : '';
-  const out = { updated: d.updated || '', since, accounts: d.accounts || {}, posts: [], periods: [] };
+  const out = { updated: d.updated || '', since, accounts: d.accounts || {}, posts: [], periods: [], plan: d.plan && Array.isArray(d.plan.items) ? d.plan : null, reports: Array.isArray(d.reports) ? d.reports : [] };
   for (const p of d.posts || []) {
     if (!PLATFORMS[p.platform] || !validDate(p.date) || (since && p.date.slice(0, 10) < since)) continue;
     const views = Number(p.views); if (!isFinite(views) || views < 0) continue;
@@ -1216,6 +1288,79 @@ function renderPosts(res) {
 $('#moreBtn').addEventListener('click', () => { state.limit = 1e9; renderPosts(lastRes); });
 $$('.seg [data-sort]').forEach(b => b.addEventListener('click', () => { state.sort = b.dataset.sort; $$('.seg [data-sort]').forEach(x => x.setAttribute('aria-pressed', x === b)); renderPosts(lastRes); }));
 
+
+/* ---------------- Content plan ---------------- */
+const PLAN_COLORS = ['#c2703d', '#8a3f8c', '#2a6fb8', '#16967a', '#c4512f', '#6e8fa3', '#9a7c6a'];
+const dfWeekday = new Intl.DateTimeFormat('ar-u-nu-latn', { weekday: 'long', timeZone: 'UTC' });
+const dfMonthName = new Intl.DateTimeFormat('ar-u-nu-latn-ca-gregory', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const planState = { month: '', project: 'all' };
+const planColor = (plan, name) => PLAN_COLORS[Math.max(0, plan.projects.indexOf(name)) % PLAN_COLORS.length];
+const weekStart = d => d - ((new Date(d * DAY).getUTCDay() + 0) % 7); // week starts on Sunday
+
+function renderPlan() {
+  const plan = data.plan;
+  const body = $('#planBody');
+  if (!plan || !plan.items.length) {
+    $('#planTools').hidden = true; $('#planNext').hidden = true;
+    body.innerHTML = '<div class="panel">' + emptyState('لم تُنشر خطة المحتوى بعد') + '</div>';
+    return;
+  }
+  const items = plan.items.filter(i => validDate(i.date));
+  const t = todayDay();
+  $('#planNote').textContent = 'برنامج النشر الشهري لمركز أسوة' + (plan.updated ? `\nآخر تحديث: ${fmtDay(toDay(plan.updated), true)}` : '');
+  // Upcoming
+  const next = items.filter(i => i.kind !== 'note' && toDay(i.date) >= t).slice(0, 4);
+  $('#planNext').hidden = !next.length;
+  $('#planNextGrid').innerHTML = next.map(i => `<div class="ncard" style="--c:${planColor(plan, i.project)}">
+    <div class="nd">${dfWeekday.format(new Date(toDay(i.date) * DAY))} · ${fmtDay(toDay(i.date), true)}${toDay(i.date) === t ? '<span class="todaytag">اليوم</span>' : ''}</div>
+    <div class="nt">${esc(i.title)}</div><div class="np"><i></i>${esc(i.project)}</div></div>`).join('');
+  // Months
+  const months = [...new Set(items.map(i => i.date.slice(0, 7)))].sort();
+  if (!months.includes(planState.month)) {
+    const cur = fromDay(t).slice(0, 7);
+    planState.month = months.includes(cur) ? cur : (months.find(m => m > cur) || months[months.length - 1]);
+  }
+  $('#planTools').hidden = false;
+  $('#planMonths').innerHTML = months.map(m => `<button type="button" class="chip" data-month="${m}" aria-pressed="${m === planState.month}">${dfMonthName.format(new Date(Date.UTC(+m.slice(0, 4), +m.slice(5, 7) - 1, 1)))}</button>`).join('');
+  $('#planProjects').innerHTML = `<button type="button" class="chip" data-project="all" aria-pressed="${planState.project === 'all'}">كل المشاريع</button>` +
+    plan.projects.map(p => `<button type="button" class="chip" data-project="${esc(p)}" aria-pressed="${p === planState.project}"><span class="dot" style="background:${planColor(plan, p)}"></span>${esc(p)}</button>`).join('');
+  // Body: weeks of the chosen month, only days that have items
+  const shown = items.filter(i => i.date.startsWith(planState.month) && (planState.project === 'all' || i.project === planState.project || i.kind === 'note'));
+  const byDay = new Map();
+  for (const i of shown) { const k = toDay(i.date); (byDay.get(k) || byDay.set(k, []).get(k)).push(i); }
+  const days = [...byDay.keys()].sort((a, b) => a - b);
+  if (!days.length) { body.innerHTML = '<div class="panel">' + emptyState('لا توجد مواد مجدولة لهذا الاختيار') + '</div>'; return; }
+  const weeks = new Map();
+  for (const d of days) { const w = weekStart(d); (weeks.get(w) || weeks.set(w, []).get(w)).push(d); }
+  let n = 0;
+  body.innerHTML = [...weeks.entries()].map(([w, ds]) => {
+    n++;
+    return `<section class="pweek"><h3>الأسبوع ${n} · من ${fmtDay(w)}</h3>` + ds.map(d => `
+      <div class="pday${d === t ? ' today' : ''}${d < t ? ' past' : ''}">
+        <div class="pdate"><b class="num">${new Date(d * DAY).getUTCDate()}</b><span>${dfWeekday.format(new Date(d * DAY))}</span></div>
+        <div class="pitems">${byDay.get(d).map(i => i.kind === 'note'
+          ? `<div class="pitem note"><span class="pt">${esc(i.title)}</span></div>`
+          : `<div class="pitem" style="--c:${planColor(plan, i.project)}"><div><span class="pt">${esc(i.title)}</span><span class="pp">${esc(i.project)}</span></div></div>`).join('')}</div>
+      </div>`).join('') + '</section>';
+  }).join('');
+}
+$('#planMonths').addEventListener('click', e => { const b = e.target.closest('[data-month]'); if (b) { planState.month = b.dataset.month; renderPlan(); } });
+$('#planProjects').addEventListener('click', e => { const b = e.target.closest('[data-project]'); if (b) { planState.project = b.dataset.project; renderPlan(); } });
+
+/* ---------------- Monthly reports ---------------- */
+function renderReports() {
+  const list = (data.reports || []).slice().reverse();
+  $('#reportsPanel').hidden = !list.length;
+  $('#reportsGrid').innerHTML = list.map(r => {
+    const span = `${fmtDay(toDay(r.from))} — ${fmtDay(toDay(r.to), true)}`;
+    const btn = r.available && r.file
+      ? `<a class="btn btn-primary btn-sm" href="${esc(ROOT + r.file)}" download><svg><use href="#i-dl"/></svg>تنزيل التقرير (PDF)</a>`
+      : `<span class="btn btn-sm is-locked" role="button" aria-disabled="true"><svg><use href="#i-lock"/></svg>غير متاح للتنزيل</span>`;
+    const status = r.available ? 'جاهز للتنزيل' : (r.pending ? 'قيد الإعداد' : (r.reason || ''));
+    return `<div class="rcard${r.available ? ' ready' : ''}"><h3>${esc(r.label)}</h3><div class="rr">${span}</div><div class="rs">${esc(status)}</div>${btn}</div>`;
+  }).join('');
+}
+
 /* ---------------- Render all ---------------- */
 let lastRes = null;
 function renderAll() {
@@ -1230,6 +1375,8 @@ function renderAll() {
   renderCategories(res);
   renderPosts(res);
   renderWorks();
+  renderPlan();
+  renderReports();
   renderTeaser();
   renderStats();
   renderSocials();
@@ -1294,12 +1441,15 @@ $('#themeBtn').addEventListener('click', () => {
 /* ---------------- Router ---------------- */
 // /stats/ is a copy of this page with ROOT='../' that opens the statistics view directly.
 const ROOT = window.__ROOT__ || '';
-const onStatsPath = ROOT !== '';
+const SUBPAGE = window.__PAGE__ || (ROOT !== '' ? 'stats' : '');
+const onStatsPath = SUBPAGE !== '';
 function route() {
-  const page = onStatsPath || location.hash.startsWith('#/stats') ? 'stats' : 'home';
+  const h = location.hash;
+  const page = SUBPAGE || (h.startsWith('#/stats') ? 'stats' : h.startsWith('#/plan') ? 'plan' : 'home');
   $$('[data-page]').forEach(m => m.hidden = m.dataset.page !== page);
   $$('.tab').forEach(t => t.dataset.route === page ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
-  document.title = page === 'stats' ? 'أثر أسوة على منصات التواصل' : 'مركز أسوة للسيرة النبوية';
+  document.title = page === 'stats' ? 'أثر أسوة على منصات التواصل' : page === 'plan' ? 'خطة نشر المحتوى — مركز أسوة' : 'مركز أسوة للسيرة النبوية';
+  if (page === 'plan') scrollTo({ top: 0 });
   if (page === 'stats') { scrollTo({ top: 0 }); requestAnimationFrame(drawTimeline); }
   else if (!location.hash || location.hash === '#/') scrollTo({ top: 0 });
 }
@@ -1322,13 +1472,14 @@ $('#year').textContent = new Date().getFullYear();
 try { base = normalize(JSON.parse($('#seed').textContent)); } catch { base = normalize({}); }
 if (onStatsPath) {
   $$('.brand, .tab[data-route="home"]').forEach(a => a.setAttribute('href', ROOT));
-  $('.tab[data-route="stats"]').setAttribute('href', './');
+  $('.tab[data-route="stats"]').setAttribute('href', SUBPAGE === 'stats' ? './' : ROOT + 'stats/');
+  $('.tab[data-route="plan"]').setAttribute('href', SUBPAGE === 'plan' ? './' : ROOT + 'plan/');
 }
 mergeData(); route(); renderAll();
 // Prefer the live data file when the site is served over http(s) (e.g. GitHub Pages).
 if (location.protocol.startsWith('http')) {
   fetch(ROOT + 'data/stats.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject())
-    .then(j => { const n = normalize(j); if (n.posts.length || n.periods.length) { base = n; mergeData(); renderAll(); } })
+    .then(j => { const n = normalize(j); if (n.posts.length || n.periods.length || n.plan) { base = n; mergeData(); renderAll(); } })
     .catch(() => {});
 }
 })();

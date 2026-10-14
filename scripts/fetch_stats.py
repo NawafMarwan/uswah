@@ -16,7 +16,9 @@ Settings (all optional):
 
 Standard library only: no pip install needed.
 """
+import csv
 import datetime as dt
+import io
 import html
 import json
 import os
@@ -381,6 +383,65 @@ def fetch_x(since=None, user_id=""):
     return posts
 
 
+# --------------------------------------------------------------------------- content plan
+def _plan_date(s):
+    m = re.fullmatch(r"\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*", s or "")
+    if not m:
+        return ""
+    mo, d, y = map(int, m.groups())
+    try:
+        return dt.date(y, mo, d).isoformat()
+    except ValueError:
+        return ""
+
+
+def _plan_kind(title):
+    t = title.strip()
+    if t.startswith("أسبوع"):
+        return "note"
+    if "ترويجي" in t:
+        return "promo"
+    for kind, word in (("teaser", "تشويق"), ("release", "نشر"), ("quote", "اقتباس")):
+        if t.startswith(word):
+            return kind
+    return "item"
+
+
+def parse_plan(text):
+    """Monthly calendar sheet -> flat list of {date, project, title, kind}.
+
+    Layout: a header row names the project columns (they start after the date column),
+    then one row per day: [week, weekday, date m/d/yyyy, project cells...].
+    """
+    projects, items = [], []
+    for row in csv.reader(io.StringIO(text)):
+        cells = [c.strip() for c in row]
+        if len(cells) > 4 and sum(1 for c in cells[3:] if c) >= 3 and not _plan_date(cells[2]):
+            projects = [(i, c) for i, c in enumerate(cells) if i >= 3 and c]  # header with project names
+            continue
+        d = _plan_date(cells[2]) if len(cells) > 2 else ""
+        if not d or not projects:
+            continue
+        for i, name in projects:
+            title = re.sub(r"\s+", " ", cells[i]) if i < len(cells) else ""
+            if title:
+                items.append({"date": d, "project": name, "title": title, "kind": _plan_kind(title)})
+    return [n for _, n in projects], items
+
+
+def fetch_plan(url):
+    if not url:
+        return None
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=40) as r:
+        text = r.read().decode("utf-8-sig")
+    names, items = parse_plan(text)
+    if not items:
+        raise RuntimeError("plan sheet parsed to zero items (layout changed?)")
+    items.sort(key=lambda x: (x["date"], names.index(x["project"]) if x["project"] in names else 99))
+    return {"updated": dt.date.today().isoformat(), "projects": names, "items": items}
+
+
 # --------------------------------------------------------------------------- merge & write
 def merge(data, platform, fetched):
     """Replace the platform's posts inside the freshly read window; older posts are kept as stored."""
@@ -418,6 +479,10 @@ def embed_in_page(data):
         stats_page = new.replace("<head>", "<head>\n<script>window.__ROOT__='../';</script>", 1)
         (ROOT / "stats").mkdir(exist_ok=True)
         (ROOT / "stats" / "index.html").write_text(stats_page, encoding="utf-8")
+        # /plan/ opens the content-plan view directly (uswah.sa/plan).
+        plan_page = new.replace("<head>", "<head>\n<script>window.__ROOT__='../';window.__PAGE__='plan';</script>", 1)
+        (ROOT / "plan").mkdir(exist_ok=True)
+        (ROOT / "plan" / "index.html").write_text(plan_page, encoding="utf-8")
 
 
 def main():
@@ -450,6 +515,16 @@ def main():
         shorts = [p for p in fetched if p.get("kind") == "short"]
         extra = f" (incl. {len(shorts)} shorts, {sum(p['views'] for p in shorts):,} views)" if any("kind" in p for p in fetched) else ""
         print(f"✓ {platform}: {len(fetched)} posts, {sum(p['views'] for p in fetched):,} views{extra}")
+
+    # Content plan (public Google Sheet published as CSV; link kept in stats.json -> "plan_url").
+    try:
+        plan = fetch_plan(env("PLAN_CSV_URL") or data.get("plan_url", ""))
+        if plan:
+            data["plan"] = plan
+            changed = True
+            print(f"✓ plan: {len(plan['items'])} items, {len(plan['projects'])} projects")
+    except Exception as e:  # keep the last good plan
+        print(f"✗ plan: {e}", file=sys.stderr)
 
     # Categories: fill any missing from the title, then apply manual corrections from stats.json.
     overrides = data.get("category_overrides", {})
