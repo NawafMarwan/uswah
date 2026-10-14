@@ -27,9 +27,20 @@ jobs:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           X_USERNAME: ${{ vars.X_USERNAME }}
         run: python3 scripts/fetch_stats.py
+      - name: Monthly report index
+        id: reports
+        run: python3 scripts/make_report.py --check
+      - name: Install Chromium for PDF reports
+        if: steps.reports.outputs.pending == 'true'
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+      - name: Build monthly report PDFs
+        if: steps.reports.outputs.pending == 'true'
+        run: python3 scripts/make_report.py
       - name: Commit changes
         run: |
-          if git diff --quiet; then echo "No changes"; exit 0; fi
+          if [ -z "$(git status --porcelain)" ]; then echo "No changes"; exit 0; fi
           git config user.name "uswah-stats-bot"
           git config user.email "uswah-stats-bot@users.noreply.github.com"
           git add -A
