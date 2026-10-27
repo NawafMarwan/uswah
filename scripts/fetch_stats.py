@@ -462,7 +462,26 @@ def merge(data, platform, fetched):
         data["periods"] = [r for r in data["periods"] if not (r["platform"] == platform and r.get("source") != "api")]
 
 
+def embed_plan(data):
+    """Plan-only copy (data/plan.json) for the standalone content_plan.html page."""
+    plan = data.get("plan")
+    if not plan:
+        return
+    payload = json.dumps(plan, ensure_ascii=False, separators=(",", ":"))
+    (ROOT / "data" / "plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    page = ROOT / "content_plan.html"
+    if page.exists():
+        text = page.read_text(encoding="utf-8")
+        new, n = re.subn(
+            r'(<script id="seed" type="application/json">)(.*?)(</script>)',
+            lambda m: m.group(1) + payload.replace("</", "<\\/") + m.group(3), text, count=1, flags=re.S,
+        )
+        if n:
+            page.write_text(new, encoding="utf-8")
+
+
 def embed_in_page(data):
+    embed_plan(data)
     if not PAGE.exists():
         return
     page = PAGE.read_text(encoding="utf-8")
