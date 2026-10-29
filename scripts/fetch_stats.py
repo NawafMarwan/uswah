@@ -30,7 +30,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "stats.json"
-PAGE = ROOT / "uswah.html"
+SRC = ROOT / "_src"  # plain pages (Jekyll never publishes "_" folders); scripts/protect.py turns them into the encrypted pages that are served
+PAGE = SRC / "uswah.html"
 UA = "Mozilla/5.0 (compatible; UswahStats/1.0)"
 
 
@@ -469,7 +470,7 @@ def embed_plan(data):
         return
     payload = json.dumps(plan, ensure_ascii=False, separators=(",", ":"))
     (ROOT / "data" / "plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    page = ROOT / "content_plan.html"
+    page = SRC / "content_plan.html"
     if page.exists():
         text = page.read_text(encoding="utf-8")
         new, n = re.subn(
@@ -492,16 +493,6 @@ def embed_in_page(data):
     )
     if n:
         PAGE.write_text(new, encoding="utf-8")
-        # index.html is an identical copy so the bare domain (uswah.sa) opens the site directly.
-        (ROOT / "index.html").write_text(new, encoding="utf-8")
-        # /stats/ opens the statistics view directly (uswah.sa/stats).
-        stats_page = new.replace("<head>", "<head>\n<script>window.__ROOT__='../';</script>", 1)
-        (ROOT / "stats").mkdir(exist_ok=True)
-        (ROOT / "stats" / "index.html").write_text(stats_page, encoding="utf-8")
-        # /plan/ opens the content-plan view directly (uswah.sa/plan).
-        plan_page = new.replace("<head>", "<head>\n<script>window.__ROOT__='../';window.__PAGE__='plan';</script>", 1)
-        (ROOT / "plan").mkdir(exist_ok=True)
-        (ROOT / "plan" / "index.html").write_text(plan_page, encoding="utf-8")
 
 
 def main():
