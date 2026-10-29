@@ -38,6 +38,14 @@ jobs:
       - name: Build monthly report PDFs
         if: steps.reports.outputs.pending == 'true'
         run: python3 scripts/make_report.py
+      - name: Encrypt pages (login gate)
+        continue-on-error: true
+        env:
+          SITE_USER: ${{ secrets.SITE_USER }}
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+        run: |
+          pip install cryptography
+          python3 scripts/protect.py
       - name: Commit changes
         run: |
           if [ -z "$(git status --porcelain)" ]; then echo "No changes"; exit 0; fi

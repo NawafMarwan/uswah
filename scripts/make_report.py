@@ -137,7 +137,7 @@ def font_css():
 
 
 def logo_uri():
-    page = (ROOT / "uswah.html").read_text(encoding="utf-8")
+    page = (ROOT / "_src" / "uswah.html").read_text(encoding="utf-8")
     m = re.search(r'--logo:url\("(data:image/png;base64,[^"]+)"\)', page)
     return m.group(1) if m else ""
 
