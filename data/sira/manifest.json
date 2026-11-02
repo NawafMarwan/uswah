@@ -1,4 +1,11 @@
 {
-  "coverage": "العهد المكي: من بدء الوحي إلى بيعة العقبة الثانية",
-  "published": ["a_makki.json"]
+ "coverage": "العهد المكي، ثم الهجرة والسنوات الثلاث الأولى من العهد المدني (حتى غزوة حمراء الأسد)",
+ "published": [
+  "a_makki.json",
+  "b_hijra_y1_3.json"
+ ],
+ "places_files": [
+  "places.json",
+  "places_b.json"
+ ]
 }
