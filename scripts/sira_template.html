@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الخريطة التفاعلية — السيرة النبوية | مركز أسوة</title>
+<meta name="description" content="خريطة تفاعلية تحكي السيرة النبوية بالترتيب، موثّقة بالمصادر والجزء والصفحة.">
+<meta name="theme-color" content="#3a2236">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 60V30Q8 22 16 18L32 8l16 10q8 4 8 12v30' fill='none' stroke='%239a7c6a' stroke-width='6'/%3E%3Cpath d='M18 60V34q0-5 5-8l9-6 9 6q5 3 5 8v26' fill='none' stroke='%236e8fa3' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+__LEAFLET_CSS__
+</style>
+<style>
+:root{
+  color-scheme: light;
+  --logo:url("__LOGO__");
+  --bg:#f8f1ec; --surface:#fffaf6; --surface-2:#f2e7df; --surface-3:#eadbd0;
+  --ink:#2e1c2b; --ink-2:#5b4857; --muted:#85737f; --line:#e5d6cb; --line-2:#d8c5b8;
+  --plum:#3a2236; --copper:#c2703d; --copper-ink:#9c5426; --slate:#6e8fa3; --slate-ink:#4e6f83; --taupe:#9a7c6a;
+  --on-brand:#fffaf6; --logo-filter:none;
+  --c-secret:#6e8fa3; --c-open:#c2703d; --c-hijra:#16967a; --c-madani:#8a3f8c; --c-final:#3a2236;
+  --shadow:0 1px 2px rgba(58,34,54,.06),0 8px 24px -12px rgba(58,34,54,.18);
+  --maxw:1240px; --gutter:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#1b1118; --surface:#2a1b28; --surface-2:#332230; --surface-3:#3e2b3a;
+    --ink:#f6ece6; --ink-2:#d9c7cf; --muted:#a8949f; --line:#44303f; --line-2:#56404f;
+    --plum:#4a2c45; --copper:#d9874f; --copper-ink:#e59a66; --slate:#8fb0c4; --slate-ink:#a3c2d4; --taupe:#c2a28f;
+    --c-secret:#8fb0c4; --c-open:#d9874f; --c-hijra:#1f9c80; --c-madani:#b06bb2; --c-final:#e5c9d8;
+    --logo-filter:brightness(0) invert(.94);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#1b1118; --surface:#2a1b28; --surface-2:#332230; --surface-3:#3e2b3a;
+  --ink:#f6ece6; --ink-2:#d9c7cf; --muted:#a8949f; --line:#44303f; --line-2:#56404f;
+  --plum:#4a2c45; --copper:#d9874f; --copper-ink:#e59a66; --slate:#8fb0c4; --slate-ink:#a3c2d4; --taupe:#c2a28f;
+  --c-secret:#8fb0c4; --c-open:#d9874f; --c-hijra:#1f9c80; --c-madani:#b06bb2; --c-final:#e5c9d8;
+  --logo-filter:brightness(0) invert(.94);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.8;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+@media (min-width:768px){:root{--gutter:28px}}
+.num{font-variant-numeric:tabular-nums}
+.logo{background:var(--logo) center/contain no-repeat}
+.theme-logo{filter:var(--logo-filter)}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:1200;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:12px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .logo{width:40px;height:44px;flex:none}
+.brand b{font-size:15px;font-weight:700;white-space:nowrap}
+.brand small{display:block;font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.2;white-space:nowrap}
+.brand-text{line-height:1.3}
+.icon-btn{appearance:none;border:1px solid var(--line);background:var(--surface);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--ink-2)}
+.icon-btn:hover{border-color:var(--line-2);color:var(--ink)}
+.icon-btn svg{width:18px;height:18px}
+.topbar .icon-btn{margin-inline-start:auto}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#3a2236 0%,#4d2f48 62%,#5c3550 100%);color:#fffaf6}
+.hero .shape{position:absolute;inset-inline-start:-60px;top:-70px;width:280px;height:280px;border-radius:50%;border:40px solid rgba(194,112,61,.26)}
+.hero .shape2{position:absolute;inset-inline-end:-40px;bottom:-90px;width:210px;height:210px;border-radius:50%;border:28px solid rgba(110,143,163,.22)}
+.hero .wrap{position:relative;padding-block:28px 32px}
+.kicker{display:inline-block;color:#e8a77a;font-weight:600;font-size:14px}
+.hero h1{margin:2px 0 4px;font-size:clamp(25px,4.6vw,40px);line-height:1.35;font-weight:700}
+.hero p{margin:0;color:#e5d3cc;max-width:640px;font-size:15px}
+
+main{padding-block:18px 48px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px clamp(14px,2.4vw,24px);box-shadow:var(--shadow);min-width:0}
+.panel-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.panel-h h2{margin:0;font-size:18px}
+.panel-h p{margin:0;font-size:13px;color:var(--muted)}
+
+/* stage: map + controls */
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.mapbox{position:relative}
+#map{height:min(64vh,620px);min-height:380px;background:#cfd9dc;direction:ltr}
+.layers{position:absolute;z-index:900;top:10px;inset-inline-start:10px;display:flex;gap:4px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:12px;padding:4px;box-shadow:var(--shadow)}
+.layers button{appearance:none;border:0;background:transparent;padding:4px 10px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-2)}
+.layers button[aria-pressed="true"]{background:var(--plum);color:var(--on-brand)}
+.mapnote{position:absolute;z-index:900;bottom:8px;inset-inline-start:8px;font-size:11.5px;color:var(--ink-2);background:color-mix(in srgb,var(--surface) 88%,transparent);border-radius:8px;padding:1px 8px;direction:rtl}
+.tilewarn{position:absolute;z-index:950;top:54px;inset-inline-start:10px;max-width:260px;font-size:12.5px;background:var(--surface);border:1px solid var(--line-2);border-radius:12px;padding:6px 12px;color:var(--ink-2)}
+.leaflet-container{font-family:inherit}
+.leaflet-control-zoom a{color:var(--ink)!important;background:var(--surface)!important;border-color:var(--line)!important}
+.dark-tiles .leaflet-tile-pane{filter:brightness(.62) contrast(1.15) saturate(.85)}
+
+/* markers */
+.pm{position:relative;display:flex;align-items:center;gap:6px;transform:translate(-7px,-7px);white-space:nowrap;pointer-events:auto;cursor:pointer;direction:rtl}
+.pm i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--taupe);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.pm span{font-size:12.5px;font-weight:600;color:#2e1c2b;background:rgba(255,250,246,.9);border-radius:7px;padding:0 6px;box-shadow:0 1px 3px rgba(0,0,0,.22)}
+.pm.visited i{background:var(--c,var(--copper));border-color:#fffaf6}
+.pm.active i{width:20px;height:20px;background:var(--c,var(--copper));border-color:#fffaf6;box-shadow:0 0 0 0 rgba(194,112,61,.6);animation:pulse 1.6s infinite}
+.pm.active{transform:translate(-10px,-10px);z-index:1000!important}
+.pm.active span{background:var(--plum);color:#fffaf6}
+.pm.lo i{width:10px;height:10px}
+.pm.hide{display:none}
+.pm.nolabel span{display:none}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(194,112,61,.55)}70%{box-shadow:0 0 0 16px rgba(194,112,61,0)}100%{box-shadow:0 0 0 0 rgba(194,112,61,0)}}
+.rg{font-size:20px;font-weight:700;color:rgba(58,34,54,.55);white-space:nowrap;transform:translate(-50%,-50%);letter-spacing:.06em;text-shadow:0 0 6px rgba(255,255,255,.7);pointer-events:none;direction:rtl}
+.rg.hide{display:none}
+.route-line{stroke-dasharray:9 9;animation:march 1.1s linear infinite}
+.route-past{stroke-dasharray:3 7;opacity:.55}
+@keyframes march{to{stroke-dashoffset:-18}}
+@media (prefers-reduced-motion:reduce){.route-line,.pm.active i{animation:none}}
+
+/* controls */
+.controls{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
+.cbtns{display:flex;align-items:center;gap:8px}
+.play{appearance:none;border:0;border-radius:16px;background:var(--plum);color:var(--on-brand);min-height:48px;padding:0 20px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 8px 20px -10px var(--plum)}
+.play svg{width:20px;height:20px}
+.sbtn{appearance:none;border:1px solid var(--line-2);background:var(--surface);width:44px;height:44px;border-radius:14px;display:grid;place-items:center;cursor:pointer;color:var(--ink-2)}
+.sbtn:hover{border-color:var(--copper);color:var(--ink)}
+.sbtn:disabled{opacity:.4;cursor:default}
+.sbtn svg{width:18px;height:18px}
+.prog{min-width:0}
+.prog .row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);margin-bottom:4px}
+.prog .row b{color:var(--ink)}
+.bar{height:7px;border-radius:4px;background:var(--surface-3);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--copper),#e0a06a);border-radius:4px}
+.speed{display:flex;border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+.speed button{appearance:none;border:0;background:var(--surface);padding:6px 11px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-2)}
+.speed button[aria-pressed="true"]{background:var(--surface-3);color:var(--ink)}
+@media (max-width:700px){
+  .controls{grid-template-columns:1fr;gap:10px}
+  .cbtns{justify-content:center}
+  .speed{justify-self:center}
+}
+
+/* timeline ticks */
+.ticks{display:flex;gap:3px;padding:0 14px 14px;overflow-x:auto;scrollbar-width:thin}
+.tick{appearance:none;flex:1 0 14px;min-width:14px;height:22px;border:0;border-radius:5px;background:var(--c,var(--taupe));opacity:.38;cursor:pointer;position:relative}
+.tick:hover{opacity:.7}
+.tick.done{opacity:.75}
+.tick.cur{opacity:1;outline:2px solid var(--ink);outline-offset:1px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:0 16px 14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+
+/* event panel */
+.event{margin-top:16px}
+.ph{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--c,var(--copper-ink))}
+.ph i{width:10px;height:10px;border-radius:50%;background:var(--c,var(--copper))}
+.event h2{margin:4px 0 6px;font-size:clamp(21px,3.4vw,28px);line-height:1.5}
+.when{display:inline-block;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:2px 14px;font-size:14px;font-weight:600;color:var(--ink-2)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.chip{appearance:none;border:1px solid var(--line-2);background:var(--surface);border-radius:999px;padding:3px 12px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);min-height:34px}
+.chip:hover{border-color:var(--copper)}
+.chip svg{width:14px;height:14px}
+.chip.person{cursor:default}
+.chip.person:hover{border-color:var(--line-2)}
+.summary{font-size:clamp(16.5px,2.3vw,19px);line-height:1.95;margin:12px 0 4px}
+.more{border:1px solid var(--line);border-radius:14px;margin-top:10px;background:var(--surface-2)}
+.more summary{cursor:pointer;padding:9px 14px;font-weight:600;font-size:14.5px}
+.more .body{padding:0 14px 12px;line-height:1.95;color:var(--ink-2)}
+.srcs{margin-top:14px}
+.srcs h3{margin:0 0 6px;font-size:15.5px}
+.src{border:1px solid var(--line);border-radius:14px;margin-bottom:8px;background:var(--surface)}
+.src summary{cursor:pointer;padding:9px 14px;font-size:14px;line-height:1.7;list-style:none;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.src summary::-webkit-details-marker{display:none}
+.src summary b{font-weight:700}
+.src .ref{color:var(--copper-ink);font-weight:600}
+.src blockquote{margin:0;padding:2px 16px 12px;color:var(--ink-2);font-size:15px;line-height:2;border-top:1px dashed var(--line)}
+.src blockquote small{display:block;color:var(--muted);font-size:12.5px;line-height:1.7;margin-top:4px}
+.placecard{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2);padding:12px 14px}
+.placecard h3{margin:0 0 2px;font-size:17px}
+.placecard .modern{color:var(--muted);font-size:13.5px}
+.placecard .appr{display:inline-block;margin-inline-start:8px;font-size:12px;color:var(--copper-ink);font-weight:600}
+.placecard p{margin:8px 0 0;font-size:14.5px;color:var(--ink-2);line-height:1.9}
+.placecard .evs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.intro{line-height:2}
+.intro b{color:var(--copper-ink)}
+.cover{margin-top:10px;font-size:13.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+
+/* list */
+.list{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.li{appearance:none;text-align:start;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 14px;cursor:pointer;border-inline-start:4px solid var(--c,var(--copper));display:grid;gap:2px}
+.li:hover{border-color:var(--copper);border-inline-start-color:var(--c,var(--copper))}
+.li b{font-size:14.5px;line-height:1.6}
+.li small{color:var(--muted);font-size:12.5px}
+.li.cur{background:var(--surface-2)}
+
+footer{background:#2a1b28;color:#e5d3cc;text-align:center;padding:30px 16px 26px}
+footer .logo{width:60px;height:66px;margin:0 auto 8px;filter:brightness(0) invert(1)}
+footer p{margin:0;font-size:14px}
+footer a{color:#e8a77a;text-decoration:none;font-weight:600}
+footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
+@media print{.topbar,.controls,.ticks,.layers{display:none}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo theme-logo" role="img" aria-label="شعار أسوة" style="width:40px;height:44px;flex:none"></span>
+      <span class="brand-text"><b>مركز أسوة</b><small>للسيرة النبوية</small></span>
+    </div>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل المظهر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path id="themeIcon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="shape"></div><div class="shape2"></div>
+  <div class="wrap">
+    <span class="kicker">نتعلم.. لنتأسى</span>
+    <h1>الخريطة التفاعلية — السيرة النبوية</h1>
+    <p>رحلة الدعوة من البعثة إلى الوفاة على الخريطة، بالترتيب، وكل حدث موثّق بمصدره والجزء والصفحة.</p>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <section class="stage" aria-label="الخريطة">
+      <div class="mapbox">
+        <div id="map" role="application" aria-label="خريطة تفاعلية"></div>
+        <div class="layers" id="layers" role="group" aria-label="نوع الخريطة">
+          <button type="button" data-l="terrain" aria-pressed="true">تضاريس</button>
+          <button type="button" data-l="relief" aria-pressed="false">ظلال</button>
+          <button type="button" data-l="imagery" aria-pressed="false">قمر صناعي</button>
+        </div>
+        <div class="tilewarn" id="tileWarn" hidden>تعذّر تحميل صور الخريطة. تحقق من الاتصال بالإنترنت؛ تبقى المواضع والأحداث تعمل.</div>
+        <div class="mapnote">خلفية الخريطة © Esri — بلا أسماء حديثة؛ الأسماء من كتب السيرة</div>
+      </div>
+      <div class="controls">
+        <div class="cbtns">
+          <button class="sbtn" id="prev" type="button" aria-label="الحدث السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="play" id="play" type="button"><svg viewBox="0 0 24 24" fill="currentColor"><path id="playIcon" d="M8 5v14l11-7z"/></svg><span id="playLabel">تشغيل الرحلة</span></button>
+          <button class="sbtn" id="next" type="button" aria-label="الحدث التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        </div>
+        <div class="prog">
+          <div class="row"><span id="progLabel">اضغط «تشغيل الرحلة» لتبدأ</span><span><b class="num" id="progNum">0</b> / <span class="num" id="progTotal">0</span></span></div>
+          <div class="bar"><i id="barFill"></i></div>
+        </div>
+        <div class="speed" id="speed" role="group" aria-label="السرعة">
+          <button type="button" data-s="0.7" aria-pressed="false">أبطأ</button>
+          <button type="button" data-s="1" aria-pressed="true">عادي</button>
+          <button type="button" data-s="1.6" aria-pressed="false">أسرع</button>
+        </div>
+      </div>
+      <div class="ticks" id="ticks" aria-label="أحداث الرحلة بالترتيب"></div>
+      <div class="legend" id="legend"></div>
+    </section>
+
+    <section class="panel event" id="eventPanel" aria-live="polite"></section>
+
+    <section class="panel" style="margin-top:16px">
+      <div class="panel-h"><h2>أحداث الرحلة بالترتيب</h2><p id="listNote"></p></div>
+      <div class="list" id="list"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="logo" role="img" aria-label="أسوة — نتعلم.. لنتأسى"></div>
+  <p>مركز أسوة للسيرة النبوية · <a href="mailto:info@uswah.sa">info@uswah.sa</a></p>
+  <small>التواريخ الهجرية على المشهور في كتب السيرة، والنصوص المقتبسة منقولة بحروفها من «المكتبة الشاملة».</small>
+  <small>© <span class="num" id="year"></span> مركز أسوة للسيرة النبوية</small>
+</footer>
+
+<script id="seed" type="application/json">__SEED__</script>
+<script>
+__LEAFLET_JS__
+</script>
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- data ---------- */
+let DATA = { events: [], places: {}, regions: [], meta: {} };
+try { DATA = JSON.parse($('#seed').textContent); } catch {}
+const EV = DATA.events, PL = DATA.places;
+const PHASES = {
+  'makki-secret': ['الدعوة السرية', 'var(--c-secret)'],
+  'makki-open':   ['الجهر بالدعوة (العهد المكي)', 'var(--c-open)'],
+  'hijra':        ['الهجرة', 'var(--c-hijra)'],
+  'madani':       ['العهد المدني', 'var(--c-madani)'],
+  'final':        ['الأيام الأخيرة', 'var(--c-final)'],
+};
+const ph = e => PHASES[e.phase] || ['السيرة النبوية', 'var(--copper)'];
+const refOf = s => `${s.volume != null ? 'ج' + s.volume + ' ' : ''}ص${s.page}`;
+
+/* ---------- map ---------- */
+const map = L.map('map', { zoomControl: true, minZoom: 3, maxZoom: 16, worldCopyJump: false, zoomSnap: 0.25, attributionControl: false, zoomAnimation: !reduce, fadeAnimation: !reduce });
+const WORLD_BOUNDS = L.latLngBounds([[8, 27], [43, 64]]);
+map.fitBounds(WORLD_BOUNDS, { padding: [8, 8] });
+map.setMaxBounds(L.latLngBounds([[-5, 10], [55, 85]]));
+const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+const LAYERS = {
+  terrain: L.tileLayer(ESRI + 'World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 16 }),
+  relief:  L.tileLayer(ESRI + 'World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 16 }),
+  imagery: L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 16 }),
+};
+let baseKey = store.get('sira.layer', 'terrain'); if (!LAYERS[baseKey]) baseKey = 'terrain';
+let tileOk = 0, tileErr = 0;
+Object.values(LAYERS).forEach(l => { l.on('tileload', () => { tileOk++; $('#tileWarn').hidden = true; }); l.on('tileerror', () => { tileErr++; if (!tileOk && tileErr > 6) $('#tileWarn').hidden = false; }); });
+function setBase(k) {
+  Object.values(LAYERS).forEach(l => map.hasLayer(l) && map.removeLayer(l));
+  LAYERS[k].addTo(map); baseKey = k; store.set('sira.layer', k);
+  document.querySelectorAll('#layers button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === k));
+}
+setBase(baseKey);
+$('#layers').addEventListener('click', e => { const b = e.target.closest('[data-l]'); if (b) setBase(b.dataset.l); });
+
+// region names (no borders: names as they were known then)
+const regionMarkers = (DATA.regions || []).map(r => L.marker(r.ll, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: `<div class="rg">${esc(r.ar)}</div>`, iconSize: [0, 0] }) }).addTo(map));
+const evPlaces = new Set(); EV.forEach(e => (e.places || []).concat(e.route || []).forEach(p => evPlaces.add(p)));
+
+// place markers
+const dupCount = {};
+const markers = {}, areas = {};
+for (const id of evPlaces) {
+  const p = PL[id]; if (!p) continue;
+  const key = p.ll[0].toFixed(3) + ',' + p.ll[1].toFixed(3);
+  const n = dupCount[key] = (dupCount[key] || 0) + 1;
+  const m = L.marker(p.ll, { icon: L.divIcon({ className: '', html: `<div class="pm" style="margin-top:${(n - 1) * 20}px"><i></i><span>${esc(p.ar)}</span></div>`, iconSize: [0, 0] }), keyboard: true, title: p.ar }).addTo(map);
+  m.on('click', () => focusPlace(id));
+  markers[id] = m;
+  if (p.q === 'area') areas[id] = L.circle(p.ll, { radius: p.r || 14000, weight: 1.5, dashArray: '4 6', color: '#9a7c6a', fillOpacity: .1, interactive: false });
+}
+const elOf = id => markers[id] && markers[id]._icon && markers[id]._icon.querySelector('.pm');
+function refreshMarkers() {
+  const z = map.getZoom();
+  const cur = EV[idx] || null;
+  const visited = new Set(); for (let i = 0; i <= idx && i < EV.length; i++) (EV[i].places || []).concat(EV[i].route || []).forEach(p => visited.add(p));
+  const active = new Set(cur ? (cur.places || []).concat(cur.route || []) : []);
+  for (const id in markers) {
+    const el = elOf(id); if (!el) continue; const p = PL[id];
+    el.classList.toggle('hide', !active.has(id) && z < (p.minz || 0));
+    el.classList.toggle('lo', z < 8);
+    el.classList.toggle('nolabel', !active.has(id) && z < (p.minz || 0) + 1 && z < 9);
+    el.classList.toggle('visited', visited.has(id) && !active.has(id));
+    el.classList.toggle('active', active.has(id));
+    el.style.setProperty('--c', cur ? ph(cur)[1] : 'var(--copper)');
+  }
+  for (const id in areas) { const on = active.has(id) || selPlace === id; if (on && !map.hasLayer(areas[id])) areas[id].addTo(map); if (!on && map.hasLayer(areas[id])) map.removeLayer(areas[id]); }
+  regionMarkers.forEach(m => { const e = m._icon && m._icon.querySelector('.rg'); if (e) e.classList.toggle('hide', z > 7); });
+  declutter(active);
+}
+// keep labels readable: active labels are staggered, the others are hidden when they would overlap
+function declutter(active) {
+  const placed = [];
+  const hit = r => placed.some(q => !(r.right < q.left || r.left > q.right || r.bottom < q.top || r.top > q.bottom));
+  const items = Object.keys(markers).map(id => ({ id, el: elOf(id) })).filter(x => x.el && !x.el.classList.contains('hide'));
+  items.sort((a, b) => (active.has(b.id) - active.has(a.id)) || ((PL[a.id].minz || 0) - (PL[b.id].minz || 0)));
+  for (const x of items) {
+    const sp = x.el.querySelector('span'); sp.style.transform = '';
+    const isA = active.has(x.id);
+    if (x.el.classList.contains('nolabel') && !isA) continue;
+    const base = sp.getBoundingClientRect();
+    const tries = isA ? [0, 24, -24, 48, -48, 72, -72] : [0];
+    let done = false;
+    for (const dy of tries) {
+      const r = { left: base.left, right: base.right, top: base.top + dy, bottom: base.bottom + dy };
+      if (!hit(r)) { sp.style.transform = dy ? `translateY(${dy}px)` : ''; placed.push(r); done = true; break; }
+    }
+    if (!done) { if (isA) placed.push(base); else x.el.classList.add('nolabel'); }
+  }
+}
+map.on('zoomend moveend', refreshMarkers);
+
+// routes
+let routeLayer = L.layerGroup().addTo(map), pastLayer = L.layerGroup().addTo(map);
+function drawRoutes() {
+  routeLayer.clearLayers(); pastLayer.clearLayers();
+  for (let i = 0; i < idx && i < EV.length; i++) {
+    const r = (EV[i].route || []).filter(x => PL[x]).map(x => PL[x].ll);
+    if (r.length > 1) L.polyline(r, { color: '#9a7c6a', weight: 2, className: 'route-past', interactive: false }).addTo(pastLayer);
+  }
+  const cur = EV[idx];
+  if (cur) { const r = (cur.route || []).filter(x => PL[x]).map(x => PL[x].ll); if (r.length > 1) L.polyline(r, { color: '#c2703d', weight: 4, className: 'route-line', interactive: false }).addTo(routeLayer); }
+}
+
+function targetFor(e) {
+  const ids = (e.route && e.route.length > 1 ? e.route : e.places || []).filter(x => PL[x]);
+  const pts = ids.map(x => PL[x].ll);
+  if (!pts.length) return null;
+  const b = L.latLngBounds(pts);
+  const km = b.getNorthEast().distanceTo(b.getSouthWest()) / 1000;
+  if (pts.length === 1 || km < 6) return { c: b.getCenter(), z: km < 2 ? 14 : 13 };
+  return { b, maxZ: km < 60 ? 11 : 9 };
+}
+function flyTo(e) {
+  const t = targetFor(e); if (!t) return;
+  const opts = { duration: reduce ? 0 : 1.8, animate: !reduce, padding: [60, 60] };
+  if (t.b) map.flyToBounds(t.b, { ...opts, maxZoom: t.maxZ }); else map.flyTo(t.c, t.z, opts);
+}
+
+/* ---------- panel ---------- */
+let idx = -1, playing = false, timer = null, speed = store.get('sira.speed', 1), selPlace = null;
+const words = s => String(s || '').split(/\s+/).filter(Boolean).length;
+const dwell = e => Math.min(30, Math.max(9, 7 + (e.importance || 3) * 2.5 + words(e.summary + ' ' + e.details) / 18));
+
+function placeCard(id) {
+  const p = PL[id]; if (!p) return '';
+  const evs = EV.map((e, i) => ({ e, i })).filter(x => (x.e.places || []).includes(id));
+  let note = '';
+  for (const x of evs) for (const s of x.e.sources || []) if (s.book_id === 9777 && p.bilady && s.page === p.bilady) { note = `<p>«${esc(s.quote)}»<br><small>${esc(s.book)} — ${esc(refOf(s))}</small></p>`; break; }
+  return `<div class="placecard"><h3>${esc(p.ar)}${p.q !== 'exact' ? '<span class="appr">الموضع على الخريطة تقريبي</span>' : ''}</h3>
+    <div class="modern">${p.modern ? 'الموضع اليوم: ' + esc(p.modern) : ''}</div>${note}
+    <div class="evs">${evs.map(x => `<button type="button" class="chip" data-go="${x.i}">${esc(x.e.title.length > 42 ? x.e.title.slice(0, 42) + '…' : x.e.title)}</button>`).join('')}</div></div>`;
+}
+function renderIntro() {
+  const cov = (DATA.meta && DATA.meta.coverage) || '';
+  $('#eventPanel').innerHTML = `<div class="intro"><div class="ph" style="--c:var(--copper)"><i></i>مرحبًا بك</div>
+    <h2>رحلة الدعوة على الخريطة</h2>
+    <p class="summary">اضغط <b>«تشغيل الرحلة»</b> لتبدأ الخريطة بعرض الأحداث بالترتيب، وتنتقل بين الأماكن وتقف عند كل حدث بقدر أهميته. يمكنك <b>الإيقاف المؤقت</b> في أي لحظة للقراءة، أو تكبير الخريطة وتصغيرها، أو الضغط على أي مكان لتعرف عنه، أو الانتقال لأي حدث من الشريط.</p>
+    <div class="cover">${cov ? 'تشمل هذه النسخة: <b>' + esc(cov) + '</b>. وتُضاف بقية المراحل تباعًا بعد توثيقها.' : ''}</div></div>`;
+}
+function renderEvent() {
+  const e = EV[idx]; if (!e) return renderIntro();
+  const [pn, pc] = ph(e);
+  const places = (e.places || []).filter(x => PL[x]);
+  $('#eventPanel').innerHTML = `<div class="ph" style="--c:${pc}"><i></i>${esc(pn)}</div>
+    <h2>${esc(e.title)}</h2>
+    <span class="when">${esc(e.date && e.date.label || '')}</span>
+    <div class="chips">${places.map(id => `<button type="button" class="chip" data-place="${esc(id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>${esc(PL[id].ar)}</button>`).join('')}</div>
+    <p class="summary">${esc(e.summary)}</p>
+    ${e.details ? `<details class="more"><summary>تفصيل الحدث</summary><div class="body">${esc(e.details)}</div></details>` : ''}
+    ${(e.key_people || []).length ? `<div class="chips">${e.key_people.map(n => `<span class="chip person">${esc(n)}</span>`).join('')}</div>` : ''}
+    <div class="srcs"><h3>المصادر (${(e.sources || []).length})</h3>${(e.sources || []).map(s => `<details class="src"><summary><b>${esc(s.book)}</b><span class="ref">${esc(refOf(s))}</span></summary><blockquote>«${esc(s.quote)}»${s.numbering === 'auto' ? '<small>الترقيم آلي من المكتبة الشاملة</small>' : ''}</blockquote></details>`).join('')}</div>
+    <div id="pcard">${selPlace && places.includes(selPlace) ? placeCard(selPlace) : ''}</div>`;
+}
+function setProgress() {
+  $('#progNum').textContent = idx < 0 ? '0' : String(idx + 1);
+  $('#progLabel').textContent = idx < 0 ? 'اضغط «تشغيل الرحلة» لتبدأ' : (EV[idx].title.length > 60 ? EV[idx].title.slice(0, 60) + '…' : EV[idx].title);
+  document.querySelectorAll('.tick').forEach((t, i) => { t.classList.toggle('cur', i === idx); t.classList.toggle('done', i < idx); });
+  document.querySelectorAll('.li').forEach((t, i) => t.classList.toggle('cur', i === idx));
+  $('#prev').disabled = idx <= 0; $('#next').disabled = idx >= EV.length - 1;
+}
+function fillBar(sec) {
+  const f = $('#barFill'); f.style.transition = 'none'; f.style.width = '0%';
+  if (sec) { void f.offsetWidth; f.style.transition = `width ${sec}s linear`; f.style.width = '100%'; }
+}
+function show(i, fly = true) {
+  idx = Math.max(-1, Math.min(EV.length - 1, i));
+  selPlace = null; renderEvent(); setProgress(); drawRoutes(); refreshMarkers();
+  if (fly && EV[idx]) flyTo(EV[idx]); else if (idx < 0) map.flyToBounds(WORLD_BOUNDS, { duration: reduce ? 0 : 1.4, animate: !reduce, padding: [8, 8] });
+}
+function tick() {
+  clearTimeout(timer); if (!playing) return;
+  const e = EV[idx]; const sec = e ? dwell(e) / speed : 3;
+  fillBar(sec);
+  timer = setTimeout(() => { if (idx >= EV.length - 1) { stop(); fillBar(0); return; } show(idx + 1); tick(); }, sec * 1000);
+}
+function setPlayUi() {
+  $('#playLabel').textContent = playing ? 'إيقاف مؤقت' : (idx >= EV.length - 1 && idx >= 0 ? 'إعادة التشغيل' : (idx < 0 ? 'تشغيل الرحلة' : 'متابعة'));
+  $('#playIcon').setAttribute('d', playing ? 'M7 5h4v14H7zM13 5h4v14h-4z' : 'M8 5v14l11-7z');
+}
+function play() { if (idx >= EV.length - 1) show(0); else if (idx < 0) show(0); playing = true; setPlayUi(); tick(); }
+function stop() { playing = false; clearTimeout(timer); fillBar(0); setPlayUi(); }
+$('#play').addEventListener('click', () => playing ? stop() : play());
+$('#next').addEventListener('click', () => { const was = playing; show(idx + 1); if (was) tick(); else fillBar(0); });
+$('#prev').addEventListener('click', () => { const was = playing; show(idx - 1); if (was) tick(); else fillBar(0); });
+$('#speed').addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; speed = +b.dataset.s; store.set('sira.speed', speed); document.querySelectorAll('#speed button').forEach(x => x.setAttribute('aria-pressed', x === b)); if (playing) tick(); });
+document.querySelectorAll('#speed button').forEach(x => x.setAttribute('aria-pressed', +x.dataset.s === speed));
+
+function jump(i) { const was = playing; show(i); if (was) tick(); else { fillBar(0); setPlayUi(); } window.scrollTo({ top: $('.stage').offsetTop - 70, behavior: reduce ? 'auto' : 'smooth' }); }
+function focusPlace(id) {
+  const p = PL[id]; if (!p) return;
+  stop(); selPlace = id;
+  if (!EV[idx] || !(EV[idx].places || []).includes(id)) {
+    const k = EV.findIndex(e => (e.places || []).includes(id));
+    if (k >= 0) { show(k, false); selPlace = id; renderEvent(); }
+  }
+  const pc = $('#pcard'); if (pc) pc.innerHTML = placeCard(id);
+  map.flyTo(p.ll, Math.max(map.getZoom(), p.minz > 12 ? 14 : 10), { duration: reduce ? 0 : 1.2, animate: !reduce });
+  const card = $('#pcard'); if (card && window.innerWidth < 900) card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+}
+$('#eventPanel').addEventListener('click', e => {
+  const c = e.target.closest('[data-place]'); if (c) return focusPlace(c.dataset.place);
+  const g = e.target.closest('[data-go]'); if (g) return jump(+g.dataset.go);
+});
+
+/* ---------- ticks, legend, list ---------- */
+$('#progTotal').textContent = EV.length;
+$('#ticks').innerHTML = EV.map((e, i) => `<button type="button" class="tick" style="--c:${ph(e)[1]}" data-i="${i}" title="${esc((i + 1) + '. ' + e.title)}" aria-label="${esc(e.title)}"></button>`).join('');
+$('#ticks').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) jump(+b.dataset.i); });
+const used = [...new Set(EV.map(e => e.phase))];
+$('#legend').innerHTML = used.map(k => `<span style="--c:${(PHASES[k] || ['', 'var(--copper)'])[1]}"><i></i>${esc((PHASES[k] || ['السيرة'])[0])}</span>`).join('');
+$('#list').innerHTML = EV.map((e, i) => `<button type="button" class="li" style="--c:${ph(e)[1]}" data-i="${i}"><b>${i + 1}. ${esc(e.title)}</b><small>${esc(e.date && e.date.label || '')}</small></button>`).join('');
+$('#list').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) jump(+b.dataset.i); });
+$('#listNote').textContent = EV.length ? `${EV.length} حدثًا` : '';
+
+document.addEventListener('keydown', e => {
+  if (/INPUT|TEXTAREA|SUMMARY/.test(document.activeElement && document.activeElement.tagName)) return;
+  if (e.code === 'Space' && document.activeElement === document.body) { e.preventDefault(); playing ? stop() : play(); }
+  else if (e.key === 'ArrowLeft') $('#next').click(); else if (e.key === 'ArrowRight') $('#prev').click();
+});
+
+/* ---------- theme ---------- */
+const root = document.documentElement;
+const SUN = 'M12 4V2m0 20v-2m8-8h2M2 12h2m13.66-5.66 1.41-1.41M4.93 19.07l1.41-1.41m0-11.32L4.93 4.93m14.14 14.14-1.41-1.41M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z';
+const MOON = 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z';
+function applyTheme(t) {
+  if (t) root.dataset.theme = t; else delete root.dataset.theme;
+  const dark = t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  $('#themeIcon').setAttribute('d', dark ? SUN : MOON);
+  $('#map').parentNode.classList.toggle('dark-tiles', dark);
+  document.querySelector('meta[name="theme-color"]').content = dark ? '#1b1118' : '#3a2236';
+}
+applyTheme(store.get('uswah.theme', ''));
+$('#themeBtn').addEventListener('click', () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const t = dark ? 'light' : 'dark'; store.set('uswah.theme', t); applyTheme(t);
+});
+
+/* ---------- boot ---------- */
+$('#year').textContent = new Date().getFullYear();
+setPlayUi(); renderIntro(); setProgress(); refreshMarkers();
+setTimeout(() => map.invalidateSize(), 200);
+addEventListener('resize', () => map.invalidateSize());
+})();
+</script>
+</body>
+</html>

@@ -41,8 +41,9 @@ PAGES = {
     "stats/index.html": ("uswah", "../", "window.__ROOT__='../';"),
     "plan/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='plan';"),
     "content_plan.html": ("content_plan", "", ""),
+    "sira-map.html": ("sira_map", "", ""),
 }
-SOURCES = {"uswah": SRC / "uswah.html", "content_plan": SRC / "content_plan.html"}
+SOURCES = {"uswah": SRC / "uswah.html", "content_plan": SRC / "content_plan.html", "sira_map": SRC / "sira-map.html"}
 
 
 def secret(user, password):
