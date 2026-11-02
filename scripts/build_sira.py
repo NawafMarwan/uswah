@@ -17,29 +17,66 @@ D = ROOT / "data" / "sira"
 OUT = ROOT / "_src" / "sira-map.html"
 
 
+def load_places(man):
+    places, regions, aliases = {}, [], {}
+    for name in man.get("places_files", ["places.json"]):
+        reg = json.loads((D / name).read_text(encoding="utf-8"))
+        for k, v in reg["places"].items():
+            places.setdefault(k, v)
+        regions = regions or reg.get("regions", [])
+        aliases.update(reg.get("aliases", {}))
+    return places, regions, aliases
+
+
 def main():
     man = json.loads((D / "manifest.json").read_text(encoding="utf-8"))
-    reg = json.loads((D / "places.json").read_text(encoding="utf-8"))
-    places, events = reg["places"], []
+    places, regions, aliases = load_places(man)
+    events = []
     for name in man["published"]:
         events += json.loads((D / name).read_text(encoding="utf-8"))["events"]
-    errors = []
+
+    # Which places are drawn: only those with a point; several "area" places that share one centre
+    # (stacked guesses) are not drawn at all. Their names stay in the event text.
+    centre = {}
+    for k, v in places.items():
+        if v.get("ll"):
+            centre.setdefault(tuple(v["ll"]), []).append(k)
+    def drawable(k):
+        v = places.get(k)
+        if not v or not v.get("ll") or v.get("q") == "none":
+            return False
+        if v.get("q") == "area" and len(centre[tuple(v["ll"])]) >= 3:
+            return False
+        return True
+
+    errors, unmapped = [], 0
     for e in events:
         if len(e.get("sources", [])) < 2:
             errors.append(f"{e['id']}: fewer than 2 sources")
-        for p in list(e.get("places", [])) + list(e.get("route", [])):
-            if p not in places:
-                errors.append(f"{e['id']}: unknown place '{p}'")
         for s in e.get("sources", []):
             if not s.get("quote") or not s.get("page"):
                 errors.append(f"{e['id']}: source without quote/page")
+        names = e.get("place_names_ar") or {}
+        ids = [aliases.get(p, p) for p in e.get("places", [])]
+        rt = [aliases.get(p, p) for p in e.get("route", [])]
+        for p in ids + rt:
+            if p not in places:
+                errors.append(f"{e['id']}: unknown place '{p}'")
+        shown = [p for p in dict.fromkeys(ids) if drawable(p)]
+        e["hidden_places"] = [places[p]["ar"] if p in places else p for p in dict.fromkeys(ids) if p in places and not drawable(p)]
+        unmapped += len(e["hidden_places"])
+        e["places"] = shown
+        e["route"] = [p for p in rt if drawable(p)]
+        e.pop("place_names_ar", None)
+        e.pop("internal_notes", None)
     if errors:
         sys.exit("\n".join(errors))
-    used = {p for e in events for p in list(e.get("places", [])) + list(e.get("route", []))}
+    used = {p for e in events for p in list(e["places"]) + list(e["route"])}
+    keep = ("ar", "kind", "ll", "q", "r", "minz", "modern", "bilady", "bilady_quote")
     data = {
         "events": events,
-        "places": {k: v for k, v in places.items() if k in used},
-        "regions": reg.get("regions", []),
+        "places": {k: {f: v[f] for f in keep if f in v} for k, v in places.items() if k in used},
+        "regions": regions,
         "meta": {"coverage": man.get("coverage", ""), "count": len(events)},
     }
     tpl = (ROOT / "scripts" / "sira_template.html").read_text(encoding="utf-8")
@@ -50,7 +87,7 @@ def main():
                .replace("__LEAFLET_JS__", (ROOT / "scripts/vendor/leaflet.js").read_text(encoding="utf-8").replace("</script", "<\\/script"))
                .replace("__LOGO__", logo).replace("__SEED__", seed))
     OUT.write_text(html, encoding="utf-8")
-    print(f"✓ {OUT.relative_to(ROOT)}: {len(events)} events, {len(data['places'])} places, {len(html):,} bytes")
+    print(f"✓ {OUT.relative_to(ROOT)}: {len(events)} events, {len(data['places'])} places drawn, {unmapped} place mentions kept as text only, {len(html):,} bytes")
 
 
 if __name__ == "__main__":
