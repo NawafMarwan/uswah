@@ -794,13 +794,14 @@ main{padding-block:18px 48px}
 .prog .row b{color:var(--ink)}
 .bar{height:7px;border-radius:4px;background:var(--surface-3);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--copper),#e0a06a);border-radius:4px}
+.cright{display:flex;gap:8px;align-items:center;justify-self:end}
 .speed{display:flex;border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
 .speed button{appearance:none;border:0;background:var(--surface);padding:6px 11px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-2)}
 .speed button[aria-pressed="true"]{background:var(--surface-3);color:var(--ink)}
 @media (max-width:700px){
   .controls{grid-template-columns:1fr;gap:10px}
   .cbtns{justify-content:center}
-  .speed{justify-self:center}
+  .cright{justify-self:center;flex-wrap:wrap;justify-content:center}
 }
 
 /* timeline ticks */
@@ -864,6 +865,37 @@ footer .logo{width:60px;height:66px;margin:0 auto 8px;filter:brightness(0) inver
 footer p{margin:0;font-size:14px}
 footer a{color:#e8a77a;text-decoration:none;font-weight:600}
 footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
+
+/* place popup + present mode */
+.leaflet-popup-content-wrapper{border-radius:16px;background:var(--surface);color:var(--ink);direction:rtl;box-shadow:var(--shadow)}
+.leaflet-popup-tip{background:var(--surface)}
+.leaflet-popup-content{margin:12px 14px;font-family:inherit;direction:rtl;min-width:220px}
+.pp h4{margin:0 0 2px;font-size:16px}
+.pp .mod{font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.pp .lst{max-height:220px;overflow:auto;display:grid;gap:7px;padding-inline-end:2px}
+.pp .it{border:1px solid var(--line);border-radius:12px;padding:6px 10px;background:var(--surface-2)}
+.pp .it b{display:block;font-size:13.5px;line-height:1.6}
+.pp .it small{display:block;font-size:12px;color:var(--muted);line-height:1.6}
+.pp .it p{margin:3px 0 4px;font-size:13px;line-height:1.7;color:var(--ink-2)}
+.pp .it button{appearance:none;border:0;background:transparent;color:var(--copper-ink);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;padding:0}
+.caption{display:none}
+.presentbtn{appearance:none;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;min-height:36px}
+.presentbtn:hover{border-color:var(--copper);color:var(--ink)}
+.presentbtn svg{width:15px;height:15px}
+body.present{overflow:hidden}
+body.present .topbar,body.present .hero,body.present #eventPanel,body.present #listPanel,body.present footer,body.present .ticks,body.present .legend,body.present .layers,body.present .mapnote,body.present .presentbtn.enter{display:none!important}
+body.present main,body.present .wrap{padding:0;max-width:none}
+body.present .stage{position:fixed;inset:0;z-index:3000;border-radius:0;border:0;display:flex;flex-direction:column;background:var(--surface)}
+body.present .mapbox{flex:1;min-height:0;display:flex;flex-direction:column}
+body.present #map{flex:1;height:auto;min-height:0}
+body.present .caption{display:block;position:absolute;z-index:1100;inset-inline:16px;bottom:16px;background:rgba(58,34,54,.93);color:#fffaf6;border-radius:22px;padding:18px 24px;box-shadow:0 18px 50px -12px rgba(0,0,0,.55);max-height:52vh;overflow:auto}
+body.present .caption .cph{font-size:clamp(14px,1.6vw,19px);font-weight:700;color:#e8a77a}
+body.present .caption h2{margin:2px 0 4px;font-size:clamp(24px,3.4vw,46px);line-height:1.4}
+body.present .caption .cw{display:inline-block;background:rgba(255,250,246,.14);border-radius:999px;padding:1px 16px;font-size:clamp(14px,1.8vw,22px);font-weight:600}
+body.present .caption p{margin:8px 0 6px;font-size:clamp(16px,2vw,26px);line-height:1.8}
+body.present .caption .csrc{font-size:clamp(12px,1.3vw,16px);color:#d9c7cf}
+body.present .controls{background:var(--surface)}
+@media (max-width:700px){body.present .caption{inset-inline:8px;bottom:8px;padding:12px 16px}}
 @media print{.topbar,.controls,.ticks,.layers{display:none}}
 </style>
 </head>
@@ -898,6 +930,7 @@ footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
           <button type="button" data-l="relief" aria-pressed="false">ظلال</button>
           <button type="button" data-l="imagery" aria-pressed="false">قمر صناعي</button>
         </div>
+        <div class="caption" id="caption" aria-live="polite"></div>
         <div class="tilewarn" id="tileWarn" hidden>تعذّر تحميل صور الخريطة. تحقق من الاتصال بالإنترنت؛ تبقى المواضع والأحداث تعمل.</div>
         <div class="mapnote">خلفية الخريطة © Esri — بلا أسماء حديثة؛ الأسماء من كتب السيرة</div>
       </div>
@@ -911,10 +944,14 @@ footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
           <div class="row"><span id="progLabel">اضغط «تشغيل الرحلة» لتبدأ</span><span><b class="num" id="progNum">0</b> / <span class="num" id="progTotal">0</span></span></div>
           <div class="bar"><i id="barFill"></i></div>
         </div>
+        <div class="cright">
+        <button class="presentbtn enter" id="presentBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>وضع العرض</button>
+        <button class="presentbtn exit" id="exitPresent" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>إنهاء العرض</button>
         <div class="speed" id="speed" role="group" aria-label="السرعة">
           <button type="button" data-s="0.7" aria-pressed="false">أبطأ</button>
           <button type="button" data-s="1" aria-pressed="true">عادي</button>
           <button type="button" data-s="1.6" aria-pressed="false">أسرع</button>
+        </div>
         </div>
       </div>
       <div class="ticks" id="ticks" aria-label="أحداث الرحلة بالترتيب"></div>
@@ -923,7 +960,7 @@ footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
 
     <section class="panel event" id="eventPanel" aria-live="polite"></section>
 
-    <section class="panel" style="margin-top:16px">
+    <section class="panel" id="listPanel" style="margin-top:16px">
       <div class="panel-h"><h2>أحداث الرحلة بالترتيب</h2><p id="listNote"></p></div>
       <div class="list" id="list"></div>
     </section>
@@ -1005,7 +1042,7 @@ for (const id of evPlaces) {
   const key = p.ll[0].toFixed(3) + ',' + p.ll[1].toFixed(3);
   const n = dupCount[key] = (dupCount[key] || 0) + 1;
   const m = L.marker(p.ll, { icon: L.divIcon({ className: '', html: `<div class="pm" style="margin-top:${(n - 1) * 20}px"><i></i><span>${esc(p.ar)}</span></div>`, iconSize: [0, 0] }), keyboard: true, title: p.ar }).addTo(map);
-  m.on('click', () => focusPlace(id));
+  m.on('click', () => { focusPlace(id); openPlacePopup(id); });
   markers[id] = m;
   if (p.q === 'area') areas[id] = L.circle(p.ll, { radius: p.r || 14000, weight: 1.5, dashArray: '4 6', color: '#9a7c6a', fillOpacity: .1, interactive: false });
 }
@@ -1130,7 +1167,7 @@ function fillBar(sec) {
 }
 function show(i, fly = true) {
   idx = Math.max(-1, Math.min(EV.length - 1, i));
-  selPlace = null; renderEvent(); setProgress(); drawRoutes(); refreshMarkers();
+  map.closePopup(); selPlace = null; renderEvent(); renderCaption(); setProgress(); drawRoutes(); refreshMarkers();
   if (fly && EV[idx]) flyTo(EV[idx]); else if (idx < 0) map.flyToBounds(WORLD_BOUNDS, { duration: reduce ? 0 : 1.4, animate: !reduce, padding: [8, 8] });
 }
 function tick() {
@@ -1167,6 +1204,38 @@ $('#eventPanel').addEventListener('click', e => {
   const c = e.target.closest('[data-place]'); if (c) return focusPlace(c.dataset.place);
   const g = e.target.closest('[data-go]'); if (g) return jump(+g.dataset.go);
 });
+
+/* ---------- place popup: what happened here ---------- */
+const firstSentence = t => { t = String(t || '').trim(); const m = t.match(/^(.{40,200}?[.؟!])(\s|$)/); return m ? m[1] : (t.length > 180 ? t.slice(0, 180) + '…' : t); };
+function openPlacePopup(id) {
+  const p = PL[id], m = markers[id]; if (!p || !m) return;
+  const evs = EV.map((e, i) => ({ e, i })).filter(x => (x.e.places || []).includes(id));
+  const appr = p.q === 'exact' ? '' : (p.q === 'area' ? ' · الموضع منطقة تقريبية' : ' · الموضع تقريبي');
+  const html = `<div class="pp"><h4>${esc(p.ar)}</h4><div class="mod">${p.modern ? esc(p.modern) : ''}${appr}</div>
+    <div class="lst">${evs.map(x => `<div class="it"><b>${x.i + 1}. ${esc(x.e.title)}</b><small>${esc(x.e.date && x.e.date.label || '')}</small><p>${esc(firstSentence(x.e.summary))}</p><button type="button" data-pop="${x.i}">اعرض الحدث ←</button></div>`).join('')}</div></div>`;
+  L.popup({ maxWidth: 300, minWidth: 230, autoPanPadding: [30, 30], closeButton: true, offset: [0, -4] }).setLatLng(p.ll).setContent(html).openOn(map);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-pop]'); if (b) { map.closePopup(); jump(+b.dataset.pop); } });
+
+/* ---------- present mode (lectures) ---------- */
+const shortBook = b => String(b).split(' - ')[0].replace(/ مع زيادات$/, '');
+function renderCaption() {
+  const e = EV[idx], c = $('#caption'); if (!c) return;
+  if (!e) { c.innerHTML = `<div class="cph">الخريطة التفاعلية — السيرة النبوية</div><h2>اضغط «تشغيل الرحلة»</h2>`; return; }
+  const refs = (e.sources || []).slice(0, 3).map(s => `${esc(shortBook(s.book))} ${esc(refOf(s))}`).join(' · ');
+  c.innerHTML = `<div class="cph">${esc(ph(e)[0])}</div><h2>${esc(e.title)}</h2><span class="cw">${esc(e.date && e.date.label || '')}</span><p>${esc(e.summary)}</p><div class="csrc">المصادر: ${refs}</div>`;
+}
+function setPresent(on) {
+  map.closePopup(); document.body.classList.toggle('present', on);
+  $('#exitPresent').hidden = !on; $('#presentBtn').hidden = on;
+  if (on) { renderCaption(); (document.documentElement.requestFullscreen || (() => Promise.resolve())).call(document.documentElement).catch(() => {}); }
+  else if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  setTimeout(() => { map.invalidateSize(); if (EV[idx]) flyTo(EV[idx]); }, 250);
+}
+$('#presentBtn').addEventListener('click', () => setPresent(true));
+$('#exitPresent').addEventListener('click', () => setPresent(false));
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && document.body.classList.contains('present')) setPresent(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('present')) setPresent(false); });
 
 /* ---------- ticks, legend, list ---------- */
 $('#progTotal').textContent = EV.length;
