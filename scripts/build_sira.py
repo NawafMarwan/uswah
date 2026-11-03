@@ -35,6 +35,16 @@ def main():
     for name in man["published"]:
         events += json.loads((D / name).read_text(encoding="utf-8"))["events"]
 
+    # Chronological placement across research files: events are moved (text untouched) after a given event.
+    for rule in man.get("moves", []):
+        ids = rule["ids"]
+        moved = [e for e in events if e["id"] in ids]
+        events = [e for e in events if e["id"] not in ids]
+        pos = next((i for i, e in enumerate(events) if e["id"] == rule["after"]), None)
+        if pos is None:
+            sys.exit(f"move: unknown anchor {rule['after']}")
+        events[pos + 1:pos + 1] = sorted(moved, key=lambda e: ids.index(e["id"]))
+
     # Which places are drawn: only those with a point; several "area" places that share one centre
     # (stacked guesses) are not drawn at all. Their names stay in the event text.
     centre = {}
