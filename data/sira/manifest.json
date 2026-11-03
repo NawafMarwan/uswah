@@ -1,11 +1,13 @@
 {
- "coverage": "العهد المكي، ثم الهجرة والسنوات الثلاث الأولى من العهد المدني (حتى غزوة حمراء الأسد)",
+ "coverage": "العهد المكي، ثم الهجرة والعهد المدني حتى صلح الحديبية وكتب النبي ﷺ إلى الملوك",
  "published": [
   "a_makki.json",
-  "b_hijra_y1_3.json"
+  "b_hijra_y1_3.json",
+  "c_y4_6.json"
  ],
  "places_files": [
   "places.json",
-  "places_b.json"
+  "places_b.json",
+  "places_c.json"
  ]
 }
