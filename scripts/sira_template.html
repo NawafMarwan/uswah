@@ -206,6 +206,27 @@ footer p{margin:0;font-size:14px}
 footer a{color:#e8a77a;text-decoration:none;font-weight:600}
 footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
 
+
+/* info modal (books / people) */
+.modal{position:fixed;inset:0;z-index:4000;background:rgba(27,17,24,.62);display:grid;place-items:center;padding:16px}
+.modal[hidden]{display:none}
+.mcard{width:min(560px,100%);max-height:86vh;overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);padding:20px 22px 18px;direction:rtl}
+.mcard .mh{display:flex;align-items:flex-start;gap:10px;justify-content:space-between}
+.mcard h3{margin:0;font-size:20px;line-height:1.5}
+.mcard .mk{font-size:12.5px;font-weight:700;color:var(--copper-ink)}
+.mcard .mx{appearance:none;border:1px solid var(--line-2);background:var(--surface);width:36px;height:36px;border-radius:11px;cursor:pointer;color:var(--ink-2);flex:none}
+.mcard dl{margin:12px 0 0;display:grid;gap:10px}
+.mcard dt{font-size:12.5px;color:var(--muted);font-weight:600}
+.mcard dd{margin:0;font-size:15px;line-height:1.9}
+.mcard .badge{display:inline-block;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 12px;font-weight:700;font-size:13.5px}
+.mcard .approx{color:var(--muted);font-size:12.5px;margin-inline-start:6px}
+.mcard .msrc{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.mcard .msrc h4{margin:0 0 6px;font-size:14px}
+.mcard blockquote{margin:0 0 8px;padding:6px 12px;border-inline-start:3px solid var(--copper);background:var(--surface-2);border-radius:10px;font-size:14px;line-height:1.9;color:var(--ink-2)}
+.mcard blockquote small{display:block;color:var(--muted);font-size:12px}
+.chip.person.def{cursor:pointer;border-style:solid}
+.chip.person.def:hover{border-color:var(--copper)}
+.src summary .binfo{appearance:none;border:1px solid var(--line-2);background:var(--surface);border-radius:999px;font:inherit;font-size:12px;font-weight:600;padding:0 10px;cursor:pointer;color:var(--copper-ink);margin-inline-start:auto}
 /* place popup + present mode */
 .leaflet-popup-content-wrapper{border-radius:16px;background:var(--surface);color:var(--ink);direction:rtl;box-shadow:var(--shadow)}
 .leaflet-popup-tip{background:var(--surface)}
@@ -314,6 +335,7 @@ body.present .controls{background:var(--surface)}
   <small>© <span class="num" id="year"></span> مركز أسوة للسيرة النبوية</small>
 </footer>
 
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="mcard" id="mCard"></div></div>
 <script id="seed" type="application/json">__SEED__</script>
 <script>
 __LEAFLET_JS__
@@ -332,7 +354,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ---------- data ---------- */
 let DATA = { events: [], places: {}, regions: [], meta: {} };
 try { DATA = JSON.parse($('#seed').textContent); } catch {}
-const EV = DATA.events, PL = DATA.places;
+const EV = DATA.events, PL = DATA.places, BOOKS = DATA.books || {}, PEOPLE = DATA.people || {}, PEOPLE_IDX = DATA.people_index || {};
 const PHASES = {
   'makki-secret': ['الدعوة السرية', 'var(--c-secret)'],
   'makki-open':   ['الجهر بالدعوة (العهد المكي)', 'var(--c-open)'],
@@ -490,8 +512,8 @@ function renderEvent() {
     ${(e.hidden_places || []).length ? `<div class="chips hid" title="لم يتيسر تحديد موضعها على الخريطة بدقة"><span class="hl">مواضع أخرى في الحدث (لا تُعرض على الخريطة):</span>${e.hidden_places.map(n => `<span class="chip person">${esc(n)}</span>`).join('')}</div>` : ''}
     <p class="summary">${esc(e.summary)}</p>
     ${e.details ? `<details class="more"><summary>تفصيل الحدث</summary><div class="body">${esc(e.details)}</div></details>` : ''}
-    ${(e.key_people || []).length ? `<div class="chips">${e.key_people.map(n => `<span class="chip person">${esc(n)}</span>`).join('')}</div>` : ''}
-    <div class="srcs"><h3>المصادر (${(e.sources || []).length})</h3>${(e.sources || []).map(s => `<details class="src"><summary><b>${esc(s.book)}</b><span class="ref">${esc(refOf(s))}</span></summary><blockquote>«${esc(s.quote)}»${s.numbering === 'auto' ? '<small>الترقيم آلي من المكتبة الشاملة</small>' : ''}</blockquote></details>`).join('')}</div>
+    ${(e.key_people || []).length ? `<div class="chips">${e.key_people.map(n => PEOPLE_IDX[n] ? `<button type="button" class="chip person def" data-person="${esc(PEOPLE_IDX[n])}" title="تعريف">${esc(n)}</button>` : `<span class="chip person">${esc(n)}</span>`).join('')}</div>` : ''}
+    <div class="srcs"><h3>المصادر (${(e.sources || []).length})</h3>${(e.sources || []).map(s => `<details class="src"><summary><b>${esc(s.book)}</b><span class="ref">${esc(refOf(s))}</span>${BOOKS[s.book_id] ? `<button type="button" class="binfo" data-book="${s.book_id}">عن الكتاب</button>` : ''}</summary><blockquote>«${esc(s.quote)}»${s.numbering === 'auto' ? '<small>الترقيم آلي من المكتبة الشاملة</small>' : ''}</blockquote></details>`).join('')}</div>
     <div id="pcard">${selPlace && places.includes(selPlace) ? placeCard(selPlace) : ''}</div>`;
 }
 function setProgress() {
@@ -576,6 +598,31 @@ $('#presentBtn').addEventListener('click', () => setPresent(true));
 $('#exitPresent').addEventListener('click', () => setPresent(false));
 document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && document.body.classList.contains('present')) setPresent(false); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('present')) setPresent(false); });
+
+/* ---------- info modal: books and people ---------- */
+const modal = $('#modal'), mCard = $('#mCard');
+function openModal(html) { mCard.innerHTML = html; modal.hidden = false; const x = mCard.querySelector('.mx'); if (x) x.focus(); }
+function closeModal() { modal.hidden = true; }
+modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('.mx')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) { closeModal(); e.stopPropagation(); } }, true);
+const row = (k, v, note) => v ? `<div><dt>${k}</dt><dd>${v}${note ? `<span class="approx">${esc(note)}</span>` : ''}</dd></div>` : '';
+function bookCard(id) {
+  const b = BOOKS[id]; if (!b) return;
+  openModal(`<div class="mh"><div><div class="mk">عن الكتاب</div><h3 id="mTitle">${esc(b.title)}</h3></div><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
+    <dl>${row('المؤلف', esc(b.author_full))}${row('وفاة المؤلف', esc(b.author_death))}${row('زمن التأليف', esc(b.written), b.written_approx ? 'تقريبي' : '')}
+    ${row('نوع الكتاب', b.kind ? `<span class="badge">${esc(b.kind)}</span>` : '', '')}${row('عن النوع', esc(b.kind_note))}${row('الطبعة في الشاملة', esc(b.edition))}${row('ملاحظة', esc(b.note))}</dl>
+    ${(b.sources || []).length ? `<div class="msrc"><h4>مستند هذه المعلومات</h4>${b.sources.map(s => `<blockquote>«${esc(s.quote)}»<small>${esc(s.book)} — ${esc(refOf(s))}</small></blockquote>`).join('')}</div>` : ''}`);
+}
+function personCard(key) {
+  const p = PEOPLE[key]; if (!p) return;
+  openModal(`<div class="mh"><div><div class="mk">تعريف بالعَلَم</div><h3 id="mTitle">${esc(p.name)}</h3></div><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
+    <dl>${row('الاسم والنسب', esc(p.full))}${row('التعريف', esc(p.desc))}${row('الوفاة', esc(p.death))}</dl>
+    ${(p.sources || []).length ? `<div class="msrc"><h4>المصدر</h4>${p.sources.map(s => `<blockquote>«${esc(s.quote)}»<small>${esc(s.book)} — ${esc(refOf(s))}</small></blockquote>`).join('')}</div>` : ''}`);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-book]'); if (b) { e.preventDefault(); e.stopPropagation(); return bookCard(b.dataset.book); }
+  const p = e.target.closest('[data-person]'); if (p) return personCard(p.dataset.person);
+}, true);
 
 /* ---------- ticks, legend, list ---------- */
 $('#progTotal').textContent = EV.length;

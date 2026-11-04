@@ -89,6 +89,22 @@ def main():
         "regions": regions,
         "meta": {"coverage": man.get("coverage", ""), "count": len(events)},
     }
+    # optional reference data: book cards and people definitions (data/sira/books.json, people.json)
+    books, people, idx = {}, {}, {}
+    if (D / "books.json").exists():
+        books = json.loads((D / "books.json").read_text(encoding="utf-8"))
+        used_books = {str(s["book_id"]) for e in events for s in e["sources"]}
+        data["books"] = {k: v for k, v in books.items() if k in used_books}
+    if (D / "people.json").exists():
+        people = json.loads((D / "people.json").read_text(encoding="utf-8"))
+        for key, v in people.items():
+            for alias in [v.get("name", "")] + list(v.get("aliases", [])):
+                if alias:
+                    idx[alias] = key
+        shown = {n for e in events for n in e.get("key_people", [])}
+        keep_keys = {idx[n] for n in shown if n in idx}
+        data["people"] = {k: v for k, v in people.items() if k in keep_keys}
+        data["people_index"] = {n: idx[n] for n in shown if n in idx}
     tpl = (ROOT / "scripts" / "sira_template.html").read_text(encoding="utf-8")
     page = (ROOT / "_src" / "uswah.html").read_text(encoding="utf-8")
     logo = re.search(r'--logo:url\("(data:image/png;base64,[^"]+)"\)', page).group(1)
