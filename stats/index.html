@@ -47,6 +47,7 @@ small{display:block;margin-top:14px;color:var(--muted);font-size:12.5px}
 (() => {
 'use strict';
 const BLOB = "uswah", PREFIX = "../", HEAD = "window.__ROOT__='../';";
+const WRAPS = [];
 const SALT = 'gM42qaRx9/hxsAH5CRkZZQ==', ITER = 600000, SESSION = 900000, WARN = 120000, KEY = 'uswah.gate';
 const $ = s => document.querySelector(s);
 const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -95,10 +96,22 @@ function show(html) {
   document.open(); document.write(html); document.close();
 }
 
+// The typed credentials either are the content key itself (primary login) or unlock a wrapped copy of it (extra logins).
+async function resolveKey(raw) {
+  try { return { raw, html: await open(raw) }; } catch (err) { if (err && err.message === 'missing') throw err; }
+  const k = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+  for (const w of WRAPS) {
+    try {
+      const inner = new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(w.iv) }, k, b64(w.ct)));
+      return { raw: inner, html: await open(inner) };
+    } catch {}
+  }
+  throw new Error('bad');
+}
 async function enter(raw, fresh) {
-  const html = await open(raw);
-  if (fresh) store.set({ k: toB64(raw), exp: Date.now() + SESSION });
-  show(html);
+  const r = await resolveKey(raw);
+  if (fresh) store.set({ k: toB64(r.raw), exp: Date.now() + SESSION });
+  show(r.html);
 }
 
 $('#f').addEventListener('submit', async e => {
