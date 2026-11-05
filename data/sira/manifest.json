@@ -1,16 +1,18 @@
 {
- "coverage": "العهد المكي، ثم الهجرة والعهد المدني حتى فتح مكة وحنين والطائف والعمرة من الجعرانة (8 هـ)",
+ "coverage": "سيرة النبي ﷺ كاملة: من بدء الوحي إلى وفاته ودفنه",
  "published": [
   "a_makki.json",
   "b_hijra_y1_3.json",
   "c_y4_6.json",
-  "d_y7_8.json"
+  "d_y7_8.json",
+  "e_y9_11.json"
  ],
  "places_files": [
   "places.json",
   "places_b.json",
   "places_c.json",
-  "places_d.json"
+  "places_d.json",
+  "places_e.json"
  ],
  "moves": [
   {
