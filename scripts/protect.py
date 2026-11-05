@@ -70,6 +70,24 @@ def encrypt_blobs(user, password):
         if not target.exists() or target.read_bytes() != out:
             target.write_bytes(out)
         print(f"  ✓ {target.relative_to(ROOT)} ({len(out):,} bytes)")
+    return key
+
+
+def wrap_keys(content_key):
+    """Extra logins (SITE_USER2/SITE_PASSWORD2, ...): the content key encrypted under each extra credential."""
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    import base64
+    wraps = []
+    for n in ("2", "3"):
+        user, password = os.environ.get(f"SITE_USER{n}", "").strip(), os.environ.get(f"SITE_PASSWORD{n}", "")
+        if not user and not password:
+            continue
+        if not user or len(password) < 8:
+            sys.exit(f"SITE_USER{n} / SITE_PASSWORD{n} are incomplete (password: at least 8 characters).")
+        k2 = hashlib.pbkdf2_hmac("sha256", secret(user, password), SALT, ITER, 32)
+        iv = hmac.new(k2, b"wrap" + content_key, hashlib.sha256).digest()[:12]  # deterministic: no churn
+        wraps.append({"iv": base64.b64encode(iv).decode(), "ct": base64.b64encode(AESGCM(k2).encrypt(iv, content_key, None)).decode()})
+    return wraps
 
 
 WRAPPER = r"""<!DOCTYPE html>
@@ -121,6 +139,7 @@ small{display:block;margin-top:14px;color:var(--muted);font-size:12.5px}
 (() => {
 'use strict';
 const BLOB = __BLOB__, PREFIX = __PREFIX__, HEAD = __HEAD__;
+const WRAPS = __WRAPS__;
 const SALT = '__SALT__', ITER = __ITER__, SESSION = __SESSION_MS__, WARN = __WARN_MS__, KEY = 'uswah.gate';
 const $ = s => document.querySelector(s);
 const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -169,10 +188,22 @@ function show(html) {
   document.open(); document.write(html); document.close();
 }
 
+// The typed credentials either are the content key itself (primary login) or unlock a wrapped copy of it (extra logins).
+async function resolveKey(raw) {
+  try { return { raw, html: await open(raw) }; } catch (err) { if (err && err.message === 'missing') throw err; }
+  const k = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+  for (const w of WRAPS) {
+    try {
+      const inner = new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(w.iv) }, k, b64(w.ct)));
+      return { raw: inner, html: await open(inner) };
+    } catch {}
+  }
+  throw new Error('bad');
+}
 async function enter(raw, fresh) {
-  const html = await open(raw);
-  if (fresh) store.set({ k: toB64(raw), exp: Date.now() + SESSION });
-  show(html);
+  const r = await resolveKey(raw);
+  if (fresh) store.set({ k: toB64(r.raw), exp: Date.now() + SESSION });
+  show(r.html);
 }
 
 $('#f').addEventListener('submit', async e => {
@@ -205,13 +236,13 @@ $('#f').addEventListener('submit', async e => {
 """
 
 
-def write_wrappers():
+def write_wrappers(wraps):
     logo = logo_uri()
     import base64
     salt_b64 = base64.b64encode(SALT).decode()
     for rel, (blob, prefix, head) in PAGES.items():
         html = (WRAPPER.replace("__LOGO__", logo).replace("__BLOB__", json.dumps(blob)).replace("__PREFIX__", json.dumps(prefix))
-                .replace("__HEAD__", json.dumps(head)).replace("__SALT__", salt_b64).replace("__ITER__", str(ITER))
+                .replace("__WRAPS__", json.dumps(wraps)).replace("__HEAD__", json.dumps(head)).replace("__SALT__", salt_b64).replace("__ITER__", str(ITER))
                 .replace("__SESSION_MS__", str(SESSION_S * 1000)).replace("__WARN_MS__", str(WARN_S * 1000))
                 .replace("__SESSION_MIN__", str(max(1, round(SESSION_S / 60)))))
         target = ROOT / rel
@@ -221,7 +252,16 @@ def write_wrappers():
         print(f"  ✓ {rel}")
 
 
+def existing_wraps():
+    try:
+        m = re.search(r"const WRAPS = (\[.*?\]);", (ROOT / "index.html").read_text(encoding="utf-8"))
+        return json.loads(m.group(1)) if m else []
+    except (OSError, ValueError):
+        return []
+
+
 def main():
+    wraps = existing_wraps()  # kept as they are when only the wrappers are rewritten
     if "--wrappers-only" not in sys.argv:
         user, password = os.environ.get("SITE_USER", "").strip(), os.environ.get("SITE_PASSWORD", "")
         if not user or len(password) < 8:
@@ -229,8 +269,8 @@ def main():
         for src in SOURCES.values():
             if not src.exists():
                 sys.exit(f"missing {src}")
-        encrypt_blobs(user, password)
-    write_wrappers()
+        wraps = wrap_keys(encrypt_blobs(user, password))
+    write_wrappers(wraps)
 
 
 if __name__ == "__main__":

@@ -43,6 +43,8 @@ jobs:
         env:
           SITE_USER: ${{ secrets.SITE_USER }}
           SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+          SITE_USER2: ${{ secrets.SITE_USER2 }}
+          SITE_PASSWORD2: ${{ secrets.SITE_PASSWORD2 }}
         run: |
           pip install cryptography
           python3 scripts/protect.py
