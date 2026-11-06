@@ -199,6 +199,19 @@ main{padding-block:18px 48px}
 .li b{font-size:14.5px;line-height:1.6}
 .li small{color:var(--muted);font-size:12.5px}
 .li.cur{background:var(--surface-2)}
+.filters{display:grid;gap:10px;margin:0 0 14px}
+.sbox{position:relative}
+.sbox input{width:100%;font:inherit;font-size:15px;padding:11px 42px 11px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);box-sizing:border-box}
+.sbox input:focus{outline:2px solid var(--copper);outline-offset:1px}
+.sbox button{position:absolute;inset-inline-end:8px;top:50%;transform:translateY(-50%);appearance:none;border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{appearance:none;font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--plum,#3a2236);color:#fff;border-color:transparent}
+.chip.ph[aria-pressed=true]{background:var(--c);}
+.fres{font-size:13px;color:var(--muted)}
+.empty{grid-column:1/-1;padding:18px;text-align:center;color:var(--muted)}
+.tick.dim{opacity:.18}.tick.cur.dim{opacity:1}
+.li mark{background:rgba(194,112,61,.28);color:inherit;border-radius:3px;padding:0 2px}
 
 footer{background:#2a1b28;color:#e5d3cc;text-align:center;padding:30px 16px 26px}
 footer .logo{width:60px;height:66px;margin:0 auto 8px;filter:brightness(0) invert(1)}
@@ -323,6 +336,12 @@ body.present .controls{background:var(--surface)}
 
     <section class="panel" id="listPanel" style="margin-top:16px">
       <div class="panel-h"><h2>أحداث الرحلة بالترتيب</h2><p id="listNote"></p></div>
+      <div class="filters" id="filters">
+        <div class="sbox"><input id="q" type="search" inputmode="search" autocomplete="off" placeholder="ابحث: حدث، علم، مكان، كتاب… (مثل: أبو بكر، بدر، الحديبية)" aria-label="بحث في أحداث الرحلة"><button type="button" id="qx" aria-label="مسح البحث" hidden>✕</button></div>
+        <div class="chips" id="fPhase" role="group" aria-label="المرحلة"></div>
+        <div class="chips" id="fType" role="group" aria-label="نوع الحدث"></div>
+        <div class="fres" id="fRes" aria-live="polite"></div>
+      </div>
       <div class="list" id="list"></div>
     </section>
   </div>
@@ -520,7 +539,7 @@ function setProgress() {
   $('#progNum').textContent = idx < 0 ? '0' : String(idx + 1);
   $('#progLabel').textContent = idx < 0 ? 'اضغط «تشغيل الرحلة» لتبدأ' : (EV[idx].title.length > 60 ? EV[idx].title.slice(0, 60) + '…' : EV[idx].title);
   document.querySelectorAll('.tick').forEach((t, i) => { t.classList.toggle('cur', i === idx); t.classList.toggle('done', i < idx); });
-  document.querySelectorAll('.li').forEach((t, i) => t.classList.toggle('cur', i === idx));
+  document.querySelectorAll('.li').forEach(t => t.classList.toggle('cur', +t.dataset.i === idx));
   $('#prev').disabled = idx <= 0; $('#next').disabled = idx >= EV.length - 1;
 }
 function fillBar(sec) {
@@ -630,9 +649,56 @@ $('#ticks').innerHTML = EV.map((e, i) => `<button type="button" class="tick" sty
 $('#ticks').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) jump(+b.dataset.i); });
 const used = [...new Set(EV.map(e => e.phase))];
 $('#legend').innerHTML = used.map(k => `<span style="--c:${(PHASES[k] || ['', 'var(--copper)'])[1]}"><i></i>${esc((PHASES[k] || ['السيرة'])[0])}</span>`).join('');
-$('#list').innerHTML = EV.map((e, i) => `<button type="button" class="li" style="--c:${ph(e)[1]}" data-i="${i}"><b>${i + 1}. ${esc(e.title)}</b><small>${esc(e.date && e.date.label || '')}</small></button>`).join('');
+/* ---------- search & filter ---------- */
+const norm = t => String(t ?? '').replace(/[ً-ٰٟـ]/g, '').replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/ؤ/g, 'و').replace(/ئ/g, 'ي').toLowerCase();
+const TYPES = [
+  ['غزوات', ['ghazwa']], ['سرايا', ['saryyah']], ['وفود', ['delegation']], ['رسائل', ['letter']],
+  ['معاهدات وبيعات', ['treaty', 'bayah', 'muasat']], ['هجرة', ['hijra', 'hijra-habasha']], ['حج', ['hajj']],
+  ['الدعوة والوحي والأذى', ['dawa', 'wahy', 'persecution']], ['الوفاة والدفن', ['death', 'burial']], ['أخرى', ['other']],
+];
+const HAY = EV.map(e => norm([e.title, e.summary, e.details, (e.key_people || []).join(' '), (e.places || []).map(id => PL[id] && PL[id].ar || '').join(' '), (e.sources || []).map(x => x.book).join(' '), e.date && e.date.label].join(' ')));
+const F = { q: '', phase: '', type: '' };
+const usedTypes = new Set(EV.map(e => e.type));
+$('#fPhase').innerHTML = `<button type="button" class="chip" data-p="" aria-pressed="true">كل المراحل</button>` + Object.keys(PHASES).filter(k => EV.some(e => e.phase === k)).map(k => `<button type="button" class="chip ph" style="--c:${PHASES[k][1]}" data-p="${k}" aria-pressed="false">${esc(PHASES[k][0])}</button>`).join('');
+$('#fType').innerHTML = `<button type="button" class="chip" data-t="" aria-pressed="true">كل الأنواع</button>` + TYPES.filter(t => t[1].some(x => usedTypes.has(x))).map((t, i) => `<button type="button" class="chip" data-t="${i}" aria-pressed="false">${esc(t[0])}</button>`).join('');
+const TYPE_IDX = TYPES.filter(t => t[1].some(x => usedTypes.has(x)));
+function matches(i) {
+  const e = EV[i];
+  if (F.phase && e.phase !== F.phase) return false;
+  if (F.type !== '' && !TYPE_IDX[+F.type][1].includes(e.type)) return false;
+  if (F.q) { const ws = norm(F.q).split(/\s+/).filter(Boolean); if (!ws.every(w => HAY[i].includes(w))) return false; }
+  return true;
+}
+function hl(t) {
+  const ws = norm(F.q).split(/\s+/).filter(Boolean);
+  let out = esc(t);
+  if (!ws.length) return out;
+  const n = norm(t);
+  if (n.length !== String(t).length) return out; // تعذّر التظليل مع اختلاف الأطوال
+  const ranges = [];
+  ws.forEach(w => { let k = 0; while ((k = n.indexOf(w, k)) >= 0) { ranges.push([k, k + w.length]); k += w.length; } });
+  ranges.sort((a, b) => a[0] - b[0]);
+  let res = '', last = 0;
+  ranges.forEach(([a, b]) => { if (a < last) return; res += esc(t.slice(last, a)) + '<mark>' + esc(t.slice(a, b)) + '</mark>'; last = b; });
+  return res + esc(t.slice(last));
+}
+function renderList() {
+  const idx = EV.map((_, i) => i).filter(matches);
+  const on = new Set(idx);
+  $('#list').innerHTML = idx.length ? idx.map(i => { const e = EV[i]; return `<button type="button" class="li${i === idx ? ' cur' : ''}" style="--c:${ph(e)[1]}" data-i="${i}"><b>${i + 1}. ${hl(e.title)}</b><small>${esc(e.date && e.date.label || '')}</small></button>`; }).join('') : `<div class="empty">لا توجد أحداث مطابقة. جرّب كلمة أخرى أو أزل بعض المرشحات.</div>`;
+  document.querySelectorAll('#ticks .tick').forEach((b, i) => b.classList.toggle('dim', !on.has(i)));
+  const filtered = F.q || F.phase || F.type !== '';
+  $('#fRes').textContent = filtered ? `${idx.length} من ${EV.length} حدثًا` : '';
+  $('#listNote').textContent = EV.length ? `${EV.length} حدثًا` : '';
+  $('#qx').hidden = !F.q;
+}
 $('#list').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) jump(+b.dataset.i); });
-$('#listNote').textContent = EV.length ? `${EV.length} حدثًا` : '';
+$('#q').addEventListener('input', e => { F.q = e.target.value.trim(); renderList(); });
+$('#qx').addEventListener('click', () => { $('#q').value = ''; F.q = ''; renderList(); $('#q').focus(); });
+$('#fPhase').addEventListener('click', e => { const b = e.target.closest('[data-p]'); if (!b) return; F.phase = b.dataset.p; document.querySelectorAll('#fPhase .chip').forEach(c => c.setAttribute('aria-pressed', c === b)); renderList(); });
+renderList();
+$('#fType').addEventListener('click', e => { const b = e.target.closest('[data-t]'); if (!b) return; F.type = b.dataset.t; document.querySelectorAll('#fType .chip').forEach(c => c.setAttribute('aria-pressed', c === b)); renderList(); });
+
 
 document.addEventListener('keydown', e => {
   if (/INPUT|TEXTAREA|SUMMARY/.test(document.activeElement && document.activeElement.tagName)) return;
