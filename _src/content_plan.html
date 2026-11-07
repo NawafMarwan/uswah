@@ -61,6 +61,12 @@ button{font:inherit;color:inherit}
 .brand b{font-size:15px;font-weight:700;white-space:nowrap}
 .brand small{display:block;font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.2;white-space:nowrap}
 .brand-text{line-height:1.3}
+.tabs{margin-inline-start:auto;display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px}
+.tab{padding:7px 16px;border-radius:999px;font-size:14px;font-weight:600;color:var(--ink-2);text-decoration:none;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.tab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-current="page"]{background:var(--plum,#3a2236);color:#fffaf6;box-shadow:0 2px 8px -2px rgba(58,34,54,.4)}
+.topbar .tabs + .icon-btn{margin-inline-start:0}
+@media (max-width:700px){.tab{padding:7px 9px;font-size:12.5px}.tab svg{display:none}.brand-text{display:none}.topbar .icon-btn{flex:none}.tabs{min-width:0;overflow:hidden}.topbar .wrap{gap:8px}}
 .icon-btn{margin-inline-start:auto;appearance:none;border:1px solid var(--line);background:var(--surface);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--ink-2)}
 .icon-btn:hover{border-color:var(--line-2);color:var(--ink)}
 .icon-btn svg{width:18px;height:18px}
@@ -135,6 +141,12 @@ footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
       <span class="logo theme-logo" role="img" aria-label="شعار أسوة"></span>
       <span class="brand-text"><b>مركز أسوة</b><small>للسيرة النبوية</small></span>
     </div>
+        <nav class="tabs" aria-label="الصفحات">
+      <a class="tab" href="./"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5 10v10h5v-6h4v6h5V10"/></svg>التعريف</a>
+      <a class="tab" href="stats/"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>الإحصائيات</a>
+      <a class="tab" href="plan/"><svg viewBox="0 0 24 24"><path d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>خطة النشر</a>
+      <a class="tab" href="sira-map.html" ><svg viewBox="0 0 24 24"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7zM9 4v13M15 7v12.5"/></svg>الخريطة</a>
+    </nav>
     <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل المظهر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path id="themeIcon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
   </div>
 </header>
