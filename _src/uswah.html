@@ -248,12 +248,19 @@ section.block{padding:72px 0;scroll-margin-top:56px}
 .block.alt{background:var(--surface);border-block:1px solid var(--line)}
 .sec-sub{max-width:62ch;margin:-8px auto 28px;text-align:center;color:var(--ink-2);font-size:17px}
 .statbar-wrap{position:relative;z-index:6;margin-top:-56px}
-.statbar{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 50px -28px rgba(58,34,54,.55)}
+.statbar{display:block;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 50px -28px rgba(58,34,54,.55)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.statbar-head{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,var(--surface-2),var(--surface))}
+.statbar-head .logo{width:48px;height:52px;flex:none}
+.sb-title b{display:block;font-size:17px;font-weight:700;color:var(--ink);line-height:1.4}
+.sb-title small{display:block;font-size:13px;color:var(--muted);font-weight:500}
+.statbar-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 22px;border-top:1px solid var(--line);background:var(--plum);color:#e8d8dc;font-size:12.5px}
+.sb-site{font-weight:700;letter-spacing:.04em;color:#f0c7a8;direction:ltr}
 .stat{padding:26px 14px;text-align:center}
 .stat+.stat{border-inline-start:1px solid var(--line)}
 .stat b{display:block;font-size:clamp(26px,3.8vw,42px);font-weight:700;color:var(--copper-ink);line-height:1.15}
 .stat span{display:block;margin-top:6px;font-size:14.5px;color:var(--ink-2);font-weight:500}
-@media (max-width:640px){.statbar-wrap{margin-top:-34px}.statbar{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-inline-start:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:640px){.statbar-wrap{margin-top:-34px}.stat-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-inline-start:0}.statbar-head{padding:14px 16px}.statbar-foot{padding:9px 16px}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
 .cta-band{position:relative;overflow:hidden;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;background:linear-gradient(120deg,var(--plum),var(--plum-2));color:#fffaf6;border-radius:28px;padding:clamp(28px,4vw,52px)}
 .cta-band .deco{position:absolute;inset-inline-end:-50px;bottom:-90px;width:300px;height:300px;color:#fff;opacity:.05;pointer-events:none}
 .cta-band>div{position:relative}
@@ -593,10 +600,17 @@ body.present .exit-present{display:inline-flex!important}
   <!-- شريط أرقام الأثر -->
   <section class="statbar-wrap"><div class="wrap">
     <div class="statbar reveal" aria-label="أرقام الأثر">
-      <div class="stat"><b class="num" data-count="views">0</b><span>مشاهدة لمحتوى المركز</span></div>
-      <div class="stat"><b class="num" data-count="posts">0</b><span>منشورًا وإصدارًا</span></div>
-      <div class="stat"><b class="num" data-count="platforms">0</b><span>منصات للتواصل</span></div>
-      <div class="stat"><b class="num" data-count="days">0</b><span>يومًا منذ الانطلاق</span></div>
+      <div class="statbar-head">
+        <span class="logo theme-logo" role="img" aria-label="شعار أسوة — نتعلم.. لنتأسى"></span>
+        <div class="sb-title"><b>مركز أسوة للسيرة النبوية</b><small>أرقام الأثر على منصات التواصل</small></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><b class="num" data-count="views">0</b><span>مشاهدة لمحتوى المركز</span></div>
+        <div class="stat"><b class="num" data-count="posts">0</b><span>منشورًا وإصدارًا</span></div>
+        <div class="stat"><b class="num" data-count="platforms">0</b><span>منصات للتواصل</span></div>
+        <div class="stat"><b class="num" data-count="days">0</b><span>يومًا منذ الانطلاق</span></div>
+      </div>
+      <div class="statbar-foot"><span id="statbarDate"></span><span class="sb-site">uswah.sa</span></div>
     </div>
   </div></section>
 
@@ -1420,6 +1434,7 @@ function renderStats() {
     days: data.since ? Math.max(1, todayDay() - toDay(data.since) + 1) : 0,
   };
   for (const [k, v] of Object.entries(vals)) { const el = $(`[data-count="${k}"]`); if (el) countUp(el, v); }
+  const sd = $('#statbarDate'); if (sd) sd.textContent = `حتى ${fmtDay(b, true)}`;
 }
 function renderTeaser() {
   const [a, b] = dataBounds();
