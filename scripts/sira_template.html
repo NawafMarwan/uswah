@@ -209,6 +209,11 @@ main{padding-block:18px 48px}
 .chip[aria-pressed=true]{background:var(--plum,#3a2236);color:#fff;border-color:transparent}
 .chip.ph[aria-pressed=true]{background:var(--c);}
 .fres{font-size:13px;color:var(--muted)}
+.pres{display:grid;gap:8px;margin:0 0 14px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.pres h3{grid-column:1/-1;margin:0;font-size:14px;color:var(--muted);font-weight:600}
+.pr{appearance:none;font:inherit;text-align:start;border:1px solid var(--copper);background:var(--surface);color:var(--ink);border-radius:14px;padding:10px 14px;cursor:pointer;display:grid;gap:3px}
+.pr b{font-size:14.5px}.pr small{color:var(--muted);font-size:12.5px;line-height:1.6}
+.pr em{font-style:normal;color:var(--copper);font-size:12px}
 .empty{grid-column:1/-1;padding:18px;text-align:center;color:var(--muted)}
 .tick.dim{opacity:.18}.tick.cur.dim{opacity:1}
 .li mark{background:rgba(194,112,61,.28);color:inherit;border-radius:3px;padding:0 2px}
@@ -342,6 +347,7 @@ body.present .controls{background:var(--surface)}
         <div class="chips" id="fType" role="group" aria-label="نوع الحدث"></div>
         <div class="fres" id="fRes" aria-live="polite"></div>
       </div>
+      <div class="pres" id="pres" hidden></div>
       <div class="list" id="list"></div>
     </section>
   </div>
@@ -682,7 +688,20 @@ function hl(t) {
   ranges.forEach(([a, b]) => { if (a < last) return; res += esc(t.slice(last, a)) + '<mark>' + esc(t.slice(a, b)) + '</mark>'; last = b; });
   return res + esc(t.slice(last));
 }
+const PERSON_KEYS = Object.keys(PEOPLE);
+const PHAY = PERSON_KEYS.map(k => norm([PEOPLE[k].name, (PEOPLE[k].aliases || []).join(' '), PEOPLE[k].full].join(' ')));
+function renderPeople() {
+  const box = $('#pres');
+  const ws = norm(F.q).split(/\s+/).filter(Boolean);
+  if (!ws.length) { box.hidden = true; box.innerHTML = ''; return; }
+  const hits = PERSON_KEYS.filter((k, i) => ws.every(w => PHAY[i].includes(w))).slice(0, 8);
+  if (!hits.length) { box.hidden = true; box.innerHTML = ''; return; }
+  const count = k => { const names = new Set([PEOPLE[k].name, ...(PEOPLE[k].aliases || [])]); return EV.filter(e => (e.key_people || []).some(n => names.has(n))).length; };
+  box.innerHTML = `<h3>أعلام مطابقة (${hits.length})</h3>` + hits.map(k => { const d = PEOPLE[k].desc || ''; return `<button type="button" class="pr" data-person="${esc(k)}"><b>${esc(PEOPLE[k].name)}</b><small>${esc(d.length > 90 ? d.slice(0, 90) + '…' : d)}</small><em>تعريف · ${count(k)} حدثًا</em></button>`; }).join('');
+  box.hidden = false;
+}
 function renderList() {
+  renderPeople();
   const idx = EV.map((_, i) => i).filter(matches);
   const on = new Set(idx);
   $('#list').innerHTML = idx.length ? idx.map(i => { const e = EV[i]; return `<button type="button" class="li${i === idx ? ' cur' : ''}" style="--c:${ph(e)[1]}" data-i="${i}"><b>${i + 1}. ${hl(e.title)}</b><small>${esc(e.date && e.date.label || '')}</small></button>`; }).join('') : `<div class="empty">لا توجد أحداث مطابقة. جرّب كلمة أخرى أو أزل بعض المرشحات.</div>`;
