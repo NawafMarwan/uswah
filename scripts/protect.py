@@ -40,6 +40,7 @@ PAGES = {
     "uswah.html": ("uswah", "", ""),
     "stats/index.html": ("uswah", "../", "window.__ROOT__='../';"),
     "plan/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='plan';"),
+    "projects/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='projects';"),
     "content_plan.html": ("content_plan", "", ""),
     "sira-map.html": ("sira_map", "", ""),
 }
