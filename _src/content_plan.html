@@ -66,7 +66,7 @@ button{font:inherit;color:inherit}
 .tab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .tab[aria-current="page"]{background:var(--plum,#3a2236);color:#fffaf6;box-shadow:0 2px 8px -2px rgba(58,34,54,.4)}
 .topbar .tabs + .icon-btn{margin-inline-start:0}
-@media (max-width:700px){.tab{padding:7px 9px;font-size:12.5px}.tab svg{display:none}.brand-text{display:none}.topbar .icon-btn{flex:none}.tabs{min-width:0;overflow:hidden}.topbar .wrap{gap:8px}}
+@media (max-width:700px){.tab{padding:7px 9px;font-size:12.5px}.tab svg{display:none}.brand-text{display:none}.topbar .icon-btn{flex:none}.tabs{min-width:0;flex:1;overflow-x:auto;scrollbar-width:none;margin-inline-start:8px}.tabs::-webkit-scrollbar{display:none}.topbar .wrap{gap:8px}}
 .icon-btn{margin-inline-start:auto;appearance:none;border:1px solid var(--line);background:var(--surface);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--ink-2)}
 .icon-btn:hover{border-color:var(--line-2);color:var(--ink)}
 .icon-btn svg{width:18px;height:18px}
@@ -144,6 +144,7 @@ footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
         <nav class="tabs" aria-label="الصفحات">
       <a class="tab" href="./"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5 10v10h5v-6h4v6h5V10"/></svg>التعريف</a>
       <a class="tab" href="stats/"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>الإحصائيات</a>
+      <a class="tab" href="projects/"><svg viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5-9-4.5zM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></svg>المشاريع</a>
       <a class="tab" href="plan/"><svg viewBox="0 0 24 24"><path d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>خطة النشر</a>
       <a class="tab" href="sira-map.html" ><svg viewBox="0 0 24 24"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7zM9 4v13M15 7v12.5"/></svg>الخريطة</a>
     </nav>
