@@ -51,6 +51,14 @@ def card(i, p):
     if spins:
         body.append('<section class="pb"><h3>المشاريع المنبثقة</h3><div class="pspin">'
                     + "".join(f"<span>{e(s)}</span>" for s in spins) + "</div></section>")
+    tech, admin = p.get("tech_needs", []), p.get("admin_needs", [])
+    if tech or admin:
+        def needs(title, items, cls):
+            return (f'<section class="pb pneeds {cls}"><h3>{title}</h3><ul class="pneed">'
+                    + "".join(f"<li>{e(x)}</li>" for x in items) + "</ul></section>")
+        body.append('<div class="pneeds-wrap">'
+                    + (needs("الاحتياجات الفنية", tech, "tech") if tech else "")
+                    + (needs("الاحتياجات الإدارية", admin, "admin") if admin else "") + "</div>")
     out.append('<details class="pd"><summary><span>تفاصيل المشروع</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="pbody">'
                + "".join(body) + "</div></details>")
     out.append("</article>")
