@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>أكاديمية السيرة النبوية — نموذج تجريبي | مركز أسوة</title>
+<meta name="description" content="نموذج تجريبي لواجهة أكاديمية السيرة النبوية: مسار تعليمي على الخريطة، دروس مرئية، واختبارات تفتح الدرس التالي.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3a2236">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 60V30Q8 22 16 18L32 8l16 10q8 4 8 12v30' fill='none' stroke='%239a7c6a' stroke-width='6'/%3E%3Cpath d='M18 60V34q0-5 5-8l9-6 9 6q5 3 5 8v26' fill='none' stroke='%236e8fa3' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+__LEAFLET_CSS__
+</style>
+<style>
+:root{
+  color-scheme: light;
+  --logo:url("__LOGO__");
+  --bg:#f8f1ec; --surface:#fffaf6; --surface-2:#f2e7df; --surface-3:#eadbd0;
+  --ink:#2e1c2b; --ink-2:#5b4857; --muted:#85737f; --line:#e5d6cb; --line-2:#d8c5b8;
+  --plum:#3a2236; --plum-2:#4d2f48; --copper:#c2703d; --copper-ink:#9c5426; --slate:#6e8fa3; --slate-ink:#4e6f83;
+  --ok:#16967a; --ok-bg:#e3f4ee; --bad:#b3412a; --bad-bg:#fbe7e1; --gold:#d9a638;
+  --on-brand:#fffaf6; --logo-filter:none; --btn-bg:#3a2236; --btn-ink:#fffaf6;
+  --shadow:0 1px 2px rgba(58,34,54,.06),0 8px 24px -12px rgba(58,34,54,.18);
+  --maxw:1100px; --gutter:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#1b1118; --surface:#2a1b28; --surface-2:#332230; --surface-3:#3e2b3a;
+    --ink:#f6ece6; --ink-2:#d9c7cf; --muted:#a8949f; --line:#44303f; --line-2:#56404f;
+    --plum:#4a2c45; --plum-2:#5b3855; --copper:#d9874f; --copper-ink:#e59a66; --slate:#8fb0c4; --slate-ink:#a3c2d4;
+    --ok:#2bb594; --ok-bg:#16332c; --bad:#e0775e; --bad-bg:#3a1f1a;
+    --logo-filter:brightness(0) invert(.94); --btn-bg:#d9874f; --btn-ink:#2a1827;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#1b1118; --surface:#2a1b28; --surface-2:#332230; --surface-3:#3e2b3a;
+  --ink:#f6ece6; --ink-2:#d9c7cf; --muted:#a8949f; --line:#44303f; --line-2:#56404f;
+  --plum:#4a2c45; --plum-2:#5b3855; --copper:#d9874f; --copper-ink:#e59a66; --slate:#8fb0c4; --slate-ink:#a3c2d4;
+  --ok:#2bb594; --ok-bg:#16332c; --bad:#e0775e; --bad-bg:#3a1f1a;
+  --logo-filter:brightness(0) invert(.94); --btn-bg:#d9874f; --btn-ink:#2a1827;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.8;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+@media (min-width:768px){:root{--gutter:28px}}
+.num{font-variant-numeric:tabular-nums}
+.logo{background:var(--logo) center/contain no-repeat}
+.theme-logo{filter:var(--logo-filter)}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ===== الشريط العلوي ===== */
+.topbar{position:sticky;top:0;z-index:1200;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:12px;height:66px}
+.user{position:relative;flex:none}
+.avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--line-2);background:var(--surface-3);color:var(--muted);cursor:pointer;display:grid;place-items:center;overflow:hidden;padding:0;transition:transform .15s,border-color .15s}
+.avatar svg{width:100%;height:100%;fill:currentColor;stroke:none}
+.avatar:hover{border-color:var(--copper)}
+.avatar:hover{transform:scale(1.05)}
+.menu{position:absolute;inset-inline-start:0;top:calc(100% + 10px);min-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 44px -14px rgba(0,0,0,.4);padding:8px;z-index:1300}
+.menu .mhead{padding:8px 12px 10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.menu .mhead b{display:block;font-size:15px}.menu .mhead small{color:var(--muted);font-size:12.5px}
+.menu button{display:flex;align-items:center;gap:10px;width:100%;text-align:start;background:none;border:0;border-radius:10px;padding:10px 12px;cursor:pointer;font-size:15px}
+.menu button:hover{background:var(--surface-2)}
+.menu button.out{color:var(--bad)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand .logo{width:38px;height:42px;flex:none}
+.brand b{display:block;font-size:15px;line-height:1.25;white-space:nowrap}
+.brand small{display:block;font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.2;white-space:nowrap}
+.sp{flex:1}
+.icon-btn{appearance:none;border:1px solid var(--line);background:var(--surface);width:42px;height:42px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--ink-2);flex:none}
+.icon-btn:hover{border-color:var(--line-2);color:var(--ink)}
+.search{position:relative;width:min(340px,38vw)}
+.search input{width:100%;height:42px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding-inline:16px 44px;font:inherit;font-size:14.5px}
+.search input:focus{outline:2px solid var(--copper);outline-offset:1px}
+.search .ic{position:absolute;inset-inline-end:14px;top:11px;color:var(--muted);pointer-events:none}
+.results{position:absolute;inset-inline:0;top:calc(100% + 8px);background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 44px -14px rgba(0,0,0,.4);padding:6px;max-height:340px;overflow:auto;z-index:1300}
+.results button{display:flex;gap:10px;align-items:center;width:100%;text-align:start;background:none;border:0;border-radius:10px;padding:9px 11px;cursor:pointer}
+.results button:hover,.results button:focus-visible{background:var(--surface-2)}
+.results b{font-size:14.5px;display:block;line-height:1.5}.results small{color:var(--muted);font-size:12.5px}
+.results .none{padding:12px;color:var(--muted);font-size:14px}
+.results .tag{margin-inline-start:auto;font-size:11.5px;border:1px solid var(--line-2);border-radius:99px;padding:1px 9px;color:var(--ink-2);white-space:nowrap}
+
+/* ===== المقدمة ===== */
+.hero{padding:34px var(--gutter) 18px;text-align:center}
+.hero .kick{color:var(--copper-ink);font-weight:700;font-size:14px;letter-spacing:.02em}
+.hero h1{margin:4px 0 6px;font-size:clamp(26px,4.4vw,40px);line-height:1.4;color:var(--ink)}
+.hero p{margin:0 auto;max-width:56ch;color:var(--ink-2);font-size:16.5px}
+.prog{max-width:420px;margin:18px auto 0}
+.prog .row{display:flex;justify-content:space-between;font-size:13.5px;color:var(--ink-2);margin-bottom:6px}
+.prog .bar{height:10px;border-radius:99px;background:var(--surface-3);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--copper),var(--gold));border-radius:99px;transition:width .6s ease}
+
+/* ===== الخريطة ===== */
+.mapcard{max-width:900px;margin:18px auto 0;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.maphead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line)}
+.maphead b{font-size:15.5px}.maphead small{color:var(--muted);font-size:13px;display:block;line-height:1.5}
+.seg{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:none;border-radius:999px;padding:4px 13px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--btn-bg);color:var(--btn-ink)}
+#map{height:clamp(320px,50vh,440px);background:#cfd9dc;direction:ltr}
+.leaflet-container{font-family:inherit}
+.homebtn{display:grid;place-items:center;width:34px;height:34px;margin:6px 0 0 10px;background:#fff;color:#333;border:2px solid rgba(0,0,0,.2);border-radius:4px;cursor:pointer;padding:0}
+.homebtn:hover{background:#f4f4f4}
+.hint{padding:9px 18px;font-size:13.5px;color:var(--ink-2);display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);background:var(--surface-2)}
+.pin{position:relative;width:26px;height:26px;display:grid;place-items:center;cursor:pointer;direction:rtl}
+.pin i{display:block;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3d9,#f0b34f 55%,#c2703d);border:2.5px solid #fff;box-shadow:0 0 0 0 rgba(240,179,79,.7),0 0 18px 6px rgba(240,179,79,.55);animation:glow 2.4s ease-in-out infinite}
+.pin b{position:absolute;top:100%;margin-top:4px;left:50%;transform:translateX(-50%);background:rgba(58,34,54,.92);color:#fffaf6;font-size:12.5px;font-weight:700;padding:2px 11px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.pin:hover i{transform:scale(1.12)}
+.pin.locked i{background:radial-gradient(circle at 35% 35%,#e9e3e6,#a99aa3 60%,#7d6c76);box-shadow:0 0 8px 2px rgba(0,0,0,.35);animation:none;display:grid;place-items:center;width:26px;height:26px}
+.pin.locked i svg{width:13px;height:13px;stroke:#3a2236;fill:none;stroke-width:2.4}
+.pin.locked b{background:rgba(58,34,54,.72)}
+.pin.shake i{animation:shake .45s}
+.pin.minor{width:18px;height:18px}
+.pin.minor i{width:12px;height:12px;border-width:2px;opacity:.9;animation:glowSoft 3.2s ease-in-out infinite}
+.pin.minor b{font-size:11px;padding:1px 8px;font-weight:600;background:rgba(58,34,54,.78)}
+.pin.top b{top:auto;bottom:100%;margin-top:0;margin-bottom:4px}
+.pin.minor:hover i{transform:scale(1.25);opacity:1}
+@keyframes glowSoft{0%,100%{box-shadow:0 0 8px 2px rgba(240,179,79,.45)}50%{box-shadow:0 0 14px 5px rgba(240,179,79,.65)}}
+.rg{font-size:15px;font-weight:700;color:rgba(58,34,54,.55);white-space:nowrap;transform:translate(-50%,-50%);letter-spacing:.04em;text-shadow:0 0 6px rgba(255,255,255,.7);pointer-events:none;direction:rtl}
+.sat .rg{color:rgba(255,250,246,.82);text-shadow:0 1px 5px rgba(0,0,0,.85)}
+@media (max-width:640px){.rg{font-size:12px}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(240,179,79,.65),0 0 16px 5px rgba(240,179,79,.45)}50%{box-shadow:0 0 0 12px rgba(240,179,79,0),0 0 24px 9px rgba(240,179,79,.65)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.route{stroke-dasharray:7 9}
+@media (prefers-reduced-motion:reduce){.pin i,.pin.minor i{animation:none!important}.route{animation:none!important}}
+
+/* ===== منطقة الدروس ===== */
+.stage{max-width:900px;margin:22px auto 0;scroll-margin-top:84px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:20px}
+.card h2{margin:0 0 4px;font-size:20px}
+.card .sub{margin:0 0 14px;color:var(--ink-2);font-size:14.5px}
+.lessons{display:grid;gap:12px}
+.lc{position:relative;display:flex;gap:14px;align-items:center;text-align:start;width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:18px;padding:14px 16px;cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+.lc:hover{border-color:var(--copper);transform:translateY(-1px);box-shadow:0 10px 24px -14px rgba(58,34,54,.5)}
+.lc .n{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--plum);color:var(--on-brand);font-weight:700;font-size:18px}
+.lc b{display:block;font-size:16.5px;line-height:1.5}.lc small{color:var(--ink-2);font-size:13.5px;display:block}
+.lc .st{margin-inline-start:auto;flex:none;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;border-radius:99px;padding:3px 12px;border:1px solid var(--line-2);background:var(--surface-2)}
+.lc.done{border-color:var(--ok)}.lc.done .n{background:var(--ok)}.lc.done .st{color:var(--ok);background:var(--ok-bg);border-color:var(--ok)}
+.lc.open .st{color:var(--copper-ink);border-color:var(--copper)}
+.lc.locked{background:var(--surface-2);cursor:not-allowed;opacity:.82}
+.lc.locked .n{background:var(--taupe,#9a7c6a);filter:grayscale(.4)}
+.lc.locked:hover{transform:none;border-color:var(--line-2);box-shadow:none}
+.lc.locked .st{color:var(--muted)}
+.lc.just{animation:pop .9s ease}
+@keyframes pop{0%{box-shadow:0 0 0 0 rgba(217,166,56,.8)}100%{box-shadow:0 0 0 18px rgba(217,166,56,0)}}
+.soon{text-align:center;padding:26px 10px;color:var(--ink-2)}
+.soon .ic{width:46px;height:46px;margin:0 auto 8px;color:var(--copper)}
+
+.back{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--copper-ink);font-weight:700;cursor:pointer;padding:4px 0;margin-bottom:6px}
+.lvgrid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:10px}
+.lvgrid.withqr{grid-template-columns:1fr 210px;align-items:start}
+@media (max-width:760px){.lvgrid.withqr{grid-template-columns:1fr}}
+.ratio{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:14px;padding:11px 22px;font-weight:700;font-size:15.5px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--copper)}
+.btn.primary{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg);box-shadow:0 8px 20px -10px var(--btn-bg)}
+.btn.primary:hover{transform:translateY(-1px)}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.qr{background:var(--surface);border:1px solid var(--line-2);border-radius:18px;padding:14px;text-align:center;text-decoration:none;display:block}
+.qr:hover{border-color:var(--copper)}
+.qr .tt{display:inline-block;background:var(--copper);color:#fff;font-weight:700;padding:2px 22px;font-size:17px;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,10px 100%,0 50%);margin-bottom:10px}
+.qr .code{background:#fff;border-radius:12px;padding:8px;margin:0 auto;width:150px;height:150px}
+.qr .code svg{width:100%;height:100%}
+.qr small{display:block;margin-top:8px;font-size:12.5px;color:var(--ink-2);line-height:1.6}
+
+/* ===== الاختبار ===== */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.badge{font-size:12px;font-weight:700;border:1px dashed var(--copper);color:var(--copper-ink);border-radius:99px;padding:1px 12px}
+.qprog{height:8px;border-radius:99px;background:var(--surface-3);overflow:hidden;margin:10px 0 16px}
+.qprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--slate),var(--ok));transition:width .3s}
+.q{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:14px 16px;margin-bottom:12px}
+.q.miss{border-color:var(--bad);box-shadow:0 0 0 3px var(--bad-bg)}
+.q h3{margin:0 0 10px;font-size:16px;line-height:1.7;display:flex;gap:10px}
+.q h3 .qn{flex:none;width:28px;height:28px;border-radius:50%;background:var(--slate);color:#fff;font-size:14px;display:grid;place-items:center;margin-top:1px}
+.opt{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--surface-2);border-radius:12px;padding:9px 13px;margin:6px 0;cursor:pointer;font-size:15px}
+.opt:hover{border-color:var(--copper)}
+.opt input{accent-color:var(--copper);width:18px;height:18px;flex:none;margin:0}
+.opt:has(input:checked){border-color:var(--copper);background:color-mix(in srgb,var(--copper) 12%,var(--surface))}
+.submitbar{position:sticky;bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line-2);border-radius:16px;box-shadow:0 12px 30px -12px rgba(0,0,0,.45);padding:10px 14px;margin-top:14px}
+.score{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:6px 0 16px}
+.ring{--p:0;width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--c,var(--ok)) calc(var(--p)*1%),var(--surface-3) 0);display:grid;place-items:center;flex:none}
+.ring span{width:88px;height:88px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-weight:700;font-size:26px;line-height:1.1;text-align:center}
+.ring small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.verdict{flex:1;min-width:220px}.verdict h2{margin:0 0 4px}
+.verdict.pass h2{color:var(--ok)}.verdict.fail h2{color:var(--bad)}
+.rv{border:1px solid var(--line-2);border-radius:14px;padding:12px 14px;margin:10px 0;background:var(--surface)}
+.rv.right{border-inline-start:5px solid var(--ok)}.rv.wrong{border-inline-start:5px solid var(--bad)}
+.rv h4{margin:0 0 6px;font-size:15px;line-height:1.7}
+.rv .a{font-size:14.5px;margin:2px 0}.rv .a b{color:var(--ok)}.rv .a.y{color:var(--bad)}
+.rv .ex{margin-top:6px;font-size:13.5px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:6px 10px}
+
+/* ===== بطاقة الخريطة التفاعلية ===== */
+.cta{max-width:900px;margin:34px auto 0;display:grid;grid-template-columns:1fr 150px;gap:18px;align-items:center;text-decoration:none;color:var(--on-brand);border-radius:24px;padding:24px 28px;background:linear-gradient(135deg,var(--plum),var(--plum-2));box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .2s}
+.cta:hover{transform:translateY(-2px)}
+.cta::after{content:"";position:absolute;inset-inline-end:-40px;bottom:-60px;width:220px;height:220px;border-radius:50%;border:34px solid rgba(194,112,61,.28)}
+.cta h3{margin:0 0 6px;font-size:21px;color:#fff}.cta p{margin:0 0 12px;color:#e8d8dc;font-size:15px;line-height:1.85}
+.cta .go{display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--plum);border-radius:12px;padding:8px 18px;font-weight:700}
+.cta .mini{width:150px;height:120px;border-radius:18px;background:linear-gradient(160deg,#cfd9dc,#a9bcc2);position:relative;z-index:1;overflow:hidden;border:2px solid rgba(255,255,255,.4)}
+.cta .mini i{position:absolute;width:14px;height:14px;border-radius:50%;background:#f0b34f;box-shadow:0 0 12px 4px rgba(240,179,79,.7)}
+.cta .mini svg{position:absolute;inset:0;width:100%;height:100%}
+@media (max-width:640px){.cta{grid-template-columns:1fr}.cta .mini{display:none}}
+
+/* ===== التذييل ===== */
+footer.site{margin-top:64px;background:#2a1827;color:#e9dbe3;position:relative;overflow:hidden}
+footer.site .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;padding-block:48px 34px;gap:10px}
+footer.site .logo{width:92px;height:100px;filter:brightness(0) invert(1)}
+footer.site .mail{letter-spacing:.32em;font-size:15px;direction:ltr;text-decoration:none;color:#f2dccd;margin-top:6px}
+footer.site small{opacity:.6;font-size:12.5px;margin-top:10px}
+footer.site .demo{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+footer.site .demo button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#f2dccd;border-radius:10px;padding:5px 14px;font-size:12.5px;cursor:pointer}
+footer.site .demo button:hover{background:rgba(255,255,255,.16)}
+footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%;background:radial-gradient(closest-side,rgba(194,112,61,.35),transparent);pointer-events:none}
+
+/* ===== احتفال النجاح ===== */
+.confetti{position:fixed;inset:0;z-index:3500;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;opacity:.95;animation:fall linear forwards}
+@keyframes fall{to{transform:translate3d(var(--dx),108vh,0) rotate(var(--rot));opacity:.9}}
+@media (prefers-reduced-motion:reduce){.confetti{display:none}}
+
+/* ===== نوافذ وتنبيه ===== */
+.modal{position:fixed;inset:0;z-index:3000;background:rgba(20,10,18,.62);display:grid;place-items:center;padding:16px}
+.mcard{width:100%;max-width:480px;max-height:88vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);padding:20px}
+.mh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.mh h3{margin:0;font-size:19px}
+.mx{border:1px solid var(--line);background:var(--surface-2);width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:16px}
+.pf{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.pf .avatar{width:58px;height:58px;cursor:default}
+.pf .avatar:hover{transform:none}
+.steps{display:grid;gap:8px;margin:8px 0 14px}
+.steps div{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14.5px;background:var(--surface-2)}
+.steps .sd{margin-inline-start:auto;font-size:12.5px;font-weight:700}
+.steps .ok{color:var(--ok)}.steps .lk{color:var(--muted)}
+.mrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.toast{position:fixed;inset-inline:12px;bottom:18px;margin-inline:auto;max-width:440px;z-index:4000;background:var(--plum);color:var(--on-brand);padding:12px 18px;border-radius:14px;box-shadow:0 14px 40px -10px rgba(0,0,0,.6);font-weight:600;text-align:center;border:1px solid var(--copper)}
+
+@media (max-width:640px){
+  .brand-text{display:none}
+  .topbar .wrap{gap:8px}
+  .search{width:auto;flex:1;min-width:0}
+  .hero{padding-top:22px}
+  .card{padding:14px}
+  .lc{padding:12px}
+  .lc .st{font-size:12px;padding:2px 9px}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="user">
+      <button class="avatar" id="avatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu" aria-label="القائمة الشخصية"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.2"/><path d="M3.8 24c0-5.2 3.7-8.6 8.2-8.6s8.2 3.4 8.2 8.6z"/></svg></button>
+      <div class="menu" id="menu" role="menu" hidden>
+        <div class="mhead"><b>طالب تجريبي</b><small>أكاديمية السيرة النبوية</small></div>
+        <button type="button" role="menuitem" data-act="profile"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>الملف الشخصي</button>
+        <button type="button" role="menuitem" data-act="path"><svg class="ic" viewBox="0 0 24 24"><path d="M5 19c0-6 14-2 14-9"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="7" r="2"/></svg>المسار التعليمي</button>
+        <button type="button" role="menuitem" data-act="logout" class="out"><svg class="ic" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>تسجيل الخروج</button>
+      </div>
+    </div>
+    <a class="brand" href="#top" aria-label="أكاديمية السيرة النبوية — مركز أسوة">
+      <span class="logo theme-logo" role="img" aria-label="شعار أسوة"></span>
+      <span class="brand-text"><b>أكاديمية السيرة النبوية</b><small>مركز أسوة</small></span>
+    </a>
+    <div class="sp"></div>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل المظهر"><svg class="ic" viewBox="0 0 24 24"><path id="themeIcon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+    <div class="search">
+      <input id="q" type="search" autocomplete="off" placeholder="ابحث في المسارات والدروس…" aria-label="بحث في محتوى الأكاديمية" aria-controls="results">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <div class="results" id="results" role="listbox" hidden></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="kick">نموذج تجريبي لواجهة الأكاديمية</div>
+    <h1>أكاديمية السيرة النبوية</h1>
+    <p>رحلة تعلّم متدرجة على خريطة السيرة: ابدأ من مكة، وتابع الدروس، واجتز الاختبار ليفتح لك الدرس التالي.</p>
+    <div class="prog" aria-label="تقدمك في العهد المكي">
+      <div class="row"><span>تقدمك في العهد المكي</span><span><b class="num" id="progNum">0</b> من <span class="num" id="progTot">3</span> دروس</span></div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="mapcard">
+      <div class="maphead">
+        <div><b>رحلة السيرة النبوية في الجزيرة العربية</b><small>مكة المكرمة ← المدينة المنورة (المسار تقريبي)</small></div>
+        <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="imagery" aria-pressed="true">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
+      </div>
+      <div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div>
+      <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض الدروس.</span></div>
+    </div>
+
+    <div class="stage" id="stage" tabindex="-1" aria-live="polite"></div>
+
+    <a class="cta" href="https://uswah.sa/sira-map.html" target="_blank" rel="noopener">
+      <div>
+        <h3>الخريطة التفاعلية للسيرة النبوية</h3>
+        <p>تابع السيرة حدثًا بعد حدث على الخريطة، وكل حدث موثّق بمصدره والجزء والصفحة، مع تعريف بالأعلام ووضع عرض للمحاضرات.</p>
+        <span class="go">افتح الخريطة <svg class="ic" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </div>
+      <div class="mini" aria-hidden="true"><svg viewBox="0 0 150 120"><path d="M30 92 C 55 70, 80 62, 118 28" fill="none" stroke="#fff" stroke-width="2.4" stroke-dasharray="5 6" opacity=".85"/></svg><i style="inset-inline-start:22px;top:86px"></i><i style="inset-inline-start:112px;top:22px"></i></div>
+    </a>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="أسوة — نتعلم.. لنتأسى"></span>
+    <a class="mail" href="mailto:info@uswah.sa">info@uswah.sa</a>
+    <div class="demo" aria-label="أدوات العرض التجريبي">
+      <button type="button" id="resetBtn">إعادة التجربة</button>
+      <button type="button" id="unlockBtn">فتح كل الدروس (للعرض)</button>
+    </div>
+    <small>© <span class="num" id="year"></span> مركز أسوة للسيرة النبوية · نموذج تجريبي لواجهة أكاديمية السيرة النبوية</small>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mt"><div class="mcard" id="mcard"></div></div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script id="seed" type="application/json">__DATA__</script>
+<script>
+__LEAFLET_JS__
+</script>
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+const DATA = JSON.parse($('#seed').textContent);
+const LESSONS = DATA.lessons;
+const PASS_MARK = 5;      // النجاح من 5 فأكثر
+const QUIZ_LEN = 10;      // عدد أسئلة كل محاولة
+const QR_SVG = `__QR__`;
+const SIRA_MAP_URL = 'https://uswah.sa/sira-map.html';
+
+/* ---------- المظهر ---------- */
+const root = document.documentElement;
+function applyTheme(t) {
+  if (t) root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+  const dark = root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  $('#themeIcon').setAttribute('d', dark ? 'M12 4V2M12 22v-2M4 12H2M22 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' : 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z');
+}
+applyTheme(store.get('uswah.academy.theme', null));
+$('#themeBtn').addEventListener('click', () => {
+  const dark = root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  const t = dark ? 'light' : 'dark'; store.set('uswah.academy.theme', t); applyTheme(t);
+});
+$('#year').textContent = new Date().getFullYear();
+
+/* ---------- الحالة ---------- */
+let S = Object.assign({ passed: {}, best: {}, used: {}, unlockAll: false }, store.get('uswah.academy.v1', {}));
+const save = () => store.set('uswah.academy.v1', S);
+const isPassed = i => !!S.passed[LESSONS[i].id];
+const isUnlocked = i => S.unlockAll || i === 0 || isPassed(i - 1);
+const doneCount = () => LESSONS.filter((_, i) => isPassed(i)).length;
+const madinahOpen = () => S.unlockAll || doneCount() === LESSONS.length;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.hidden = true, 3200);
+}
+function renderProgress() {
+  const n = doneCount();
+  $('#progNum').textContent = n; $('#progTot').textContent = LESSONS.length;
+  $('#progBar').style.width = (n / LESSONS.length * 100) + '%';
+}
+
+/* ---------- الخريطة ---------- */
+const map = L.map('map', { zoomControl: true, minZoom: 5, maxZoom: 12, maxBounds: L.latLngBounds([[3, 24], [42, 66]]), maxBoundsViscosity: .7, attributionControl: false, zoomSnap: 0.25, zoomAnimation: !reduce, fadeAnimation: !reduce, scrollWheelZoom: false });
+const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+const BASES = {
+  imagery: L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 12 }),
+  terrain: L.tileLayer(ESRI + 'World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 12 }),
+};
+let baseKey = store.get('uswah.academy.layer', 'imagery'); if (!BASES[baseKey]) baseKey = 'imagery';
+function setBase(k) {
+  Object.values(BASES).forEach(l => map.hasLayer(l) && map.removeLayer(l));
+  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.layer', k); document.body.classList.toggle('sat', k === 'imagery');
+  document.querySelectorAll('#layers button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === k));
+}
+setBase(baseKey);
+const HomeCtl = L.Control.extend({ options: { position: 'topleft' }, onAdd() {
+  const b = L.DomUtil.create('button', 'homebtn'); b.type = 'button'; b.title = 'عرض الجزيرة العربية كاملة'; b.setAttribute('aria-label', b.title);
+  b.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  L.DomEvent.disableClickPropagation(b); L.DomEvent.on(b, 'click', () => map.flyToBounds(FIT, { duration: reduce ? 0 : 1 })); return b; } });
+$('#layers').addEventListener('click', e => { const b = e.target.closest('[data-l]'); if (b) setBase(b.dataset.l); });
+
+const MAKKAH = [21.4225, 39.8262], MADINA = [24.4683, 39.6108];
+// مسار الهجرة (تقريبي) — من خريطة السيرة: ثور ← عسفان ← أمج ← قديد ← الخرار ← قباء ← المدينة
+const ROUTE = [MAKKAH, [21.3775, 39.8508], [21.9163, 39.3400], [22.154, 39.318], [22.255, 39.25], [22.7055, 39.1469], [23.6, 39.35], [24.4392, 39.6172], MADINA];
+const routeLine = L.polyline(ROUTE, { color: '#f6dc8b', weight: 3, opacity: .75, dashArray: '7 9', className: 'route', lineCap: 'round' }).addTo(map);
+const FIT = L.latLngBounds([[12.4, 34.6], [31.8, 56.4]]);
+map.fitBounds(FIT, { padding: [0, 0] });
+new HomeCtl().addTo(map);
+const LOCK = '<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const pinHtml = (name, locked, extra = '') => `<div class="pin${locked ? ' locked' : ''}${extra ? ' ' + extra : ''}"><i>${locked ? LOCK : ''}</i><b>${name}</b></div>`;
+const mk = L.marker(MAKKAH, { icon: L.divIcon({ className: '', html: pinHtml('مكة المكرمة', false, 'bottom'), iconSize: [26, 26], iconAnchor: [13, 13] }), keyboard: true, title: 'مكة المكرمة — العهد المكي' }).addTo(map);
+const md = L.marker(MADINA, { icon: L.divIcon({ className: '', html: pinHtml('المدينة المنورة', true, 'top'), iconSize: [26, 26], iconAnchor: [13, 13] }), keyboard: true, title: 'المدينة المنورة — العهد المدني' }).addTo(map);
+// أسماء المناطق (تقريبية، كما في خريطة السيرة)
+[['الحجاز', [26.6, 38.0]], ['تهامة', [19.3, 41.8]], ['نجد', [26.2, 44.0]], ['اليمن', [15.5, 44.4]], ['اليمامة', [22.2, 47.4]], ['الشام', [31.3, 37.2]], ['عُمان', [21.6, 57.0]], ['البحرين', [26.4, 50.6]], ['البحر الأحمر', [20.6, 37.6]]]
+  .forEach(([n, ll]) => L.marker(ll, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: `<div class="rg">${n}</div>`, iconSize: [0, 0] }) }).addTo(map));
+// محطات قادمة (للتعريف بالمكان، وتُضاف دروسها لاحقًا). القريبة من مكة والمدينة لا تظهر إلا عند التقريب حتى لا تزدحم الخريطة.
+const MINOR = [['تبوك', [28.397, 36.579], 'top', 0], ['نجران', [17.493, 44.128], 'top', 0], ['بصرى الشام', [31.9, 36.48], 'top', 0],
+  ['الطائف', [21.2703, 40.4158], 'top', 7], ['الأبواء', [23.109, 39.094], 'bottom', 7], ['بدر', [23.78, 38.7906], 'bottom', 7], ['خيبر', [25.699, 39.2925], 'top', 7]]
+  .map(([n, ll, pos, z]) => ({ z, m: L.marker(ll, { icon: L.divIcon({ className: '', html: pinHtml(n, false, 'minor ' + pos), iconSize: [18, 18], iconAnchor: [9, 9] }), keyboard: true, title: n + ' — محطة قادمة' })
+    .on('click', () => toast(`«${n}» محطة قادمة — ستُضاف دروسها في النسخة الكاملة.`)) }));
+function updMinor() { const z = map.getZoom(); MINOR.forEach(x => { const on = z >= x.z; if (on && !map.hasLayer(x.m)) x.m.addTo(map); else if (!on && map.hasLayer(x.m)) map.removeLayer(x.m); }); }
+map.on('zoomend', updMinor); updMinor();
+function refreshMadinah() {
+  md.setIcon(L.divIcon({ className: '', html: pinHtml('المدينة المنورة', !madinahOpen(), 'top'), iconSize: [26, 26], iconAnchor: [13, 13] }));
+  routeLine.setStyle({ opacity: madinahOpen() ? 1 : .75, weight: madinahOpen() ? 4 : 3 });
+  $('#hintTxt').textContent = madinahOpen()
+    ? 'أتممتَ العهد المكي! النقطة في المدينة المنورة أصبحت مفتوحة.'
+    : 'اضغط على النقطة المضيئة في مكة لعرض الدروس. المدينة المنورة مقفلة حتى تُنهي دروس العهد المكي، والنقاط الأصغر محطات قادمة.';
+}
+const FOCUS = L.latLngBounds([MAKKAH, MADINA]).pad(0.4);
+mk.on('click', () => { if (map.getZoom() < 6.5) map.flyToBounds(FOCUS, { duration: reduce ? 0 : 1.1 }); showLessons(); });
+md.on('click', () => {
+  if (!madinahOpen()) {
+    toast('العهد المدني مقفل — يُفتح بعد إتمام دروس العهد المكي.');
+    const p = md.getElement() && md.getElement().querySelector('.pin');
+    if (p) { p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); }
+    return;
+  }
+  showMadinah();
+});
+
+/* ---------- منطقة الدروس ---------- */
+const stage = $('#stage');
+let view = null;       // 'lessons' | 'lesson' | 'quiz' | 'result' | 'madinah'
+let curLesson = 0, attempt = null, justUnlocked = -1;
+function go(scroll = true) {
+  if (scroll) { stage.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+}
+function showLessons(opts = {}) {
+  view = 'lessons';
+  const cards = LESSONS.map((l, i) => {
+    const done = isPassed(i), open = isUnlocked(i);
+    const cls = done ? 'done' : open ? 'open' : 'locked';
+    const st = done ? `<span class="st"><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>مكتمل · ${S.best[l.id] ?? ''}/${QUIZ_LEN}</span>`
+      : open ? `<span class="st">ابدأ الدرس</span>`
+      : `<span class="st"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>مقفل</span>`;
+    return `<button type="button" class="lc ${cls}${justUnlocked === i ? ' just' : ''}" data-i="${i}" ${open ? '' : 'aria-disabled="true"'}><span class="n num">${i + 1}</span><span><b>${esc(l.title)}</b><small>${esc(l.desc)}</small></span>${st}</button>`;
+  }).join('');
+  stage.innerHTML = `<div class="card"><h2>دروس العهد المكي</h2><p class="sub">دروس مرتبة؛ أنهِ كل درس واجتز اختباره ليفتح لك الدرس التالي، وبإتمامها تُفتح المدينة المنورة.</p><div class="lessons">${cards}</div></div>`;
+  justUnlocked = -1;
+  if (opts.scroll !== false) go();
+}
+function showMadinah() {
+  view = 'madinah';
+  stage.innerHTML = `<div class="card"><h2>دروس العهد المدني</h2><div class="soon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5"/></svg><b>قريبًا</b><p class="sub" style="margin:4px 0 0">هذا نموذج تجريبي، وستُضاف دروس العهد المدني في النسخة الكاملة.</p></div><button type="button" class="back" id="backL"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى دروس العهد المكي</button></div>`;
+  $('#backL').onclick = () => showLessons();
+  go();
+}
+stage.addEventListener('click', e => {
+  const lc = e.target.closest('.lc');
+  if (lc && view === 'lessons') {
+    const i = +lc.dataset.i;
+    if (!isUnlocked(i)) { toast('هذا الدرس مقفل — أنهِ الدرس السابق واجتز اختباره أولًا.'); return; }
+    openLesson(i);
+  }
+});
+
+function openLesson(i) {
+  view = 'lesson'; curLesson = i;
+  const l = LESSONS[i];
+  const qr = l.qr ? `<a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener" aria-label="إثراءات: افتح الخريطة التفاعلية للسيرة النبوية"><span class="tt">إثراءات</span><div class="code">${QR_SVG}</div><small>امسح الرمز لزيارة الخريطة التفاعلية للسيرة النبوية</small></a>` : '';
+  stage.innerHTML = `<div class="card">
+    <button type="button" class="back" id="backL"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>دروس العهد المكي</button>
+    <h2>الدرس ${i + 1}: ${esc(l.title)}</h2><p class="sub">${esc(l.desc)}</p>
+    <div class="lvgrid${l.qr ? ' withqr' : ''}">
+      <div><div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${l.video}?rel=0" title="${esc(l.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+      <div class="actions"><button type="button" class="btn primary" id="startQ"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1.9-1.1 1.6M12 17h.01"/></svg>الأسئلة</button><a class="btn" href="${l.videoUrl}" target="_blank" rel="noopener">فتح في يوتيوب</a></div></div>
+      ${qr}
+    </div></div>`;
+  $('#backL').onclick = () => showLessons();
+  $('#startQ').onclick = () => startQuiz(i);
+  go();
+}
+
+/* ---------- الاختبار ---------- */
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+function pickQuestions(l) {
+  const pool = l.questions.map((_, i) => i);
+  let used = S.used[l.id] || [];
+  let fresh = pool.filter(i => !used.includes(i));
+  if (fresh.length < QUIZ_LEN) { used = []; fresh = pool; }   // استُهلكت المجموعة: نعيد السحب من كل البنك
+  const chosen = shuffle(fresh).slice(0, QUIZ_LEN);
+  S.used[l.id] = used.concat(chosen); save();
+  return chosen.map(idx => {
+    const q = l.questions[idx];
+    const opts = shuffle([0, 1, 2, 3]).map(k => ({ t: q[1 + k], ok: k === 0 }));
+    return { idx, q: q[0], opts, ex: q[5], ans: null };
+  });
+}
+function startQuiz(i) {
+  view = 'quiz'; curLesson = i;
+  const l = LESSONS[i];
+  attempt = { lesson: i, qs: pickQuestions(l) };
+  renderQuiz();
+  go();
+}
+function renderQuiz() {
+  const l = LESSONS[attempt.lesson];
+  const qs = attempt.qs.map((x, n) => `<div class="q" id="q${n}"><h3><span class="qn num">${n + 1}</span><span>${esc(x.q)}</span></h3>${x.opts.map((o, k) => `<label class="opt"><input type="radio" name="q${n}" value="${k}" ${x.ans === k ? 'checked' : ''}><span>${esc(o.t)}</span></label>`).join('')}</div>`).join('');
+  stage.innerHTML = `<div class="card">
+    <button type="button" class="back" id="backLesson"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى الدرس</button>
+    <div class="qhead"><h2>اختبار الدرس ${attempt.lesson + 1}: ${esc(l.title)}</h2><span class="badge">أسئلة تجريبية</span></div>
+    <p class="sub">${QUIZ_LEN} أسئلة — النجاح من ${PASS_MARK} فأكثر. اختر إجابة واحدة لكل سؤال.</p>
+    <div class="qprog"><i id="qbar"></i></div>
+    ${qs}
+    <div class="submitbar"><span><b class="num" id="qcount">0</b> من ${QUIZ_LEN} أُجيب عنها</span><button type="button" class="btn primary" id="submitQ">إرسال</button></div></div>`;
+  $('#backLesson').onclick = () => openLesson(attempt.lesson);
+  $('#submitQ').onclick = submitQuiz;
+  stage.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', () => {
+    const n = +r.name.slice(1); attempt.qs[n].ans = +r.value;
+    document.getElementById('q' + n).classList.remove('miss'); updQuizBar();
+  }));
+  updQuizBar();
+}
+function updQuizBar() {
+  const n = attempt.qs.filter(x => x.ans !== null).length;
+  $('#qcount').textContent = n; $('#qbar').style.width = (n / QUIZ_LEN * 100) + '%';
+}
+function submitQuiz() {
+  const miss = attempt.qs.findIndex(x => x.ans === null);
+  if (miss >= 0) {
+    attempt.qs.forEach((x, n) => document.getElementById('q' + n).classList.toggle('miss', x.ans === null));
+    document.getElementById('q' + miss).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    toast('أجب عن كل الأسئلة قبل الإرسال.'); return;
+  }
+  const score = attempt.qs.filter(x => x.opts[x.ans].ok).length;
+  const l = LESSONS[attempt.lesson], pass = score >= PASS_MARK;
+  S.best[l.id] = Math.max(S.best[l.id] ?? 0, score);
+  let unlockedNext = false;
+  if (pass && !S.passed[l.id]) { S.passed[l.id] = true; unlockedNext = true; }
+  save();
+  showResult(score, pass, unlockedNext);
+}
+function burst() {
+  if (reduce) return;
+  const box = document.createElement('div'); box.className = 'confetti'; document.body.appendChild(box);
+  const cols = ['#d9a638', '#c2703d', '#f6dc8b', '#16967a', '#6e8fa3', '#fffaf6'];
+  for (let k = 0; k < 70; k++) {
+    const e = document.createElement('i');
+    e.style.cssText = `left:${Math.random() * 100}%;background:${cols[k % cols.length]};--dx:${(Math.random() - .5) * 240}px;--rot:${Math.random() * 720}deg;animation-duration:${1.6 + Math.random() * 1.4}s;animation-delay:${Math.random() * .35}s`;
+    box.appendChild(e);
+  }
+  setTimeout(() => box.remove(), 3600);
+}
+function showResult(score, pass, newlyPassed) {
+  view = 'result';
+  const i = attempt.lesson, l = LESSONS[i], next = LESSONS[i + 1];
+  const rev = attempt.qs.map((x, n) => {
+    const ok = x.opts[x.ans].ok, right = x.opts.find(o => o.ok);
+    return `<div class="rv ${ok ? 'right' : 'wrong'}"><h4>${n + 1}. ${esc(x.q)}</h4>
+      ${ok ? `<div class="a">إجابتك الصحيحة: <b>${esc(right.t)}</b></div>` : `<div class="a y">إجابتك: ${esc(x.opts[x.ans].t)}</div><div class="a">الصحيحة: <b>${esc(right.t)}</b></div>`}
+      <div class="ex">${esc(x.ex)}</div></div>`;
+  }).join('');
+  const msg = pass
+    ? (next ? `أحسنت! اجتزتَ الدرس، وقد فُتح لك «${esc(next.title)}».` : `أحسنت! أتممتَ دروس العهد المكي، وقد فُتحت لك المدينة المنورة على الخريطة.`)
+    : `لم تبلغ درجة النجاح (${PASS_MARK} من ${QUIZ_LEN}). راجع الإجابات الصحيحة أدناه، ثم أعد الاختبار بأسئلة جديدة.`;
+  const actions = pass
+    ? (next ? `<button type="button" class="btn ok" id="goNext">الانتقال إلى الدرس التالي</button>` : `<button type="button" class="btn ok" id="goMap">العودة إلى الخريطة</button>`) + `<button type="button" class="btn" id="goLessons">قائمة الدروس</button>`
+    : `<button type="button" class="btn primary" id="retry">إعادة الاختبار بأسئلة جديدة</button><button type="button" class="btn" id="goLesson">مراجعة الدرس</button>`;
+  stage.innerHTML = `<div class="card"><div class="score"><div class="ring" style="--p:${score * 10};--c:${pass ? 'var(--ok)' : 'var(--bad)'}"><span class="num">${score}<small>من ${QUIZ_LEN}</small></span></div>
+    <div class="verdict ${pass ? 'pass' : 'fail'}"><h2>${pass ? 'اجتزتَ الاختبار' : 'حاول مرة أخرى'}</h2><p class="sub" style="margin:0">${msg}</p></div></div>
+    <div class="mrow" style="margin:0 0 6px">${actions}</div><h2 style="font-size:17px;margin:16px 0 4px">مراجعة الإجابات</h2>${rev}<div class="mrow">${actions}</div></div>`;
+  stage.querySelectorAll('#goNext').forEach(b => b.onclick = () => openLesson(i + 1));
+  stage.querySelectorAll('#goMap').forEach(b => b.onclick = () => { showLessons({ scroll: false }); $('#map').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); });
+  stage.querySelectorAll('#goLessons').forEach(b => b.onclick = () => showLessons());
+  stage.querySelectorAll('#retry').forEach(b => b.onclick = () => startQuiz(i));
+  stage.querySelectorAll('#goLesson').forEach(b => b.onclick = () => openLesson(i));
+  renderProgress(); refreshMadinah();
+  if (pass) burst();
+  if (newlyPassed) { justUnlocked = i + 1; toast(next ? 'فُتح الدرس التالي 🔓' : 'فُتحت المدينة المنورة 🔓'); }
+  go();
+}
+
+/* ---------- القائمة الشخصية ---------- */
+const menu = $('#menu'), avatarBtn = $('#avatarBtn');
+function closeMenu() { menu.hidden = true; avatarBtn.setAttribute('aria-expanded', 'false'); }
+avatarBtn.addEventListener('click', e => { e.stopPropagation(); const open = menu.hidden; menu.hidden = !open; avatarBtn.setAttribute('aria-expanded', String(open)); });
+document.addEventListener('click', e => { if (!e.target.closest('.user')) closeMenu(); if (!e.target.closest('.search')) closeResults(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeResults(); closeModal(); } });
+const modal = $('#modal'), mcard = $('#mcard');
+function openModal(html) { mcard.innerHTML = html; modal.hidden = false; const x = mcard.querySelector('.mx'); if (x) x.focus(); }
+function closeModal() { modal.hidden = true; mcard.innerHTML = ''; }
+modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('.mx') || e.target.closest('[data-close]')) closeModal(); });
+const head = t => `<div class="mh"><h3 id="mt">${t}</h3><button class="mx" type="button" aria-label="إغلاق">✕</button></div>`;
+function stepsHtml() {
+  const rows = LESSONS.map((l, i) => {
+    const d = isPassed(i), o = isUnlocked(i);
+    return `<div><span class="num">${i + 1}.</span> ${esc(l.title)}<span class="sd ${d ? 'ok' : o ? '' : 'lk'}">${d ? 'مكتمل ✓' : o ? 'مفتوح' : 'مقفل 🔒'}</span></div>`;
+  }).join('');
+  return `<div class="steps">${rows}<div>العهد المدني<span class="sd ${madinahOpen() ? 'ok' : 'lk'}">${madinahOpen() ? 'مفتوح — قريبًا' : 'مقفل 🔒'}</span></div></div>`;
+}
+menu.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  closeMenu();
+  const act = b.dataset.act;
+  if (act === 'profile') {
+    const n = doneCount(), best = LESSONS.map(l => S.best[l.id]).filter(v => v != null);
+    openModal(`${head('الملف الشخصي')}<div class="pf"><span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.2"/><path d="M3.8 24c0-5.2 3.7-8.6 8.2-8.6s8.2 3.4 8.2 8.6z"/></svg></span><div><b>طالب تجريبي</b><div class="sub" style="margin:0">أكاديمية السيرة النبوية</div></div></div>
+      <div class="steps"><div>الدروس المنجزة<span class="sd num">${n} من ${LESSONS.length}</span></div><div>أعلى درجة<span class="sd num">${best.length ? Math.max(...best) + ' من ' + QUIZ_LEN : '—'}</span></div><div>المحاولات المسجلة<span class="sd num">${Object.keys(S.best).length}</span></div></div>
+      <div class="mrow"><button class="btn" type="button" data-close>إغلاق</button></div>`);
+  } else if (act === 'path') {
+    openModal(`${head('المسار التعليمي')}<p class="sub">مسار العهد المكي ← العهد المدني</p>${stepsHtml()}<div class="mrow"><button class="btn primary" type="button" id="toMap">اذهب إلى الخريطة</button><button class="btn" type="button" data-close>إغلاق</button></div>`);
+    $('#toMap').onclick = () => { closeModal(); $('#map').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); };
+  } else if (act === 'logout') {
+    openModal(`${head('تسجيل الخروج')}<p class="sub">هذا نموذج تجريبي بلا تسجيل دخول، فلا يوجد حساب فعلي للخروج منه. يمكنك إعادة التجربة من البداية.</p><div class="mrow"><button class="btn primary" type="button" id="mReset">إعادة التجربة</button><button class="btn" type="button" data-close>إغلاق</button></div>`);
+    $('#mReset').onclick = () => { closeModal(); resetDemo(); };
+  }
+});
+
+/* ---------- البحث ---------- */
+const norm = t => String(t ?? '').replace(/[ً-ٰٟـ]/g, '').replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').toLowerCase();
+const INDEX = [
+  { kind: 'path', title: 'العهد المكي', sub: 'من البعثة إلى الهجرة · 3 دروس', hay: norm('العهد المكي مكة البعثة الهجرة مسار'), act: () => { showLessons(); } },
+  { kind: 'path', title: 'العهد المدني', sub: 'يفتح بعد إتمام العهد المكي', hay: norm('العهد المدني المدينة المنورة'), act: () => md.fire('click') },
+  ...LESSONS.map((l, i) => ({ kind: 'lesson', i, title: `الدرس ${i + 1}: ${l.title}`, sub: l.desc, hay: norm([l.title, l.desc, ...l.questions.map(q => q[0] + ' ' + q[1])].join(' ')), act: () => { if (!isUnlocked(i)) { toast('هذا الدرس مقفل — أنهِ الدرس السابق واجتز اختباره أولًا.'); return; } openLesson(i); } })),
+];
+const qIn = $('#q'), resBox = $('#results');
+let shown = [];
+function closeResults() { resBox.hidden = true; }
+function runSearch() {
+  const ws = norm(qIn.value).split(/\s+/).filter(Boolean);
+  if (!ws.length) { closeResults(); return; }
+  shown = INDEX.filter(x => ws.every(w => x.hay.includes(w))).slice(0, 8);
+  resBox.innerHTML = shown.length ? shown.map((x, k) => {
+    const locked = x.kind === 'lesson' ? !isUnlocked(x.i) : (x.title === 'العهد المدني' && !madinahOpen());
+    return `<button type="button" role="option" data-k="${k}"><span><b>${esc(x.title)}</b><small>${esc(x.sub)}</small></span><span class="tag">${x.kind === 'lesson' ? 'درس' : 'مسار'}${locked ? ' 🔒' : ''}</span></button>`;
+  }).join('') : '<div class="none">لا نتائج مطابقة. جرّب كلمة أخرى، مثل: الهجرة أو حمزة أو الحبشة.</div>';
+  resBox.hidden = false;
+}
+qIn.addEventListener('input', runSearch);
+qIn.addEventListener('focus', runSearch);
+qIn.addEventListener('keydown', e => { if (e.key === 'Enter' && shown[0]) { e.preventDefault(); pick(0); } });
+resBox.addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b) pick(+b.dataset.k); });
+function pick(k) { const x = shown[k]; closeResults(); qIn.value = ''; qIn.blur(); if (x) x.act(); }
+
+/* ---------- أدوات العرض ---------- */
+function resetDemo() {
+  S = { passed: {}, best: {}, used: {}, unlockAll: false }; save();
+  attempt = null; renderProgress(); refreshMadinah(); stage.innerHTML = ''; view = null;
+  toast('أُعيدت التجربة من البداية.');
+  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+}
+$('#resetBtn').addEventListener('click', resetDemo);
+$('#unlockBtn').addEventListener('click', () => { S.unlockAll = true; save(); renderProgress(); refreshMadinah(); if (view === 'lessons') showLessons({ scroll: false }); toast('فُتحت كل الدروس لأغراض العرض.'); });
+
+renderProgress(); refreshMadinah();
+setTimeout(() => map.invalidateSize(), 300);
+if (matchMedia('(max-width: 640px)').matches) $('#q').placeholder = 'ابحث…';
+})();
+</script>
+</body>
+</html>
