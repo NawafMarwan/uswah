@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""يبني uswah-academy.html (نموذج واجهة أكاديمية السيرة النبوية) من القالب والبيانات.
+"""يبني academy/index.html (نموذج واجهة أكاديمية السيرة النبوية) من القالب والبيانات.
 
   python3 scripts/build_academy.py
 
 المدخلات: scripts/academy_template.html و data/academy.json (الدروس والأسئلة).
-المخرج:  uswah-academy.html في جذر المستودع، صفحة مستقلة بلا بوابة دخول (تجريبية).
+المخرج:  academy/index.html (الرابط uswah.sa/academy/)، صفحة مستقلة بلا بوابة دخول (تجريبية)،
+         وuswah-academy.html صفحة تحويل إلى الرابط الجديد.
 يحتاج مكتبة segno لتوليد رمز QR:  pip install segno
 """
 import json
@@ -13,6 +14,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SIRA_MAP_URL = "https://uswah.sa/sira-map.html"
+REDIRECT = """<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>أكاديمية السيرة النبوية — مركز أسوة</title>
+<meta http-equiv="refresh" content="0; url=academy/"><link rel="canonical" href="https://uswah.sa/academy/">
+<script>location.replace('academy/' + location.search + location.hash)</script></head>
+<body style="font-family:system-ui,sans-serif;text-align:center;padding:40px"><p>انتقل الرابط إلى <a href="academy/">uswah.sa/academy</a>.</p></body></html>
+"""
 
 
 def qr_svg() -> str:
@@ -40,9 +48,12 @@ def main():
     js = (ROOT / "scripts/vendor/leaflet.js").read_text(encoding="utf-8").replace("</script", "<\\/script")
     html = (tpl.replace("__LEAFLET_CSS__", css).replace("__LEAFLET_JS__", js)
                .replace("__LOGO__", logo).replace("__QR__", qr_svg()).replace("__DATA__", seed))
-    out = ROOT / "uswah-academy.html"
+    out = ROOT / "academy" / "index.html"          # الرابط: uswah.sa/academy/
+    out.parent.mkdir(exist_ok=True)
     out.write_text(html, encoding="utf-8")
-    print(f"uswah-academy.html: {len(html):,} bytes، دروس: {len(data['lessons'])}، "
+    # الرابط القديم يحوّل إلى المجلد الجديد حتى لا ينكسر ما أُرسل من روابط
+    (ROOT / "uswah-academy.html").write_text(REDIRECT, encoding="utf-8")
+    print(f"academy/index.html: {len(html):,} bytes، دروس: {len(data['lessons'])}، "
           f"أسئلة: {sum(len(l['questions']) for l in data['lessons'])}")
 
 
