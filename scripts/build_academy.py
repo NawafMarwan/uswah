@@ -29,6 +29,9 @@ def main():
         assert len(l["questions"]) >= 20, (l["id"], len(l["questions"]))
         for q in l["questions"]:
             assert len(q) == 6 and len(set(q[1:5])) == 4, q
+    pend = [l['id'] for l in data['lessons'] if l.get('pending')]
+    if pend:
+        print('تنبيه: دروس أسئلتها مؤقتة بعد:', pend)
     seed = json.dumps({"lessons": data["lessons"]}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     page = (ROOT / "_src" / "uswah.html").read_text(encoding="utf-8")
     logo = re.search(r'--logo:url\("(data:image/png;base64,[^"]+)"\)', page).group(1)

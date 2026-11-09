@@ -65,7 +65,9 @@ button{font:inherit;color:inherit}
 .topbar{position:sticky;top:0;z-index:1200;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex;align-items:center;gap:12px;height:66px}
 .user{position:relative;flex:none}
-.avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--copper);background:linear-gradient(135deg,var(--plum),var(--plum-2));color:var(--on-brand);font-weight:700;font-size:18px;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 14px -6px var(--plum);transition:transform .15s}
+.avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--line-2);background:var(--surface-3);color:var(--muted);cursor:pointer;display:grid;place-items:center;overflow:hidden;padding:0;transition:transform .15s,border-color .15s}
+.avatar svg{width:100%;height:100%;fill:currentColor;stroke:none}
+.avatar:hover{border-color:var(--copper)}
 .avatar:hover{transform:scale(1.05)}
 .menu{position:absolute;inset-inline-start:0;top:calc(100% + 10px);min-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 44px -14px rgba(0,0,0,.4);padding:8px;z-index:1300}
 .menu .mhead{padding:8px 12px 10px;border-bottom:1px solid var(--line);margin-bottom:6px}
@@ -110,6 +112,8 @@ button{font:inherit;color:inherit}
 .seg button[aria-pressed="true"]{background:var(--btn-bg);color:var(--btn-ink)}
 #map{height:clamp(320px,50vh,440px);background:#cfd9dc;direction:ltr}
 .leaflet-container{font-family:inherit}
+.homebtn{display:grid;place-items:center;width:34px;height:34px;margin:6px 0 0 10px;background:#fff;color:#333;border:2px solid rgba(0,0,0,.2);border-radius:4px;cursor:pointer;padding:0}
+.homebtn:hover{background:#f4f4f4}
 .hint{padding:9px 18px;font-size:13.5px;color:var(--ink-2);display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);background:var(--surface-2)}
 .pin{position:relative;width:26px;height:26px;display:grid;place-items:center;cursor:pointer;direction:rtl}
 .pin i{display:block;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3d9,#f0b34f 55%,#c2703d);border:2.5px solid #fff;box-shadow:0 0 0 0 rgba(240,179,79,.7),0 0 18px 6px rgba(240,179,79,.55);animation:glow 2.4s ease-in-out infinite}
@@ -119,10 +123,19 @@ button{font:inherit;color:inherit}
 .pin.locked i svg{width:13px;height:13px;stroke:#3a2236;fill:none;stroke-width:2.4}
 .pin.locked b{background:rgba(58,34,54,.72)}
 .pin.shake i{animation:shake .45s}
+.pin.minor{width:18px;height:18px}
+.pin.minor i{width:12px;height:12px;border-width:2px;opacity:.9;animation:glowSoft 3.2s ease-in-out infinite}
+.pin.minor b{font-size:11px;padding:1px 8px;font-weight:600;background:rgba(58,34,54,.78)}
+.pin.top b{top:auto;bottom:100%;margin-top:0;margin-bottom:4px}
+.pin.minor:hover i{transform:scale(1.25);opacity:1}
+@keyframes glowSoft{0%,100%{box-shadow:0 0 8px 2px rgba(240,179,79,.45)}50%{box-shadow:0 0 14px 5px rgba(240,179,79,.65)}}
+.rg{font-size:15px;font-weight:700;color:rgba(58,34,54,.55);white-space:nowrap;transform:translate(-50%,-50%);letter-spacing:.04em;text-shadow:0 0 6px rgba(255,255,255,.7);pointer-events:none;direction:rtl}
+.sat .rg{color:rgba(255,250,246,.82);text-shadow:0 1px 5px rgba(0,0,0,.85)}
+@media (max-width:640px){.rg{font-size:12px}}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(240,179,79,.65),0 0 16px 5px rgba(240,179,79,.45)}50%{box-shadow:0 0 0 12px rgba(240,179,79,0),0 0 24px 9px rgba(240,179,79,.65)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .route{stroke-dasharray:7 9}
-@media (prefers-reduced-motion:reduce){.pin i{animation:none!important}.route{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.pin i,.pin.minor i{animation:none!important}.route{animation:none!important}}
 
 /* ===== منطقة الدروس ===== */
 .stage{max-width:900px;margin:22px auto 0;scroll-margin-top:84px}
@@ -221,7 +234,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 .mh h3{margin:0;font-size:19px}
 .mx{border:1px solid var(--line);background:var(--surface-2);width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:16px}
 .pf{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.pf .avatar{width:58px;height:58px;font-size:24px;cursor:default}
+.pf .avatar{width:58px;height:58px;cursor:default}
 .pf .avatar:hover{transform:none}
 .steps{display:grid;gap:8px;margin:8px 0 14px}
 .steps div{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14.5px;background:var(--surface-2)}
@@ -246,7 +259,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 <header class="topbar">
   <div class="wrap">
     <div class="user">
-      <button class="avatar" id="avatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu" aria-label="القائمة الشخصية">ط</button>
+      <button class="avatar" id="avatarBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu" aria-label="القائمة الشخصية"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.2"/><path d="M3.8 24c0-5.2 3.7-8.6 8.2-8.6s8.2 3.4 8.2 8.6z"/></svg></button>
       <div class="menu" id="menu" role="menu" hidden>
         <div class="mhead"><b>طالب تجريبي</b><small>أكاديمية السيرة النبوية</small></div>
         <button type="button" role="menuitem" data-act="profile"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>الملف الشخصي</button>
@@ -282,11 +295,11 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
   <section class="wrap">
     <div class="mapcard">
       <div class="maphead">
-        <div><b>رحلة الدعوة: من البعثة إلى الهجرة</b><small>مكة المكرمة ← المدينة المنورة (المسار تقريبي)</small></div>
+        <div><b>رحلة السيرة النبوية في الجزيرة العربية</b><small>مكة المكرمة ← المدينة المنورة (المسار تقريبي)</small></div>
         <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="imagery" aria-pressed="true">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
       </div>
-      <div id="map" role="application" aria-label="خريطة العهد المكي"></div>
-      <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض دروس العهد المكي.</span></div>
+      <div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div>
+      <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض الدروس.</span></div>
     </div>
 
     <div class="stage" id="stage" tabindex="-1" aria-live="polite"></div>
@@ -370,7 +383,7 @@ function renderProgress() {
 }
 
 /* ---------- الخريطة ---------- */
-const map = L.map('map', { zoomControl: true, minZoom: 6, maxZoom: 12, attributionControl: false, zoomSnap: 0.25, zoomAnimation: !reduce, fadeAnimation: !reduce, scrollWheelZoom: false });
+const map = L.map('map', { zoomControl: true, minZoom: 5, maxZoom: 12, maxBounds: L.latLngBounds([[3, 24], [42, 66]]), maxBoundsViscosity: .7, attributionControl: false, zoomSnap: 0.25, zoomAnimation: !reduce, fadeAnimation: !reduce, scrollWheelZoom: false });
 const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
 const BASES = {
   imagery: L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 12 }),
@@ -379,29 +392,46 @@ const BASES = {
 let baseKey = store.get('uswah.academy.layer', 'imagery'); if (!BASES[baseKey]) baseKey = 'imagery';
 function setBase(k) {
   Object.values(BASES).forEach(l => map.hasLayer(l) && map.removeLayer(l));
-  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.layer', k);
+  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.layer', k); document.body.classList.toggle('sat', k === 'imagery');
   document.querySelectorAll('#layers button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === k));
 }
 setBase(baseKey);
+const HomeCtl = L.Control.extend({ options: { position: 'topleft' }, onAdd() {
+  const b = L.DomUtil.create('button', 'homebtn'); b.type = 'button'; b.title = 'عرض الجزيرة العربية كاملة'; b.setAttribute('aria-label', b.title);
+  b.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  L.DomEvent.disableClickPropagation(b); L.DomEvent.on(b, 'click', () => map.flyToBounds(FIT, { duration: reduce ? 0 : 1 })); return b; } });
 $('#layers').addEventListener('click', e => { const b = e.target.closest('[data-l]'); if (b) setBase(b.dataset.l); });
 
 const MAKKAH = [21.4225, 39.8262], MADINA = [24.4683, 39.6108];
 // مسار الهجرة (تقريبي) — من خريطة السيرة: ثور ← عسفان ← أمج ← قديد ← الخرار ← قباء ← المدينة
 const ROUTE = [MAKKAH, [21.3775, 39.8508], [21.9163, 39.3400], [22.154, 39.318], [22.255, 39.25], [22.7055, 39.1469], [23.6, 39.35], [24.4392, 39.6172], MADINA];
 const routeLine = L.polyline(ROUTE, { color: '#f6dc8b', weight: 3, opacity: .75, dashArray: '7 9', className: 'route', lineCap: 'round' }).addTo(map);
-map.fitBounds(L.latLngBounds([MAKKAH, MADINA]).pad(0.28));
+const FIT = L.latLngBounds([[12.4, 34.6], [31.8, 56.4]]);
+map.fitBounds(FIT, { padding: [0, 0] });
+new HomeCtl().addTo(map);
 const LOCK = '<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
-const pinHtml = (name, locked) => `<div class="pin${locked ? ' locked' : ''}"><i>${locked ? LOCK : ''}</i><b>${name}</b></div>`;
-const mk = L.marker(MAKKAH, { icon: L.divIcon({ className: '', html: pinHtml('مكة المكرمة', false), iconSize: [26, 26], iconAnchor: [13, 13] }), keyboard: true, title: 'مكة المكرمة — العهد المكي' }).addTo(map);
-const md = L.marker(MADINA, { icon: L.divIcon({ className: '', html: pinHtml('المدينة المنورة', true), iconSize: [26, 26], iconAnchor: [13, 13] }), keyboard: true, title: 'المدينة المنورة — العهد المدني' }).addTo(map);
+const pinHtml = (name, locked, extra = '') => `<div class="pin${locked ? ' locked' : ''}${extra ? ' ' + extra : ''}"><i>${locked ? LOCK : ''}</i><b>${name}</b></div>`;
+const mk = L.marker(MAKKAH, { icon: L.divIcon({ className: '', html: pinHtml('مكة المكرمة', false, 'bottom'), iconSize: [26, 26], iconAnchor: [13, 13] }), keyboard: true, title: 'مكة المكرمة — العهد المكي' }).addTo(map);
+const md = L.marker(MADINA, { icon: L.divIcon({ className: '', html: pinHtml('المدينة المنورة', true, 'top'), iconSize: [26, 26], iconAnchor: [13, 13] }), keyboard: true, title: 'المدينة المنورة — العهد المدني' }).addTo(map);
+// أسماء المناطق (تقريبية، كما في خريطة السيرة)
+[['الحجاز', [26.6, 38.0]], ['تهامة', [19.3, 41.8]], ['نجد', [26.2, 44.0]], ['اليمن', [15.5, 44.4]], ['اليمامة', [22.2, 47.4]], ['الشام', [31.3, 37.2]], ['عُمان', [21.6, 57.0]], ['البحرين', [26.4, 50.6]], ['البحر الأحمر', [20.6, 37.6]]]
+  .forEach(([n, ll]) => L.marker(ll, { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: `<div class="rg">${n}</div>`, iconSize: [0, 0] }) }).addTo(map));
+// محطات قادمة (للتعريف بالمكان، وتُضاف دروسها لاحقًا). القريبة من مكة والمدينة لا تظهر إلا عند التقريب حتى لا تزدحم الخريطة.
+const MINOR = [['تبوك', [28.397, 36.579], 'top', 0], ['نجران', [17.493, 44.128], 'top', 0], ['بصرى الشام', [31.9, 36.48], 'top', 0],
+  ['الطائف', [21.2703, 40.4158], 'top', 7], ['الأبواء', [23.109, 39.094], 'bottom', 7], ['بدر', [23.78, 38.7906], 'bottom', 7], ['خيبر', [25.699, 39.2925], 'top', 7]]
+  .map(([n, ll, pos, z]) => ({ z, m: L.marker(ll, { icon: L.divIcon({ className: '', html: pinHtml(n, false, 'minor ' + pos), iconSize: [18, 18], iconAnchor: [9, 9] }), keyboard: true, title: n + ' — محطة قادمة' })
+    .on('click', () => toast(`«${n}» محطة قادمة — ستُضاف دروسها في النسخة الكاملة.`)) }));
+function updMinor() { const z = map.getZoom(); MINOR.forEach(x => { const on = z >= x.z; if (on && !map.hasLayer(x.m)) x.m.addTo(map); else if (!on && map.hasLayer(x.m)) map.removeLayer(x.m); }); }
+map.on('zoomend', updMinor); updMinor();
 function refreshMadinah() {
-  md.setIcon(L.divIcon({ className: '', html: pinHtml('المدينة المنورة', !madinahOpen()), iconSize: [26, 26], iconAnchor: [13, 13] }));
+  md.setIcon(L.divIcon({ className: '', html: pinHtml('المدينة المنورة', !madinahOpen(), 'top'), iconSize: [26, 26], iconAnchor: [13, 13] }));
   routeLine.setStyle({ opacity: madinahOpen() ? 1 : .75, weight: madinahOpen() ? 4 : 3 });
   $('#hintTxt').textContent = madinahOpen()
     ? 'أتممتَ العهد المكي! النقطة في المدينة المنورة أصبحت مفتوحة.'
-    : 'اضغط على النقطة المضيئة في مكة لعرض دروس العهد المكي. المدينة المنورة مقفلة حتى تُنهي العهد المكي.';
+    : 'اضغط على النقطة المضيئة في مكة لعرض الدروس. المدينة المنورة مقفلة حتى تُنهي دروس العهد المكي، والنقاط الأصغر محطات قادمة.';
 }
-mk.on('click', () => { showLessons(); });
+const FOCUS = L.latLngBounds([MAKKAH, MADINA]).pad(0.4);
+mk.on('click', () => { if (map.getZoom() < 6.5) map.flyToBounds(FOCUS, { duration: reduce ? 0 : 1.1 }); showLessons(); });
 md.on('click', () => {
   if (!madinahOpen()) {
     toast('العهد المدني مقفل — يُفتح بعد إتمام دروس العهد المكي.');
@@ -429,7 +459,7 @@ function showLessons(opts = {}) {
       : `<span class="st"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>مقفل</span>`;
     return `<button type="button" class="lc ${cls}${justUnlocked === i ? ' just' : ''}" data-i="${i}" ${open ? '' : 'aria-disabled="true"'}><span class="n num">${i + 1}</span><span><b>${esc(l.title)}</b><small>${esc(l.desc)}</small></span>${st}</button>`;
   }).join('');
-  stage.innerHTML = `<div class="card"><h2>دروس العهد المكي</h2><p class="sub">من البعثة حتى الوصول إلى المدينة المنورة. أنهِ كل درس واجتز اختباره ليفتح لك الدرس التالي.</p><div class="lessons">${cards}</div></div>`;
+  stage.innerHTML = `<div class="card"><h2>دروس العهد المكي</h2><p class="sub">دروس مرتبة؛ أنهِ كل درس واجتز اختباره ليفتح لك الدرس التالي، وبإتمامها تُفتح المدينة المنورة.</p><div class="lessons">${cards}</div></div>`;
   justUnlocked = -1;
   if (opts.scroll !== false) go();
 }
@@ -576,7 +606,7 @@ menu.addEventListener('click', e => {
   const act = b.dataset.act;
   if (act === 'profile') {
     const n = doneCount(), best = LESSONS.map(l => S.best[l.id]).filter(v => v != null);
-    openModal(`${head('الملف الشخصي')}<div class="pf"><span class="avatar">ط</span><div><b>طالب تجريبي</b><div class="sub" style="margin:0">أكاديمية السيرة النبوية</div></div></div>
+    openModal(`${head('الملف الشخصي')}<div class="pf"><span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.2"/><path d="M3.8 24c0-5.2 3.7-8.6 8.2-8.6s8.2 3.4 8.2 8.6z"/></svg></span><div><b>طالب تجريبي</b><div class="sub" style="margin:0">أكاديمية السيرة النبوية</div></div></div>
       <div class="steps"><div>الدروس المنجزة<span class="sd num">${n} من ${LESSONS.length}</span></div><div>أعلى درجة<span class="sd num">${best.length ? Math.max(...best) + ' من ' + QUIZ_LEN : '—'}</span></div><div>المحاولات المسجلة<span class="sd num">${Object.keys(S.best).length}</span></div></div>
       <div class="mrow"><button class="btn" type="button" data-close>إغلاق</button></div>`);
   } else if (act === 'path') {
