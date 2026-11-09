@@ -227,6 +227,12 @@ footer.site .demo button{background:rgba(255,255,255,.08);border:1px solid rgba(
 footer.site .demo button:hover{background:rgba(255,255,255,.16)}
 footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%;background:radial-gradient(closest-side,rgba(194,112,61,.35),transparent);pointer-events:none}
 
+/* ===== احتفال النجاح ===== */
+.confetti{position:fixed;inset:0;z-index:3500;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;opacity:.95;animation:fall linear forwards}
+@keyframes fall{to{transform:translate3d(var(--dx),108vh,0) rotate(var(--rot));opacity:.9}}
+@media (prefers-reduced-motion:reduce){.confetti{display:none}}
+
 /* ===== نوافذ وتنبيه ===== */
 .modal{position:fixed;inset:0;z-index:3000;background:rgba(20,10,18,.62);display:grid;place-items:center;padding:16px}
 .mcard{width:100%;max-width:480px;max-height:88vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);padding:20px}
@@ -554,6 +560,17 @@ function submitQuiz() {
   save();
   showResult(score, pass, unlockedNext);
 }
+function burst() {
+  if (reduce) return;
+  const box = document.createElement('div'); box.className = 'confetti'; document.body.appendChild(box);
+  const cols = ['#d9a638', '#c2703d', '#f6dc8b', '#16967a', '#6e8fa3', '#fffaf6'];
+  for (let k = 0; k < 70; k++) {
+    const e = document.createElement('i');
+    e.style.cssText = `left:${Math.random() * 100}%;background:${cols[k % cols.length]};--dx:${(Math.random() - .5) * 240}px;--rot:${Math.random() * 720}deg;animation-duration:${1.6 + Math.random() * 1.4}s;animation-delay:${Math.random() * .35}s`;
+    box.appendChild(e);
+  }
+  setTimeout(() => box.remove(), 3600);
+}
 function showResult(score, pass, newlyPassed) {
   view = 'result';
   const i = attempt.lesson, l = LESSONS[i], next = LESSONS[i + 1];
@@ -578,6 +595,7 @@ function showResult(score, pass, newlyPassed) {
   stage.querySelectorAll('#retry').forEach(b => b.onclick = () => startQuiz(i));
   stage.querySelectorAll('#goLesson').forEach(b => b.onclick = () => openLesson(i));
   renderProgress(); refreshMadinah();
+  if (pass) burst();
   if (newlyPassed) { justUnlocked = i + 1; toast(next ? 'فُتح الدرس التالي 🔓' : 'فُتحت المدينة المنورة 🔓'); }
   go();
 }
