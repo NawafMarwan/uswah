@@ -227,6 +227,57 @@ footer.site .demo button{background:rgba(255,255,255,.08);border:1px solid rgba(
 footer.site .demo button:hover{background:rgba(255,255,255,.16)}
 footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%;background:radial-gradient(closest-side,rgba(194,112,61,.35),transparent);pointer-events:none}
 
+/* ===== مسار الطالب المتوهج (بلون الشعار) ===== */
+.route-done{filter:drop-shadow(0 0 3px #bfe3f5) drop-shadow(0 0 10px #6e8fa3)}
+.route-now{filter:drop-shadow(0 0 6px #9cd3ee);animation:flow 1.3s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-32}}
+.you{position:relative;width:22px;height:22px;display:grid;place-items:center}
+.you i{display:block;width:16px;height:16px;border-radius:50%;background:#bfe3f5;border:3px solid #fff;box-shadow:0 0 0 0 rgba(156,211,238,.75),0 0 16px 6px rgba(111,170,205,.7);animation:glowBlue 2.2s ease-in-out infinite}
+.you b{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:5px;background:#6e8fa3;color:#fff;font-size:11px;font-weight:700;padding:1px 9px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+@keyframes glowBlue{0%,100%{box-shadow:0 0 0 0 rgba(156,211,238,.7),0 0 14px 5px rgba(111,170,205,.6)}50%{box-shadow:0 0 0 11px rgba(156,211,238,0),0 0 22px 8px rgba(111,170,205,.85)}}
+@media (prefers-reduced-motion:reduce){.route-now,.you i{animation:none!important}}
+
+/* ===== صفحة الدرس: الخريطة المتزامنة ===== */
+.lvtop{max-width:900px;margin:18px auto 0}
+.lmapcard{margin-top:6px}
+#lmap{height:clamp(300px,46vh,420px);background:#cfd9dc;direction:ltr}
+.sp{position:relative;display:grid;place-items:center;cursor:pointer;direction:rtl}
+.sp i{unicode-bidi:isolate;direction:ltr;white-space:nowrap;display:block;min-width:24px;height:24px;padding:0 6px;border-radius:99px;font-style:normal;font-weight:700;font-size:12px;line-height:20px;text-align:center;color:#fff;border:2px solid #fff;background:#8aa5b5;box-shadow:0 0 8px rgba(0,0,0,.35);transition:transform .2s}
+.sp b{position:absolute;top:100%;margin-top:5px;left:50%;transform:translateX(-50%);display:none;background:rgba(58,34,54,.92);color:#fffaf6;font-size:12px;font-weight:700;padding:2px 11px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.sp.fut i{opacity:.65}
+.sp.past i{background:#6e8fa3;box-shadow:0 0 0 2px rgba(156,211,238,.5),0 0 12px 3px rgba(111,170,205,.7)}
+.sp.cur i{background:radial-gradient(circle at 35% 35%,#fff3d9,#f0b34f 55%,#c2703d);color:#3a2236;transform:scale(1.25);animation:glow 2.4s ease-in-out infinite}
+.sp.cur b{display:block}
+.seg-done{filter:drop-shadow(0 0 3px #bfe3f5) drop-shadow(0 0 9px #6e8fa3)}
+.seg-now{filter:drop-shadow(0 0 6px #9cd3ee);animation:flow 1.3s linear infinite}
+.cap{padding:14px 18px 16px;border-top:1px solid var(--line);background:var(--surface)}
+.cap .cmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+.cap .chip{background:var(--surface-3);border-radius:99px;padding:1px 12px;font-weight:700;color:var(--copper-ink)}
+.cap h3{margin:4px 0 2px;font-size:18px;line-height:1.6}
+.cap .ctext{margin:0;font-size:15.5px;line-height:2;color:var(--ink)}
+.cap .csrc{margin-top:6px;font-size:12.5px;color:var(--muted)}
+.cap .ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.cap .ctrl .btn{padding:8px 16px;font-size:14.5px}
+.cap .sdots{display:flex;gap:6px;margin-inline-start:auto;flex-wrap:wrap}
+.cap .sdots button{width:11px;height:11px;border-radius:50%;border:0;padding:0;background:var(--surface-3);cursor:pointer;outline-offset:3px}
+.cap .sdots button.on{background:var(--copper);transform:scale(1.35)}
+.cap .sdots button.seen{background:var(--slate)}
+
+/* ===== نافذة المقرر ===== */
+.mcard.wide{max-width:600px}
+.cprog{display:flex;align-items:center;gap:10px;margin:2px 0 12px;font-size:13.5px;color:var(--ink-2)}
+.cprog .bar{flex:1;height:8px;border-radius:99px;background:var(--surface-3);overflow:hidden}
+.cprog .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--slate),#9cd3ee);border-radius:99px}
+.clist{display:grid;gap:10px}
+.cl{display:flex;gap:12px;border:1px solid var(--line-2);border-radius:16px;padding:12px 14px;background:var(--surface)}
+.cl .n{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--plum);color:var(--on-brand);font-weight:700}
+.cl b{font-size:15.5px;line-height:1.6;display:block}
+.cl .stx{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:0 10px;margin-top:2px;border:1px solid var(--line-2);color:var(--ink-2)}
+.cl ul{margin:6px 0 0;padding-inline-start:18px;color:var(--ink-2);font-size:14px;line-height:1.85}
+.cl.done{border-color:var(--ok)}.cl.done .n{background:var(--ok)}.cl.done .stx{color:var(--ok);border-color:var(--ok)}
+.cl.open{border-color:var(--copper)}.cl.open .stx{color:var(--copper-ink);border-color:var(--copper)}
+.cl.locked{background:var(--surface-2);opacity:.85}.cl.locked .n{background:#9a7c6a}
+
 /* ===== احتفال النجاح ===== */
 .confetti{position:fixed;inset:0;z-index:3500;pointer-events:none;overflow:hidden}
 .confetti i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;opacity:.95;animation:fall linear forwards}
@@ -288,6 +339,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 </header>
 
 <main>
+  <div id="homeView">
   <section class="hero wrap">
     <div class="kick">نموذج تجريبي لواجهة الأكاديمية</div>
     <h1>أكاديمية السيرة النبوية</h1>
@@ -305,11 +357,23 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
         <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="imagery" aria-pressed="true">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
       </div>
       <div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div>
-      <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض الدروس.</span></div>
+      <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض مقرر الدروس.</span></div>
     </div>
 
-    <div class="stage" id="stage" tabindex="-1" aria-live="polite"></div>
+  </section>
+  </div>
 
+  <section class="wrap" id="lessonView" hidden>
+    <div class="lvtop"><button type="button" class="back" id="backHome"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى الخريطة</button></div>
+    <div class="mapcard lmapcard">
+      <div class="maphead"><div><b id="lmTitle"></b><small id="lmSub"></small></div></div>
+      <div id="lmap" role="application" aria-label="خريطة الدرس"></div>
+      <div class="cap" id="cap" aria-live="polite"></div>
+    </div>
+    <div class="stage" id="stage" tabindex="-1" aria-live="polite"></div>
+  </section>
+
+  <section class="wrap">
     <a class="cta" href="https://uswah.sa/sira-map.html" target="_blank" rel="noopener">
       <div>
         <h3>الخريطة التفاعلية للسيرة النبوية</h3>
@@ -411,7 +475,6 @@ $('#layers').addEventListener('click', e => { const b = e.target.closest('[data-
 const MAKKAH = [21.4225, 39.8262], MADINA = [24.4683, 39.6108];
 // مسار الهجرة (تقريبي) — من خريطة السيرة: ثور ← عسفان ← أمج ← قديد ← الخرار ← قباء ← المدينة
 const ROUTE = [MAKKAH, [21.3775, 39.8508], [21.9163, 39.3400], [22.154, 39.318], [22.255, 39.25], [22.7055, 39.1469], [23.6, 39.35], [24.4392, 39.6172], MADINA];
-const routeLine = L.polyline(ROUTE, { color: '#f6dc8b', weight: 3, opacity: .75, dashArray: '7 9', className: 'route', lineCap: 'round' }).addTo(map);
 const FIT = L.latLngBounds([[12.4, 34.6], [31.8, 56.4]]);
 map.fitBounds(FIT, { padding: [0, 0] });
 new HomeCtl().addTo(map);
@@ -429,15 +492,40 @@ const MINOR = [['تبوك', [28.397, 36.579], 'top', 0], ['نجران', [17.493,
     .on('click', () => toast(`«${n}» محطة قادمة — ستُضاف دروسها في النسخة الكاملة.`)) }));
 function updMinor() { const z = map.getZoom(); MINOR.forEach(x => { const on = z >= x.z; if (on && !map.hasLayer(x.m)) x.m.addTo(map); else if (!on && map.hasLayer(x.m)) map.removeLayer(x.m); }); }
 map.on('zoomend', updMinor); updMinor();
+/* ---------- مسار الطالب المتوهج ---------- */
+const RLEN = []; let RTOT = 0;
+for (let k = 1; k < ROUTE.length; k++) { RTOT += map.distance(ROUTE[k - 1], ROUTE[k]); RLEN.push(RTOT); }
+function routeSlice(f) {
+  const target = RTOT * f, pts = [ROUTE[0]];
+  for (let k = 1; k < ROUTE.length; k++) {
+    const a0 = k > 1 ? RLEN[k - 2] : 0, a1 = RLEN[k - 1];
+    if (target >= a1) { pts.push(ROUTE[k]); continue; }
+    const t = (target - a0) / (a1 - a0), A = ROUTE[k - 1], B = ROUTE[k];
+    pts.push([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t]); break;
+  }
+  return pts;
+}
+const routeBase = L.polyline(ROUTE, { color: '#fffaf6', weight: 3, opacity: .55, dashArray: '2 8', lineCap: 'round' }).addTo(map);
+const routeDone = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 4, opacity: 1, lineCap: 'round', className: 'route-done' }).addTo(map);
+const routeNow = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 4, opacity: .95, dashArray: '6 10', lineCap: 'round', className: 'route-now' }).addTo(map);
+const you = L.marker(MAKKAH, { icon: L.divIcon({ className: '', html: '<div class="you"><i></i><b>أنت هنا</b></div>', iconSize: [22, 22], iconAnchor: [11, 11] }), interactive: false, zIndexOffset: 900 }).addTo(map);
+function updateRoute() {
+  const N = LESSONS.length, n = madinahOpen() ? N : doneCount();
+  const s0 = routeSlice(n / N), s1 = routeSlice(Math.min(n + 1, N) / N);
+  routeDone.setLatLngs(s0);
+  routeNow.setLatLngs(n >= N ? [s0[s0.length - 1], s0[s0.length - 1]] : [s0[s0.length - 1]].concat(s1.slice(s0.length - 1)));
+  you.setLatLng(s0[s0.length - 1]);
+  if (n === 0 || n >= N) { if (map.hasLayer(you)) map.removeLayer(you); } else if (!map.hasLayer(you)) you.addTo(map);   // عند البداية تدل مكة نفسها على موضعك، وفي النهاية تدل المدينة
+}
 function refreshMadinah() {
   md.setIcon(L.divIcon({ className: '', html: pinHtml('المدينة المنورة', !madinahOpen(), 'top'), iconSize: [26, 26], iconAnchor: [13, 13] }));
-  routeLine.setStyle({ opacity: madinahOpen() ? 1 : .75, weight: madinahOpen() ? 4 : 3 });
+  updateRoute();
   $('#hintTxt').textContent = madinahOpen()
     ? 'أتممتَ العهد المكي! النقطة في المدينة المنورة أصبحت مفتوحة.'
-    : 'اضغط على النقطة المضيئة في مكة لعرض الدروس. المدينة المنورة مقفلة حتى تُنهي دروس العهد المكي، والنقاط الأصغر محطات قادمة.';
+    : 'اضغط على النقطة المضيئة في مكة لعرض مقرر الدروس. المسار الأزرق المتوهج هو طريقك، والمدينة المنورة مقفلة حتى تُنهي دروس العهد المكي.';
 }
 const FOCUS = L.latLngBounds([MAKKAH, MADINA]).pad(0.4);
-mk.on('click', () => { if (map.getZoom() < 6.5) map.flyToBounds(FOCUS, { duration: reduce ? 0 : 1.1 }); showLessons(); });
+mk.on('click', () => { if (map.getZoom() < 6.5) map.flyToBounds(FOCUS, { duration: reduce ? 0 : 1.1 }); openCourse(); });
 md.on('click', () => {
   if (!madinahOpen()) {
     toast('العهد المدني مقفل — يُفتح بعد إتمام دروس العهد المكي.');
@@ -451,54 +539,150 @@ md.on('click', () => {
 /* ---------- منطقة الدروس ---------- */
 const stage = $('#stage');
 let view = null;       // 'lessons' | 'lesson' | 'quiz' | 'result' | 'madinah'
-let curLesson = 0, attempt = null, justUnlocked = -1;
+let curLesson = 0, attempt = null;
 function go(scroll = true) {
   if (scroll) { stage.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
 }
-function showLessons(opts = {}) {
-  view = 'lessons';
-  const cards = LESSONS.map((l, i) => {
-    const done = isPassed(i), open = isUnlocked(i);
-    const cls = done ? 'done' : open ? 'open' : 'locked';
-    const st = done ? `<span class="st"><svg class="ic" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>مكتمل · ${S.best[l.id] ?? ''}/${QUIZ_LEN}</span>`
-      : open ? `<span class="st">ابدأ الدرس</span>`
-      : `<span class="st"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>مقفل</span>`;
-    return `<button type="button" class="lc ${cls}${justUnlocked === i ? ' just' : ''}" data-i="${i}" ${open ? '' : 'aria-disabled="true"'}><span class="n num">${i + 1}</span><span><b>${esc(l.title)}</b><small>${esc(l.desc)}</small></span>${st}</button>`;
-  }).join('');
-  stage.innerHTML = `<div class="card"><h2>دروس العهد المكي</h2><p class="sub">دروس مرتبة؛ أنهِ كل درس واجتز اختباره ليفتح لك الدرس التالي، وبإتمامها تُفتح المدينة المنورة.</p><div class="lessons">${cards}</div></div>`;
-  justUnlocked = -1;
-  if (opts.scroll !== false) go();
-}
 function showMadinah() {
-  view = 'madinah';
-  stage.innerHTML = `<div class="card"><h2>دروس العهد المدني</h2><div class="soon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5"/></svg><b>قريبًا</b><p class="sub" style="margin:4px 0 0">هذا نموذج تجريبي، وستُضاف دروس العهد المدني في النسخة الكاملة.</p></div><button type="button" class="back" id="backL"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى دروس العهد المكي</button></div>`;
-  $('#backL').onclick = () => showLessons();
-  go();
+  openModal(`${head('دروس العهد المدني')}<div class="soon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5"/></svg><b>قريبًا</b><p class="sub" style="margin:4px 0 0">هذا نموذج تجريبي، وستُضاف دروس العهد المدني في النسخة الكاملة.</p></div><div class="mrow"><button class="btn" type="button" data-close>إغلاق</button></div>`);
 }
-stage.addEventListener('click', e => {
-  const lc = e.target.closest('.lc');
-  if (lc && view === 'lessons') {
-    const i = +lc.dataset.i;
-    if (!isUnlocked(i)) { toast('هذا الدرس مقفل — أنهِ الدرس السابق واجتز اختباره أولًا.'); return; }
-    openLesson(i);
-  }
-});
 
+/* ---------- نافذة المقرر (تفتح من نقطة مكة) ---------- */
+function openCourse() {
+  const N = LESSONS.length, n = doneCount();
+  const next = LESSONS.findIndex((_, i) => !isPassed(i) && isUnlocked(i));
+  const rows = LESSONS.map((l, i) => {
+    const done = isPassed(i), open = isUnlocked(i);
+    const st = done ? `مكتمل ✓ · ${S.best[l.id] ?? ''}/${QUIZ_LEN}` : open ? 'مفتوح' : 'مقفل 🔒';
+    return `<div class="cl ${done ? 'done' : open ? 'open' : 'locked'}"><span class="n num">${i + 1}</span><div><b>${esc(l.title)}</b><span class="stx">${st}</span><ul>${(l.points || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>`;
+  }).join('');
+  const cta = next >= 0
+    ? `<button class="btn primary" type="button" id="contLesson">متابعة الدرس ${next + 1}</button>`
+    : `<button class="btn ok" type="button" id="contLesson">مراجعة الدرس الأول</button>`;
+  openModal(`${head('السيرة النبوية في مكة المكرمة')}<p class="sub" style="margin:0 0 8px">المقرر — أهم ما ستتلقاه في كل درس.</p>
+    <div class="cprog"><span><b class="num">${n}</b> من <span class="num">${N}</span> دروس</span><div class="bar"><i style="width:${n / N * 100}%"></i></div></div>
+    <div class="clist">${rows}</div><div class="mrow">${cta}<button class="btn" type="button" data-close>إغلاق</button></div>`, 'wide');
+  $('#contLesson').onclick = () => { closeModal(); openLesson(next >= 0 ? next : 0); };
+}
+
+/* ---------- الانتقال بين الخريطة الرئيسية وصفحة الدرس ---------- */
+const homeView = $('#homeView'), lessonView = $('#lessonView');
+function showHome(opts = {}) {
+  stopPlay(); lessonView.hidden = true; homeView.hidden = false; view = null;
+  map.invalidateSize(); updateRoute(); refreshMadinah();
+  if (opts.scroll !== false) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+}
+$('#backHome').addEventListener('click', () => { showHome(); });
+
+/* ---------- خريطة الدرس: الشرح متزامن مع الخريطة ---------- */
+let lmap = null, lBase = null;
+const LM = { steps: [], cur: 0, groups: [], segs: [], layers: [], timer: null, playing: false, seen: new Set() };
+const ptKey = ll => ll[0].toFixed(2) + ',' + ll[1].toFixed(2);
+function lmSetBase() {
+  if (lBase && lmap.hasLayer(lBase)) lmap.removeLayer(lBase);
+  lBase = baseKey === 'terrain'
+    ? L.tileLayer(ESRI + 'World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 14 })
+    : L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 14 });
+  lBase.addTo(lmap);
+}
+const lbl = idx => { const a = idx.map(n => n + 1), run = a.every((v, k) => k === 0 || v === a[k - 1] + 1); return a.length > 2 && run ? `${a[0]}–${a[a.length - 1]}` : a.join('·'); };
+const spIcon = (g, state) => L.divIcon({ className: '', html: `<div class="sp ${state}"><i>${lbl(g.idx)}</i><b>${esc(g.name)}</b></div>`, iconSize: [24, 24], iconAnchor: [12, 12] });
+function buildLessonMap(i) {
+  const l = LESSONS[i];
+  if (!lmap) lmap = L.map('lmap', { zoomControl: true, minZoom: 5, maxZoom: 14, attributionControl: false, zoomSnap: 0.25, zoomAnimation: !reduce, fadeAnimation: !reduce, scrollWheelZoom: false });
+  lmSetBase();
+  LM.layers.forEach(x => lmap.removeLayer(x)); LM.layers = []; LM.seen = new Set(); stopPlay();
+  LM.steps = l.steps || []; LM.cur = 0;
+  const groups = new Map();
+  LM.steps.forEach((st, idx) => { const k = ptKey(st.ll); if (!groups.has(k)) groups.set(k, { key: k, ll: st.ll, name: st.pn, idx: [] }); groups.get(k).idx.push(idx); });
+  LM.groups = [...groups.values()];
+  LM.segs = [];
+  for (let k = 1; k < LM.steps.length; k++) {
+    const a = LM.steps[k - 1], b = LM.steps[k];
+    if (ptKey(a.ll) !== ptKey(b.ll)) {
+      const pl = L.polyline([a.ll, b.ll], { color: '#9cd3ee', weight: 3.5, opacity: .35, dashArray: '2 8', lineCap: 'round' }).addTo(lmap);
+      pl._to = k; LM.segs.push(pl); LM.layers.push(pl);
+    }
+  }
+  LM.groups.forEach(g => { g.m = L.marker(g.ll, { icon: spIcon(g, 'fut'), keyboard: true, title: g.name, zIndexOffset: 100 }).addTo(lmap).on('click', () => goStep(g.idx[0])); LM.layers.push(g.m); });
+  $('#lmTitle').textContent = `الدرس ${i + 1}: ${l.title}`;
+  $('#lmSub').textContent = 'تابع الشرح على الخريطة، ثم شاهد الدرس واجتز الأسئلة أدناه.';
+  lessonView.hidden = false;
+  lmap.invalidateSize();
+  const pts = LM.groups.map(g => g.ll);
+  lmap.fitBounds(L.latLngBounds(pts).pad(0.5), { maxZoom: 10, animate: false });
+  goStep(0, { fly: false });
+}
+function goStep(n, opts = {}) {
+  n = Math.max(0, Math.min(LM.steps.length - 1, n));
+  const prev = LM.steps[LM.cur], st = LM.steps[n];
+  LM.cur = n; LM.seen.add(n);
+  LM.groups.forEach(g => {
+    const state = g.idx.includes(n) ? 'cur' : (Math.min(...g.idx) < n ? 'past' : 'fut');
+    g.m.setIcon(spIcon(g, state)); g.m.setZIndexOffset(state === 'cur' ? 600 : 100);
+  });
+  LM.segs.forEach(sg => {
+    const el = sg.getElement(); if (!el) return;
+    const done = sg._to <= n, now = sg._to === n;
+    sg.setStyle({ opacity: done ? 1 : .35, dashArray: done && !now ? null : '2 8', weight: done ? 4 : 3.5 });
+    el.classList.toggle('seg-done', done && !now); el.classList.toggle('seg-now', now);
+    if (now) sg.setStyle({ dashArray: '6 10' });
+  });
+  if (opts.fly !== false) {
+    const dur = reduce ? 0 : 1.1;
+    if (prev && ptKey(prev.ll) !== ptKey(st.ll)) lmap.flyToBounds(L.latLngBounds([prev.ll, st.ll]).pad(0.45), { duration: dur, maxZoom: 10 });
+    else lmap.flyTo(st.ll, Math.max(lmap.getZoom(), 10), { duration: dur });
+  }
+  renderCap();
+}
+function renderCap() {
+  const n = LM.cur, N = LM.steps.length, st = LM.steps[n];
+  $('#cap').innerHTML = `<div class="cmeta"><span class="chip">الخطوة <b class="num">${n + 1}</b> من <b class="num">${N}</b></span><span>📍 ${esc(st.pn)}</span></div>
+    <h3>${esc(st.t)}</h3><p class="ctext">${esc(st.x)}</p>${st.s ? `<div class="csrc">المصدر: ${esc(st.s)}</div>` : ''}
+    <div class="ctrl"><button type="button" class="btn" id="cPrev" ${n === 0 ? 'disabled' : ''}>السابق</button>
+      <button type="button" class="btn primary" id="cPlay">${LM.playing ? '⏸ إيقاف مؤقت' : (n === N - 1 && LM.seen.size === N ? '↻ إعادة الشرح' : '▶ تشغيل الشرح')}</button>
+      <button type="button" class="btn" id="cNext" ${n === N - 1 ? 'disabled' : ''}>التالي</button>
+      <div class="sdots" role="group" aria-label="خطوات الدرس">${LM.steps.map((_, k) => `<button type="button" data-k="${k}" class="${k === n ? 'on' : LM.seen.has(k) ? 'seen' : ''}" aria-label="الخطوة ${k + 1}"></button>`).join('')}</div></div>`;
+  $('#cPrev').onclick = () => { stopPlay(); goStep(LM.cur - 1); };
+  $('#cNext').onclick = () => { stopPlay(); goStep(LM.cur + 1); };
+  $('#cPlay').onclick = togglePlay;
+  $('#cap').querySelectorAll('.sdots button').forEach(b => b.onclick = () => { stopPlay(); goStep(+b.dataset.k); });
+}
+function stopPlay() { clearTimeout(LM.timer); LM.playing = false; const b = document.getElementById('cPlay'); if (b) b.textContent = '▶ تشغيل الشرح'; }
+function togglePlay() {
+  if (LM.playing) { stopPlay(); renderCap(); return; }
+  if (LM.cur === LM.steps.length - 1) { LM.seen = new Set(); goStep(0); }
+  LM.playing = true; renderCap(); schedule();
+}
+function schedule() {
+  clearTimeout(LM.timer);
+  const words = (LM.steps[LM.cur].x || '').split(/\s+/).length;
+  const secs = Math.min(26, Math.max(7, 4 + words / 3.2));
+  LM.timer = setTimeout(() => {
+    if (!LM.playing) return;
+    if (LM.cur >= LM.steps.length - 1) { stopPlay(); renderCap(); toast('انتهى الشرح — شاهد الدرس ثم اجتز الأسئلة.'); return; }
+    goStep(LM.cur + 1); schedule();
+  }, secs * 1000);
+}
 function openLesson(i) {
+  curLesson = i; view = 'lesson';
+  homeView.hidden = true;
+  buildLessonMap(i);
+  renderLessonCard(i);
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+function renderLessonCard(i) {
   view = 'lesson'; curLesson = i;
   const l = LESSONS[i];
   const qr = l.qr ? `<a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener" aria-label="إثراءات: افتح الخريطة التفاعلية للسيرة النبوية"><span class="tt">إثراءات</span><div class="code">${QR_SVG}</div><small>امسح الرمز لزيارة الخريطة التفاعلية للسيرة النبوية</small></a>` : '';
   stage.innerHTML = `<div class="card">
-    <button type="button" class="back" id="backL"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>دروس العهد المكي</button>
     <h2>الدرس ${i + 1}: ${esc(l.title)}</h2><p class="sub">${esc(l.desc)}</p>
     <div class="lvgrid${l.qr ? ' withqr' : ''}">
       <div><div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${l.video}?rel=0" title="${esc(l.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
       <div class="actions"><button type="button" class="btn primary" id="startQ"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1.9-1.1 1.6M12 17h.01"/></svg>الأسئلة</button><a class="btn" href="${l.videoUrl}" target="_blank" rel="noopener">فتح في يوتيوب</a></div></div>
       ${qr}
     </div></div>`;
-  $('#backL').onclick = () => showLessons();
   $('#startQ').onclick = () => startQuiz(i);
-  go();
 }
 
 /* ---------- الاختبار ---------- */
@@ -533,7 +717,7 @@ function renderQuiz() {
     <div class="qprog"><i id="qbar"></i></div>
     ${qs}
     <div class="submitbar"><span><b class="num" id="qcount">0</b> من ${QUIZ_LEN} أُجيب عنها</span><button type="button" class="btn primary" id="submitQ">إرسال</button></div></div>`;
-  $('#backLesson').onclick = () => openLesson(attempt.lesson);
+  $('#backLesson').onclick = () => { renderLessonCard(attempt.lesson); go(); };
   $('#submitQ').onclick = submitQuiz;
   stage.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', () => {
     const n = +r.name.slice(1); attempt.qs[n].ans = +r.value;
@@ -584,19 +768,19 @@ function showResult(score, pass, newlyPassed) {
     ? (next ? `أحسنت! اجتزتَ الدرس، وقد فُتح لك «${esc(next.title)}».` : `أحسنت! أتممتَ دروس العهد المكي، وقد فُتحت لك المدينة المنورة على الخريطة.`)
     : `لم تبلغ درجة النجاح (${PASS_MARK} من ${QUIZ_LEN}). راجع الإجابات الصحيحة أدناه، ثم أعد الاختبار بأسئلة جديدة.`;
   const actions = pass
-    ? (next ? `<button type="button" class="btn ok" id="goNext">الانتقال إلى الدرس التالي</button>` : `<button type="button" class="btn ok" id="goMap">العودة إلى الخريطة</button>`) + `<button type="button" class="btn" id="goLessons">قائمة الدروس</button>`
+    ? (next ? `<button type="button" class="btn ok" id="goNext">الانتقال إلى الدرس التالي</button>` : `<button type="button" class="btn ok" id="goMap">العودة إلى الخريطة</button>`) + `<button type="button" class="btn" id="goLessons">مقرر الدروس</button>`
     : `<button type="button" class="btn primary" id="retry">إعادة الاختبار بأسئلة جديدة</button><button type="button" class="btn" id="goLesson">مراجعة الدرس</button>`;
   stage.innerHTML = `<div class="card"><div class="score"><div class="ring" style="--p:${score * 10};--c:${pass ? 'var(--ok)' : 'var(--bad)'}"><span class="num">${score}<small>من ${QUIZ_LEN}</small></span></div>
     <div class="verdict ${pass ? 'pass' : 'fail'}"><h2>${pass ? 'اجتزتَ الاختبار' : 'حاول مرة أخرى'}</h2><p class="sub" style="margin:0">${msg}</p></div></div>
     <div class="mrow" style="margin:0 0 6px">${actions}</div><h2 style="font-size:17px;margin:16px 0 4px">مراجعة الإجابات</h2>${rev}<div class="mrow">${actions}</div></div>`;
   stage.querySelectorAll('#goNext').forEach(b => b.onclick = () => openLesson(i + 1));
-  stage.querySelectorAll('#goMap').forEach(b => b.onclick = () => { showLessons({ scroll: false }); $('#map').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); });
-  stage.querySelectorAll('#goLessons').forEach(b => b.onclick = () => showLessons());
+  stage.querySelectorAll('#goMap').forEach(b => b.onclick = () => { showHome(); });
+  stage.querySelectorAll('#goLessons').forEach(b => b.onclick = () => { showHome(); openCourse(); });
   stage.querySelectorAll('#retry').forEach(b => b.onclick = () => startQuiz(i));
-  stage.querySelectorAll('#goLesson').forEach(b => b.onclick = () => openLesson(i));
+  stage.querySelectorAll('#goLesson').forEach(b => b.onclick = () => { renderLessonCard(i); go(); });
   renderProgress(); refreshMadinah();
   if (pass) burst();
-  if (newlyPassed) { justUnlocked = i + 1; toast(next ? 'فُتح الدرس التالي 🔓' : 'فُتحت المدينة المنورة 🔓'); }
+  if (newlyPassed) { toast(next ? 'فُتح الدرس التالي 🔓' : 'فُتحت المدينة المنورة 🔓'); }
   go();
 }
 
@@ -607,7 +791,7 @@ avatarBtn.addEventListener('click', e => { e.stopPropagation(); const open = men
 document.addEventListener('click', e => { if (!e.target.closest('.user')) closeMenu(); if (!e.target.closest('.search')) closeResults(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeResults(); closeModal(); } });
 const modal = $('#modal'), mcard = $('#mcard');
-function openModal(html) { mcard.innerHTML = html; modal.hidden = false; const x = mcard.querySelector('.mx'); if (x) x.focus(); }
+function openModal(html, cls = '') { mcard.className = 'mcard' + (cls ? ' ' + cls : ''); mcard.innerHTML = html; modal.hidden = false; const x = mcard.querySelector('.mx'); if (x) x.focus(); }
 function closeModal() { modal.hidden = true; mcard.innerHTML = ''; }
 modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('.mx') || e.target.closest('[data-close]')) closeModal(); });
 const head = t => `<div class="mh"><h3 id="mt">${t}</h3><button class="mx" type="button" aria-label="إغلاق">✕</button></div>`;
@@ -639,7 +823,7 @@ menu.addEventListener('click', e => {
 /* ---------- البحث ---------- */
 const norm = t => String(t ?? '').replace(/[ً-ٰٟـ]/g, '').replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').toLowerCase();
 const INDEX = [
-  { kind: 'path', title: 'العهد المكي', sub: 'من البعثة إلى الهجرة · 3 دروس', hay: norm('العهد المكي مكة البعثة الهجرة مسار'), act: () => { showLessons(); } },
+  { kind: 'path', title: 'العهد المكي', sub: 'من البعثة إلى الهجرة · 3 دروس', hay: norm('العهد المكي مكة البعثة الهجرة مسار'), act: () => { showHome({ scroll: false }); openCourse(); } },
   { kind: 'path', title: 'العهد المدني', sub: 'يفتح بعد إتمام العهد المكي', hay: norm('العهد المدني المدينة المنورة'), act: () => md.fire('click') },
   ...LESSONS.map((l, i) => ({ kind: 'lesson', i, title: `الدرس ${i + 1}: ${l.title}`, sub: l.desc, hay: norm([l.title, l.desc, ...l.questions.map(q => q[0] + ' ' + q[1])].join(' ')), act: () => { if (!isUnlocked(i)) { toast('هذا الدرس مقفل — أنهِ الدرس السابق واجتز اختباره أولًا.'); return; } openLesson(i); } })),
 ];
@@ -665,14 +849,14 @@ function pick(k) { const x = shown[k]; closeResults(); qIn.value = ''; qIn.blur(
 /* ---------- أدوات العرض ---------- */
 function resetDemo() {
   S = { passed: {}, best: {}, used: {}, unlockAll: false }; save();
-  attempt = null; renderProgress(); refreshMadinah(); stage.innerHTML = ''; view = null;
+  attempt = null; closeModal(); renderProgress(); refreshMadinah(); stage.innerHTML = ''; showHome({ scroll: false });
   toast('أُعيدت التجربة من البداية.');
   window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
 }
 $('#resetBtn').addEventListener('click', resetDemo);
-$('#unlockBtn').addEventListener('click', () => { S.unlockAll = true; save(); renderProgress(); refreshMadinah(); if (view === 'lessons') showLessons({ scroll: false }); toast('فُتحت كل الدروس لأغراض العرض.'); });
+$('#unlockBtn').addEventListener('click', () => { S.unlockAll = true; save(); renderProgress(); refreshMadinah(); toast('فُتحت كل الدروس لأغراض العرض.'); });
 
-renderProgress(); refreshMadinah();
+renderProgress(); refreshMadinah(); updateRoute();
 setTimeout(() => map.invalidateSize(), 300);
 if (matchMedia('(max-width: 640px)').matches) $('#q').placeholder = 'ابحث…';
 })();
