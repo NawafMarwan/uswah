@@ -37,6 +37,42 @@ def main():
         assert len(l["questions"]) >= 20, (l["id"], len(l["questions"]))
         for q in l["questions"]:
             assert len(q) == 6 and len(set(q[1:5])) == 4, q
+    # ---- خطوات الخريطة داخل كل درس: إحداثيات الأماكن من سجل الخريطة التفاعلية ----
+    reg, aliases = {}, {}
+    for f in sorted((ROOT / "data" / "sira").glob("places*.json")):
+        pd = json.loads(f.read_text(encoding="utf-8"))
+        aliases.update(pd.get("aliases", {}))
+        for k, v in pd.get("places", pd).items():
+            if isinstance(v, dict) and v.get("ll"):
+                reg[k] = v
+    extra = data.get("places_extra", {})
+
+    def place(pid):
+        pid = aliases.get(pid, pid)
+        if pid in extra:
+            return extra[pid]["ll"], extra[pid]["ar"]
+        v = reg[pid]
+        return v["ll"], v["ar"].split(" (")[0]
+
+    seed_html = (ROOT / "_src" / "sira-map.html").read_text(encoding="utf-8")
+    sm = re.search(r'<script id="seed" type="application/json">(.*?)</script>', seed_html, re.S)
+    events = {e["id"]: e for e in json.loads(sm.group(1).replace("<\\/", "</"))["events"]}
+    for l in data["lessons"]:
+        steps = l.get("steps") or []
+        if l.get("from_events"):
+            steps = []
+            for eid in l["from_events"]:
+                e = events[eid]
+                s0 = (e.get("sources") or [{}])[0]
+                ref = (s0.get("book", "") + " " + (f"{s0['volume']}/{s0['page']}" if s0.get("volume") is not None else f"ص{s0.get('page')}")).strip()
+                steps.append({"t": e["title"], "pl": e["places"][0], "x": e["summary"], "s": ref})
+        out = []
+        for st in steps:
+            ll, name = place(st["pl"])
+            out.append({"t": st["t"], "x": st["x"], "s": st.get("s", ""), "ll": ll, "pn": name, "k": st["pl"]})
+        l["steps"] = out
+        l.pop("from_events", None)
+
     pend = [l['id'] for l in data['lessons'] if l.get('pending')]
     if pend:
         print('تنبيه: دروس أسئلتها مؤقتة بعد:', pend)
