@@ -901,13 +901,54 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 /* ===== صفحة الدرس: الخريطة المتزامنة ===== */
 .lvtop{max-width:900px;margin:18px auto 0}
 .lmapcard{margin-top:6px}
-#lmap{height:clamp(300px,46vh,420px);background:#cfd9dc;direction:ltr}
+.vframe{position:relative;aspect-ratio:16/9;background:#10161a;overflow:hidden;outline-offset:-3px}
+#lmap{position:absolute;inset:0;width:100%;height:100%;background:#cfd9dc;direction:ltr}
+.vtag{position:absolute;top:10px;inset-inline-start:12px;z-index:1100;display:flex;align-items:center;gap:8px;background:rgba(20,10,18,.72);color:#fffaf6;font-size:12px;font-weight:700;padding:3px 12px;border-radius:99px;backdrop-filter:blur(4px);pointer-events:none}
+.vtag b{color:#f6dc8b;font-weight:700}
+.vtag .rec{width:8px;height:8px;border-radius:50%;background:#e8604c;box-shadow:0 0 8px #e8604c;animation:rec 1.4s infinite}
+.vframe.paused .rec{animation:none;background:#8a7a85;box-shadow:none}
+@keyframes rec{50%{opacity:.35}}
+.vcap{position:absolute;inset-inline:14px;bottom:58px;z-index:1100;max-height:50%;display:flex;flex-direction:column;background:rgba(24,12,22,.82);color:#fffaf6;border-radius:14px;border-inline-start:4px solid var(--copper);padding:10px 16px 11px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:none;opacity:0;transform:translateY(14px);transition:opacity .45s,transform .45s}
+.vcap.in{opacity:1;transform:none}
+.vcap .vm{font-size:12px;color:#f6dc8b;font-weight:700}
+.vcap h3{margin:1px 0 3px;font-size:17px;line-height:1.6;color:#fff}
+.vcap .vtx{overflow:hidden;font-size:14.5px;line-height:1.95;flex:1;min-height:0}
+.vcap .w{opacity:.32;transition:opacity .3s}.vcap .w.on{opacity:1}
+.vcap .vs{margin-top:3px;font-size:11.5px;color:#c9b6c1}
+.vintro,.voutro{position:absolute;inset:0;z-index:1200;display:grid;place-content:center;gap:8px;text-align:center;padding:20px;color:#fffaf6;background:radial-gradient(circle at 50% 40%,rgba(77,47,72,.9),rgba(24,12,22,.94));transition:opacity .6s;pointer-events:none}
+.vintro.out{opacity:0}
+.vintro .lg,.voutro .lg{width:70px;height:76px;margin:0 auto;filter:brightness(0) invert(1);animation:introIn 1s ease both}
+.vintro .t,.voutro .t{font-size:clamp(18px,3.2vw,28px);font-weight:700;line-height:1.5;animation:introIn 1s .25s ease both}
+.vintro .k,.voutro .k{color:#f6dc8b;font-size:13px;font-weight:700;letter-spacing:.06em;animation:introIn 1s .45s ease both}
+@keyframes introIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.voutro{pointer-events:auto;background:rgba(24,12,22,.78)}
+.voutro .btn{margin:6px auto 0;pointer-events:auto}
+.vbig{position:absolute;z-index:1300;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;border:0;cursor:pointer;background:rgba(194,112,61,.94);color:#fff;display:grid;place-items:center;box-shadow:0 0 0 8px rgba(194,112,61,.25),0 10px 30px rgba(0,0,0,.5);transition:transform .2s,opacity .3s}
+.vbig:hover{transform:translate(-50%,-50%) scale(1.07)}
+.vbig svg{width:30px;height:30px;fill:#fff;stroke:none}
+.vframe.playing .vbig{opacity:0;pointer-events:none}
+.vframe.ended .voutro ~ .vbig{display:none}
+.vbar{position:absolute;inset-inline:0;bottom:0;z-index:1300;display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(0deg,rgba(10,6,10,.9),rgba(10,6,10,0))}
+.vb{flex:none;width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;display:grid;place-items:center;padding:0}
+.vb:hover{background:rgba(255,255,255,.24)}
+.vb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vb svg.fill{fill:currentColor;stroke:none}
+.vrate{font-size:12.5px;font-weight:700;width:auto;padding:0 10px}
+.vtl{flex:1;display:flex;gap:2px;height:22px;align-items:center;cursor:pointer;direction:ltr}
+.vtl .sg{height:5px;background:rgba(255,255,255,.28);border-radius:3px;overflow:hidden;transition:height .15s}
+.vtl:hover .sg{height:8px}
+.vtl .sg i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--copper),#f6dc8b)}
+.vtime{flex:none;font-size:12px;color:#e9dbe3;direction:ltr;min-width:76px;text-align:center}
+@media (max-width:700px){.vframe{aspect-ratio:3/4}.vcap{bottom:54px;inset-inline:8px;padding:8px 12px}.vcap h3{font-size:15px}.vcap .vtx{font-size:13px;line-height:1.85}.vtime{display:none}.vb{width:32px;height:32px}}
+.vframe:fullscreen{aspect-ratio:auto;width:100vw;height:100vh}
+.vframe:fullscreen .vcap .vtx{font-size:17px}
 .sp{position:relative;display:grid;place-items:center;cursor:pointer;direction:rtl}
 .sp i{unicode-bidi:isolate;direction:ltr;white-space:nowrap;display:block;min-width:24px;height:24px;padding:0 6px;border-radius:99px;font-style:normal;font-weight:700;font-size:12px;line-height:20px;text-align:center;color:#fff;border:2px solid #fff;background:#8aa5b5;box-shadow:0 0 8px rgba(0,0,0,.35);transition:transform .2s}
 .sp b{position:absolute;top:100%;margin-top:5px;left:50%;transform:translateX(-50%);display:none;background:rgba(58,34,54,.92);color:#fffaf6;font-size:12px;font-weight:700;padding:2px 11px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .sp.fut i{opacity:.65}
 .sp.past i{background:#6e8fa3;box-shadow:0 0 0 2px rgba(156,211,238,.5),0 0 12px 3px rgba(111,170,205,.7)}
-.sp.cur i{background:radial-gradient(circle at 35% 35%,#fff3d9,#f0b34f 55%,#c2703d);color:#3a2236;transform:scale(1.25);animation:glow 2.4s ease-in-out infinite}
+.sp.cur i{background:radial-gradient(circle at 35% 35%,#fff3d9,#f0b34f 55%,#c2703d);color:#3a2236;transform:scale(1.25);animation:glow 2.4s ease-in-out infinite,popIn .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes popIn{from{transform:scale(.2);opacity:0}to{transform:scale(1.25);opacity:1}}
 .sp.cur b{display:block}
 .seg-done{filter:drop-shadow(0 0 3px #bfe3f5) drop-shadow(0 0 9px #6e8fa3)}
 .seg-now{filter:drop-shadow(0 0 6px #9cd3ee);animation:flow 1.3s linear infinite}
@@ -1028,8 +1069,22 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
     <div class="lvtop"><button type="button" class="back" id="backHome"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى الخريطة</button></div>
     <div class="mapcard lmapcard">
       <div class="maphead"><div><b id="lmTitle"></b><small id="lmSub"></small></div></div>
-      <div id="lmap" role="application" aria-label="خريطة الدرس"></div>
-      <div class="cap" id="cap" aria-live="polite"></div>
+      <div class="vframe" id="vframe" tabindex="0" aria-label="عرض توضيحي متحرك للدرس">
+        <div id="lmap" role="application" aria-label="خريطة الدرس"></div>
+        <div class="vtag"><span class="rec"></span>عرض توضيحي<b id="vTagStep"></b></div>
+        <div class="vcap" id="vcap" aria-live="off"></div>
+        <div class="vintro" id="vintro"></div>
+        <div class="voutro" id="voutro" hidden></div>
+        <button class="vbig" id="vbig" type="button" aria-label="تشغيل العرض"></button>
+        <div class="vbar">
+          <button type="button" class="vb" id="vPlay" aria-label="تشغيل / إيقاف"></button>
+          <button type="button" class="vb" id="vRestart" aria-label="إعادة العرض"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></button>
+          <div class="vtl" id="vtl" role="slider" aria-label="شريط التقدم" tabindex="-1"></div>
+          <span class="vtime num" id="vTime">0:00 / 0:00</span>
+          <button type="button" class="vb vrate" id="vRate" aria-label="سرعة العرض">1×</button>
+          <button type="button" class="vb" id="vFull" aria-label="ملء الشاشة"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        </div>
+      </div>
     </div>
     <div class="stage" id="stage" tabindex="-1" aria-live="polite"></div>
   </section>
@@ -1240,10 +1295,14 @@ function showHome(opts = {}) {
 }
 $('#backHome').addEventListener('click', () => { showHome(); });
 
-/* ---------- خريطة الدرس: الشرح متزامن مع الخريطة ---------- */
+/* ---------- خريطة الدرس: عرض موشن جرافيك متحرك كفيديو مصغر ---------- */
 let lmap = null, lBase = null;
-const LM = { steps: [], cur: 0, groups: [], segs: [], layers: [], timer: null, playing: false, seen: new Set() };
+const INTRO_S = 3, OUTRO_S = 3.6;
+const VP = { steps: [], items: [], total: 0, T: 0, playing: false, ended: false, rate: 1, idx: -1, raf: 0, last: 0, groups: [], segs: [], layers: [], nWords: 0, shown: 0, lesson: 0 };
 const ptKey = ll => ll[0].toFixed(2) + ',' + ll[1].toFixed(2);
+const fmt = sec => { sec = Math.max(0, Math.floor(sec)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); };
+const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+const PLAY_SVG = '<svg class="fill" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>', PAUSE_SVG = '<svg class="fill" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>', REPLAY_SVG = '<svg viewBox="0 0 24 24" style="stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>';
 function lmSetBase() {
   if (lBase && lmap.hasLayer(lBase)) lmap.removeLayer(lBase);
   lBase = baseKey === 'terrain'
@@ -1253,83 +1312,149 @@ function lmSetBase() {
 }
 const lbl = idx => { const a = idx.map(n => n + 1), run = a.every((v, k) => k === 0 || v === a[k - 1] + 1); return a.length > 2 && run ? `${a[0]}–${a[a.length - 1]}` : a.join('·'); };
 const spIcon = (g, state) => L.divIcon({ className: '', html: `<div class="sp ${state}"><i>${lbl(g.idx)}</i><b>${esc(g.name)}</b></div>`, iconSize: [24, 24], iconAnchor: [12, 12] });
+const vframe = $('#vframe');
+function overview(animate) {
+  const pts = VP.groups.map(g => g.ll);
+  const b = L.latLngBounds(pts).pad(0.5);
+  if (animate && !reduce) lmap.flyToBounds(b, { duration: 1.1, maxZoom: 10 }); else lmap.fitBounds(b, { maxZoom: 10, animate: false });
+}
 function buildLessonMap(i) {
-  const l = LESSONS[i];
+  const l = LESSONS[i]; VP.lesson = i;
   if (!lmap) lmap = L.map('lmap', { zoomControl: true, minZoom: 5, maxZoom: 14, attributionControl: false, zoomSnap: 0.25, zoomAnimation: !reduce, fadeAnimation: !reduce, scrollWheelZoom: false });
-  lmSetBase();
-  LM.layers.forEach(x => lmap.removeLayer(x)); LM.layers = []; LM.seen = new Set(); stopPlay();
-  LM.steps = l.steps || []; LM.cur = 0;
+  lmSetBase(); stopPlay();
+  VP.layers.forEach(x => lmap.removeLayer(x)); VP.layers = [];
+  VP.steps = l.steps || [];
   const groups = new Map();
-  LM.steps.forEach((st, idx) => { const k = ptKey(st.ll); if (!groups.has(k)) groups.set(k, { key: k, ll: st.ll, name: st.pn, idx: [] }); groups.get(k).idx.push(idx); });
-  LM.groups = [...groups.values()];
-  LM.segs = [];
-  for (let k = 1; k < LM.steps.length; k++) {
-    const a = LM.steps[k - 1], b = LM.steps[k];
+  VP.steps.forEach((st, idx) => { const k = ptKey(st.ll); if (!groups.has(k)) groups.set(k, { key: k, ll: st.ll, name: st.pn, idx: [] }); groups.get(k).idx.push(idx); });
+  VP.groups = [...groups.values()]; VP.segs = [];
+  for (let k = 1; k < VP.steps.length; k++) {
+    const a = VP.steps[k - 1], b = VP.steps[k];
     if (ptKey(a.ll) !== ptKey(b.ll)) {
-      const pl = L.polyline([a.ll, b.ll], { color: '#9cd3ee', weight: 3.5, opacity: .35, dashArray: '2 8', lineCap: 'round' }).addTo(lmap);
-      pl._to = k; LM.segs.push(pl); LM.layers.push(pl);
+      const pl = L.polyline([a.ll, a.ll], { color: '#9cd3ee', weight: 3.5, opacity: .3, dashArray: '2 8', lineCap: 'round' }).addTo(lmap);
+      pl._a = a.ll; pl._b = b.ll; pl._to = k; VP.segs.push(pl); VP.layers.push(pl);
     }
   }
-  LM.groups.forEach(g => { g.m = L.marker(g.ll, { icon: spIcon(g, 'fut'), keyboard: true, title: g.name, zIndexOffset: 100 }).addTo(lmap).on('click', () => goStep(g.idx[0])); LM.layers.push(g.m); });
+  VP.groups.forEach(g => { g.m = L.marker(g.ll, { icon: spIcon(g, 'fut'), keyboard: true, title: g.name, zIndexOffset: 100 }).addTo(lmap).on('click', () => { const it = VP.items.find(x => x.type === 'step' && x.k === g.idx[0]); if (it) seek(it.start + .2); }); VP.layers.push(g.m); });
+  // خطّ زمني: مقدمة + خطوة لكل مقطع + خاتمة
+  VP.items = [{ type: 'intro', dur: INTRO_S }].concat(VP.steps.map((st, k) => ({ type: 'step', k, dur: Math.min(18, Math.max(5, 3.5 + (st.x || "").split(/\s+/).length / 3.4)) })), [{ type: 'outro', dur: OUTRO_S }]);
+  let acc = 0; VP.items.forEach(it => { it.start = acc; acc += it.dur; }); VP.total = acc;
+  $('#vtl').innerHTML = VP.items.map(it => `<div class="sg" style="flex:${it.dur}"><i></i></div>`).join('');
   $('#lmTitle').textContent = `الدرس ${i + 1}: ${l.title}`;
-  $('#lmSub').textContent = 'تابع الشرح على الخريطة، ثم شاهد الدرس واجتز الأسئلة أدناه.';
-  lessonView.hidden = false;
-  lmap.invalidateSize();
-  const pts = LM.groups.map(g => g.ll);
-  lmap.fitBounds(L.latLngBounds(pts).pad(0.5), { maxZoom: 10, animate: false });
-  goStep(0, { fly: false });
+  $('#lmSub').textContent = 'عرض موشن جرافيك مصغّر يشرح الدرس على الخريطة، ثم شاهد الدرس واجتز الأسئلة أدناه.';
+  VP.T = 0; VP.idx = -1; VP.ended = false; VP.shown = 0;
+  lessonView.hidden = false; lmap.invalidateSize();
+  overview(false);
+  vframe.classList.remove('ended'); $('#voutro').hidden = true; $('#vintro').classList.remove('out'); $('#vcap').classList.remove('in');
+  paintVintro(l); render(true); syncUi();
+  if (!reduce) setTimeout(() => { if (view === 'lesson' && !VP.playing && VP.lesson === i && VP.T === 0) play(); }, 700);
 }
-function goStep(n, opts = {}) {
-  n = Math.max(0, Math.min(LM.steps.length - 1, n));
-  const prev = LM.steps[LM.cur], st = LM.steps[n];
-  LM.cur = n; LM.seen.add(n);
-  LM.groups.forEach(g => {
-    const state = g.idx.includes(n) ? 'cur' : (Math.min(...g.idx) < n ? 'past' : 'fut');
+function paintVintro(l) {
+  $('#vintro').innerHTML = `<span class="logo lg" role="img" aria-label="أسوة"></span><div class="k">أكاديمية السيرة النبوية · عرض توضيحي</div><div class="t">الدرس ${VP.lesson + 1}<br>${esc(l.title)}</div>`;
+  $('#voutro').innerHTML = `<span class="logo lg" role="img" aria-label="أسوة"></span><div class="t">انتهى العرض</div><div class="k">شاهد الدرس في الأسفل ثم اجتز الأسئلة</div><button type="button" class="btn primary" id="vReplay">${''}↻ إعادة العرض</button>`;
+  $('#vReplay').onclick = () => { seek(0); play(); };
+}
+function enterItem(idx, instant) {
+  VP.idx = idx;
+  const it = VP.items[idx];
+  const intro = $('#vintro'), outro = $('#voutro'), cap = $('#vcap');
+  intro.classList.toggle('out', it.type !== 'intro');
+  outro.hidden = it.type !== 'outro';
+  vframe.classList.toggle('ended', it.type === 'outro');
+  if (it.type === 'intro') {
+    cap.classList.remove('in'); $('#vTagStep').textContent = '';
+    VP.groups.forEach(g => g.m.setIcon(spIcon(g, 'fut')));
+    VP.segs.forEach(sg => { sg.setLatLngs([sg._a, sg._a]); sg.setStyle({ opacity: .3, dashArray: '2 8', weight: 3.5 }); const el = sg.getElement(); if (el) { el.classList.remove('seg-done', 'seg-now'); } });
+    overview(!instant); return;
+  }
+  if (it.type === 'outro') {
+    cap.classList.remove('in'); $('#vTagStep').textContent = '';
+    VP.groups.forEach(g => g.m.setIcon(spIcon(g, 'past')));
+    VP.segs.forEach(sg => { sg.setLatLngs([sg._a, sg._b]); sg.setStyle({ opacity: 1, dashArray: null, weight: 4 }); const el = sg.getElement(); if (el) { el.classList.add('seg-done'); el.classList.remove('seg-now'); } });
+    overview(!instant); return;
+  }
+  const k = it.k, st = VP.steps[k], prev = VP.steps[k - 1];
+  $('#vTagStep').textContent = `الخطوة ${k + 1} / ${VP.steps.length}`;
+  VP.groups.forEach(g => {
+    const state = g.idx.includes(k) ? 'cur' : (Math.min(...g.idx) < k ? 'past' : 'fut');
     g.m.setIcon(spIcon(g, state)); g.m.setZIndexOffset(state === 'cur' ? 600 : 100);
   });
-  LM.segs.forEach(sg => {
-    const el = sg.getElement(); if (!el) return;
-    const done = sg._to <= n, now = sg._to === n;
-    sg.setStyle({ opacity: done ? 1 : .35, dashArray: done && !now ? null : '2 8', weight: done ? 4 : 3.5 });
-    el.classList.toggle('seg-done', done && !now); el.classList.toggle('seg-now', now);
-    if (now) sg.setStyle({ dashArray: '6 10' });
+  VP.segs.forEach(sg => {
+    const el = sg.getElement(); const done = sg._to < k, now = sg._to === k;
+    if (done) { sg.setLatLngs([sg._a, sg._b]); sg.setStyle({ opacity: 1, dashArray: null, weight: 4 }); }
+    else if (now) { sg.setLatLngs([sg._a, instant ? sg._b : sg._a]); sg.setStyle({ opacity: 1, dashArray: '6 10', weight: 4 }); }
+    else { sg.setLatLngs([sg._a, sg._a]); sg.setStyle({ opacity: .3, dashArray: '2 8', weight: 3.5 }); }
+    if (el) { el.classList.toggle('seg-done', done); el.classList.toggle('seg-now', now); }
   });
-  if (opts.fly !== false) {
-    const dur = reduce ? 0 : 1.1;
-    if (prev && ptKey(prev.ll) !== ptKey(st.ll)) lmap.flyToBounds(L.latLngBounds([prev.ll, st.ll]).pad(0.45), { duration: dur, maxZoom: 10 });
-    else lmap.flyTo(st.ll, Math.max(lmap.getZoom(), 10), { duration: dur });
+  // الشرح: عنوان + كلمات تُضاء تدريجيًا كالترجمة النصية
+  const words = (st.x || '').split(/\s+/).filter(Boolean);
+  VP.nWords = words.length; VP.shown = 0;
+  cap.innerHTML = `<div class="vm">الخطوة ${k + 1} من ${VP.steps.length} · 📍 ${esc(st.pn)}</div><h3>${esc(st.t)}</h3><div class="vtx" id="vtx">${words.map(w => `<span class="w">${esc(w)}</span>`).join(' ')}</div>${st.s ? `<div class="vs">المصدر: ${esc(st.s)}</div>` : ''}`;
+  cap.classList.remove('in'); void cap.offsetWidth; cap.classList.add('in');
+  // الكاميرا
+  if (instant || reduce) lmap.setView(st.ll, Math.max(10, lmap.getZoom()), { animate: false });
+  else if (prev && ptKey(prev.ll) !== ptKey(st.ll)) lmap.flyToBounds(L.latLngBounds([prev.ll, st.ll]).pad(0.45), { duration: 1.3, maxZoom: 10 });
+  else lmap.flyTo(st.ll, Math.max(lmap.getZoom(), 10), { duration: 1.1 });
+}
+function render(instant) {
+  const T = Math.min(VP.T, VP.total - 0.001);
+  let idx = VP.items.findIndex(it => T >= it.start && T < it.start + it.dur); if (idx < 0) idx = VP.items.length - 1;
+  if (idx !== VP.idx) enterItem(idx, instant);
+  const it = VP.items[idx], el = T - it.start;
+  if (it.type === 'step') {
+    const sg = VP.segs.find(x => x._to === it.k);
+    if (sg) { const f = reduce ? 1 : Math.min(1, el / 1.5); sg.setLatLngs([sg._a, lerp(sg._a, sg._b, f)]); }
+    const r = Math.max(0, Math.min(1, (el - 0.7) / Math.max(1, it.dur - 1.8)));
+    const count = Math.ceil(r * VP.nWords);
+    if (count !== VP.shown) {
+      const ws = document.querySelectorAll('#vtx .w');
+      ws.forEach((w, n) => w.classList.toggle('on', n < count));
+      VP.shown = count;
+      const box = $('#vtx'), last = ws[Math.max(0, count - 1)];
+      if (box && last) box.scrollTop = Math.max(0, last.offsetTop - box.clientHeight * 0.55);
+    }
   }
-  renderCap();
+  const fills = $('#vtl').children;
+  VP.items.forEach((x, n) => { fills[n].firstElementChild.style.width = Math.max(0, Math.min(1, (VP.T - x.start) / x.dur)) * 100 + '%'; });
+  $('#vTime').textContent = `${fmt(VP.T)} / ${fmt(VP.total)}`;
 }
-function renderCap() {
-  const n = LM.cur, N = LM.steps.length, st = LM.steps[n];
-  $('#cap').innerHTML = `<div class="cmeta"><span class="chip">الخطوة <b class="num">${n + 1}</b> من <b class="num">${N}</b></span><span>📍 ${esc(st.pn)}</span></div>
-    <h3>${esc(st.t)}</h3><p class="ctext">${esc(st.x)}</p>${st.s ? `<div class="csrc">المصدر: ${esc(st.s)}</div>` : ''}
-    <div class="ctrl"><button type="button" class="btn" id="cPrev" ${n === 0 ? 'disabled' : ''}>السابق</button>
-      <button type="button" class="btn primary" id="cPlay">${LM.playing ? '⏸ إيقاف مؤقت' : (n === N - 1 && LM.seen.size === N ? '↻ إعادة الشرح' : '▶ تشغيل الشرح')}</button>
-      <button type="button" class="btn" id="cNext" ${n === N - 1 ? 'disabled' : ''}>التالي</button>
-      <div class="sdots" role="group" aria-label="خطوات الدرس">${LM.steps.map((_, k) => `<button type="button" data-k="${k}" class="${k === n ? 'on' : LM.seen.has(k) ? 'seen' : ''}" aria-label="الخطوة ${k + 1}"></button>`).join('')}</div></div>`;
-  $('#cPrev').onclick = () => { stopPlay(); goStep(LM.cur - 1); };
-  $('#cNext').onclick = () => { stopPlay(); goStep(LM.cur + 1); };
-  $('#cPlay').onclick = togglePlay;
-  $('#cap').querySelectorAll('.sdots button').forEach(b => b.onclick = () => { stopPlay(); goStep(+b.dataset.k); });
+function syncUi() {
+  vframe.classList.toggle('playing', VP.playing); vframe.classList.toggle('paused', !VP.playing);
+  $('#vPlay').innerHTML = VP.playing ? PAUSE_SVG : (VP.ended ? REPLAY_SVG : PLAY_SVG);
+  $('#vbig').innerHTML = VP.ended ? REPLAY_SVG : PLAY_SVG;
+  $('#vbig').setAttribute('aria-label', VP.ended ? 'إعادة العرض' : 'تشغيل العرض');
+  $('#vRate').textContent = VP.rate + '×';
 }
-function stopPlay() { clearTimeout(LM.timer); LM.playing = false; const b = document.getElementById('cPlay'); if (b) b.textContent = '▶ تشغيل الشرح'; }
-function togglePlay() {
-  if (LM.playing) { stopPlay(); renderCap(); return; }
-  if (LM.cur === LM.steps.length - 1) { LM.seen = new Set(); goStep(0); }
-  LM.playing = true; renderCap(); schedule();
+function loop(now) {
+  if (!VP.playing) return;
+  const dt = Math.min(0.1, (now - VP.last) / 1000); VP.last = now;
+  VP.T += dt * VP.rate;
+  if (VP.T >= VP.total) { VP.T = VP.total; VP.playing = false; VP.ended = true; render(false); syncUi(); return; }
+  render(false);
+  VP.raf = requestAnimationFrame(loop);
 }
-function schedule() {
-  clearTimeout(LM.timer);
-  const words = (LM.steps[LM.cur].x || '').split(/\s+/).length;
-  const secs = Math.min(26, Math.max(7, 4 + words / 3.2));
-  LM.timer = setTimeout(() => {
-    if (!LM.playing) return;
-    if (LM.cur >= LM.steps.length - 1) { stopPlay(); renderCap(); toast('انتهى الشرح — شاهد الدرس ثم اجتز الأسئلة.'); return; }
-    goStep(LM.cur + 1); schedule();
-  }, secs * 1000);
+function play() {
+  if (VP.ended || VP.T >= VP.total) { VP.T = 0; VP.ended = false; VP.idx = -1; }
+  VP.playing = true; VP.last = performance.now(); syncUi();
+  cancelAnimationFrame(VP.raf); VP.raf = requestAnimationFrame(loop);
 }
+function pause() { VP.playing = false; cancelAnimationFrame(VP.raf); syncUi(); }
+function stopPlay() { VP.playing = false; cancelAnimationFrame(VP.raf); if (VP.items.length) syncUi(); }
+function seek(t) {
+  VP.T = Math.max(0, Math.min(VP.total - 0.01, t)); VP.ended = false;
+  const keep = VP.playing; VP.idx = -1; render(true); syncUi();
+  if (keep) { VP.last = performance.now(); cancelAnimationFrame(VP.raf); VP.raf = requestAnimationFrame(loop); }
+}
+$('#vPlay').onclick = () => VP.playing ? pause() : play();
+$('#vbig').onclick = () => play();
+$('#vRestart').onclick = () => { seek(0); play(); };
+$('#vRate').onclick = () => { VP.rate = VP.rate === 1 ? 1.5 : VP.rate === 1.5 ? 2 : 1; syncUi(); };
+$('#vtl').addEventListener('click', e => { const r = $('#vtl').getBoundingClientRect(); seek(((e.clientX - r.left) / r.width) * VP.total); });
+$('#vFull').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else if (vframe.requestFullscreen) vframe.requestFullscreen(); };
+document.addEventListener('fullscreenchange', () => { setTimeout(() => lmap && lmap.invalidateSize(), 250); });
+vframe.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'k') { e.preventDefault(); VP.playing ? pause() : play(); }
+  else if (e.key === 'ArrowRight') seek(VP.T + 5); else if (e.key === 'ArrowLeft') seek(VP.T - 5);
+});
 function openLesson(i) {
   curLesson = i; view = 'lesson';
   homeView.hidden = true;
