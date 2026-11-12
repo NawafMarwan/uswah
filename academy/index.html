@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 60V30Q8 22 16 18L32 8l16 10q8 4 8 12v30' fill='none' stroke='%239a7c6a' stroke-width='6'/%3E%3Cpath d='M18 60V34q0-5 5-8l9-6 9 6q5 3 5 8v26' fill='none' stroke='%236e8fa3' stroke-width='6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Aref+Ruqaa+Ink:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* required styles */
 
@@ -986,6 +986,35 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 @keyframes fall{to{transform:translate3d(var(--dx),108vh,0) rotate(var(--rot));opacity:.9}}
 @media (prefers-reduced-motion:reduce){.confetti{display:none}}
 
+
+/* ===== تحسين: عنوان الخريطة والمسار والبطاقات المتحركة ===== */
+.mapwrap{position:relative}
+.mapttl{position:absolute;top:10px;inset-inline:0;z-index:700;display:flex;justify-content:center;pointer-events:none}
+.calli{font-family:'Aref Ruqaa Ink','Aref Ruqaa',serif;font-weight:700;font-size:clamp(28px,6vw,52px);line-height:1.5;padding:0 .5em;color:#fff6dc;background:linear-gradient(180deg,#fff6dc 10%,#f6dc8b 55%,#d9a638 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px rgba(20,9,18,.75)) drop-shadow(0 0 14px rgba(246,220,139,.55));animation:calliIn 1.6s .3s cubic-bezier(.2,.8,.2,1) both,calliGlow 4.5s 2s ease-in-out infinite}
+.calli em{font-style:normal;font-size:.62em}
+@keyframes calliIn{from{opacity:0;transform:translateY(-14px) scale(.92);letter-spacing:.3em;filter:blur(8px) drop-shadow(0 0 0 transparent)}to{opacity:1;transform:none}}
+@keyframes calliGlow{0%,100%{filter:drop-shadow(0 2px 2px rgba(20,9,18,.75)) drop-shadow(0 0 10px rgba(246,220,139,.4))}50%{filter:drop-shadow(0 2px 2px rgba(20,9,18,.75)) drop-shadow(0 0 22px rgba(246,220,139,.85))}}
+.route-halo{filter:blur(5px)}
+.route-done{filter:drop-shadow(0 0 4px #e3f5ff) drop-shadow(0 0 12px #6e8fa3) drop-shadow(0 0 22px #6e8fa3)!important}
+.route-now{filter:drop-shadow(0 0 8px #bfe9ff) drop-shadow(0 0 16px #6e8fa3)!important}
+.seg-done{filter:drop-shadow(0 0 4px #e3f5ff) drop-shadow(0 0 12px #6e8fa3) drop-shadow(0 0 20px #6e8fa3)}
+.seg-now{filter:drop-shadow(0 0 8px #bfe9ff) drop-shadow(0 0 16px #6e8fa3)}
+.ringp{position:relative;width:26px;height:26px}
+.ringp i{position:absolute;inset:0;border-radius:50%;border:3px solid #9cd3ee;box-shadow:0 0 18px 4px rgba(156,211,238,.8);animation:ringOut 1.3s ease-out forwards}
+.ringp i:nth-child(2){animation-delay:.25s}.ringp i:nth-child(3){animation-delay:.5s}
+@keyframes ringOut{from{transform:scale(.5);opacity:1}to{transform:scale(5.5);opacity:0}}
+.modal{background:rgba(20,10,18,.4)!important;backdrop-filter:blur(2.5px);animation:fadeIn .35s ease both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.mcard{animation:cardIn .6s cubic-bezier(.2,1.25,.4,1) both;box-shadow:0 0 0 1px rgba(156,211,238,.35),0 0 38px rgba(110,143,163,.45),0 30px 70px -20px rgba(0,0,0,.6)}
+@keyframes cardIn{from{opacity:0;transform:translateY(34px) scale(.25)}to{opacity:1;transform:none}}
+.cl{animation:clIn .55s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i,0)*120ms + 280ms)}
+@keyframes clIn{from{opacity:0;transform:translateX(26px) scale(.94)}to{opacity:1;transform:none}}
+.cl .n{animation:nPop .5s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(var(--i,0)*120ms + 450ms)}
+@keyframes nPop{from{transform:scale(0) rotate(-90deg)}to{transform:none}}
+.cl.open{box-shadow:0 0 0 0 rgba(194,112,61,.5);animation:clIn .55s cubic-bezier(.2,1.2,.4,1) both,clPulse 2.6s 1.2s ease-in-out infinite;animation-delay:calc(var(--i,0)*120ms + 280ms),0s}
+@keyframes clPulse{0%,100%{box-shadow:0 0 0 0 rgba(194,112,61,.45)}50%{box-shadow:0 0 0 7px rgba(194,112,61,0)}}
+@media (prefers-reduced-motion:reduce){.calli,.mcard,.cl,.cl .n,.cl.open,.modal{animation:none!important}.ringp i{animation:none;opacity:0}}
+
 /* ===== نوافذ وتنبيه ===== */
 .modal{position:fixed;inset:0;z-index:3000;background:rgba(20,10,18,.62);display:grid;place-items:center;padding:16px}
 .mcard{width:100%;max-width:480px;max-height:88vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);padding:20px}
@@ -1058,7 +1087,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
         <div><b>رحلة السيرة النبوية في الجزيرة العربية</b><small>مكة المكرمة ← المدينة المنورة (المسار تقريبي)</small></div>
         <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="imagery" aria-pressed="true">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
       </div>
-      <div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div>
+      <div class="mapwrap"><div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div><div class="mapttl" aria-hidden="true"><span class="calli">عامٌ مع النبيِّ <em>ﷺ</em></span></div></div>
       <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض مقرر الدروس.</span></div>
     </div>
 
@@ -1226,14 +1255,15 @@ function routeSlice(f) {
   }
   return pts;
 }
+const routeHalo = L.polyline([MAKKAH, MAKKAH], { color: '#6e8fa3', weight: 18, opacity: .3, lineCap: 'round', className: 'route-halo', interactive: false }).addTo(map);
 const routeBase = L.polyline(ROUTE, { color: '#fffaf6', weight: 3, opacity: .55, dashArray: '2 8', lineCap: 'round' }).addTo(map);
-const routeDone = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 4, opacity: 1, lineCap: 'round', className: 'route-done' }).addTo(map);
-const routeNow = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 4, opacity: .95, dashArray: '6 10', lineCap: 'round', className: 'route-now' }).addTo(map);
+const routeDone = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 6, opacity: 1, lineCap: 'round', className: 'route-done' }).addTo(map);
+const routeNow = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 6, opacity: .95, dashArray: '6 10', lineCap: 'round', className: 'route-now' }).addTo(map);
 const you = L.marker(MAKKAH, { icon: L.divIcon({ className: '', html: '<div class="you"><i></i><b>أنت هنا</b></div>', iconSize: [22, 22], iconAnchor: [11, 11] }), interactive: false, zIndexOffset: 900 }).addTo(map);
 function updateRoute() {
   const N = LESSONS.length, n = madinahOpen() ? N : doneCount();
   const s0 = routeSlice(n / N), s1 = routeSlice(Math.min(n + 1, N) / N);
-  routeDone.setLatLngs(s0);
+  routeDone.setLatLngs(s0); routeHalo.setLatLngs(s0);
   routeNow.setLatLngs(n >= N ? [s0[s0.length - 1], s0[s0.length - 1]] : [s0[s0.length - 1]].concat(s1.slice(s0.length - 1)));
   you.setLatLng(s0[s0.length - 1]);
   if (n === 0 || n >= N) { if (map.hasLayer(you)) map.removeLayer(you); } else if (!map.hasLayer(you)) you.addTo(map);   // عند البداية تدل مكة نفسها على موضعك، وفي النهاية تدل المدينة
@@ -1246,7 +1276,8 @@ function refreshMadinah() {
     : 'اضغط على النقطة المضيئة في مكة لعرض مقرر الدروس. المسار الأزرق المتوهج هو طريقك، والمدينة المنورة مقفلة حتى تُنهي دروس العهد المكي.';
 }
 const FOCUS = L.latLngBounds([MAKKAH, MADINA]).pad(0.4);
-mk.on('click', () => { if (map.getZoom() < 6.5) map.flyToBounds(FOCUS, { duration: reduce ? 0 : 1.1 }); openCourse(); });
+function pulseAt(ll) { const r = L.marker(ll, { icon: L.divIcon({ className: '', html: '<div class="ringp"><i></i><i></i><i></i></div>', iconSize: [26, 26], iconAnchor: [13, 13] }), interactive: false, zIndexOffset: 800 }).addTo(map); setTimeout(() => map.removeLayer(r), 1900); }
+mk.on('click', () => { pulseAt(MAKKAH); if (map.getZoom() < 6.5) map.flyToBounds(FOCUS, { duration: reduce ? 0 : 1.1 }); openCourse(); });
 md.on('click', () => {
   if (!madinahOpen()) {
     toast('العهد المدني مقفل — يُفتح بعد إتمام دروس العهد المكي.');
@@ -1275,14 +1306,14 @@ function openCourse() {
   const rows = LESSONS.map((l, i) => {
     const done = isPassed(i), open = isUnlocked(i);
     const st = done ? `مكتمل ✓ · ${S.best[l.id] ?? ''}/${QUIZ_LEN}` : open ? 'مفتوح' : 'مقفل 🔒';
-    return `<div class="cl ${done ? 'done' : open ? 'open' : 'locked'}"><span class="n num">${i + 1}</span><div><b>${esc(l.title)}</b><span class="stx">${st}</span><ul>${(l.points || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>`;
+    return `<div class="cl ${done ? 'done' : open ? 'open' : 'locked'}" style="--i:${i}"><span class="n num">${i + 1}</span><div><b>${esc(l.title)}</b><span class="stx">${st}</span><ul>${(l.points || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>`;
   }).join('');
   const cta = next >= 0
     ? `<button class="btn primary" type="button" id="contLesson">متابعة الدرس ${next + 1}</button>`
     : `<button class="btn ok" type="button" id="contLesson">مراجعة الدرس الأول</button>`;
   openModal(`${head('السيرة النبوية في مكة المكرمة')}<p class="sub" style="margin:0 0 8px">المقرر — أهم ما ستتلقاه في كل درس.</p>
     <div class="cprog"><span><b class="num">${n}</b> من <span class="num">${N}</span> دروس</span><div class="bar"><i style="width:${n / N * 100}%"></i></div></div>
-    <div class="clist">${rows}</div><div class="mrow">${cta}<button class="btn" type="button" data-close>إغلاق</button></div>`, 'wide');
+    <div class="clist">${rows}</div><div class="mrow">${cta}<button class="btn" type="button" data-close>إغلاق</button></div>`, 'wide', MAKKAH);
   $('#contLesson').onclick = () => { closeModal(); openLesson(next >= 0 ? next : 0); };
 }
 
@@ -1369,7 +1400,7 @@ function enterItem(idx, instant) {
   if (it.type === 'outro') {
     cap.classList.remove('in'); $('#vTagStep').textContent = '';
     VP.groups.forEach(g => g.m.setIcon(spIcon(g, 'past')));
-    VP.segs.forEach(sg => { sg.setLatLngs([sg._a, sg._b]); sg.setStyle({ opacity: 1, dashArray: null, weight: 4 }); const el = sg.getElement(); if (el) { el.classList.add('seg-done'); el.classList.remove('seg-now'); } });
+    VP.segs.forEach(sg => { sg.setLatLngs([sg._a, sg._b]); sg.setStyle({ opacity: 1, dashArray: null, weight: 6 }); const el = sg.getElement(); if (el) { el.classList.add('seg-done'); el.classList.remove('seg-now'); } });
     overview(!instant); return;
   }
   const k = it.k, st = VP.steps[k], prev = VP.steps[k - 1];
@@ -1380,8 +1411,8 @@ function enterItem(idx, instant) {
   });
   VP.segs.forEach(sg => {
     const el = sg.getElement(); const done = sg._to < k, now = sg._to === k;
-    if (done) { sg.setLatLngs([sg._a, sg._b]); sg.setStyle({ opacity: 1, dashArray: null, weight: 4 }); }
-    else if (now) { sg.setLatLngs([sg._a, instant ? sg._b : sg._a]); sg.setStyle({ opacity: 1, dashArray: '6 10', weight: 4 }); }
+    if (done) { sg.setLatLngs([sg._a, sg._b]); sg.setStyle({ opacity: 1, dashArray: null, weight: 6 }); }
+    else if (now) { sg.setLatLngs([sg._a, instant ? sg._b : sg._a]); sg.setStyle({ opacity: 1, dashArray: '6 10', weight: 6 }); }
     else { sg.setLatLngs([sg._a, sg._a]); sg.setStyle({ opacity: .3, dashArray: '2 8', weight: 3.5 }); }
     if (el) { el.classList.toggle('seg-done', done); el.classList.toggle('seg-now', now); }
   });
@@ -1582,7 +1613,8 @@ avatarBtn.addEventListener('click', e => { e.stopPropagation(); const open = men
 document.addEventListener('click', e => { if (!e.target.closest('.user')) closeMenu(); if (!e.target.closest('.search')) closeResults(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeResults(); closeModal(); } });
 const modal = $('#modal'), mcard = $('#mcard');
-function openModal(html, cls = '') { mcard.className = 'mcard' + (cls ? ' ' + cls : ''); mcard.innerHTML = html; modal.hidden = false; const x = mcard.querySelector('.mx'); if (x) x.focus(); }
+function openModal(html, cls = '', from = null) { mcard.className = 'mcard' + (cls ? ' ' + cls : ''); mcard.innerHTML = html; mcard.style.transformOrigin = ''; modal.hidden = false;
+  if (from) { const r = mcard.getBoundingClientRect(), pt = map.latLngToContainerPoint(from), mr = map.getContainer().getBoundingClientRect(); mcard.style.transformOrigin = Math.round(mr.left + pt.x - r.left) + 'px ' + Math.round(mr.top + pt.y - r.top) + 'px'; } const x = mcard.querySelector('.mx'); if (x) x.focus(); }
 function closeModal() { modal.hidden = true; mcard.innerHTML = ''; }
 modal.addEventListener('click', e => { if (e.target === modal || e.target.closest('.mx') || e.target.closest('[data-close]')) closeModal(); });
 const head = t => `<div class="mh"><h3 id="mt">${t}</h3><button class="mx" type="button" aria-label="إغلاق">✕</button></div>`;
