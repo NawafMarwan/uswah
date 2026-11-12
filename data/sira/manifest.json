@@ -1,51 +1,53 @@
 {
- "coverage": "سيرة النبي ﷺ كاملة: من بدء الوحي إلى وفاته ودفنه",
- "published": [
-  "a_makki.json",
-  "b_hijra_y1_3.json",
-  "c_y4_6.json",
-  "d_y7_8.json",
-  "e_y9_11.json"
- ],
- "places_files": [
-  "places.json",
-  "places_b.json",
-  "places_c.json",
-  "places_d.json",
-  "places_e.json"
- ],
- "moves": [
-  {
-   "ids": [
-    "c-032",
-    "c-033",
-    "c-034",
-    "c-035",
-    "c-036",
-    "c-037"
-   ],
-   "after": "c-028"
-  },
-  {
-   "ids": [
-    "c-029",
-    "c-030"
-   ],
-   "after": "c-037"
-  },
-  {
-   "ids": [
-    "c-031"
-   ],
-   "after": "d-005"
-  },
-  {
-   "ids": [
-    "c-038",
-    "c-039",
-    "c-040"
-   ],
-   "after": "d-037"
-  }
- ]
+  "coverage": "سيرة النبي ﷺ كاملة: من إرهاصات المولد (حال الجزيرة وعام الفيل) إلى بدء الوحي ثم وفاته ودفنه",
+  "published": [
+    "p_pre.json",
+    "a_makki.json",
+    "b_hijra_y1_3.json",
+    "c_y4_6.json",
+    "d_y7_8.json",
+    "e_y9_11.json"
+  ],
+  "places_files": [
+    "places.json",
+    "places_b.json",
+    "places_c.json",
+    "places_d.json",
+    "places_e.json",
+    "places_p.json"
+  ],
+  "moves": [
+    {
+      "ids": [
+        "c-032",
+        "c-033",
+        "c-034",
+        "c-035",
+        "c-036",
+        "c-037"
+      ],
+      "after": "c-028"
+    },
+    {
+      "ids": [
+        "c-029",
+        "c-030"
+      ],
+      "after": "c-037"
+    },
+    {
+      "ids": [
+        "c-031"
+      ],
+      "after": "d-005"
+    },
+    {
+      "ids": [
+        "c-038",
+        "c-039",
+        "c-040"
+      ],
+      "after": "d-037"
+    }
+  ]
 }

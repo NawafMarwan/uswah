@@ -21,7 +21,7 @@ __LEAFLET_CSS__
   --ink:#2e1c2b; --ink-2:#5b4857; --muted:#85737f; --line:#e5d6cb; --line-2:#d8c5b8;
   --plum:#3a2236; --copper:#c2703d; --copper-ink:#9c5426; --slate:#6e8fa3; --slate-ink:#4e6f83; --taupe:#9a7c6a;
   --on-brand:#fffaf6; --logo-filter:none;
-  --c-secret:#6e8fa3; --c-open:#c2703d; --c-hijra:#16967a; --c-madani:#8a3f8c; --c-final:#3a2236;
+  --c-pre:#b8893a; --c-secret:#6e8fa3; --c-open:#c2703d; --c-hijra:#16967a; --c-madani:#8a3f8c; --c-final:#3a2236;
   --shadow:0 1px 2px rgba(58,34,54,.06),0 8px 24px -12px rgba(58,34,54,.18);
   --maxw:1240px; --gutter:16px;
 }
@@ -31,7 +31,7 @@ __LEAFLET_CSS__
     --bg:#1b1118; --surface:#2a1b28; --surface-2:#332230; --surface-3:#3e2b3a;
     --ink:#f6ece6; --ink-2:#d9c7cf; --muted:#a8949f; --line:#44303f; --line-2:#56404f;
     --plum:#4a2c45; --copper:#d9874f; --copper-ink:#e59a66; --slate:#8fb0c4; --slate-ink:#a3c2d4; --taupe:#c2a28f;
-    --c-secret:#8fb0c4; --c-open:#d9874f; --c-hijra:#1f9c80; --c-madani:#b06bb2; --c-final:#e5c9d8;
+    --c-pre:#e0b65a; --c-secret:#8fb0c4; --c-open:#d9874f; --c-hijra:#1f9c80; --c-madani:#b06bb2; --c-final:#e5c9d8;
     --logo-filter:brightness(0) invert(.94);
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
   }
@@ -41,7 +41,7 @@ __LEAFLET_CSS__
   --bg:#1b1118; --surface:#2a1b28; --surface-2:#332230; --surface-3:#3e2b3a;
   --ink:#f6ece6; --ink-2:#d9c7cf; --muted:#a8949f; --line:#44303f; --line-2:#56404f;
   --plum:#4a2c45; --copper:#d9874f; --copper-ink:#e59a66; --slate:#8fb0c4; --slate-ink:#a3c2d4; --taupe:#c2a28f;
-  --c-secret:#8fb0c4; --c-open:#d9874f; --c-hijra:#1f9c80; --c-madani:#b06bb2; --c-final:#e5c9d8;
+  --c-pre:#e0b65a; --c-secret:#8fb0c4; --c-open:#d9874f; --c-hijra:#1f9c80; --c-madani:#b06bb2; --c-final:#e5c9d8;
   --logo-filter:brightness(0) invert(.94);
   --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
 }
@@ -126,6 +126,72 @@ main{padding-block:18px 48px}
 .route-past{stroke-dasharray:3 7;opacity:.4}
 @keyframes march{to{stroke-dashoffset:-18}}
 @media (prefers-reduced-motion:reduce){.route-line,.pm.active i{animation:none}}
+
+/* ===== الوضع الروائي ===== */
+.story{position:absolute;inset:0;z-index:1000;pointer-events:none;overflow:hidden}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 52%,rgba(18,9,16,.5) 100%);box-shadow:inset 0 0 140px 10px color-mix(in srgb,var(--tint,transparent) 38%,transparent);transition:box-shadow .9s}
+.poster{position:absolute;inset:0;display:grid;place-content:center;gap:10px;text-align:center;padding:22px;color:#fffaf6;background:radial-gradient(circle at 50% 38%,rgba(92,53,80,.9),rgba(20,9,18,.95));pointer-events:auto;transition:opacity .7s,visibility .7s}
+.poster.gone{opacity:0;visibility:hidden;pointer-events:none}
+.poster .lg{width:84px;height:92px;margin:0 auto;filter:brightness(0) invert(1);animation:introIn 1.1s ease both}
+.poster .k{color:#f6dc8b;font-weight:700;letter-spacing:.08em;font-size:14px;animation:introIn 1.1s .2s ease both}
+.poster h2{margin:0;font-size:clamp(26px,5vw,48px);line-height:1.4;animation:introIn 1.1s .35s ease both}
+.poster p{margin:0 auto;max-width:560px;color:#e8d8dc;font-size:clamp(14px,1.9vw,17px);line-height:1.95;animation:introIn 1.1s .5s ease both}
+.poster .pb{margin-top:6px;animation:introIn 1.1s .65s ease both}
+.poster .go{appearance:none;border:0;cursor:pointer;background:linear-gradient(135deg,#f6dc8b,#d9a638);color:#3a2236;font-weight:700;font-size:18px;border-radius:999px;padding:12px 34px;box-shadow:0 0 0 8px rgba(217,166,56,.22),0 12px 34px rgba(0,0,0,.5);display:inline-flex;align-items:center;gap:10px}
+.poster .go svg{width:20px;height:20px;fill:#3a2236}
+.poster .pc{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:6px;animation:introIn 1.1s .8s ease both}
+.poster .pc button{appearance:none;cursor:pointer;border:1px solid rgba(255,250,246,.28);background:rgba(255,250,246,.08);color:#fffaf6;border-radius:999px;padding:3px 14px;font-size:13px}
+.poster .pc button:hover{background:rgba(255,250,246,.2)}
+@keyframes introIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.chapcard{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:24px;color:#fffaf6;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--c) 40%,#1c0f1a),rgba(16,8,14,.96) 78%);pointer-events:none;z-index:2}
+.chapcard.show{animation:chapIn 3s ease both}
+.chapcard .cc-n{color:#f6dc8b;font-size:clamp(14px,2vw,18px);font-weight:700;letter-spacing:.06em}
+.chapcard h2{margin:6px 0 8px;font-size:clamp(34px,7vw,72px);line-height:1.3}
+.chapcard h2::after{content:"";display:block;width:90px;height:4px;border-radius:3px;margin:12px auto 0;background:var(--c);box-shadow:0 0 18px var(--c)}
+.chapcard p{margin:0 auto;max-width:640px;color:#eadbe0;font-size:clamp(15px,2.1vw,20px);line-height:1.9}
+.chapcard .cc-m{margin-top:10px;color:#c9b6c1;font-size:13.5px}
+@keyframes chapIn{0%{opacity:0;transform:scale(1.06)}12%{opacity:1;transform:none}82%{opacity:1}100%{opacity:0;visibility:hidden}}
+.scene{position:absolute;z-index:1;inset-inline-start:14px;bottom:14px;width:min(520px,47%);max-height:calc(100% - 28px);overflow:auto;scrollbar-width:thin;pointer-events:auto;color:#fffaf6;background:linear-gradient(160deg,rgba(32,16,29,.9),rgba(20,10,18,.9));border-radius:20px;border-inline-start:5px solid var(--c,var(--copper));padding:14px 18px 16px;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 40px -10px var(--c,transparent);backdrop-filter:blur(8px)}
+.scene.in{animation:sceneIn .7s cubic-bezier(.2,.9,.3,1) both}
+.scene.wait{opacity:0;pointer-events:none}
+@keyframes sceneIn{from{opacity:0;transform:translateY(28px) scale(.98)}to{opacity:1;transform:none}}
+.scene .sc-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px}
+.scene .sc-ph{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:#fff;background:color-mix(in srgb,var(--c) 70%,#000);border-radius:999px;padding:0 11px}
+.scene .sc-ph i{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff}
+.scene .sc-n{color:#bda9b4;margin-inline-start:auto}
+.scene .sc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.scene .sc-meta span{background:rgba(255,250,246,.12);border-radius:999px;padding:0 12px;font-size:13px;font-weight:600;color:#f3e6d9}
+.scene .sc-meta .age{background:rgba(246,220,139,.18);color:#f6dc8b}
+.scene h2{margin:6px 0 4px;font-size:clamp(20px,2.6vw,29px);line-height:1.5;color:#fff}
+.scene .sc-x{margin:0;font-size:clamp(15px,1.6vw,17.5px);line-height:2.05;color:#fffaf6}
+.scene .sc-x .w{opacity:.18;animation:wOn .4s ease forwards}
+@keyframes wOn{to{opacity:1}}
+.scene .sc-q{margin:10px 0 0;padding:8px 14px;border-inline-start:3px solid #f6dc8b;background:rgba(246,220,139,.09);border-radius:0 12px 12px 0;color:#f1e4d2;font-size:14.5px;line-height:1.95}
+.scene .sc-q::before{content:"من كلام المؤرخين";display:block;font-size:11.5px;font-weight:700;color:#f6dc8b;margin-bottom:2px}
+.scene .sc-q cite{display:block;margin-top:2px;font-style:normal;font-size:12px;color:#c4b2a8}
+.scene .sc-people{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.scene .sc-people .chip{background:rgba(255,250,246,.1);color:#fffaf6;border-color:rgba(255,250,246,.25);font-size:12.5px;padding:1px 11px}
+.scene .sc-people .chip.def:hover{border-color:#f6dc8b}
+.scene .sc-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.scene .sc-act button{appearance:none;cursor:pointer;border:1px solid rgba(255,250,246,.3);background:rgba(255,250,246,.08);color:#fffaf6;font:inherit;font-size:13px;font-weight:600;border-radius:12px;padding:5px 14px}
+.scene .sc-act button:hover{background:rgba(255,250,246,.2)}
+.lifeline{padding:10px 14px 4px;border-top:1px solid var(--line);background:var(--surface-2)}
+.ll-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);margin-bottom:6px}
+.ll-top #llAge{font-weight:700;color:var(--copper-ink)}
+.chapnav{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.chapnav button{flex:none;appearance:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:3px 13px;font:inherit;font-size:13px;font-weight:600;white-space:nowrap}
+.chapnav button i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chapnav button small{color:var(--muted);font-weight:500}
+.chapnav button.done{border-color:color-mix(in srgb,var(--c) 55%,var(--line-2))}
+.chapnav button.cur{background:var(--c);color:#fff;border-color:transparent;box-shadow:0 0 14px -2px var(--c)}
+.chapnav button.cur i{background:#fff}.chapnav button.cur small{color:#f3e6ee}
+#eventPanel.collapsed{display:none}
+body.present .caption{display:none!important}
+body.present .scene{width:min(640px,44%);font-size:1.1em}
+body.present .lifeline{display:none}
+.pm.active i{background:radial-gradient(circle at 35% 35%,#fff3d9,#f0b34f 55%,var(--c,#c2703d));box-shadow:0 0 0 0 rgba(240,179,79,.65),0 0 18px 6px rgba(240,179,79,.5)}
+@media (max-width:700px){.scene{inset-inline:8px;bottom:8px;width:auto;max-height:62%;padding:11px 14px 13px}.scene h2{font-size:19px}.chapcard h2{font-size:34px}}
+@media (prefers-reduced-motion:reduce){.scene .sc-x .w{animation:none;opacity:1}.chapcard.show{animation:none;opacity:1}}
 
 /* controls */
 .controls{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
@@ -310,7 +376,7 @@ body.present .controls{background:var(--surface)}
   <div class="wrap">
     <span class="kicker">نتعلم.. لنتأسى</span>
     <h1>الخريطة التفاعلية — السيرة النبوية</h1>
-    <p>رحلة الدعوة من البعثة إلى الوفاة على الخريطة، بالترتيب، وكل حدث موثّق بمصدره والجزء والصفحة.</p>
+    <p>قصة السيرة من إرهاصات المولد إلى لقاء الرفيق الأعلى، تُروى على الخريطة مشهدًا بعد مشهد، وكل مشهد موثّق بمصدره والجزء والصفحة.</p>
   </div>
 </section>
 
@@ -325,9 +391,16 @@ body.present .controls{background:var(--surface)}
           <button type="button" data-l="imagery" aria-pressed="false">قمر صناعي</button>
         </div>
         <div class="caption" id="caption" aria-live="polite"></div>
+        <div class="story" id="story">
+          <div class="vig" id="vig" aria-hidden="true"></div>
+          <div class="poster" id="poster"></div>
+          <div class="chapcard" id="chapcard" hidden aria-live="polite"></div>
+          <article class="scene" id="scene" hidden></article>
+        </div>
         <div class="tilewarn" id="tileWarn" hidden>تعذّر تحميل صور الخريطة. تحقق من الاتصال بالإنترنت؛ تبقى المواضع والأحداث تعمل.</div>
         <div class="mapnote">خلفية الخريطة © Esri — بلا أسماء حديثة؛ الأسماء من كتب السيرة</div>
       </div>
+      <div class="lifeline" id="lifeline"><div class="ll-top"><span id="llAge"></span><span id="llChap"></span></div><div class="chapnav" id="chapnav" role="group" aria-label="فصول القصة"></div></div>
       <div class="controls">
         <div class="cbtns">
           <button class="sbtn" id="prev" type="button" aria-label="الحدث السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
@@ -352,7 +425,7 @@ body.present .controls{background:var(--surface)}
       <div class="legend" id="legend"></div>
     </section>
 
-    <section class="panel event" id="eventPanel" aria-live="polite"></section>
+    <section class="panel event collapsed" id="eventPanel" aria-live="polite"></section>
 
     <section class="panel" id="listPanel" style="margin-top:16px">
       <div class="panel-h"><h2>أحداث الرحلة بالترتيب</h2><p id="listNote"></p></div>
@@ -397,6 +470,7 @@ let DATA = { events: [], places: {}, regions: [], meta: {} };
 try { DATA = JSON.parse($('#seed').textContent); } catch {}
 const EV = DATA.events, PL = DATA.places, BOOKS = DATA.books || {}, PEOPLE = DATA.people || {}, PEOPLE_IDX = DATA.people_index || {};
 const PHASES = {
+  'pre':          ['الإرهاصات (قبل البعثة)', 'var(--c-pre)'],
   'makki-secret': ['الدعوة السرية', 'var(--c-secret)'],
   'makki-open':   ['الجهر بالدعوة (العهد المكي)', 'var(--c-open)'],
   'hijra':        ['الهجرة', 'var(--c-hijra)'],
@@ -499,10 +573,25 @@ function drawRoutes() {
   const cur = EV[idx];
   if (cur) {
     const r = (cur.route || []).filter(x => PL[x]).map(x => PL[x].ll);
-    if (r.length > 1) L.polyline(r, { color: '#c2703d', weight: cur.type === 'letter' ? 3 : 4, className: cur.type === 'letter' ? 'route-letter' : 'route-line', interactive: false }).addTo(routeLayer);
+    if (r.length > 1) { const pl = L.polyline(reduce ? r : [r[0], r[0]], { color: '#c2703d', weight: cur.type === 'letter' ? 3 : 4, className: cur.type === 'letter' ? 'route-letter' : 'route-line', interactive: false }).addTo(routeLayer); if (!reduce) growLine(pl, r, 1500); }
   }
 }
 
+function growLine(pl, pts, ms) {
+  const seg = [0]; for (let i = 1; i < pts.length; i++) seg.push(seg[i - 1] + map.distance(pts[i - 1], pts[i]));
+  const tot = seg[seg.length - 1] || 1, t0 = performance.now(), my = ++growLine.id;
+  (function step(now) {
+    if (growLine.id !== my || !routeLayer.hasLayer(pl)) return;
+    const f = Math.min(1, (now - t0) / ms), d = tot * (1 - Math.pow(1 - f, 2)), out = [pts[0]];
+    for (let i = 1; i < pts.length; i++) {
+      if (d >= seg[i]) { out.push(pts[i]); continue; }
+      const t = (d - seg[i - 1]) / (seg[i] - seg[i - 1] || 1), a = pts[i - 1], b = pts[i];
+      out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]); break;
+    }
+    pl.setLatLngs(out); if (f < 1) requestAnimationFrame(step);
+  })(t0);
+}
+growLine.id = 0;
 function targetFor(e) {
   const ids = (e.route && e.route.length > 1 ? e.route : e.places || []).filter(x => PL[x]);
   const pts = ids.map(x => PL[x].ll);
@@ -516,6 +605,103 @@ function flyTo(e) {
   const t = targetFor(e); if (!t) return;
   const opts = { duration: reduce ? 0 : 1.8, animate: !reduce, padding: [60, 60] };
   if (t.b) map.flyToBounds(t.b, { ...opts, maxZoom: t.maxZ }); else map.flyTo(t.c, t.z, opts);
+}
+
+/* ---------- القصة: فصول وعمر النبي ﷺ ---------- */
+const CHAP_DEFS = {
+  pre:    { name: 'الإرهاصات', tag: 'قبل أن ينزل الوحي: جزيرة تنتظر، وبيتٌ يحرسه ربه، ويتيمٌ يولد في عام الفيل' },
+  secret: { name: 'الدعوة السرية', tag: 'ثلاث سنين من الكتمان، ونورٌ يسري في الخفاء' },
+  open:   { name: 'الجهر والصبر', tag: 'صدعٌ بما أُمر به، وابتلاءٌ يتبعه، وأبوابٌ تُفتح من المدينة' },
+  hijra:  { name: 'الهجرة', tag: 'من مكة إلى يثرب، حيث يبدأ فصلٌ جديد' },
+  m12:    { name: 'بناء المجتمع الجديد', tag: 'من بناء المسجد النبوي إلى بدر وما تلاها' },
+  m35:    { name: 'أحد والخندق', tag: 'ابتلاءٌ وتمحيص، وأحزابٌ تحاصر المدينة' },
+  m6:     { name: 'الحديبية', tag: 'سنة ستٍّ من الهجرة: من السرايا إلى صلح الحديبية' },
+  m78:    { name: 'من خيبر إلى فتح مكة', tag: 'كتبٌ إلى الملوك، ثم خيبر ومؤتة، فمكةُ تُفتح وتتبعها حنين' },
+  m910:   { name: 'عام الوفود وحجة الوداع', tag: 'تبوك، ووفودٌ تتوالى، ثم حجة الوداع' },
+  final:  { name: 'الأيام الأخيرة', tag: 'من بعث أسامة إلى لقاء الرفيق الأعلى' },
+};
+const ORD = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس', 'السابع', 'الثامن', 'التاسع', 'العاشر', 'الحادي عشر', 'الثاني عشر'];
+const CHAP_OF = []; { let last = null;
+  EV.forEach(e => {
+    let k;
+    if (e.phase === 'pre') k = 'pre'; else if (e.phase === 'makki-secret') k = 'secret'; else if (e.phase === 'makki-open') k = 'open'; else if (e.phase === 'hijra') k = 'hijra'; else if (e.phase === 'final') k = 'final';
+    else { const y = e.date && e.date.hijri_year; k = y == null ? (last && /^m\d/.test(last) ? last : 'm12') : y <= 2 ? 'm12' : y <= 5 ? 'm35' : y === 6 ? 'm6' : y <= 8 ? 'm78' : 'm910'; }
+    CHAP_OF.push(k); last = k;
+  });
+}
+const CHAPS = [...new Set(CHAP_OF)].map((k, n) => { const first = CHAP_OF.indexOf(k); return { k, n, ...CHAP_DEFS[k], first, count: CHAP_OF.filter(x => x === k).length, color: ph(EV[first])[1] }; });
+const chapOf = i => CHAPS.find(c => c.k === CHAP_OF[i]);
+const scenes = n => n === 1 ? 'مشهد واحد' : n === 2 ? 'مشهدان' : n <= 10 ? n + ' مشاهد' : n + ' مشهدًا';
+const yrs = n => n <= 0 ? 'عند مولده' : n === 1 ? 'سنة' : n === 2 ? 'سنتان' : n <= 10 ? n + ' سنين' : n + ' سنة';
+function ageOf(e) {
+  const d = e.date || {}, a = e.age != null ? e.age : d.age, lab = e.age_label || d.age_label;
+  if (a != null) return { v: a, t: lab || (a <= 0 ? 'عند مولده ﷺ' : 'عمره ﷺ ' + yrs(Math.round(a))) };
+  if (lab) return { v: null, t: lab };
+  if (d.bi_year) return { v: 39 + d.bi_year, t: 'عمره ﷺ نحو ' + (39 + d.bi_year) + ' سنة' };
+  if (d.hijri_year) return { v: 52 + d.hijri_year, t: 'عمره ﷺ نحو ' + (52 + d.hijri_year) + ' سنة' };
+  return null;
+}
+const cleanQuote = t => String(t || '').replace(/\s*\[[^\]]{1,8}\]/g, '').replace(/\s*\(\s*\)/g, '').replace(/\s+/g, ' ').trim();
+function pickQuote(e) {
+  for (const s of e.sources || []) {
+    let q = cleanQuote(s.quote); if (q.length < 28) continue;
+    if (q.length > 210) { q = q.slice(0, 210); q = q.slice(0, q.lastIndexOf(' ')) + '…'; }
+    return { q, cite: `${shortBook(s.book)} ${refOf(s)}` };
+  }
+  return null;
+}
+let holdExtra = 0, lastChap = null, chapTimer = null;
+function showChapter(c, auto) {
+  const card = $('#chapcard'), scene = $('#scene');
+  if (reduce) { holdExtra = 0; return; }
+  const ages = EV.map((e, i) => CHAP_OF[i] === c.k ? ageOf(e) : null).filter(a => a && a.v != null).map(a => a.v);
+  const lo = ages.length ? Math.round(Math.min(...ages)) : 0, hi = ages.length ? Math.round(Math.max(...ages)) : 0;
+  const span = !ages.length ? '' : lo === hi ? ` · في عمر ${hi} سنة` : lo === 0 ? ` · من المولد إلى عمر ${hi} سنة` : ` · من عمر ${lo} إلى ${hi} سنة`;
+  card.style.setProperty('--c', c.color);
+  card.innerHTML = `<div class="cc-n">الفصل ${ORD[c.n] || c.n + 1}</div><h2>${esc(c.name)}</h2><p>${esc(c.tag)}</p><div class="cc-m">${scenes(c.count)}${span}</div>`;
+  card.hidden = false; card.classList.remove('show'); void card.offsetWidth; card.classList.add('show');
+  scene.classList.add('wait'); clearTimeout(chapTimer);
+  chapTimer = setTimeout(() => { card.hidden = true; card.classList.remove('show'); scene.classList.remove('wait'); }, 2900);
+  if (auto) holdExtra = 2.9;
+}
+function renderScene() {
+  const poster = $('#poster'), scene = $('#scene'), e = EV[idx];
+  poster.classList.toggle('gone', idx >= 0);
+  if (!e) { scene.hidden = true; $('#vig').style.setProperty('--tint', 'transparent'); return; }
+  const [pn, pc] = ph(e), a = ageOf(e), q = pickQuote(e), ch = chapOf(idx);
+  scene.style.setProperty('--c', pc); $('#vig').style.setProperty('--tint', pc);
+  const ws = String(e.summary || '').split(/\s+/).filter(Boolean), per = Math.min(0.16, 6 / Math.max(1, ws.length));
+  const people = (e.key_people || []).slice(0, 8).map(n => PEOPLE_IDX[n] ? `<button type="button" class="chip person def" data-person="${esc(PEOPLE_IDX[n])}">${esc(n)}</button>` : `<span class="chip person">${esc(n)}</span>`).join('');
+  scene.innerHTML = `<div class="sc-top"><span class="sc-ph"><i></i>${esc(ch ? ch.name : pn)}</span><span class="sc-n">مشهد <b class="num">${idx + 1}</b> من <span class="num">${EV.length}</span></span></div>
+    <div class="sc-meta"><span>📅 ${esc(e.date && e.date.label || '')}</span>${a ? `<span class="age">${esc(a.t)}</span>` : ''}</div>
+    <h2>${esc(e.title)}</h2>
+    <p class="sc-x">${ws.map((w, k) => `<span class="w" style="animation-delay:${(0.5 + k * per).toFixed(2)}s">${esc(w)}</span>`).join(' ')}</p>
+    ${q ? `<blockquote class="sc-q">«${esc(q.q)}»<cite>— ${esc(q.cite)}</cite></blockquote>` : ''}
+    ${people ? `<div class="sc-people">${people}</div>` : ''}
+    <div class="sc-act"><button type="button" data-details>التفاصيل والمصادر الكاملة</button></div>`;
+  scene.hidden = false; scene.scrollTop = 0; scene.classList.remove('in'); void scene.offsetWidth; scene.classList.add('in');
+}
+function renderPoster() {
+  const po = $('#poster');
+  po.innerHTML = `<span class="logo lg" role="img" aria-label="أسوة"></span><div class="k">نتعلم.. لنتأسى</div><h2>رحلة السيرة النبوية</h2>
+    <p>${esc('من إرهاصات المولد إلى لقاء الرفيق الأعلى — قصةٌ تُروى على الخريطة مشهدًا بعد مشهد، وكل مشهد موثّق بمصدره والجزء والصفحة.')}</p>
+    <div class="pb"><button type="button" class="go" id="posterPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>ابدأ الرحلة</button></div>
+    <div class="pc">${CHAPS.map(c => `<button type="button" data-chap="${c.n}">${esc(c.name)}</button>`).join('')}</div>`;
+}
+function renderChapNav() {
+  $('#chapnav').innerHTML = CHAPS.map(c => `<button type="button" data-chap="${c.n}" style="--c:${c.color}"><i></i>${esc(c.name)}<small class="num">${c.count}</small></button>`).join('');
+}
+function updLife() {
+  const e = EV[idx], ch = idx >= 0 ? chapOf(idx) : null, a = e ? ageOf(e) : null;
+  $('#llAge').textContent = a ? a.t : (idx < 0 ? 'ابدأ الرحلة من الفصل الأول، أو اختر فصلًا' : '');
+  $('#llChap').textContent = ch ? `الفصل ${ORD[ch.n] || ch.n + 1}: ${ch.name}` : '';
+  document.querySelectorAll('#chapnav button').forEach(b => { const n = +b.dataset.chap; b.classList.toggle('cur', !!ch && ch.n === n); b.classList.toggle('done', !!ch && n < ch.n); });
+  const cur = document.querySelector('#chapnav button.cur'); if (cur && cur.scrollIntoView) cur.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+function enterChapterIfNew(auto) {
+  const c = idx >= 0 ? chapOf(idx) : null;
+  if (c && (!lastChap || lastChap.k !== c.k)) showChapter(c, auto);
+  lastChap = c;
 }
 
 /* ---------- panel ---------- */
@@ -569,13 +755,16 @@ function fillBar(sec) {
   if (sec) { void f.offsetWidth; f.style.transition = `width ${sec}s linear`; f.style.width = '100%'; }
 }
 function show(i, fly = true) {
+  const oldIdx = idx;
   idx = Math.max(-1, Math.min(EV.length - 1, i));
+  const prevIdx = oldIdx;
   map.closePopup(); selPlace = null; renderEvent(); renderCaption(); setProgress(); drawRoutes(); refreshMarkers();
+  enterChapterIfNew(playing && idx > prevIdx); renderScene(); updLife();
   if (fly && EV[idx]) flyTo(EV[idx]); else if (idx < 0) map.flyToBounds(WORLD_BOUNDS, { duration: reduce ? 0 : 1.4, animate: !reduce, padding: [8, 8] });
 }
 function tick() {
   clearTimeout(timer); if (!playing) return;
-  const e = EV[idx]; const sec = e ? dwell(e) / speed : 3;
+  const e = EV[idx]; const sec = (e ? dwell(e) / speed : 3) + holdExtra; holdExtra = 0;
   fillBar(sec);
   timer = setTimeout(() => { if (idx >= EV.length - 1) { stop(); fillBar(0); return; } show(idx + 1); tick(); }, sec * 1000);
 }
@@ -583,7 +772,7 @@ function setPlayUi() {
   $('#playLabel').textContent = playing ? 'إيقاف مؤقت' : (idx >= EV.length - 1 && idx >= 0 ? 'إعادة التشغيل' : (idx < 0 ? 'تشغيل الرحلة' : 'متابعة'));
   $('#playIcon').setAttribute('d', playing ? 'M7 5h4v14H7zM13 5h4v14h-4z' : 'M8 5v14l11-7z');
 }
-function play() { if (idx >= EV.length - 1) show(0); else if (idx < 0) show(0); playing = true; setPlayUi(); tick(); }
+function play() { if (idx >= EV.length - 1) { lastChap = null; show(0); } else if (idx < 0) { lastChap = null; show(0); } playing = true; setPlayUi(); tick(); }
 function stop() { playing = false; clearTimeout(timer); fillBar(0); setPlayUi(); }
 $('#play').addEventListener('click', () => playing ? stop() : play());
 $('#next').addEventListener('click', () => { const was = playing; show(idx + 1); if (was) tick(); else fillBar(0); });
@@ -665,8 +854,18 @@ document.addEventListener('click', e => {
   const p = e.target.closest('[data-person]'); if (p) return personCard(p.dataset.person);
 }, true);
 
+/* ---------- تفاعل القصة ---------- */
+function startChapter(n) { const c = CHAPS[n]; if (!c) return; stop(); lastChap = null; show(c.first); play2(); }
+function play2() { playing = true; setPlayUi(); tick(); }
+document.addEventListener('click', e => {
+  if (e.target.closest('#posterPlay')) { lastChap = null; play(); return; }
+  const c = e.target.closest('[data-chap]'); if (c) { const n = +c.dataset.chap; const was = playing; stop(); lastChap = null; show(CHAPS[n].first); if (was || c.closest('#poster')) play2(); window.scrollTo({ top: $('.stage').offsetTop - 70, behavior: reduce ? 'auto' : 'smooth' }); return; }
+  if (e.target.closest('[data-details]')) { const pnl = $('#eventPanel'); const open = pnl.classList.toggle('collapsed') === false; if (open) { stop(); pnl.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } }
+});
+
 /* ---------- ticks, legend, list ---------- */
 $('#progTotal').textContent = EV.length;
+renderPoster(); renderChapNav(); updLife();
 $('#ticks').innerHTML = EV.map((e, i) => `<button type="button" class="tick" style="--c:${ph(e)[1]}" data-i="${i}" title="${esc((i + 1) + '. ' + e.title)}" aria-label="${esc(e.title)}"></button>`).join('');
 $('#ticks').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) jump(+b.dataset.i); });
 const used = [...new Set(EV.map(e => e.phase))];
