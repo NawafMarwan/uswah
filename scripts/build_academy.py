@@ -83,7 +83,8 @@ def main():
     css = (ROOT / "scripts/vendor/leaflet.css").read_text(encoding="utf-8")
     js = (ROOT / "scripts/vendor/leaflet.js").read_text(encoding="utf-8").replace("</script", "<\\/script")
     html = (tpl.replace("__LEAFLET_CSS__", css).replace("__LEAFLET_JS__", js)
-               .replace("__LOGO__", logo).replace("__QR__", qr_svg()).replace("__DATA__", seed))
+               .replace("__LOGO__", logo).replace("__QR__", qr_svg()).replace("__DATA__", seed)
+               .replace("__GEO__", (ROOT / "data/geo/arabia.json").read_text(encoding="utf-8")))
     out = ROOT / "academy" / "index.html"          # الرابط: uswah.sa/academy/
     out.parent.mkdir(exist_ok=True)
     out.write_text(html, encoding="utf-8")
