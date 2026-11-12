@@ -1070,11 +1070,46 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 .mrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .toast{position:fixed;inset-inline:12px;bottom:18px;margin-inline:auto;max-width:440px;z-index:4000;background:var(--plum);color:var(--on-brand);padding:12px 18px;border-radius:14px;box-shadow:0 14px 40px -10px rgba(0,0,0,.6);font-weight:600;text-align:center;border:1px solid var(--copper)}
 
+/* ===== الواجهة الأولى: عنوان مختصر والخريطة تملأ الشاشة ===== */
+.hero{padding:12px var(--gutter) 0}
+.hero .kick,.hero p{display:none}
+.hero h1.calli-h{margin:0 auto;font-size:clamp(28px,4.2vw,40px)!important;line-height:1.3!important;display:flex;justify-content:center;align-items:center;gap:.22em;direction:rtl;width:max-content;max-width:100%}
+.hero h1.calli-h em{font-size:.5em;line-height:1;transform:translateY(-.05em)}
+.prog{margin:4px auto 0;max-width:360px}
+.prog .row{margin-bottom:3px;font-size:12.5px}
+.prog .bar{height:7px}
+#homeView .mapcard{margin-top:10px}
+.mapveil .calli{display:inline-flex;align-items:center;gap:.2em;direction:rtl}
+.mapveil .calli em{font-size:.5em;line-height:1}
+@media (max-width:640px){.lcard .mleg{grid-template-columns:1fr}}
+#map{height:var(--mapH,clamp(320px,50vh,440px))}
+/* بطاقة الدرس الحالي */
+.lcard .kick2{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--copper-ink);background:color-mix(in srgb,var(--copper) 12%,transparent);border:1px solid color-mix(in srgb,var(--copper) 35%,transparent);border-radius:99px;padding:1px 11px}
+.lcard .lt{margin:8px 0 2px;font-size:20px;line-height:1.6;color:var(--ink)}
+.lcard .ld{margin:0;font-size:13px;color:var(--muted);line-height:1.7}
+.lcard h4{margin:14px 0 6px;font-size:13.5px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.lcard h4::before{content:"";width:4px;height:14px;border-radius:3px;background:var(--copper)}
+.lcard .pts{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.lcard .pts li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.7;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;animation:clIn .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i,0)*110ms + 250ms)}
+.lcard .pts li svg{flex:none;width:18px;height:18px;margin-top:4px;stroke:var(--slate-ink);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.lcard .stn{display:flex;flex-wrap:wrap;gap:6px}
+.lcard .stn span{font-size:12.5px;line-height:1.6;border:1px dashed var(--line-2);border-radius:99px;padding:2px 10px;color:var(--ink-2);display:inline-flex;gap:5px;align-items:center}
+.lcard .stn span i{font-style:normal;font-weight:700;color:var(--slate-ink)}
+.lcard .mbar{display:flex;gap:2px;height:9px;border-radius:99px;overflow:hidden;direction:rtl}
+.lcard .mbar i{display:block;height:100%}
+.lcard .mleg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 14px;margin-top:8px;font-size:12.5px;color:var(--ink-2)}
+.lcard .mleg span{display:flex;align-items:center;gap:6px;min-width:0}
+.lcard .mleg span b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lcard .mleg span em{font-style:normal;margin-inline-start:auto;color:var(--muted);white-space:nowrap}
+.lcard .mleg span i{flex:none;width:9px;height:9px;border-radius:3px}
+.lcard .done-note{margin-top:10px;font-size:14px;color:var(--ok);font-weight:700}
+@media (prefers-reduced-motion:reduce){.lcard .pts li{animation:none!important}}
+
 @media (max-width:640px){
   .brand-text{display:none}
   .topbar .wrap{gap:8px}
   .search{width:auto;flex:1;min-width:0}
-  .hero{padding-top:22px}
+  .hero{padding-top:8px}
   .card{padding:14px}
   .lc{padding:12px}
   .lc .st{font-size:12px;padding:2px 9px}
@@ -1366,6 +1401,16 @@ md.on('click', () => {
   showMadinah();
 });
 
+const homeView = $('#homeView');
+/* الخريطة تملأ ما تبقى من الشاشة دون حاجة للتمرير */
+function fitMapH() {
+  const el = $('#map'); if (!el || homeView.hidden) return;
+  const below = el.parentElement.nextElementSibling;   // شريط التلميح
+  const top = el.getBoundingClientRect().top + window.scrollY;
+  const h = Math.round(window.innerHeight - top - (below ? below.offsetHeight : 0) - 14);
+  el.style.setProperty('--mapH', Math.max(300, h) + 'px'); map.invalidateSize();
+}
+addEventListener('resize', fitMapH);
 const veil = $('#mapveil');
 if (veil) veil.addEventListener('click', () => { veil.classList.add('off'); setTimeout(() => veil.remove(), 800); });
 
@@ -1380,29 +1425,40 @@ function showMadinah() {
   openModal(`${head('دروس العهد المدني')}<div class="soon"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5"/></svg><b>قريبًا</b><p class="sub" style="margin:4px 0 0">هذا نموذج تجريبي، وستُضاف دروس العهد المدني في النسخة الكاملة.</p></div><div class="mrow"><button class="btn" type="button" data-close>إغلاق</button></div>`);
 }
 
-/* ---------- نافذة المقرر (تفتح من نقطة مكة) ---------- */
+/* ---------- بطاقة الدرس الحالي (تفتح من نقطة مكة) ----------
+   تعرض درسًا واحدًا فقط: الدرس الذي وصل إليه الطالب الآن، مهما كان رقمه. */
+// منهجية الدرس الواحد (90 دقيقة) كما في وثيقة منهجية الأكاديمية
+const METHOD = [['التهيئة', 5, '#9cd3ee'], ['الخطاف', 3, '#6e8fa3'], ['البناء المعرفي: الشرح', 25, '#3a2236'], ['البناء المعرفي: القراءة الموجهة', 20, '#5b3855'],
+  ['التطبيق الموجه', 17, '#c2703d'], ['وقفة التأسي', 6, '#d9a638'], ['الإغلاق', 3, '#a99aa3'], ['التقويم الختامي', 11, '#16967a']];
+const METHOD_TOT = METHOD.reduce((a, m) => a + m[1], 0);
+const CHECK = '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+function currentLesson() {
+  const i = LESSONS.findIndex((_, k) => !isPassed(k) && isUnlocked(k));
+  return i >= 0 ? { i, done: false } : { i: LESSONS.length - 1, done: true };
+}
 function openCourse() {
-  const N = LESSONS.length, n = doneCount();
-  const next = LESSONS.findIndex((_, i) => !isPassed(i) && isUnlocked(i));
-  const rows = LESSONS.map((l, i) => {
-    const done = isPassed(i), open = isUnlocked(i);
-    const st = done ? `مكتمل ✓ · ${S.best[l.id] ?? ''}/${QUIZ_LEN}` : open ? 'مفتوح' : 'مقفل 🔒';
-    return `<div class="cl ${done ? 'done' : open ? 'open' : 'locked'}" style="--i:${i}"><span class="n num">${i + 1}</span><div><b>${esc(l.title)}</b><span class="stx">${st}</span><ul>${(l.points || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>`;
-  }).join('');
-  const cta = next >= 0
-    ? `<button class="btn primary" type="button" id="contLesson">متابعة الدرس ${next + 1}</button>`
-    : `<button class="btn ok" type="button" id="contLesson">مراجعة الدرس الأول</button>`;
-  openModal(`${head('السيرة النبوية في مكة المكرمة')}<p class="sub" style="margin:0 0 8px">المقرر — أهم ما ستتلقاه في كل درس.</p>
-    <div class="cprog"><span><b class="num">${n}</b> من <span class="num">${N}</span> دروس</span><div class="bar"><i style="width:${n / N * 100}%"></i></div></div>
-    <div class="clist">${rows}</div><div class="mrow">${cta}<button class="btn" type="button" data-close>إغلاق</button></div>`, 'wide', MAKKAH);
-  $('#contLesson').onclick = () => { closeModal(); openLesson(next >= 0 ? next : 0); };
+  const N = LESSONS.length, n = doneCount(), { i, done } = currentLesson(), l = LESSONS[i];
+  const stations = (l.steps || []).map((st, k) => `<span><i class="num">${k + 1}</i>${esc(st.t)}</span>`).join('');
+  const pts = (l.points || []).map((x, k) => `<li style="--i:${k}">${CHECK}<span>${esc(x)}</span></li>`).join('');
+  const bar = METHOD.map(m => `<i style="flex:${m[1]};background:${m[2]}" title="${m[0]} · ${m[1]} د"></i>`).join('');
+  const leg = METHOD.map(m => `<span><i style="background:${m[2]}"></i><b>${m[0]}</b><em class="num">${m[1]} د</em></span>`).join('');
+  const kick = done ? `أتممتَ دروس العهد المكي (${N} من ${N})` : `الدرس ${i + 1} من ${N} · العهد المكي`;
+  openModal(`<div class="mh"><span class="kick2">${kick}</span><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
+    <h3 class="lt" id="mt">${esc(l.title)}</h3><p class="ld">${esc(l.desc.split(' — أسئلتها')[0])}</p>
+    <div class="cprog" style="margin-top:10px"><span><b class="num">${n}</b> من <span class="num">${N}</span> دروس</span><div class="bar"><i style="width:${n / N * 100}%"></i></div></div>
+    ${pts ? `<h4>أبرز ما ستتعلمه</h4><ul class="pts">${pts}</ul>` : ''}
+    ${stations ? `<h4>محطات الدرس على الخريطة</h4><div class="stn">${stations}</div>` : ''}
+    <h4>رحلة الدرس · <span class="num">${METHOD_TOT}</span> دقيقة</h4><div class="mbar" aria-hidden="true">${bar}</div><div class="mleg">${leg}</div>
+    ${done ? '<div class="done-note">أحسنت! النقطة في المدينة المنورة أصبحت مفتوحة.</div>' : ''}
+    <div class="mrow"><button class="btn ${done ? 'ok' : 'primary'}" type="button" id="contLesson">${done ? 'مراجعة الدرس' : isPassed(i) || S.best[l.id] != null ? 'متابعة الدرس' : 'ابدأ الدرس'}</button><button class="btn" type="button" data-close>إغلاق</button></div>`, 'wide lcard', MAKKAH);
+  $('#contLesson').onclick = () => { closeModal(); openLesson(i); };
 }
 
 /* ---------- الانتقال بين الخريطة الرئيسية وصفحة الدرس ---------- */
-const homeView = $('#homeView'), lessonView = $('#lessonView');
+const lessonView = $('#lessonView');
 function showHome(opts = {}) {
   stopPlay(); lessonView.hidden = true; homeView.hidden = false; view = null;
-  map.invalidateSize(); updateRoute(); refreshMadinah();
+  fitMapH(); updateRoute(); refreshMadinah();
   if (opts.scroll !== false) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
 }
 $('#backHome').addEventListener('click', () => { showHome(); });
@@ -1764,6 +1820,9 @@ $('#resetBtn').addEventListener('click', resetDemo);
 $('#unlockBtn').addEventListener('click', () => { S.unlockAll = true; save(); renderProgress(); refreshMadinah(); toast('فُتحت كل الدروس لأغراض العرض.'); });
 
 renderProgress(); refreshMadinah(); updateRoute();
+fitMapH(); map.fitBounds(FIT, { padding: [0, 0] });
+addEventListener('load', () => { fitMapH(); map.fitBounds(FIT, { padding: [0, 0] }); });
+if (document.fonts) document.fonts.ready.then(fitMapH);
 setTimeout(() => map.invalidateSize(), 300);
 if (matchMedia('(max-width: 640px)').matches) $('#q').placeholder = 'ابحث…';
 })();
