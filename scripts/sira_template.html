@@ -656,7 +656,7 @@ function showChapter(c, auto) {
   if (reduce) { holdExtra = 0; return; }
   const ages = EV.map((e, i) => CHAP_OF[i] === c.k ? ageOf(e) : null).filter(a => a && a.v != null).map(a => a.v);
   const lo = ages.length ? Math.round(Math.min(...ages)) : 0, hi = ages.length ? Math.round(Math.max(...ages)) : 0;
-  const span = !ages.length ? '' : lo === hi ? ` · في عمر ${hi} سنة` : ` · من عمر ${lo} إلى ${hi} سنة`;
+  const span = !ages.length ? '' : lo === hi ? ` · في عمر ${hi} سنة` : lo === 0 ? ` · من المولد إلى عمر ${hi} سنة` : ` · من عمر ${lo} إلى ${hi} سنة`;
   card.style.setProperty('--c', c.color);
   card.innerHTML = `<div class="cc-n">الفصل ${ORD[c.n] || c.n + 1}</div><h2>${esc(c.name)}</h2><p>${esc(c.tag)}</p><div class="cc-m">${scenes(c.count)}${span}</div>`;
   card.hidden = false; card.classList.remove('show'); void card.offsetWidth; card.classList.add('show');
