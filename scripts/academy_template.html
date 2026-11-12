@@ -365,6 +365,33 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 @keyframes cometPulse{0%,100%{transform:scale(.85)}50%{transform:scale(1.2)}}
 @media (prefers-reduced-motion:reduce){.mapveil small,.comet{animation:none!important;opacity:1}}
 
+
+/* ===== خريطة أسوة: الجزيرة بنفسجية، النقاط زرقاء، المسار نحاسي ===== */
+.calli-h{font-family:'Aref Ruqaa Ink','Aref Ruqaa',serif!important;font-weight:700;font-size:clamp(40px,7vw,68px)!important;line-height:1.35!important;background:linear-gradient(180deg,#5a3854 0%,#3a2236 55%,#c2703d 120%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:calliIn 1.4s .1s cubic-bezier(.2,.8,.2,1) both}
+.calli-h em{font-style:normal;font-size:.6em}
+[data-theme="dark"] .calli-h{background-image:linear-gradient(180deg,#fff6dc 10%,#f6dc8b 55%,#d9a638 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .calli-h{background-image:linear-gradient(180deg,#fff6dc 10%,#f6dc8b 55%,#d9a638 100%)}}
+.leaflet-geo-pane svg{max-width:none!important;max-height:none!important}
+#map.asoah,#lmap.asoah{background:radial-gradient(ellipse at 42% 45%,#2c2744 0%,#1a1626 55%,#110d18 100%)}
+.geo-grid{stroke:rgba(156,211,238,.08);stroke-width:1;fill:none;stroke-dasharray:2 6}
+.geo-land{fill:#2a2131;fill-opacity:1;stroke:#45374a;stroke-width:.8}
+.geo-glow{stroke:#c2703d;stroke-width:10;stroke-opacity:.28;fill:none;filter:blur(6px)}
+.geo-pen{stroke:#e9bd73;stroke-width:1.4;stroke-opacity:.95}
+.geo-dots{pointer-events:none}
+.rg-big{font-family:'Aref Ruqaa Ink','Aref Ruqaa',serif;font-weight:700;font-size:clamp(30px,5vw,54px);color:rgba(255,236,206,.13);white-space:nowrap;transform:translate(-50%,-50%);pointer-events:none;direction:rtl;letter-spacing:.04em}
+.asoah ~ * .rg,.asoah .rg{color:rgba(255,236,214,.72)}
+/* النقاط زرقاء من قوس الشعار */
+.pin i{background:radial-gradient(circle at 35% 35%,#f4fbff,#9cd3ee 48%,#5b7f95)!important}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(156,211,238,.7),0 0 16px 5px rgba(110,170,205,.55)}50%{box-shadow:0 0 0 12px rgba(156,211,238,0),0 0 26px 9px rgba(110,170,205,.85)}}
+@keyframes glowSoft{0%,100%{box-shadow:0 0 8px 2px rgba(156,211,238,.45)}50%{box-shadow:0 0 14px 5px rgba(156,211,238,.8)}}
+.sp.cur i{background:radial-gradient(circle at 35% 35%,#f4fbff,#9cd3ee 48%,#5b7f95)!important;color:#2a1827!important}
+.you i{background:#fff4e6!important;box-shadow:0 0 0 0 rgba(224,137,74,.75),0 0 16px 6px rgba(224,137,74,.7)!important}
+.you b{background:#c2703d!important}
+/* المسار النحاسي المتوهج */
+.route-done,.seg-done{filter:drop-shadow(0 0 3px #ffd9a8) drop-shadow(0 0 10px #c2703d) drop-shadow(0 0 22px rgba(194,112,61,.8))!important}
+.route-now,.seg-now{filter:drop-shadow(0 0 7px #ffc489) drop-shadow(0 0 15px #c2703d)!important}
+.comet{background:radial-gradient(circle,#fff 25%,#ffd9a8 58%,rgba(224,137,74,0) 72%)!important;box-shadow:0 0 12px 5px rgba(255,210,160,.95),0 0 26px 12px rgba(194,112,61,.75)!important}
+
 /* ===== نوافذ وتنبيه ===== */
 .modal{position:fixed;inset:0;z-index:3000;background:rgba(20,10,18,.62);display:grid;place-items:center;padding:16px}
 .mcard{width:100%;max-width:480px;max-height:88vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);padding:20px}
@@ -423,7 +450,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
   <div id="homeView">
   <section class="hero wrap">
     <div class="kick">نموذج تجريبي لواجهة الأكاديمية</div>
-    <h1>أكاديمية السيرة النبوية</h1>
+    <h1 class="calli-h">عامٌ مع النبيِّ <em>ﷺ</em></h1>
     <p>رحلة تعلّم متدرجة على خريطة السيرة: ابدأ من مكة، وتابع الدروس، واجتز الاختبار ليفتح لك الدرس التالي.</p>
     <div class="prog" aria-label="تقدمك في العهد المكي">
       <div class="row"><span>تقدمك في العهد المكي</span><span><b class="num" id="progNum">0</b> من <span class="num" id="progTot">3</span> دروس</span></div>
@@ -435,7 +462,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
     <div class="mapcard">
       <div class="maphead">
         <div><b>رحلة السيرة النبوية في الجزيرة العربية</b><small>مكة المكرمة ← المدينة المنورة (المسار تقريبي)</small></div>
-        <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="imagery" aria-pressed="true">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
+        <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="asoah" aria-pressed="true">أسوة</button><button type="button" data-l="imagery" aria-pressed="false">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
       </div>
       <div class="mapwrap"><div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div><button type="button" class="mapveil" id="mapveil" aria-label="عامٌ مع النبي ﷺ — اضغط لاستكشاف الخريطة"><span class="calli">عامٌ مع النبيِّ <em>ﷺ</em></span><small>اضغط في أي مكان لاستكشاف الخريطة</small></button></div>
       <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض مقرر الدروس.</span></div>
@@ -554,10 +581,33 @@ const BASES = {
   imagery: L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 12 }),
   terrain: L.tileLayer(ESRI + 'World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 12 }),
 };
-let baseKey = store.get('uswah.academy.layer', 'imagery'); if (!BASES[baseKey]) baseKey = 'imagery';
+const GEO = __GEO__;
+const RC = '#e0894a', RH = '#c2703d';   // لون المسار: نحاسي من قوس شعار أسوة
+function makeGeo(m, pfx) {
+  if (!m.getPane('geo')) { m.createPane('geo'); m.getPane('geo').style.zIndex = 250; m.getPane('geo').style.pointerEvents = 'none'; }
+  const rd = L.svg({ pane: 'geo', padding: 0.6 }), g = L.layerGroup(), grid = [];
+  for (let lo = 25; lo <= 65; lo += 5) grid.push([[2, lo], [44, lo]]);
+  for (let la = 5; la <= 40; la += 5) grid.push([[la, 22], [la, 68]]);
+  L.polyline(grid, { renderer: rd, className: 'geo-grid', interactive: false }).addTo(g);
+  L.geoJSON(GEO.land, { renderer: rd, interactive: false, style: { className: 'geo-land' } }).addTo(g);
+  L.geoJSON(GEO.peninsula, { renderer: rd, interactive: false, style: { className: 'geo-glow', fill: false } }).addTo(g);
+  L.geoJSON(GEO.peninsula, { renderer: rd, interactive: false, style: { className: 'geo-pen', fillColor: `url(#${pfx}Pen)`, fillOpacity: 1 } }).addTo(g);
+  L.geoJSON(GEO.peninsula, { renderer: rd, interactive: false, style: { className: 'geo-dots', fillColor: `url(#${pfx}Dots)`, fillOpacity: 1, stroke: false } }).addTo(g);
+  const defs = () => { const svg = rd._container; if (svg && !svg.querySelector('defs')) svg.insertAdjacentHTML('afterbegin',
+    `<defs><linearGradient id="${pfx}Pen" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#93588a"/><stop offset=".5" stop-color="#673d61"/><stop offset="1" stop-color="#432645"/></linearGradient>` +
+    `<pattern id="${pfx}Dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="rgba(255,232,196,.14)"/></pattern></defs>`); };
+  g.on('add', defs);
+  return g;
+}
+BASES.asoah = makeGeo(map, 'u');
+const PEN_LBL = L.marker([19.6, 48.6], { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: '<div class="rg-big">جزيرةُ العرب</div>', iconSize: [0, 0] }) });
+let baseKey = store.get('uswah.academy.base', 'asoah'); if (!BASES[baseKey]) baseKey = 'asoah';
 function setBase(k) {
   Object.values(BASES).forEach(l => map.hasLayer(l) && map.removeLayer(l));
-  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.layer', k); document.body.classList.toggle('sat', k === 'imagery');
+  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.base', k); document.body.classList.toggle('sat', k !== 'terrain');
+  map.getContainer().classList.toggle('asoah', k === 'asoah');
+  if (k === 'asoah') PEN_LBL.addTo(map); else if (map.hasLayer(PEN_LBL)) map.removeLayer(PEN_LBL);
+  try { if (lmap) lmSetBase(); } catch (_) { /* خريطة الدرس لم تُنشأ بعد */ }
   document.querySelectorAll('#layers button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === k));
 }
 setBase(baseKey);
@@ -600,10 +650,10 @@ function routeSlice(f) {
   }
   return pts;
 }
-const routeHalo = L.polyline([MAKKAH, MAKKAH], { color: '#6e8fa3', weight: 18, opacity: .3, lineCap: 'round', className: 'route-halo', interactive: false }).addTo(map);
+const routeHalo = L.polyline([MAKKAH, MAKKAH], { color: RH, weight: 18, opacity: .35, lineCap: 'round', className: 'route-halo', interactive: false }).addTo(map);
 const routeBase = L.polyline(ROUTE, { color: '#fffaf6', weight: 3, opacity: .55, dashArray: '2 8', lineCap: 'round' }).addTo(map);
-const routeDone = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 6, opacity: 1, lineCap: 'round', className: 'route-done' }).addTo(map);
-const routeNow = L.polyline([MAKKAH, MAKKAH], { color: '#9cd3ee', weight: 6, opacity: .95, dashArray: '6 10', lineCap: 'round', className: 'route-now' }).addTo(map);
+const routeDone = L.polyline([MAKKAH, MAKKAH], { color: RC, weight: 6, opacity: 1, lineCap: 'round', className: 'route-done' }).addTo(map);
+const routeNow = L.polyline([MAKKAH, MAKKAH], { color: RC, weight: 6, opacity: .95, dashArray: '6 10', lineCap: 'round', className: 'route-now' }).addTo(map);
 const you = L.marker(MAKKAH, { icon: L.divIcon({ className: '', html: '<div class="you"><i></i><b>أنت هنا</b></div>', iconSize: [22, 22], iconAnchor: [11, 11] }), interactive: false, zIndexOffset: 900 }).addTo(map);
 function updateRoute() {
   const N = LESSONS.length, n = madinahOpen() ? N : doneCount();
@@ -691,7 +741,7 @@ function showHome(opts = {}) {
 $('#backHome').addEventListener('click', () => { showHome(); });
 
 /* ---------- خريطة الدرس: عرض موشن جرافيك متحرك كفيديو مصغر ---------- */
-let lmap = null, lBase = null;
+let lmap = null, lBase = null, lGeo = null;
 const INTRO_S = 3, OUTRO_S = 3.6;
 const VP = { steps: [], items: [], total: 0, T: 0, playing: false, ended: false, rate: 1, idx: -1, raf: 0, last: 0, groups: [], segs: [], layers: [], nWords: 0, shown: 0, lesson: 0 };
 const ptKey = ll => ll[0].toFixed(2) + ',' + ll[1].toFixed(2);
@@ -700,6 +750,8 @@ const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
 const PLAY_SVG = '<svg class="fill" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>', PAUSE_SVG = '<svg class="fill" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>', REPLAY_SVG = '<svg viewBox="0 0 24 24" style="stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>';
 function lmSetBase() {
   if (lBase && lmap.hasLayer(lBase)) lmap.removeLayer(lBase);
+  lmap.getContainer().classList.toggle('asoah', baseKey === 'asoah');
+  if (baseKey === 'asoah') { if (!lGeo) lGeo = makeGeo(lmap, 'l'); lBase = lGeo; lBase.addTo(lmap); return; }
   lBase = baseKey === 'terrain'
     ? L.tileLayer(ESRI + 'World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 14 })
     : L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 14 });
@@ -725,7 +777,7 @@ function buildLessonMap(i) {
   for (let k = 1; k < VP.steps.length; k++) {
     const a = VP.steps[k - 1], b = VP.steps[k];
     if (ptKey(a.ll) !== ptKey(b.ll)) {
-      const pl = L.polyline([a.ll, a.ll], { color: '#9cd3ee', weight: 3.5, opacity: .3, dashArray: '2 8', lineCap: 'round' }).addTo(lmap);
+      const pl = L.polyline([a.ll, a.ll], { color: RC, weight: 3.5, opacity: .3, dashArray: '2 8', lineCap: 'round' }).addTo(lmap);
       pl._a = a.ll; pl._b = b.ll; pl._to = k; VP.segs.push(pl); VP.layers.push(pl);
     }
   }
