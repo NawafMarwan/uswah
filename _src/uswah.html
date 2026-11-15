@@ -88,6 +88,48 @@ button,input,select{font:inherit;color:inherit}
 }
 main[data-page="projects"]{padding-block:26px 40px}
 
+/* ============ دورة حياة المبادرة ============ */
+main[data-page="lifecycle"]{padding-block:26px 44px}
+#lifecycle{--lf-teal:#137b78;--lf-teal-bg:#e3f1ef;--lf-navy:#13233f;--lf-orange:#e07b2a;--lf-card:#fffdf9;--lf-ink:#13233f;--lf-ink2:#4b5568}
+:root[data-theme="dark"] #lifecycle{--lf-teal:#38b2a9;--lf-teal-bg:#173634;--lf-navy:#0f1a30;--lf-card:var(--surface);--lf-ink:#f1ece6;--lf-ink2:#c9c3cc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #lifecycle{--lf-teal:#38b2a9;--lf-teal-bg:#173634;--lf-navy:#0f1a30;--lf-card:var(--surface);--lf-ink:#f1ece6;--lf-ink2:#c9c3cc}}
+.lf-head{margin-bottom:22px}
+.lf-head::before{content:"";display:block;width:52px;height:4px;border-radius:4px;background:var(--lf-teal);margin-bottom:12px}
+.lf-head h1{margin:0;font-size:clamp(28px,4.4vw,44px);line-height:1.25;color:var(--lf-ink)}
+.lf-head p{margin:6px 0 0;color:var(--lf-ink2);font-size:clamp(15px,1.8vw,18px)}
+.lf-grid{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr;grid-template-rows:auto 56px auto;align-items:stretch}
+.lf-card{background:var(--lf-card);border:1px solid var(--line);border-radius:18px;box-shadow:6px 6px 0 color-mix(in srgb,var(--line) 70%,transparent),var(--shadow);padding:20px 20px 16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.lf-card .t{display:flex;align-items:center;gap:12px}
+.lf-card .t i{flex:none;font-style:normal;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--lf-teal);color:#fff;font-weight:700;font-size:16px}
+.lf-card h2{margin:0;font-size:clamp(18px,2vw,22px);line-height:1.4;color:var(--lf-ink)}
+.lf-card p{margin:0;flex:1;color:var(--lf-ink2);font-size:15px;line-height:1.85}
+.lf-card .out{background:var(--lf-teal-bg);border-radius:10px;padding:7px 12px;font-size:14.5px;color:var(--lf-ink)}
+.lf-card .out b{color:var(--lf-teal);margin-inline-end:8px}
+.lf-ar{display:grid;place-items:center;align-content:center;gap:12px}
+.lf-ar svg{width:22px;height:14px}
+.lf-ar .tl{fill:var(--lf-teal)}.lf-ar .or{fill:var(--lf-orange)}
+.lf-mid{grid-column:1/-1;position:relative}
+.lf-mid svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lf-mid span{position:absolute;top:50%;left:33.5%;transform:translate(-50%,-50%);background:var(--bg);padding:0 12px;color:var(--lf-orange);font-weight:700;font-size:15px;white-space:nowrap}
+.lf-down{display:flex;justify-content:flex-start;padding-inline-start:calc(100%/6.6);height:30px}
+.lf-down svg{width:14px;height:30px}
+.lf-fb{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--lf-navy);color:#f3f0ea;border-radius:14px;padding:13px 20px;font-size:15.5px;line-height:1.7}
+.lf-fb b{color:#f0a35e;font-size:17px}
+.lf-fb svg{width:20px;height:20px;flex:none;stroke:#f0a35e;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:900px){
+  .lf-grid{grid-template-columns:1fr;grid-template-rows:none;gap:0}
+  .lf-grid>.lf-card{grid-column:1!important;grid-row:auto!important}
+  .lf-grid>.lf-ar,.lf-grid>.lf-mid{grid-column:1!important;grid-row:auto!important;height:46px}
+  .lf-ar{grid-auto-flow:column}
+  .lf-ar svg{transform:rotate(-90deg)}
+  .lf-ar.dn svg{transform:rotate(90deg)}
+  .lf-mid svg{display:none}
+  .lf-mid span{position:static;transform:none;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:none;font-size:14px}
+  .lf-mid span::after{content:"";width:2px;height:12px;background:var(--lf-orange);margin-top:2px}
+  .lf-down{justify-content:center;padding:0}
+  .lf-order-1{order:1}.lf-order-2{order:2}.lf-order-3{order:3}.lf-order-4{order:4}.lf-order-5{order:5}.lf-order-6{order:6}.lf-order-7{order:7}.lf-order-8{order:8}.lf-order-9{order:9}.lf-order-10{order:10}.lf-order-11{order:11}
+}
+
 /* ============ Content plan & monthly reports ============ */
 #plan{padding:22px 0 40px}
 .plan-tools{display:grid;gap:10px;margin:18px 0 6px}
@@ -593,6 +635,7 @@ body.present .exit-present{display:inline-flex!important}
     <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 0 1-5.2 1.7 2.9 2.9 0 0 1 3.2-4.5V9.1a6.3 6.3 0 0 0-5.4 10.7 6.3 6.3 0 0 0 10.8-4.4V8.5a8.2 8.2 0 0 0 4.8 1.5V6.7a4.8 4.8 0 0 1-1 0z"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
     <symbol id="i-proj" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m12 3 9 4.5-9 4.5-9-4.5zM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></symbol>
+    <symbol id="i-cycle" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 0 0-14.3-4.9M4 4v3.5h3.5M4 13a8 8 0 0 0 14.3 4.9M20 20v-3.5h-3.5"/></symbol>
     <symbol id="i-map" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7zM9 4v13M15 7v12.5"/></symbol>
     <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM8 13h2M12 13h2M8 16.5h2M12 16.5h2"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 11h12a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1zM8 11V8a4 4 0 0 1 8 0v3"/></symbol>
@@ -620,7 +663,8 @@ body.present .exit-present{display:inline-flex!important}
       <a class="tab" href="#/stats" data-route="stats"><svg><use href="#i-chart"/></svg>الإحصائيات</a>
       <a class="tab" href="#/projects" data-route="projects"><svg><use href="#i-proj"/></svg>المشاريع</a>
       <a class="tab" href="#/plan" data-route="plan"><svg><use href="#i-cal"/></svg>خطة النشر</a>
-      <a class="tab" href="sira-map.html" data-route="map"><svg><use href="#i-map"/></svg>الخريطة</a>
+      <a class="tab" href="#/lifecycle" data-route="lifecycle"><svg><use href="#i-cycle"/></svg>دورة المبادرة</a>
+      <a class="tab" href="sira-map" data-route="map"><svg><use href="#i-map"/></svg>الخريطة</a>
     </nav>
     <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل المظهر"><svg><use href="#i-moon"/></svg></button>
   </div>
@@ -773,7 +817,7 @@ body.present .exit-present{display:inline-flex!important}
         <div>
           <h3>الخريطة التفاعلية للسيرة النبوية</h3>
           <p>رحلة الدعوة من البعثة إلى الوفاة على الخريطة، حدثًا بعد حدث، وكل حدث موثّق بمصدره والجزء والصفحة من المكتبة الشاملة، مع تعريف بالأعلام والكتب ووضع عرض للمحاضرات.</p>
-          <a class="btn" href="sira-map.html"><svg><use href="#i-map"/></svg>افتح الخريطة</a>
+          <a class="btn" href="sira-map"><svg><use href="#i-map"/></svg>افتح الخريطة</a>
         </div>
         <ul>
           <li><b class="num">167</b> حدثًا مرتّبًا زمنيًا</li>
@@ -941,6 +985,27 @@ body.present .exit-present{display:inline-flex!important}
   </div>
 </main>
 <!--PROJECTS:END-->
+
+<main id="lifecycle" data-page="lifecycle" hidden>
+  <div class="wrap">
+    <header class="lf-head"><h1>دورة حياة المبادرة</h1><p>ست مراحل متتابعة تنقل المبادرة من فكرة واردة إلى أثر مؤسسي يغذّي الدورة التالية</p></header>
+    <div class="lf-grid">
+      <article class="lf-card lf-order-1" style="grid-column:1;grid-row:1"><div class="t"><i class="num">1</i><h2>استقبال وفرز المبادرات</h2></div><p>جمع المبادرات وتصنيفها وتقييم أولويتها</p><div class="out"><b>المخرج</b>مبادرات مؤهلة</div></article>
+      <div class="lf-ar lf-order-2" style="grid-column:2;grid-row:1"><svg viewBox="0 0 22 14" aria-hidden="true"><path class="tl" d="M22 5.2H7V0L0 7l7 7V8.8h15z"/></svg></div>
+      <article class="lf-card lf-order-3" style="grid-column:3;grid-row:1"><div class="t"><i class="num">2</i><h2>مكتب الاستراتيجية</h2></div><p>مواءمة المبادرات مع الاستراتيجية والأهداف والأولويات</p><div class="out"><b>المخرج</b>مبادرات ذات قيمة استراتيجية</div></article>
+      <div class="lf-ar lf-order-4" style="grid-column:4;grid-row:1" title="تكرار بين المكتب والمعمل حتى تنضج الفكرة"><svg viewBox="0 0 22 14" aria-hidden="true"><path class="tl" d="M22 5.2H7V0L0 7l7 7V8.8h15z"/></svg><svg viewBox="0 0 22 14" aria-hidden="true"><path class="or" d="M0 5.2h15V0l7 7-7 7V8.8H0z"/></svg></div>
+      <article class="lf-card lf-order-5" style="grid-column:5;grid-row:1"><div class="t"><i class="num">3</i><h2>معمل الابتكار</h2></div><p>تطوير الحلول، التفكير التصميمي، التجريب، والنماذج الأولية</p><div class="out"><b>المخرج</b>تعظيم الفكرة</div></article>
+      <div class="lf-mid lf-order-6" style="grid-row:2"><svg viewBox="0 0 1000 56" preserveAspectRatio="none" aria-hidden="true"><path d="M500 0V28H167V48" fill="none" stroke="var(--lf-orange)" stroke-width="2" vector-effect="non-scaling-stroke"/><path d="M161 46h12l-6 9z" fill="var(--lf-orange)"/></svg><span>بعد التأكيد والموافقة</span></div>
+      <article class="lf-card lf-order-11" style="grid-column:1;grid-row:3"><div class="t"><i class="num">6</i><h2>قياس الأثر والتعلم المؤسسي</h2></div><p>تحليل النتائج، قياس التفاعل، جمع التغذية الراجعة، وتحديد فرص التحسين</p><div class="out"><b>المخرج</b>معرفة مؤسسية وقرارات تطوير</div></article>
+      <div class="lf-ar dn lf-order-10" style="grid-column:2;grid-row:3"><svg viewBox="0 0 22 14" aria-hidden="true"><path class="tl" d="M0 5.2h15V0l7 7-7 7V8.8H0z"/></svg></div>
+      <article class="lf-card lf-order-9" style="grid-column:3;grid-row:3"><div class="t"><i class="num">5</i><h2>التنفيذ والتفعيل الاتصالي والتسويقي</h2></div><p>تنفيذ المشروع بالتوازي مع التواصل مع أصحاب المصلحة والتسويق وإبراز المخرجات</p><div class="out"><b>المخرج</b>مخرجات مفعّلة وقيمة ظاهرة</div></article>
+      <div class="lf-ar dn lf-order-8" style="grid-column:4;grid-row:3"><svg viewBox="0 0 22 14" aria-hidden="true"><path class="tl" d="M0 5.2h15V0l7 7-7 7V8.8H0z"/></svg></div>
+      <article class="lf-card lf-order-7" style="grid-column:5;grid-row:3"><div class="t"><i class="num">4</i><h2>إدارة المشاريع</h2></div><p>إعداد دراسة التنفيذ، نطاق المشروع، الموارد، الجدول الزمني، المخاطر ومؤشرات الأداء</p><div class="out"><b>المخرج</b>مشروع جاهز للتنفيذ</div></article>
+    </div>
+    <div class="lf-down"><svg viewBox="0 0 14 30" aria-hidden="true"><path d="M7 0v22" stroke="var(--lf-orange)" stroke-width="2"/><path d="M1 20l6 9 6-9z" fill="var(--lf-orange)"/></svg></div>
+    <div class="lf-fb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 15 3-3 3 2 4-5"/></svg><b>تغذية راجعة</b><span>تعود نتائج قياس الأثر إلى مكتب الاستراتيجية وإدارة المشاريع لتحسين المبادرات في الدورة التالية</span></div>
+  </div>
+</main>
 
 <main id="plan" data-page="plan" hidden>
   <div class="wrap">
@@ -1568,11 +1633,11 @@ const SUBPAGE = window.__PAGE__ || (ROOT !== '' ? 'stats' : '');
 const onStatsPath = SUBPAGE !== '';
 function route() {
   const h = location.hash;
-  const page = SUBPAGE || (h.startsWith('#/stats') ? 'stats' : h.startsWith('#/plan') ? 'plan' : h.startsWith('#/projects') ? 'projects' : 'home');
+  const page = SUBPAGE || (h.startsWith('#/stats') ? 'stats' : h.startsWith('#/plan') ? 'plan' : h.startsWith('#/projects') ? 'projects' : h.startsWith('#/lifecycle') ? 'lifecycle' : 'home');
   $$('[data-page]').forEach(m => m.hidden = m.dataset.page !== page);
   $$('.tab').forEach(t => t.dataset.route === page ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
-  document.title = page === 'stats' ? 'أثر أسوة على منصات التواصل' : page === 'plan' ? 'خطة نشر المحتوى — مركز أسوة' : page === 'projects' ? 'المشاريع النوعية — مركز أسوة' : 'مركز أسوة للسيرة النبوية';
-  if (page === 'plan' || page === 'projects') scrollTo({ top: 0 });
+  document.title = page === 'stats' ? 'أثر أسوة على منصات التواصل' : page === 'plan' ? 'خطة نشر المحتوى — مركز أسوة' : page === 'projects' ? 'المشاريع النوعية — مركز أسوة' : page === 'lifecycle' ? 'دورة حياة المبادرة — مركز أسوة' : 'مركز أسوة للسيرة النبوية';
+  if (page === 'plan' || page === 'projects' || page === 'lifecycle') scrollTo({ top: 0 });
   const cur = $('.tab[aria-current="page"]'); if (cur && cur.scrollIntoView) cur.scrollIntoView({ inline: 'center', block: 'nearest' });
   if (page === 'stats') { scrollTo({ top: 0 }); requestAnimationFrame(drawTimeline); }
   else if (!location.hash || location.hash === '#/') scrollTo({ top: 0 });
@@ -1599,7 +1664,8 @@ if (onStatsPath) {
   $('.tab[data-route="stats"]').setAttribute('href', SUBPAGE === 'stats' ? './' : ROOT + 'stats/');
   $('.tab[data-route="plan"]').setAttribute('href', SUBPAGE === 'plan' ? './' : ROOT + 'plan/');
   $('.tab[data-route="projects"]').setAttribute('href', SUBPAGE === 'projects' ? './' : ROOT + 'projects/');
-  $$('.tab[data-route="map"], .map-cta-box a.btn').forEach(a => a.setAttribute('href', ROOT + 'sira-map.html'));
+  $('.tab[data-route="lifecycle"]').setAttribute('href', SUBPAGE === 'lifecycle' ? './' : ROOT + 'lifecycle/');
+  $$('.tab[data-route="map"], .map-cta-box a.btn').forEach(a => a.setAttribute('href', ROOT + 'sira-map'));
 }
 mergeData(); route(); renderAll();
 // Prefer the live data file when the site is served over http(s) (e.g. GitHub Pages).

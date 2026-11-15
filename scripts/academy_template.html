@@ -422,6 +422,59 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 .mapveil .calli em{font-size:.5em;line-height:1}
 @media (max-width:640px){.lcard .mleg{grid-template-columns:1fr}}
 #map{height:var(--mapH,clamp(320px,50vh,440px))}
+/* اختيار نوع الخريطة: قائمة منسدلة */
+.lsel{position:relative;display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 6px 0 12px;color:var(--ink-2)}
+.lsel .ic{width:17px;height:17px}
+.lsel select{appearance:none;-webkit-appearance:none;border:0;background:transparent;font:inherit;font-size:13.5px;font-weight:700;color:var(--ink);padding:7px 4px 7px 20px;cursor:pointer}
+.lsel .chev{position:absolute;inset-inline-end:10px;width:12px;height:12px;pointer-events:none;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.lsel select option{color:#2e1c2b;background:#fffaf6}
+.lsel select:focus-visible{outline:none}.lsel:focus-within{outline:2px solid var(--copper);outline-offset:1px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* خطوات صفحة الدرس */
+.lsteps{display:flex;gap:6px;margin:6px 0 10px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.lsteps::-webkit-scrollbar{display:none}
+.lsteps button{flex:1 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+.lsteps button i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--surface-3);color:var(--ink-2)}
+.lsteps button[aria-current="step"]{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-ink)}
+.lsteps button[aria-current="step"] i{background:var(--copper);color:#fff}
+.lsteps button.seen i{background:var(--ok);color:#fff}
+/* التهيئة */
+.prep{position:relative;overflow:hidden}
+.prep .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--copper-ink)}
+.prep h2{font-size:clamp(20px,3vw,24px)!important;line-height:1.55;margin:4px 0 10px!important}
+.prep .sumx{font-size:16px;line-height:2;margin:0 0 14px;color:var(--ink)}
+.prep .why{display:flex;gap:12px;align-items:flex-start;background:color-mix(in srgb,var(--slate) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--slate) 35%,transparent);border-radius:16px;padding:12px 14px;margin-bottom:14px}
+.prep .why svg{flex:none;width:26px;height:26px;stroke:var(--slate-ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.prep .why b{display:block;font-size:14px;color:var(--slate-ink)}
+.prep .why p{margin:0;font-size:15px;line-height:1.95}
+.prep h3{font-size:15px;margin:0 0 8px;color:var(--ink-2)}
+.prep .gains{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.prep .gains li{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--surface-2);border-radius:14px;padding:10px 12px;font-size:14.5px;line-height:1.75;animation:clIn .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i,0)*100ms + 150ms)}
+.prep .gains li i{flex:none;font-style:normal;width:26px;height:26px;border-radius:9px;display:grid;place-items:center;background:var(--plum);color:var(--on-brand);font-weight:700;font-size:13px}
+@media (max-width:640px){.prep .gains{grid-template-columns:1fr}}
+/* الخطاف: سؤال البداية */
+.hook{position:relative;overflow:hidden;border-radius:24px;padding:26px 22px 22px;color:#fffaf6;background:radial-gradient(120% 90% at 85% 0%,#5b3855 0%,#3a2236 45%,#1f1220 100%);box-shadow:0 20px 50px -20px rgba(31,18,32,.8)}
+.hook::before{content:"؟";position:absolute;inset-inline-start:-10px;bottom:-70px;font-size:260px;line-height:1;font-weight:700;color:rgba(246,220,139,.08);pointer-events:none}
+.hook .tag{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:#f6dc8b;background:rgba(246,220,139,.12);border:1px solid rgba(246,220,139,.35);border-radius:99px;padding:2px 12px}
+.hook .tag .dot{width:7px;height:7px;border-radius:50%;background:#f6dc8b;box-shadow:0 0 10px #f6dc8b;animation:rec 1.4s infinite}
+.hook h2{color:#fff!important;font-size:clamp(19px,3vw,25px)!important;line-height:1.7!important;margin:12px 0 4px!important;animation:introIn .8s ease both}
+.hook .hs{margin:0 0 16px;color:#e8d8dc;font-size:14px}
+.hook .hopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;position:relative}
+.hook .hopts button{display:flex;align-items:center;gap:10px;text-align:start;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fffaf6;border-radius:14px;padding:12px 14px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:transform .15s,background .2s,border-color .2s;animation:clIn .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i,0)*90ms + 300ms)}
+.hook .hopts button b{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,.12);font-size:13px}
+.hook .hopts button:hover:not([disabled]){background:rgba(255,255,255,.12);border-color:#f6dc8b;transform:translateY(-2px)}
+.hook .hopts button[disabled]{cursor:default}
+.hook .hopts button.right{background:rgba(22,150,122,.35);border-color:#3fd1a8}
+.hook .hopts button.right b{background:#16967a}
+.hook .hopts button.wrong{background:rgba(179,65,42,.3);border-color:#e0775e}
+.hook .hopts button.dim{opacity:.45}
+.hook .reveal{margin-top:16px;background:rgba(255,250,246,.08);border:1px solid rgba(246,220,139,.3);border-inline-start:4px solid #f6dc8b;border-radius:14px;padding:12px 14px;animation:introIn .6s ease both}
+.hook .reveal b{color:#f6dc8b;display:block;margin-bottom:2px}
+.hook .reveal p{margin:0;font-size:15px;line-height:1.95}
+.hook .reveal small{display:block;margin-top:6px;color:#cdb9c3;font-size:12.5px}
+.hook .mrow .btn.primary{background:linear-gradient(180deg,#f6dc8b,#d9a638);color:#2a1827;border-color:#f6dc8b;box-shadow:0 10px 26px -10px rgba(217,166,56,.8)}
+@media (max-width:640px){.hook .hopts{grid-template-columns:1fr}.hook{padding:22px 16px 18px}}
+@media (prefers-reduced-motion:reduce){.prep .gains li,.hook .hopts button,.hook h2,.hook .reveal{animation:none!important}}
 /* بطاقة الدرس الحالي */
 .lcard .kick2{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--copper-ink);background:color-mix(in srgb,var(--copper) 12%,transparent);border:1px solid color-mix(in srgb,var(--copper) 35%,transparent);border-radius:99px;padding:1px 11px}
 .lcard .lt{margin:8px 0 2px;font-size:20px;line-height:1.6;color:var(--ink)}
@@ -498,7 +551,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
     <div class="mapcard">
       <div class="maphead">
         <div><b>رحلة السيرة النبوية في الجزيرة العربية</b><small>مكة المكرمة ← المدينة المنورة (المسار تقريبي)</small></div>
-        <div class="seg" id="layers" role="group" aria-label="نوع الخريطة"><button type="button" data-l="asoah" aria-pressed="true">أسوة</button><button type="button" data-l="imagery" aria-pressed="false">قمر صناعي</button><button type="button" data-l="terrain" aria-pressed="false">تضاريس</button></div>
+        <label class="lsel"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/></svg><span class="sr-only">نوع الخريطة</span><select id="layers" aria-label="نوع الخريطة"><option value="asoah">خريطة أسوة</option><option value="imagery">قمر صناعي</option><option value="terrain">تضاريس</option></select><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></label>
       </div>
       <div class="mapwrap"><div id="map" role="application" aria-label="خريطة الجزيرة العربية"></div><button type="button" class="mapveil" id="mapveil" aria-label="عامٌ مع النبي ﷺ — اضغط لاستكشاف الخريطة"><span class="calli">عامٌ مع النبيِّ <em>ﷺ</em></span><small>اضغط في أي مكان لاستكشاف الخريطة</small></button></div>
       <div class="hint"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span id="hintTxt">اضغط على النقطة المضيئة في مكة لعرض مقرر الدروس.</span></div>
@@ -508,7 +561,13 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
   </div>
 
   <section class="wrap" id="lessonView" hidden>
-    <div class="lvtop"><button type="button" class="back" id="backHome"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى الخريطة</button></div>
+    <div class="lvtop"><button type="button" class="back" id="backHome"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>العودة إلى الخريطة</button>
+      <nav class="lsteps" id="lsteps" aria-label="خطوات الدرس">
+        <button type="button" data-s="prep"><i class="num">1</i>التهيئة</button>
+        <button type="button" data-s="hook"><i class="num">2</i>سؤال البداية</button>
+        <button type="button" data-s="lesson"><i class="num">3</i>الدرس</button>
+        <button type="button" data-s="quiz"><i class="num">4</i>الاختبار</button>
+      </nav></div>
     <div class="mapcard lmapcard">
       <div class="maphead"><div><b id="lmTitle"></b><small id="lmSub"></small></div></div>
       <div class="vframe" id="vframe" tabindex="0" aria-label="عرض توضيحي متحرك للدرس">
@@ -532,7 +591,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
   </section>
 
   <section class="wrap">
-    <a class="cta" href="https://uswah.sa/sira-map.html" target="_blank" rel="noopener">
+    <a class="cta" href="https://uswah.sa/sira-map" target="_blank" rel="noopener">
       <div>
         <h3>الخريطة التفاعلية للسيرة النبوية</h3>
         <p>تابع السيرة حدثًا بعد حدث على الخريطة، وكل حدث موثّق بمصدره والجزء والصفحة، مع تعريف بالأعلام ووضع عرض للمحاضرات.</p>
@@ -577,7 +636,7 @@ const LESSONS = DATA.lessons;
 const PASS_MARK = 5;      // النجاح من 5 فأكثر
 const QUIZ_LEN = 10;      // عدد أسئلة كل محاولة
 const QR_SVG = `__QR__`;
-const SIRA_MAP_URL = 'https://uswah.sa/sira-map.html';
+const SIRA_MAP_URL = 'https://uswah.sa/sira-map';
 
 /* ---------- المظهر ---------- */
 const root = document.documentElement;
@@ -637,21 +696,21 @@ function makeGeo(m, pfx) {
 }
 BASES.asoah = makeGeo(map, 'u');
 const PEN_LBL = L.marker([19.6, 48.6], { interactive: false, keyboard: false, icon: L.divIcon({ className: '', html: '<div class="rg-big">جزيرةُ العرب</div>', iconSize: [0, 0] }) });
-let baseKey = store.get('uswah.academy.base', 'asoah'); if (!BASES[baseKey]) baseKey = 'asoah';
+let baseKey = store.get('uswah.academy.base2', 'asoah'); if (!BASES[baseKey]) baseKey = 'asoah';
 function setBase(k) {
   Object.values(BASES).forEach(l => map.hasLayer(l) && map.removeLayer(l));
-  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.base', k); document.body.classList.toggle('sat', k !== 'terrain');
+  BASES[k].addTo(map); baseKey = k; store.set('uswah.academy.base2', k); document.body.classList.toggle('sat', k !== 'terrain');
   map.getContainer().classList.toggle('asoah', k === 'asoah');
   if (k === 'asoah') PEN_LBL.addTo(map); else if (map.hasLayer(PEN_LBL)) map.removeLayer(PEN_LBL);
   try { if (lmap) lmSetBase(); } catch (_) { /* خريطة الدرس لم تُنشأ بعد */ }
-  document.querySelectorAll('#layers button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === k));
+  const sel = document.getElementById('layers'); if (sel) sel.value = k;
 }
 setBase(baseKey);
 const HomeCtl = L.Control.extend({ options: { position: 'topleft' }, onAdd() {
   const b = L.DomUtil.create('button', 'homebtn'); b.type = 'button'; b.title = 'عرض الجزيرة العربية كاملة'; b.setAttribute('aria-label', b.title);
   b.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
   L.DomEvent.disableClickPropagation(b); L.DomEvent.on(b, 'click', () => map.flyToBounds(FIT, { duration: reduce ? 0 : 1 })); return b; } });
-$('#layers').addEventListener('click', e => { const b = e.target.closest('[data-l]'); if (b) setBase(b.dataset.l); });
+$('#layers').addEventListener('change', e => setBase(e.target.value));
 
 const MAKKAH = [21.4225, 39.8262], MADINA = [24.4683, 39.6108];
 // مسار الهجرة (تقريبي) — من خريطة السيرة: ثور ← عسفان ← أمج ← قديد ← الخرار ← قباء ← المدينة
@@ -761,10 +820,7 @@ function showMadinah() {
 
 /* ---------- بطاقة الدرس الحالي (تفتح من نقطة مكة) ----------
    تعرض درسًا واحدًا فقط: الدرس الذي وصل إليه الطالب الآن، مهما كان رقمه. */
-// منهجية الدرس الواحد (90 دقيقة) كما في وثيقة منهجية الأكاديمية
-const METHOD = [['التهيئة', 5, '#9cd3ee'], ['الخطاف', 3, '#6e8fa3'], ['البناء المعرفي: الشرح', 25, '#3a2236'], ['البناء المعرفي: القراءة الموجهة', 20, '#5b3855'],
-  ['التطبيق الموجه', 17, '#c2703d'], ['وقفة التأسي', 6, '#d9a638'], ['الإغلاق', 3, '#a99aa3'], ['التقويم الختامي', 11, '#16967a']];
-const METHOD_TOT = METHOD.reduce((a, m) => a + m[1], 0);
+// مراحل المنهجية (التهيئة، الخطاف...) تنظيم داخلي لا يُعرض للطالب، ويظهر أثرها في خطوات صفحة الدرس.
 const CHECK = '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
 function currentLesson() {
   const i = LESSONS.findIndex((_, k) => !isPassed(k) && isUnlocked(k));
@@ -774,15 +830,12 @@ function openCourse() {
   const N = LESSONS.length, n = doneCount(), { i, done } = currentLesson(), l = LESSONS[i];
   const stations = (l.steps || []).map((st, k) => `<span><i class="num">${k + 1}</i>${esc(st.t)}</span>`).join('');
   const pts = (l.points || []).map((x, k) => `<li style="--i:${k}">${CHECK}<span>${esc(x)}</span></li>`).join('');
-  const bar = METHOD.map(m => `<i style="flex:${m[1]};background:${m[2]}" title="${m[0]} · ${m[1]} د"></i>`).join('');
-  const leg = METHOD.map(m => `<span><i style="background:${m[2]}"></i><b>${m[0]}</b><em class="num">${m[1]} د</em></span>`).join('');
   const kick = done ? `أتممتَ دروس العهد المكي (${N} من ${N})` : `الدرس ${i + 1} من ${N} · العهد المكي`;
   openModal(`<div class="mh"><span class="kick2">${kick}</span><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
     <h3 class="lt" id="mt">${esc(l.title)}</h3><p class="ld">${esc(l.desc.split(' — أسئلتها')[0])}</p>
     <div class="cprog" style="margin-top:10px"><span><b class="num">${n}</b> من <span class="num">${N}</span> دروس</span><div class="bar"><i style="width:${n / N * 100}%"></i></div></div>
     ${pts ? `<h4>أبرز ما ستتعلمه</h4><ul class="pts">${pts}</ul>` : ''}
     ${stations ? `<h4>محطات الدرس على الخريطة</h4><div class="stn">${stations}</div>` : ''}
-    <h4>رحلة الدرس · <span class="num">${METHOD_TOT}</span> دقيقة</h4><div class="mbar" aria-hidden="true">${bar}</div><div class="mleg">${leg}</div>
     ${done ? '<div class="done-note">أحسنت! النقطة في المدينة المنورة أصبحت مفتوحة.</div>' : ''}
     <div class="mrow"><button class="btn ${done ? 'ok' : 'primary'}" type="button" id="contLesson">${done ? 'مراجعة الدرس' : isPassed(i) || S.best[l.id] != null ? 'متابعة الدرس' : 'ابدأ الدرس'}</button><button class="btn" type="button" data-close>إغلاق</button></div>`, 'wide lcard', MAKKAH);
   $('#contLesson').onclick = () => { closeModal(); openLesson(i); };
@@ -960,15 +1013,62 @@ vframe.addEventListener('keydown', e => {
   if (e.key === ' ' || e.key === 'k') { e.preventDefault(); VP.playing ? pause() : play(); }
   else if (e.key === 'ArrowRight') seek(VP.T + 5); else if (e.key === 'ArrowLeft') seek(VP.T - 5);
 });
-function openLesson(i) {
+/* خطوات الدرس: التهيئة ← سؤال البداية (الخطاف) ← الدرس ← الاختبار */
+const lmapcard = $('.lmapcard'), lsteps = $('#lsteps');
+let lstep = 'prep';
+function markStep(k) {
+  lstep = k; const order = ['prep', 'hook', 'lesson', 'quiz'], at = order.indexOf(k);
+  lsteps.querySelectorAll('button').forEach((b, n) => { if (n === at) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', n < at); });
+  lmapcard.hidden = k !== 'lesson';
+  if (k !== 'lesson') stopPlay();
+  else if (lmap) setTimeout(() => { lmap.invalidateSize(); if (VP.T === 0) { overview(false); if (!reduce && !VP.playing) setTimeout(() => { if (view === 'lesson' && VP.T === 0) play(); }, 500); } }, 30);
+}
+lsteps.addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (b) setStep(b.dataset.s); });
+function setStep(k, i = curLesson) {
+  curLesson = i;
+  if (k === 'prep') renderPrep(i); else if (k === 'hook') renderHook(i); else if (k === 'lesson') renderLessonCard(i); else startQuiz(i);
+  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+}
+function openLesson(i, step = 'prep') {
   curLesson = i; view = 'lesson';
-  homeView.hidden = true;
+  homeView.hidden = true; lessonView.hidden = false;
   buildLessonMap(i);
-  renderLessonCard(i);
-  window.scrollTo({ top: 0, behavior: 'auto' });
+  setStep(step, i);
+}
+function renderPrep(i) {
+  view = 'prep'; markStep('prep');
+  const l = LESSONS[i], p = l.prep || {};
+  const gains = (p.gains || l.points || []).map((g, k) => `<li style="--i:${k}"><i class="num">${k + 1}</i><span>${esc(g)}</span></li>`).join('');
+  stage.innerHTML = `<div class="card prep">
+    <span class="tag">الدرس ${i + 1} · التهيئة</span>
+    <h2>${esc(l.title)}</h2>
+    ${p.summary ? `<p class="sumx">${esc(p.summary)}</p>` : ''}
+    ${p.why ? `<div class="why"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V17h5.2v-1.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3zM9.5 20.5h5"/></svg><div><b>لماذا هذا الدرس؟</b><p>${esc(p.why)}</p></div></div>` : ''}
+    ${gains ? `<h3>ستخرج من الدرس وقد عرفتَ:</h3><ul class="gains">${gains}</ul>` : ''}
+    <div class="mrow" style="margin-top:16px"><button type="button" class="btn primary" id="toHook">التالي: سؤال البداية</button></div></div>`;
+  $('#toHook').onclick = () => setStep('hook');
+}
+function renderHook(i) {
+  view = 'hook'; markStep('hook');
+  const l = LESSONS[i], h = l.hook;
+  if (!h) { setStep('lesson'); return; }
+  const order = shuffle([0, 1, 2, 3]);
+  stage.innerHTML = `<div class="hook">
+    <span class="tag"><span class="dot"></span>قبل أن تبدأ… خمّن!</span>
+    <h2>${esc(h.q)}</h2><p class="hs">اختر ما تظنه صوابًا، فلا درجات هنا. الجواب ينتظرك في الدرس.</p>
+    <div class="hopts">${order.map((k, n) => `<button type="button" data-k="${k}" style="--i:${n}"><b>${'أبجد'[n]}</b><span>${esc(h.opts[k])}</span></button>`).join('')}</div>
+    <div id="hookOut"></div></div>`;
+  stage.querySelectorAll('.hopts button').forEach(b => b.onclick = () => {
+    const k = +b.dataset.k, ok = k === 0;
+    stage.querySelectorAll('.hopts button').forEach(x => { x.disabled = true; const kk = +x.dataset.k; x.classList.add(kk === 0 ? 'right' : x === b ? 'wrong' : 'dim'); });
+    $('#hookOut').innerHTML = `<div class="reveal"><b>${ok ? 'أحسنت التخمين! 👏' : 'ليس تمامًا… والجواب يفاجئ كثيرين'}</b><p>${esc(h.reveal)}</p>${h.src ? `<small>المصدر: ${esc(h.src)}</small>` : ''}</div>
+      <div class="mrow" style="margin-top:14px"><button type="button" class="btn primary" id="toLesson">ابدأ الدرس الآن</button></div>`;
+    $('#toLesson').onclick = () => setStep('lesson');
+    if (ok) burst();
+  });
 }
 function renderLessonCard(i) {
-  view = 'lesson'; curLesson = i;
+  view = 'lesson'; curLesson = i; markStep('lesson');
   const l = LESSONS[i];
   const qr = l.qr ? `<a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener" aria-label="إثراءات: افتح الخريطة التفاعلية للسيرة النبوية"><span class="tt">إثراءات</span><div class="code">${QR_SVG}</div><small>امسح الرمز لزيارة الخريطة التفاعلية للسيرة النبوية</small></a>` : '';
   stage.innerHTML = `<div class="card">
@@ -997,7 +1097,7 @@ function pickQuestions(l) {
   });
 }
 function startQuiz(i) {
-  view = 'quiz'; curLesson = i;
+  view = 'quiz'; curLesson = i; markStep('quiz');
   const l = LESSONS[i];
   attempt = { lesson: i, qs: pickQuestions(l) };
   renderQuiz();
@@ -1013,7 +1113,7 @@ function renderQuiz() {
     <div class="qprog"><i id="qbar"></i></div>
     ${qs}
     <div class="submitbar"><span><b class="num" id="qcount">0</b> من ${QUIZ_LEN} أُجيب عنها</span><button type="button" class="btn primary" id="submitQ">إرسال</button></div></div>`;
-  $('#backLesson').onclick = () => { renderLessonCard(attempt.lesson); go(); };
+  $('#backLesson').onclick = () => setStep('lesson', attempt.lesson);
   $('#submitQ').onclick = submitQuiz;
   stage.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', () => {
     const n = +r.name.slice(1); attempt.qs[n].ans = +r.value;
@@ -1073,7 +1173,7 @@ function showResult(score, pass, newlyPassed) {
   stage.querySelectorAll('#goMap').forEach(b => b.onclick = () => { showHome(); });
   stage.querySelectorAll('#goLessons').forEach(b => b.onclick = () => { showHome(); openCourse(); });
   stage.querySelectorAll('#retry').forEach(b => b.onclick = () => startQuiz(i));
-  stage.querySelectorAll('#goLesson').forEach(b => b.onclick = () => { renderLessonCard(i); go(); });
+  stage.querySelectorAll('#goLesson').forEach(b => b.onclick = () => setStep('lesson', i));
   renderProgress(); refreshMadinah();
   if (pass) burst();
   if (newlyPassed) { toast(next ? 'فُتح الدرس التالي 🔓' : 'فُتحت المدينة المنورة 🔓'); }

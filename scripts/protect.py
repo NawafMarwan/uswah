@@ -41,6 +41,7 @@ PAGES = {
     "stats/index.html": ("uswah", "../", "window.__ROOT__='../';"),
     "plan/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='plan';"),
     "projects/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='projects';"),
+    "lifecycle/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='lifecycle';"),
     "content_plan.html": ("content_plan", "", ""),
     "sira-map.html": ("sira_map", "", ""),
 }
@@ -143,6 +144,11 @@ const BLOB = __BLOB__, PREFIX = __PREFIX__, HEAD = __HEAD__;
 const WRAPS = __WRAPS__;
 const SALT = '__SALT__', ITER = __ITER__, SESSION = __SESSION_MS__, WARN = __WARN_MS__, KEY = 'uswah.gate';
 const $ = s => document.querySelector(s);
+// Clean addresses: /sira-map.html -> /sira-map, /uswah.html -> /, /stats/index.html -> /stats/
+try {
+  const pth = location.pathname, cl = pth.replace(/\/(index|uswah)\.html$/, '/').replace(/\.html$/, '');
+  if (cl !== pth && location.protocol.startsWith('http')) history.replaceState(null, '', cl + location.search + location.hash);
+} catch {}
 const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 const toB64 = u => btoa(String.fromCharCode(...u));
 const msg = (t, info) => { const m = $('#msg'); m.textContent = t || ''; m.className = info ? 'info' : ''; };
@@ -203,8 +209,21 @@ async function resolveKey(raw) {
 }
 async function enter(raw, fresh) {
   const r = await resolveKey(raw);
-  if (fresh) store.set({ k: toB64(r.raw), exp: Date.now() + SESSION });
+  if (fresh) { store.set({ k: toB64(r.raw), exp: Date.now() + SESSION }); await offerSave(); }
   show(r.html);
+}
+// The page is replaced in place after login (no navigation), so browsers never see a "successful
+// submit" and do not offer to save the password. Ask them explicitly (Chrome, Edge, Android), and
+// give Safari/Firefox a moment to notice the submitted form before the page changes.
+async function offerSave() {
+  const id = $('#u').value.trim(), password = $('#p').value;
+  try {
+    if (window.PasswordCredential && navigator.credentials) {
+      await Promise.race([navigator.credentials.store(new PasswordCredential({ id, password, name: id })), new Promise(r => setTimeout(r, 1500))]);
+      return;
+    }
+  } catch {}
+  await new Promise(r => setTimeout(r, 400));
 }
 
 $('#f').addEventListener('submit', async e => {
