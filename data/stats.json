@@ -989,10 +989,10 @@
       "from": "2026-09-01",
       "to": "2026-09-30",
       "partial": false,
-      "available": true,
-      "pending": false,
-      "file": "reports/uswah-impact-2026-09.pdf",
-      "hash": "206c34114e20",
+      "available": false,
+      "pending": true,
+      "file": "",
+      "hash": "",
       "reason": ""
     },
     {
@@ -1001,10 +1001,10 @@
       "from": "2026-10-01",
       "to": "2026-10-31",
       "partial": false,
-      "available": true,
-      "pending": false,
-      "file": "reports/uswah-impact-2026-10.pdf",
-      "hash": "769abfc3313d",
+      "available": false,
+      "pending": true,
+      "file": "",
+      "hash": "",
       "reason": ""
     },
     {

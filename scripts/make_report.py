@@ -96,6 +96,10 @@ def has_x(data, a, b):
     return any(r["platform"] == "x" and day(r["from"]) <= b and day(r["to"]) >= a for r in data.get("periods", []))
 
 
+def met_hash(met):
+    return hashlib.sha1(json.dumps(met, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12] if met else ""
+
+
 def build_index(data):
     since = day(data.get("since") or "2026-08-27")
     now = today()
@@ -112,7 +116,7 @@ def build_index(data):
             continue
         x_ok = has_x(data, a, b) or os.environ.get("REPORT_FORCE") == "1"
         met = metrics(data, a, b) if ended and x_ok else None
-        h = hashlib.sha1(json.dumps(met, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12] if met else ""
+        h = met_hash(met)
         old = prev.get(rid, {})
         fname = f"reports/uswah-impact-{rid}.pdf"
         built = bool(met) and old.get("hash") == h and (ROOT / fname).exists()
@@ -120,7 +124,9 @@ def build_index(data):
         out.append({
             "id": rid, "label": month_label(first), "from": a.isoformat(), "to": b.isoformat(),
             "partial": a != first, "available": built, "pending": bool(met) and not built,
-            "file": fname if built else "", "hash": h, "reason": reason,
+            # The hash is only stored once the PDF is rendered: storing it in --check (before rendering)
+            # made the render step think the PDF was current, so changed months were never rebuilt.
+            "file": fname if built else "", "hash": h if built else old.get("hash", ""), "reason": reason,
         })
         y, m = (y + 1, 1) if m == 12 else (y, m + 1)
     return out
@@ -282,6 +288,7 @@ def main():
         if jobs:
             render_pdf(jobs)
         for r in pending:
+            r["hash"] = met_hash(metrics(data, day(r["from"]), day(r["to"])))
             r["file"] = f"reports/uswah-impact-{r['id']}.pdf"
             r["available"], r["pending"] = True, False
             print("  ✓", r["file"])
