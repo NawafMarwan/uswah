@@ -13,7 +13,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SIRA_MAP_URL = "https://uswah.sa/sira-map.html"
+SIRA_MAP_URL = "https://uswah.sa/sira-map"
 REDIRECT = """<!DOCTYPE html>
 <html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex"><title>أكاديمية السيرة النبوية — مركز أسوة</title>
