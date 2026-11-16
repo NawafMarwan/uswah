@@ -1,6 +1,6 @@
 {
   "since": "2026-08-27",
-  "updated": "2026-11-15",
+  "updated": "2026-11-16",
   "accounts": {
     "x": {
       "handle": "OSWAHH1",
@@ -89,17 +89,6 @@
   ],
   "posts": [
     {
-      "platform": "telegram",
-      "id": "tg-4828",
-      "date": "2026-11-15",
-      "title": "#اقتباسات_أسوة",
-      "views": 90,
-      "url": "https://t.me/OSWAHH1/4828",
-      "category": "quotes",
-      "media": "photo",
-      "source": "api"
-    },
-    {
       "platform": "x",
       "id": "x-2026-11-15",
       "date": "2026-11-15",
@@ -111,12 +100,12 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4827",
-      "date": "2026-11-12",
-      "title": "#صلى_الله_عليه_وسلم",
-      "views": 557,
-      "url": "https://t.me/OSWAHH1/4827",
-      "category": "salawat",
+      "id": "tg-4828",
+      "date": "2026-11-15",
+      "title": "#اقتباسات_أسوة",
+      "views": 253,
+      "url": "https://t.me/OSWAHH1/4828",
+      "category": "quotes",
       "media": "photo",
       "source": "api"
     },
@@ -131,26 +120,26 @@
       "source": "manual"
     },
     {
+      "platform": "telegram",
+      "id": "tg-4827",
+      "date": "2026-11-12",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 662,
+      "url": "https://t.me/OSWAHH1/4827",
+      "category": "salawat",
+      "media": "photo",
+      "source": "api"
+    },
+    {
       "platform": "youtube",
       "id": "o9fgnvU821c",
       "date": "2026-11-11",
       "title": "منظومة جهد المقل | نظم العلّامة عبدالله السالم بن محمدو بن حنبل الحسني رحمه الله",
-      "views": 2591,
+      "views": 2637,
       "url": "https://www.youtube.com/watch?v=o9fgnvU821c",
       "kind": "video",
       "source": "api",
       "category": "audio"
-    },
-    {
-      "platform": "telegram",
-      "id": "tg-4825",
-      "date": "2026-11-11",
-      "title": "🌿 «هَذَا وَلَمَّا فَاتَنَا مَرْأَى النَّبِي وَكَانَ أَسْنَى مَطْلَبٍ وَمَرْغَبِ» فاتتنا رؤ…",
-      "views": 2710,
-      "url": "https://t.me/OSWAHH1/4825",
-      "category": "audio",
-      "media": "photo",
-      "source": "api"
     },
     {
       "platform": "x",
@@ -163,26 +152,26 @@
       "source": "manual"
     },
     {
+      "platform": "telegram",
+      "id": "tg-4825",
+      "date": "2026-11-11",
+      "title": "🌿 «هَذَا وَلَمَّا فَاتَنَا مَرْأَى النَّبِي وَكَانَ أَسْنَى مَطْلَبٍ وَمَرْغَبِ» فاتتنا رؤ…",
+      "views": 2810,
+      "url": "https://t.me/OSWAHH1/4825",
+      "category": "audio",
+      "media": "photo",
+      "source": "api"
+    },
+    {
       "platform": "youtube",
       "id": "GL45zHqsKCU",
       "date": "2026-11-09",
       "title": "جهد المقل... قريبًا✨ #أسوة #السيرة_النبوية #جهد_المقل #السعودية #shorts",
-      "views": 108,
+      "views": 113,
       "url": "https://www.youtube.com/shorts/GL45zHqsKCU",
       "kind": "short",
       "source": "api",
       "category": "other"
-    },
-    {
-      "platform": "telegram",
-      "id": "tg-4824",
-      "date": "2026-11-09",
-      "title": "ح َمْدًا لِمَنْ شَرَّفَ رُوحَ الْحَقِّ بِحُسْنِ خُلْقِهِ وَحُسْنِ الْخَلْقِ 📜 قريبًا.. منظ…",
-      "views": 2110,
-      "url": "https://t.me/OSWAHH1/4824",
-      "category": "audio",
-      "media": "video",
-      "source": "api"
     },
     {
       "platform": "x",
@@ -193,6 +182,17 @@
       "url": "https://x.com/OSWAHH1",
       "category": "audio",
       "source": "manual"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4824",
+      "date": "2026-11-09",
+      "title": "ح َمْدًا لِمَنْ شَرَّفَ رُوحَ الْحَقِّ بِحُسْنِ خُلْقِهِ وَحُسْنِ الْخَلْقِ 📜 قريبًا.. منظ…",
+      "views": 2220,
+      "url": "https://t.me/OSWAHH1/4824",
+      "category": "audio",
+      "media": "video",
+      "source": "api"
     },
     {
       "platform": "youtube",
@@ -206,17 +206,6 @@
       "category": "shamail"
     },
     {
-      "platform": "telegram",
-      "id": "tg-4823",
-      "date": "2026-11-08",
-      "title": "« سببُ قلة شيبه ﷺ أنه شين، لأن النساء يكرهنه غالباً، ومن كره من النبي ﷺ شيئاً كفر ». 📘 شرح…",
-      "views": 967,
-      "url": "https://t.me/OSWAHH1/4823",
-      "category": "shamail",
-      "media": "video",
-      "source": "api"
-    },
-    {
       "platform": "x",
       "id": "x-2026-11-08",
       "date": "2026-11-08",
@@ -228,13 +217,13 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4820",
-      "date": "2026-11-05",
-      "title": "#صلى_الله_عليه_وسلم",
-      "views": 1120,
-      "url": "https://t.me/OSWAHH1/4820",
-      "category": "salawat",
-      "media": "photo",
+      "id": "tg-4823",
+      "date": "2026-11-08",
+      "title": "« سببُ قلة شيبه ﷺ أنه شين، لأن النساء يكرهنه غالباً، ومن كره من النبي ﷺ شيئاً كفر ». 📘 شرح…",
+      "views": 999,
+      "url": "https://t.me/OSWAHH1/4823",
+      "category": "shamail",
+      "media": "video",
       "source": "api"
     },
     {
@@ -248,6 +237,17 @@
       "source": "manual"
     },
     {
+      "platform": "telegram",
+      "id": "tg-4820",
+      "date": "2026-11-05",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 1130,
+      "url": "https://t.me/OSWAHH1/4820",
+      "category": "salawat",
+      "media": "photo",
+      "source": "api"
+    },
+    {
       "platform": "youtube",
       "id": "oXnSwpi1h9c",
       "date": "2026-11-03",
@@ -257,17 +257,6 @@
       "kind": "short",
       "source": "api",
       "category": "other"
-    },
-    {
-      "platform": "telegram",
-      "id": "tg-4818",
-      "date": "2026-11-03",
-      "title": "سيرةٌ... تطيب لها النفوس... وتحيا بها القلوب ✨ استمع للكتاب كاملًا 🎧 على قناة أسوة الرسمية…",
-      "views": 1350,
-      "url": "https://t.me/OSWAHH1/4818",
-      "category": "other",
-      "media": "video",
-      "source": "api"
     },
     {
       "platform": "x",
@@ -281,13 +270,13 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4817",
-      "date": "2026-11-01",
-      "title": "#اقتباسات_أسوة",
-      "views": 1250,
-      "url": "https://t.me/OSWAHH1/4817",
-      "category": "quotes",
-      "media": "photo",
+      "id": "tg-4818",
+      "date": "2026-11-03",
+      "title": "سيرةٌ... تطيب لها النفوس... وتحيا بها القلوب ✨ استمع للكتاب كاملًا 🎧 على قناة أسوة الرسمية…",
+      "views": 1360,
+      "url": "https://t.me/OSWAHH1/4818",
+      "category": "other",
+      "media": "video",
       "source": "api"
     },
     {
@@ -302,12 +291,12 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4814",
-      "date": "2026-10-29",
-      "title": "#صلى_الله_عليه_وسلم",
-      "views": 1710,
-      "url": "https://t.me/OSWAHH1/4814",
-      "category": "salawat",
+      "id": "tg-4817",
+      "date": "2026-11-01",
+      "title": "#اقتباسات_أسوة",
+      "views": 1280,
+      "url": "https://t.me/OSWAHH1/4817",
+      "category": "quotes",
       "media": "photo",
       "source": "api"
     },
@@ -322,26 +311,26 @@
       "source": "manual"
     },
     {
+      "platform": "telegram",
+      "id": "tg-4814",
+      "date": "2026-10-29",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 1730,
+      "url": "https://t.me/OSWAHH1/4814",
+      "category": "salawat",
+      "media": "photo",
+      "source": "api"
+    },
+    {
       "platform": "youtube",
       "id": "Pq2IkwvBfug",
       "date": "2026-10-28",
       "title": "نور العيون في تلخيص سيرة الأمين المأمون | لابن سيد الناس",
-      "views": 1098,
+      "views": 1102,
       "url": "https://www.youtube.com/watch?v=Pq2IkwvBfug",
       "kind": "video",
       "source": "api",
       "category": "other"
-    },
-    {
-      "platform": "telegram",
-      "id": "tg-4813",
-      "date": "2026-10-28",
-      "title": "نورٌ تقرّ به العيون، وسيرةٌ تحيا بها القلوب... سيرة المصطفى ﷺ من مولده إلى وفاته، في مختصر…",
-      "views": 5340,
-      "url": "https://t.me/OSWAHH1/4813",
-      "category": "audio",
-      "media": "photo",
-      "source": "api"
     },
     {
       "platform": "x",
@@ -354,26 +343,26 @@
       "source": "manual"
     },
     {
+      "platform": "telegram",
+      "id": "tg-4813",
+      "date": "2026-10-28",
+      "title": "نورٌ تقرّ به العيون، وسيرةٌ تحيا بها القلوب... سيرة المصطفى ﷺ من مولده إلى وفاته، في مختصر…",
+      "views": 5390,
+      "url": "https://t.me/OSWAHH1/4813",
+      "category": "audio",
+      "media": "photo",
+      "source": "api"
+    },
+    {
       "platform": "youtube",
       "id": "C3MPFwTcqPg",
       "date": "2026-10-26",
       "title": "ترقبوا... كتاب #نور_العيون #أسوة #السيرة_النبوية #السعودية #اليمن  #الجزائر #مصر # #اكسبلور",
-      "views": 170,
+      "views": 171,
       "url": "https://www.youtube.com/shorts/C3MPFwTcqPg",
       "kind": "short",
       "source": "api",
       "category": "other"
-    },
-    {
-      "platform": "telegram",
-      "id": "tg-4812",
-      "date": "2026-10-26",
-      "title": "ترقبوا .. 🌟 نورٌ تقرّ به العيون، وسيرةٌ تحيا بها القلوب... سيرة المصطفى ﷺ في مختصرٍ جامع، …",
-      "views": 1410,
-      "url": "https://t.me/OSWAHH1/4812",
-      "category": "audio",
-      "media": "video",
-      "source": "api"
     },
     {
       "platform": "x",
@@ -384,6 +373,17 @@
       "url": "https://x.com/OSWAHH1",
       "category": "audio",
       "source": "manual"
+    },
+    {
+      "platform": "telegram",
+      "id": "tg-4812",
+      "date": "2026-10-26",
+      "title": "ترقبوا .. 🌟 نورٌ تقرّ به العيون، وسيرةٌ تحيا بها القلوب... سيرة المصطفى ﷺ في مختصرٍ جامع، …",
+      "views": 1420,
+      "url": "https://t.me/OSWAHH1/4812",
+      "category": "audio",
+      "media": "video",
+      "source": "api"
     },
     {
       "platform": "youtube",
@@ -397,17 +397,6 @@
       "category": "shamail"
     },
     {
-      "platform": "telegram",
-      "id": "tg-4811",
-      "date": "2026-10-25",
-      "title": "#الشمائل | صفة شعره ﷺ شعَرُهُ ﷺ ليس نهايةً في الجعودة ولا في السبوطة بل وسطاً بينهما، وخير…",
-      "views": 1310,
-      "url": "https://t.me/OSWAHH1/4811",
-      "category": "shamail",
-      "media": "video",
-      "source": "api"
-    },
-    {
       "platform": "x",
       "id": "x-2026-10-25",
       "date": "2026-10-25",
@@ -419,13 +408,13 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4810",
-      "date": "2026-10-22",
-      "title": "#صلى_الله_عليه_وسلم",
-      "views": 1480,
-      "url": "https://t.me/OSWAHH1/4810",
-      "category": "salawat",
-      "media": "photo",
+      "id": "tg-4811",
+      "date": "2026-10-25",
+      "title": "#الشمائل | صفة شعره ﷺ شعَرُهُ ﷺ ليس نهايةً في الجعودة ولا في السبوطة بل وسطاً بينهما، وخير…",
+      "views": 1340,
+      "url": "https://t.me/OSWAHH1/4811",
+      "category": "shamail",
+      "media": "video",
       "source": "api"
     },
     {
@@ -440,13 +429,13 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4809",
-      "date": "2026-10-20",
-      "title": "ليست معرفةُ شمائل النبي ﷺ مجرّدَ معرفةٍ لسيرته، بل هي طريقٌ إلى محبّته، والاقتداء بهديه، و…",
-      "views": 1670,
-      "url": "https://t.me/OSWAHH1/4809",
-      "category": "shamail",
-      "media": "video",
+      "id": "tg-4810",
+      "date": "2026-10-22",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 1490,
+      "url": "https://t.me/OSWAHH1/4810",
+      "category": "salawat",
+      "media": "photo",
       "source": "api"
     },
     {
@@ -461,16 +450,14 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4808",
-      "date": "2026-10-18",
-      "title": "#اقتباسات_أسوة",
-      "views": 1500,
-      "url": "https://t.me/OSWAHH1/4808",
-      "category": "quotes",
-      "media": "photo",
-      "source": "api",
-      "image": "assets/designs/tg-4808.jpg",
-      "ar": 0.7987
+      "id": "tg-4809",
+      "date": "2026-10-20",
+      "title": "ليست معرفةُ شمائل النبي ﷺ مجرّدَ معرفةٍ لسيرته، بل هي طريقٌ إلى محبّته، والاقتداء بهديه، و…",
+      "views": 1680,
+      "url": "https://t.me/OSWAHH1/4809",
+      "category": "shamail",
+      "media": "video",
+      "source": "api"
     },
     {
       "platform": "x",
@@ -484,14 +471,16 @@
     },
     {
       "platform": "telegram",
-      "id": "tg-4807",
-      "date": "2026-10-15",
-      "title": "#صلى_الله_عليه_وسلم",
-      "views": 1740,
-      "url": "https://t.me/OSWAHH1/4807",
-      "category": "salawat",
+      "id": "tg-4808",
+      "date": "2026-10-18",
+      "title": "#اقتباسات_أسوة",
+      "views": 1510,
+      "url": "https://t.me/OSWAHH1/4808",
+      "category": "quotes",
       "media": "photo",
-      "source": "api"
+      "source": "api",
+      "image": "assets/designs/tg-4808.jpg",
+      "ar": 0.7987
     },
     {
       "platform": "x",
@@ -504,11 +493,22 @@
       "source": "manual"
     },
     {
+      "platform": "telegram",
+      "id": "tg-4807",
+      "date": "2026-10-15",
+      "title": "#صلى_الله_عليه_وسلم",
+      "views": 1750,
+      "url": "https://t.me/OSWAHH1/4807",
+      "category": "salawat",
+      "media": "photo",
+      "source": "api"
+    },
+    {
       "platform": "youtube",
       "id": "_3GxoIH578w",
       "date": "2026-10-13",
       "title": "استمع للكتاب كاملًا على القناة✨ #صلى_الله_عليه_وسلم #أسوة #السيرة_النبوية #السعودية #المدينة_المنورة",
-      "views": 172,
+      "views": 173,
       "url": "https://www.youtube.com/shorts/_3GxoIH578w",
       "kind": "short",
       "source": "api",
@@ -542,7 +542,7 @@
       "id": "mbqPC4dVxiA",
       "date": "2026-10-11",
       "title": "#الشمائل_المحمدية  #صلى_الله_عليه_وسلم #أسوة #السعودية #shorts #fyp  #السيرة_النبوية",
-      "views": 79,
+      "views": 80,
       "url": "https://www.youtube.com/shorts/mbqPC4dVxiA",
       "kind": "short",
       "source": "api",
@@ -586,7 +586,7 @@
       "id": "tg-4803",
       "date": "2026-10-09",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 2060,
+      "views": 2070,
       "url": "https://t.me/OSWAHH1/4803",
       "category": "salawat",
       "media": "photo",
@@ -597,7 +597,7 @@
       "id": "lEkKk-q5W_k",
       "date": "2026-10-07",
       "title": "الشمائل المحمدية | لأبي عيسى الترمذي",
-      "views": 1285,
+      "views": 1287,
       "url": "https://www.youtube.com/watch?v=lEkKk-q5W_k",
       "kind": "video",
       "source": "api",
@@ -618,7 +618,7 @@
       "id": "tg-4800",
       "date": "2026-10-07",
       "title": "🎙️ كتاب «الشمائل المحمدية» - لأبي عيسى الترمذي رحمه الله شمائل خير الخلق ﷺ.. صفةً وخُلُقًا…",
-      "views": 2730,
+      "views": 2740,
       "url": "https://t.me/OSWAHH1/4800",
       "category": "audio",
       "media": "photo",
@@ -629,7 +629,7 @@
       "id": "YfGTMPa_h2U",
       "date": "2026-10-05",
       "title": "قريبًا... كتاب الشمائل المحمدية #السعودية #الشمائل_المحمدية #كتب_صوتية #أسوة #shorts #السيرة_النبوية",
-      "views": 216,
+      "views": 217,
       "url": "https://www.youtube.com/shorts/YfGTMPa_h2U",
       "kind": "short",
       "source": "api",
@@ -650,7 +650,7 @@
       "id": "tg-4799",
       "date": "2026-10-05",
       "title": "قريبًا... ⏳ 📖 كتاب الشمائل المحمدية - لأبي عيسى الترمذي رحمه الله على قناة أسوة #كتاب_صوتي…",
-      "views": 1950,
+      "views": 1960,
       "url": "https://t.me/OSWAHH1/4799",
       "category": "audio",
       "media": "video",
@@ -694,7 +694,7 @@
       "id": "tg-4796",
       "date": "2026-10-01",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 2400,
+      "views": 2410,
       "url": "https://t.me/OSWAHH1/4796",
       "category": "salawat",
       "media": "photo",
@@ -739,7 +739,7 @@
       "id": "TVzXuxwC1io",
       "date": "2026-09-27",
       "title": "#الشمائل #السيرة_النبوية #أسوة #السعودية #shorts",
-      "views": 269,
+      "views": 270,
       "url": "https://www.youtube.com/shorts/TVzXuxwC1io",
       "kind": "short",
       "source": "api",
@@ -783,7 +783,7 @@
       "id": "tg-4793",
       "date": "2026-09-24",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 5580,
+      "views": 5590,
       "url": "https://t.me/OSWAHH1/4793",
       "category": "salawat",
       "media": "photo",
@@ -796,7 +796,7 @@
       "id": "XJsjK2dkJhE",
       "date": "2026-09-23",
       "title": "قصيدة دار الحبيب | نظم لأبي محمد البَسْكَريّ",
-      "views": 5535,
+      "views": 5546,
       "url": "https://www.youtube.com/watch?v=XJsjK2dkJhE",
       "kind": "video",
       "source": "api",
@@ -828,7 +828,7 @@
       "id": "ORYVTooT6Tg",
       "date": "2026-09-21",
       "title": "ترقبوا .. 🌟قصيدة في مدح #النبي ﷺ، وفضائله وفضائل مدينته المنوَّرة طابة الطيَّبة 🕌✨#حصرية",
-      "views": 894,
+      "views": 896,
       "url": "https://www.youtube.com/shorts/ORYVTooT6Tg",
       "kind": "short",
       "source": "api",
@@ -883,7 +883,7 @@
       "id": "yngRGtHQnhY",
       "date": "2026-09-18",
       "title": "بداية السول في تفضيل #الرسول  #صلى_الله_عليه_وسلم #السيرة_النبوية #الشمائل #كتب_صوتية",
-      "views": 267,
+      "views": 268,
       "url": "https://www.youtube.com/shorts/yngRGtHQnhY",
       "kind": "short",
       "source": "api",
@@ -904,7 +904,7 @@
       "id": "tg-4786",
       "date": "2026-09-17",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 3200,
+      "views": 3210,
       "url": "https://t.me/OSWAHH1/4786",
       "category": "salawat",
       "media": "photo",
@@ -917,7 +917,7 @@
       "id": "sWln0iHe8-8",
       "date": "2026-09-14",
       "title": "من غرائب معجزاته ﷺ #السيرة_النبوية #الشمائل #السعودية #السيرة_النبوية",
-      "views": 688,
+      "views": 689,
       "url": "https://www.youtube.com/shorts/sWln0iHe8-8",
       "kind": "short",
       "source": "api",
@@ -972,7 +972,7 @@
       "id": "tg-4781",
       "date": "2026-09-10",
       "title": "#صلى_الله_عليه_وسلم",
-      "views": 3490,
+      "views": 3500,
       "url": "https://t.me/OSWAHH1/4781",
       "category": "salawat",
       "media": "photo",
@@ -985,7 +985,7 @@
       "id": "awjAz8IIaoA",
       "date": "2026-09-09",
       "title": "بداية السول في تفضيل الرسول ﷺ | للعز بن عبد السلام",
-      "views": 1723,
+      "views": 1726,
       "url": "https://www.youtube.com/watch?v=awjAz8IIaoA",
       "kind": "video",
       "source": "api",
@@ -1027,7 +1027,7 @@
       "id": "tg-4779",
       "date": "2026-09-08",
       "title": "📖 غدًا.. إطلاق أول كتبنا الصوتية «بداية السُّول في تفضيل الرسول ﷺ» للعلّامة العزّ بن عبدال…",
-      "views": 2870,
+      "views": 2880,
       "url": "https://t.me/OSWAHH1/4779",
       "category": "audio",
       "media": "photo",
@@ -1048,7 +1048,7 @@
       "id": "tg-4777",
       "date": "2026-09-07",
       "title": "#اقتباسات_أسوة",
-      "views": 2930,
+      "views": 2940,
       "url": "https://t.me/OSWAHH1/4777",
       "category": "quotes",
       "media": "photo",
@@ -1103,7 +1103,7 @@
       "id": "tg-4771",
       "date": "2026-09-03",
       "title": "نُبشِّركم بتحوّل مبادرة أسوة إلى مركزٍ يُعنــى بالسـيـرة النبويـــة تأصيلًا وتقريبًا وتمكي…",
-      "views": 8380,
+      "views": 8450,
       "url": "https://t.me/OSWAHH1/4771",
       "category": "announcement",
       "media": "photo",
@@ -1114,7 +1114,7 @@
       "id": "tg-4768",
       "date": "2026-09-01",
       "title": "منشور وسائط",
-      "views": 4220,
+      "views": 4230,
       "url": "https://t.me/OSWAHH1/4768",
       "category": "other",
       "media": "photo",
@@ -1125,7 +1125,7 @@
       "id": "tg-4765",
       "date": "2026-08-30",
       "title": "منشور وسائط",
-      "views": 4600,
+      "views": 4610,
       "url": "https://t.me/OSWAHH1/4765",
       "category": "other",
       "media": "photo",
@@ -1152,7 +1152,7 @@
       "available": true,
       "pending": false,
       "file": "reports/uswah-impact-2026-09.pdf",
-      "hash": "206c34114e20",
+      "hash": "03c11bf4cd15",
       "reason": ""
     },
     {
@@ -1164,14 +1164,14 @@
       "available": true,
       "pending": false,
       "file": "reports/uswah-impact-2026-10.pdf",
-      "hash": "769abfc3313d",
+      "hash": "ea962099d761",
       "reason": ""
     },
     {
       "id": "2026-11",
       "label": "نوفمبر 2026",
       "from": "2026-11-01",
-      "to": "2026-11-15",
+      "to": "2026-11-16",
       "partial": false,
       "available": false,
       "pending": false,
@@ -1181,7 +1181,7 @@
     }
   ],
   "plan": {
-    "updated": "2026-11-15",
+    "updated": "2026-11-16",
     "projects": [
       "اقتباسات الشمائل",
       "اقتباسات الصلاة على النبي ( عليه الصلاة والسلام)",
