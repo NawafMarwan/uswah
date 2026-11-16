@@ -10,11 +10,14 @@
  *     ثم «نشر»، ووافق على الصلاحيات، وانسخ رابط تطبيق الويب (ينتهي بـ /exec).
  *  4) ضع الرابط في initiatives/index.html في السطر:  const ENDPOINT = '...';
  *
- * الأعمدة الأخيرة (مجال المبادرة، قرار الجهة، ملاحظات) للاستخدام الداخلي ويعبّئها الفريق.
- * لتلقي إشعار بريدي بكل مقترح جديد عدّل NOTIFY أدناه (اتركه فارغًا لإيقافه).
+ * الأعمدة (مجال المبادرة، قرار الجهة، ملاحظات) للاستخدام الداخلي ويعبّئها الفريق.
+ * المرفقات تُحفظ في مجلد «مرفقات مقترحات المبادرات» في Google Drive (خاص بكم)، ورابطها في عمود «المرفقات».
+ * الإشعار البريدي متوقف. لتشغيله ضع البريد بين علامتي التنصيص في NOTIFY، مثل: const NOTIFY = 'info@uswah.sa';
  */
 const SHEET_NAME = 'المقترحات';
-const NOTIFY = 'info@uswah.sa';
+const NOTIFY = '';
+const FOLDER_NAME = 'مرفقات مقترحات المبادرات';
+const MAX_FILES = 3;
 
 const COLUMNS = [
   ['ref', 'رقم المقترح'], ['received', 'تاريخ الاستلام'],
@@ -24,6 +27,7 @@ const COLUMNS = [
   ['impact', 'الأثر المتوقع'], ['partners', 'الشركاء أو الداعمون المحتملون'], ['cost', 'التكلفة التقديرية (ريال)'],
   ['role', 'الدور المرغوب'],
   ['_domain', 'مجال المبادرة (داخلي)'], ['_decision', 'قرار الجهة (داخلي)'], ['_notes', 'ملاحظات (داخلي)'],
+  ['files', 'المرفقات'],
 ];
 
 function sheet_() {
@@ -41,7 +45,33 @@ function sheet_() {
     sh.getRange(2, col('_domain'), 2000, 1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(domains, true).build());
     sh.getRange(2, col('_decision'), 2000, 1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['قبول', 'يحتاج إلى تطوير', 'اعتذار'], true).build());
   }
+  // جدول أُنشئ بنسخة أقدم من السكربت: نضيف عناوين الأعمدة الجديدة إن نقصت
+  if (sh.getLastColumn() < COLUMNS.length) {
+    const from = sh.getLastColumn() + 1;
+    sh.getRange(1, from, 1, COLUMNS.length - from + 1).setValues([COLUMNS.slice(from - 1).map(c => c[1])])
+      .setFontWeight('bold').setBackground('#3a2236').setFontColor('#ffffff');
+  }
   return sh;
+}
+
+function folder_() {
+  const it = DriveApp.getFoldersByName(FOLDER_NAME);
+  return it.hasNext() ? it.next() : DriveApp.createFolder(FOLDER_NAME);
+}
+
+// يحفظ المرفقات (base64) في Drive ويعيد روابطها، كل رابط في سطر
+function saveFiles_(p) {
+  const n = Math.min(Number(p.files) || 0, MAX_FILES), links = [];
+  if (!n) return '';
+  const dir = folder_();
+  for (let k = 1; k <= n; k++) {
+    const data = p['file' + k + '_data'];
+    if (!data) continue;
+    const name = String(p['file' + k + '_name'] || ('ملف ' + k)).slice(0, 150);
+    const blob = Utilities.newBlob(Utilities.base64Decode(data), p['file' + k + '_type'] || 'application/octet-stream', (p.ref || '') + ' - ' + name);
+    links.push(dir.createFile(blob).getUrl());
+  }
+  return links.join('\n');
 }
 
 function doPost(e) {
@@ -51,14 +81,16 @@ function doPost(e) {
   const lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
     const clean = v => String(v == null ? '' : v).slice(0, 2000).replace(/^[=+\-@]/, "'$&");  // يمنع تنفيذ الصيغ
-    const row = COLUMNS.map(([k]) => k === 'received' ? new Date() : k.startsWith('_') ? '' : clean(p[k]));
+    let files = '';
+    try { files = saveFiles_(p); } catch (err) { files = 'تعذّر حفظ المرفقات: ' + err; }
+    const row = COLUMNS.map(([k]) => k === 'received' ? new Date() : k === 'files' ? files : k.startsWith('_') ? '' : clean(p[k]));
     sheet_().appendRow(row);
   } finally { lock.releaseLock(); }
   if (NOTIFY) {
     try {
       MailApp.sendEmail({
         to: NOTIFY, subject: 'مقترح مبادرة جديد: ' + p.title + ' (' + (p.ref || '') + ')',
-        body: COLUMNS.filter(([k]) => !k.startsWith('_') && k !== 'received').map(([k, l]) => l + ': ' + (p[k] || '—')).join('\n'),
+        body: COLUMNS.filter(([k]) => !k.startsWith('_') && k !== 'received' && k !== 'files').map(([k, l]) => l + ': ' + (p[k] || '—')).join('\n'),
         replyTo: p.email,
       });
     } catch (err) { /* لا يوقف الحفظ */ }

@@ -90,6 +90,16 @@ input:focus,textarea:focus{outline:2px solid color-mix(in srgb,var(--copper) 70%
 .checks label{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line-2);border-radius:14px;padding:14px 16px;cursor:pointer;font-size:15.5px;font-weight:600;background:var(--bg);transition:border-color .2s,background .2s}
 .checks label:has(input:checked){border-color:var(--copper);background:color-mix(in srgb,var(--copper) 10%,var(--bg))}
 .checks input,.agree input{accent-color:var(--copper);width:19px;height:19px;margin:0;flex:none}
+.fld .drop{display:flex;flex-direction:column;font-weight:400;margin:0;align-items:center;gap:4px;text-align:center;border:2px dashed var(--line-2);border-radius:16px;padding:26px 16px;cursor:pointer;background:var(--bg);transition:border-color .2s,background .2s;position:relative}
+.drop:hover,.drop.over{border-color:var(--copper);background:color-mix(in srgb,var(--copper) 6%,var(--bg))}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.drop svg{width:30px;height:30px;fill:none;stroke:var(--copper);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.drop b{font-size:15.5px}.drop span{font-size:13px;color:var(--muted)}
+.flist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.flist li{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--surface-2);font-size:14px}
+.flist li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flist li small{color:var(--muted);direction:ltr}
+.flist li button{border:0;background:none;color:var(--bad);font:inherit;font-weight:700;cursor:pointer;padding:0 4px}
 .review{margin:0 0 14px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .review div{display:grid;grid-template-columns:200px 1fr auto;gap:10px;align-items:start;padding:10px 14px;border-top:1px solid var(--line)}
 .review div:first-child{border-top:0}
@@ -227,6 +237,17 @@ footer a{color:#fffaf6}
       <h2 class="qt" tabindex="-1">كم التكلفة التقديرية بالريال؟<span class="optl">اختياري</span></h2><p class="qh">إن لم تكن متأكدًا فتخطَّ هذا السؤال.</p>
       <div class="fld"><input type="number" id="cost" name="cost" inputmode="numeric" min="0" step="1" dir="ltr" aria-label="التكلفة التقديرية بالريال" placeholder="0"><span class="err"></span></div>
     </section>
+    <section class="q" data-step="10b" data-optional="1" hidden>
+      <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
+      <h2 class="qt" tabindex="-1">هل لديك ملف يشرح المبادرة بالتفصيل؟<span class="optl">اختياري</span></h2><p class="qh">مثل: وثيقة المشروع، أو عرض تقديمي، أو دراسة، أو ميزانية. حتى 3 ملفات، بمجموع 10 ميجابايت.</p>
+      <div class="fld" id="fileRow">
+        <label class="drop" id="drop"><input type="file" id="files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 11.1 12.2 20.3a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg>
+          <b>اضغط لاختيار ملف</b><span>أو اسحبه وأفلته هنا · PDF، Word، PowerPoint، Excel، صور</span></label>
+        <ul class="flist" id="flist"></ul>
+        <span class="err" id="fileErr"></span>
+      </div>
+    </section>
     <section class="q" data-step="11" hidden>
       <span class="qsec">ثالثًا: دور مقدّم المقترح</span>
       <h2 class="qt" tabindex="-1" id="roleLbl">ما الدور الذي ترغب فيه؟<span class="req" aria-hidden="true">*</span></h2><p class="qh">يمكنك اختيار أكثر من دور.</p>
@@ -303,6 +324,31 @@ try { const d = JSON.parse(localStorage.getItem(DRAFT) || '{}'); fields.forEach(
 const saveDraft = () => { try { const d = { _step: cur }; fields.forEach(x => d[x.name] = x.value); d.role = roles(); localStorage.setItem(DRAFT, JSON.stringify(d)); } catch {} };
 f.addEventListener('input', saveDraft); f.addEventListener('change', saveDraft);
 
+/* ---------- المرفقات ---------- */
+const MAX_FILES = 3, MAX_BYTES = 10 * 1024 * 1024;
+let attached = [];
+const kb = n => n < 1024 * 1024 ? Math.max(1, Math.round(n / 1024)) + ' KB' : (n / 1024 / 1024).toFixed(1) + ' MB';
+function drawFiles(msg = '') {
+  $('#flist').innerHTML = attached.map((x, k) => `<li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span>${esc(x.name)}</span><small>${kb(x.size)}</small><button type="button" data-rm="${k}" aria-label="إزالة ${esc(x.name)}">إزالة</button></li>`).join('');
+  const e = $('#fileErr'); e.textContent = msg; e.classList.toggle('on', !!msg);
+}
+function addFiles(list) {
+  let msg = '';
+  for (const fl of list) {
+    if (attached.length >= MAX_FILES) { msg = `الحد الأقصى ${MAX_FILES} ملفات.`; break; }
+    if (attached.reduce((a, x) => a + x.size, 0) + fl.size > MAX_BYTES) { msg = 'مجموع حجم الملفات يتجاوز 10 ميجابايت.'; continue; }
+    if (!attached.some(x => x.name === fl.name && x.size === fl.size)) attached.push(fl);
+  }
+  drawFiles(msg);
+}
+$('#files').addEventListener('change', e => { addFiles([...e.target.files]); e.target.value = ''; });
+$('#flist').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) { attached.splice(+b.dataset.rm, 1); drawFiles(); } });
+const drop = $('#drop');
+['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));
+drop.addEventListener('drop', e => { e.preventDefault(); addFiles([...e.dataTransfer.files]); });
+const toB64 = fl => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(fl); });
+
 const LABELS = { name: 'الاسم', org: 'الصفة / جهة العمل', phone: 'رقم الجوال', email: 'البريد الإلكتروني', title: 'اسم المبادرة المقترح', idea: 'فكرة المبادرة', need: 'المشكلة أو الاحتياج', audience: 'الفئة المستهدفة', goals: 'أهداف المبادرة', outputs: 'المخرجات المتوقعة', impact: 'الأثر المتوقع', partners: 'الشركاء أو الداعمون المحتملون', cost: 'التكلفة التقديرية (ريال)', role: 'الدور المرغوب' };
 
 // التحقق من خطوة واحدة؛ يعيد أول حقل ناقص أو null
@@ -324,7 +370,7 @@ function renderReview() {
     const el = k === 'role' ? f.querySelector('input[name=role]') : document.getElementById(k);
     const k2 = steps.indexOf(el.closest('.q')), v = d[k];
     return `<div><dt>${LABELS[k]}</dt><dd class="${v ? '' : 'empty'}">${v ? esc(v) : '—'}</dd><button type="button" data-go="${k2}" data-f="${k}">تعديل</button></div>`;
-  }).join('');
+  }).join('') + `<div><dt>المرفقات</dt><dd class="${attached.length ? '' : 'empty'}">${attached.length ? attached.map(x => esc(x.name)).join('\n') : '—'}</dd><button type="button" data-go="${steps.indexOf($('#fileRow').closest('.q'))}" data-f="files">تعديل</button></div>`;
 }
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 $('#review').addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) { show(+b.dataset.go, -1); const el = document.getElementById(b.dataset.f) || f.querySelector('input[name=role]'); setTimeout(() => el.focus(), 60); } });
@@ -394,8 +440,14 @@ f.addEventListener('submit', async e => {
     location.href = `mailto:${MAIL_TO}?subject=${encodeURIComponent('اقتراح مبادرة: ' + data.title + ' (' + ref + ')')}&body=${encodeURIComponent('رقم المقترح: ' + ref + '\n\n' + body)}`;
     finish(ref); return;
   }
-  btn.disabled = true; st.textContent = 'جارٍ الإرسال…';
+  btn.disabled = true; st.textContent = attached.length ? 'جارٍ رفع المرفقات والإرسال… قد يستغرق ذلك دقيقة.' : 'جارٍ الإرسال…';
   try {
+    data.files = attached.length;
+    for (let k = 0; k < attached.length; k++) {
+      const fl = attached[k];
+      data[`file${k + 1}_name`] = fl.name; data[`file${k + 1}_type`] = fl.type || 'application/octet-stream';
+      data[`file${k + 1}_data`] = await toB64(fl);
+    }
     await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) });
     finish(ref);
   } catch {
@@ -403,7 +455,7 @@ f.addEventListener('submit', async e => {
   } finally { btn.disabled = false; }
 });
 $('#printBtn').onclick = () => window.print();
-$('#again').onclick = () => { f.reset(); f.querySelectorAll('textarea').forEach(t => t.dispatchEvent(new Event('input'))); document.body.classList.remove('sent'); show(0, -1); window.scrollTo({ top: 0 }); };
+$('#again').onclick = () => { f.reset(); attached = []; drawFiles(); f.querySelectorAll('textarea').forEach(t => t.dispatchEvent(new Event('input'))); document.body.classList.remove('sent'); show(0, -1); window.scrollTo({ top: 0 }); };
 steps.forEach(q => q.hidden = true); const start = cur; cur = 0; steps[0].hidden = false; show(start);
 </script>
 </body>
