@@ -12,10 +12,10 @@
  *
  * الأعمدة (مجال المبادرة، قرار الجهة، ملاحظات) للاستخدام الداخلي ويعبّئها الفريق.
  * المرفقات تُحفظ في مجلد «مرفقات مقترحات المبادرات» في Google Drive (خاص بكم)، ورابطها في عمود «المرفقات».
- * الإشعار البريدي متوقف. لتشغيله ضع البريد بين علامتي التنصيص في NOTIFY، مثل: const NOTIFY = 'info@uswah.sa';
+ * يصل إشعار نصي بكل مقترح إلى NOTIFY (بلا المرفقات، فهي في Drive). لإيقافه اجعله سلسلة فارغة.
  */
 const SHEET_NAME = 'المقترحات';
-const NOTIFY = '';
+const NOTIFY = 'info@uswah.sa';
 const FOLDER_NAME = 'مرفقات مقترحات المبادرات';
 const MAX_FILES = 3;
 
@@ -77,7 +77,7 @@ function saveFiles_(p) {
 function doPost(e) {
   const p = (e && e.parameter) || {};
   if (p.website) return ContentService.createTextOutput('ok');           // حقل الفخ: رسالة آلية
-  if (!p.name || !p.email || !p.title) return ContentService.createTextOutput('missing');
+  if (!p.name || !p.title) return ContentService.createTextOutput('missing');   // الجوال والبريد اختياريان
   const lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
     const clean = v => String(v == null ? '' : v).slice(0, 2000).replace(/^[=+\-@]/, "'$&");  // يمنع تنفيذ الصيغ
@@ -88,11 +88,10 @@ function doPost(e) {
   } finally { lock.releaseLock(); }
   if (NOTIFY) {
     try {
-      MailApp.sendEmail({
+      MailApp.sendEmail(Object.assign({
         to: NOTIFY, subject: 'مقترح مبادرة جديد: ' + p.title + ' (' + (p.ref || '') + ')',
-        body: COLUMNS.filter(([k]) => !k.startsWith('_') && k !== 'received' && k !== 'files').map(([k, l]) => l + ': ' + (p[k] || '—')).join('\n'),
-        replyTo: p.email,
-      });
+        body: COLUMNS.filter(([k]) => !k.startsWith('_') && k !== 'received' && k !== 'files' && k !== 'impact').map(([k, l]) => l + ': ' + (p[k] || '—')).join('\n'),
+      }, /@/.test(p.email || '') ? { replyTo: p.email } : {}));
     } catch (err) { /* لا يوقف الحفظ */ }
   }
   return ContentService.createTextOutput('ok');

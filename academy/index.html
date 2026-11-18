@@ -928,6 +928,13 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
 .vbig svg{width:30px;height:30px;fill:#fff;stroke:none}
 .vframe.playing .vbig{opacity:0;pointer-events:none}
 .vframe.ended .voutro ~ .vbig{display:none}
+.vskip{position:absolute;top:12px;inset-inline-end:12px;z-index:1250;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3);background:rgba(20,10,18,.6);color:#fffaf6;border-radius:99px;padding:5px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px)}
+.vskip svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.vskip:hover{background:rgba(194,112,61,.85);border-color:transparent}
+.vb[aria-pressed="false"]{opacity:.6}
+.vb[disabled]{opacity:.35;cursor:not-allowed}
+.voutro .cnt{font-size:13px;color:#e8d8dc}
+.replaybar{display:flex;justify-content:flex-start;margin:0 0 10px}
 .vbar{position:absolute;inset-inline:0;bottom:0;z-index:1300;display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(0deg,rgba(10,6,10,.9),rgba(10,6,10,0))}
 .vb{flex:none;width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;display:grid;place-items:center;padding:0}
 .vb:hover{background:rgba(255,255,255,.24)}
@@ -1234,6 +1241,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
       <div class="vframe" id="vframe" tabindex="0" aria-label="عرض توضيحي متحرك للدرس">
         <div id="lmap" role="application" aria-label="خريطة الدرس"></div>
         <div class="vtag"><span class="rec"></span>عرض توضيحي<b id="vTagStep"></b></div>
+        <button type="button" class="vskip" id="vSkip">تخطَّ إلى مقطع الدرس<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 7-5 5 5 5M18 7l-5 5 5 5"/></svg></button>
         <div class="vcap" id="vcap" aria-live="off"></div>
         <div class="vintro" id="vintro"></div>
         <div class="voutro" id="voutro" hidden></div>
@@ -1244,6 +1252,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
           <div class="vtl" id="vtl" role="slider" aria-label="شريط التقدم" tabindex="-1"></div>
           <span class="vtime num" id="vTime">0:00 / 0:00</span>
           <button type="button" class="vb vrate" id="vRate" aria-label="سرعة العرض">1×</button>
+          <button type="button" class="vb" id="vSound" aria-label="السرد الصوتي" aria-pressed="true"></button>
           <button type="button" class="vb" id="vFull" aria-label="ملء الشاشة"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
         </div>
       </div>
@@ -1563,21 +1572,88 @@ function buildLessonMap(i) {
   let acc = 0; VP.items.forEach(it => { it.start = acc; acc += it.dur; }); VP.total = acc;
   $('#vtl').innerHTML = VP.items.map(it => `<div class="sg" style="flex:${it.dur}"><i></i></div>`).join('');
   $('#lmTitle').textContent = `الدرس ${i + 1}: ${l.title}`;
-  $('#lmSub').textContent = 'عرض موشن جرافيك مصغّر يشرح الدرس على الخريطة، ثم شاهد الدرس واجتز الأسئلة أدناه.';
+  $('#lmSub').textContent = 'عرض توضيحي مسرود يشرح الدرس على الخريطة، ثم يظهر مقطع الدرس عند انتهائه.';
   VP.T = 0; VP.idx = -1; VP.ended = false; VP.shown = 0;
   lessonView.hidden = false; lmap.invalidateSize();
   overview(false);
   vframe.classList.remove('ended'); $('#voutro').hidden = true; $('#vintro').classList.remove('out'); $('#vcap').classList.remove('in');
   paintVintro(l); render(true); syncUi();
-  if (!reduce) setTimeout(() => { if (view === 'lesson' && !VP.playing && VP.lesson === i && VP.T === 0) play(); }, 700);
+  // يبدأ التشغيل من lessonPhase('motion')
 }
 function paintVintro(l) {
   $('#vintro').innerHTML = `<span class="logo lg" role="img" aria-label="أسوة"></span><div class="k">أكاديمية السيرة النبوية · عرض توضيحي</div><div class="t">الدرس ${VP.lesson + 1}<br>${esc(l.title)}</div>`;
-  $('#voutro').innerHTML = `<span class="logo lg" role="img" aria-label="أسوة"></span><div class="t">انتهى العرض</div><div class="k">شاهد الدرس في الأسفل ثم اجتز الأسئلة</div><button type="button" class="btn primary" id="vReplay">${''}↻ إعادة العرض</button>`;
-  $('#vReplay').onclick = () => { seek(0); play(); };
+  $('#voutro').innerHTML = `<span class="logo lg" role="img" aria-label="أسوة"></span><div class="t">انتهى العرض التوضيحي</div><div class="k">والآن: مقطع الدرس</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button type="button" class="btn primary" id="vToVideo">شاهد المقطع الآن</button><button type="button" class="btn" id="vReplay">↻ إعادة العرض</button></div><div class="cnt" id="vCnt"></div>`;
+  $('#vReplay').onclick = () => { clearTimeout(VP.autoT); seek(0); play(); };
+  $('#vToVideo').onclick = () => lessonPhase('video');
 }
+/* ---------- السرد الصوتي: قارئ النصوص المدمج في المتصفح (Web Speech API) ---------- */
+const SOUND_ON = '<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>', SOUND_OFF = '<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM22 9l-6 6M16 9l6 6"/></svg>';
+const NAR = { on: true, voice: null, ok: 'speechSynthesis' in window, speaking: false, idx: -1, word: -1, boundary: false, utt: null };
+try { NAR.on = localStorage.getItem('uswah.academy.sound') !== '0'; } catch (_) {}
+function pickVoice() {
+  if (!NAR.ok) return;
+  const vs = speechSynthesis.getVoices().filter(v => /^ar\b|^ar[-_]/i.test(v.lang));
+  NAR.voice = vs.find(v => /ar[-_]SA/i.test(v.lang) && !/google/i.test(v.name)) || vs.find(v => /ar[-_]SA/i.test(v.lang)) || vs[0] || null;
+  syncSound();
+}
+if (NAR.ok) { pickVoice(); speechSynthesis.addEventListener && speechSynthesis.addEventListener('voiceschanged', pickVoice); }
+function syncSound() {
+  const b = $('#vSound'); if (!b) return;
+  const avail = NAR.ok && !!NAR.voice;
+  b.disabled = !avail; b.innerHTML = avail && NAR.on ? SOUND_ON : SOUND_OFF; b.setAttribute('aria-pressed', String(avail && NAR.on));
+  b.title = avail ? (NAR.on ? 'إيقاف السرد الصوتي' : 'تشغيل السرد الصوتي') : 'لا يتوفر صوت عربي في هذا المتصفح';
+}
+const speakable = t => String(t || '').replace(/ﷺ/g, ' صلى الله عليه وسلم ').replace(/[«»"“”()\[\]]/g, ' ').replace(/\s+/g, ' ').trim();
+function narCancel() { if (!NAR.ok) return; NAR.utt = null; NAR.speaking = false; NAR.idx = -1; try { speechSynthesis.cancel(); } catch (_) {} }
+function narSay(idx) {
+  if (!NAR.ok || !NAR.on || !NAR.voice) return;
+  const it = VP.items[idx]; if (!it) return;
+  const l = LESSONS[VP.lesson];
+  let head = '', body = '';
+  if (it.type === 'intro') head = `الدرس ${VP.lesson + 1}. ${l.title}`;
+  else if (it.type === 'outro') head = 'انتهى العرض التوضيحي. والآن، مقطع الدرس.';
+  else { const st = VP.steps[it.k]; head = st.t + '.'; body = st.x || ''; }
+  narCancel();
+  const u = new SpeechSynthesisUtterance(speakable(head + (body ? ' ' + body : '')));
+  u.voice = NAR.voice; u.lang = NAR.voice.lang; u.rate = Math.min(2, 0.95 * VP.rate); u.pitch = 1;
+  // مواضع كلمات الشرح داخل النص المقروء، لإضاءة الكلمة المقروءة
+  const headLen = body ? speakable(head).length + 1 : Infinity, starts = [];
+  if (body) { let pos = headLen; speakable(body).split(' ').forEach(w => { starts.push(pos); pos += w.length + 1; }); }
+  u.onboundary = e => { if (e.name && e.name !== 'word') return; NAR.boundary = true; let n = -1; for (let j = 0; j < starts.length; j++) if (starts[j] <= e.charIndex) n = j; NAR.word = n; };
+  u.onend = u.onerror = () => {
+    if (NAR.utt !== u) return;
+    NAR.speaking = false; NAR.utt = null;
+    if (VP.playing && VP.idx === idx) { const end = it.start + it.dur; if (VP.T < end - 0.6) VP.T = end - 0.6; }   // انتهى السرد: نكمل إلى المشهد التالي
+  };
+  NAR.utt = u; NAR.speaking = true; NAR.idx = idx; NAR.word = -1; NAR.boundary = false;
+  speechSynthesis.speak(u);
+}
+$('#vSound').onclick = () => {
+  NAR.on = !NAR.on; try { localStorage.setItem('uswah.academy.sound', NAR.on ? '1' : '0'); } catch (_) {}
+  syncSound(); if (!NAR.on) narCancel(); else if (VP.playing && VP.idx >= 0) narSay(VP.idx);
+};
+syncSound();
+
+/* ---------- العرض التوضيحي أولًا، ثم مقطع الدرس في مكانه ---------- */
+VP.seen = {};
+function lessonPhase(ph) {
+  clearTimeout(VP.autoT);
+  VP.phase = ph;
+  lmapcard.hidden = ph !== 'motion'; stage.hidden = ph !== 'video';
+  if (ph === 'video') { stopPlay(); narCancel(); VP.seen[VP.lesson] = true; }
+  else if (lmap) setTimeout(() => { lmap.invalidateSize(); if (VP.T === 0 || VP.ended) { seek(0); overview(false); if (!reduce) setTimeout(() => { if (VP.phase === 'motion' && !VP.playing) play(); }, 500); } }, 30);
+  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+}
+function onMotionEnd() {
+  if (VP.phase !== 'motion') return;
+  let n = 5; const tick = () => { const c = $('#vCnt'); if (c) c.textContent = n > 0 ? `ينتقل إلى المقطع خلال ${n} ثوانٍ…` : ''; if (n-- <= 0) { lessonPhase('video'); return; } VP.autoT = setTimeout(tick, 1000); };
+  tick();
+}
+$('#vSkip').onclick = () => lessonPhase('video');
+
 function enterItem(idx, instant) {
   VP.idx = idx;
+  if (VP.playing && !instant) narSay(idx); else if (!VP.playing) narCancel();
   const it = VP.items[idx];
   const intro = $('#vintro'), outro = $('#voutro'), cap = $('#vcap');
   intro.classList.toggle('out', it.type !== 'intro');
@@ -1628,7 +1704,7 @@ function render(instant) {
     if (sg) { const f = reduce ? 1 : Math.min(1, el / 1.5); const tip = lerp(sg._a, sg._b, f); sg.setLatLngs([sg._a, tip]);
       if (!VP.head) { VP.head = L.marker(tip, { icon: L.divIcon({ className: '', html: '<div class="comet"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }), interactive: false, zIndexOffset: 950 }).addTo(lmap); VP.layers.push(VP.head); } else VP.head.setLatLng(tip); }
     const r = Math.max(0, Math.min(1, (el - 0.7) / Math.max(1, it.dur - 1.8)));
-    const count = Math.ceil(r * VP.nWords);
+    const count = (NAR.speaking && NAR.boundary && NAR.idx === idx) ? NAR.word + 1 : Math.ceil(r * VP.nWords);
     if (count !== VP.shown) {
       const ws = document.querySelectorAll('#vtx .w');
       ws.forEach((w, n) => w.classList.toggle('on', n < count));
@@ -1651,22 +1727,25 @@ function syncUi() {
 function loop(now) {
   if (!VP.playing) return;
   const dt = Math.min(0.1, (now - VP.last) / 1000); VP.last = now;
+  const it = VP.items[VP.idx];
   VP.T += dt * VP.rate;
-  if (VP.T >= VP.total) { VP.T = VP.total; VP.playing = false; VP.ended = true; render(false); syncUi(); return; }
+  if (it && NAR.speaking && NAR.idx === VP.idx && VP.T >= it.start + it.dur - 0.05) VP.T = it.start + it.dur - 0.05;   // ننتظر انتهاء السرد
+  if (VP.T >= VP.total) { VP.T = VP.total; VP.playing = false; VP.ended = true; render(false); syncUi(); onMotionEnd(); return; }
   render(false);
   VP.raf = requestAnimationFrame(loop);
 }
 function play() {
   if (VP.ended || VP.T >= VP.total) { VP.T = 0; VP.ended = false; VP.idx = -1; }
-  VP.playing = true; VP.last = performance.now(); syncUi();
+  VP.playing = true; VP.last = performance.now(); syncUi(); clearTimeout(VP.autoT);
+  if (VP.idx >= 0) narSay(VP.idx);
   cancelAnimationFrame(VP.raf); VP.raf = requestAnimationFrame(loop);
 }
-function pause() { VP.playing = false; cancelAnimationFrame(VP.raf); syncUi(); }
-function stopPlay() { VP.playing = false; cancelAnimationFrame(VP.raf); if (VP.items.length) syncUi(); }
+function pause() { VP.playing = false; cancelAnimationFrame(VP.raf); narCancel(); syncUi(); }
+function stopPlay() { VP.playing = false; cancelAnimationFrame(VP.raf); narCancel(); if (VP.items.length) syncUi(); }
 function seek(t) {
   VP.T = Math.max(0, Math.min(VP.total - 0.01, t)); VP.ended = false;
-  const keep = VP.playing; VP.idx = -1; render(true); syncUi();
-  if (keep) { VP.last = performance.now(); cancelAnimationFrame(VP.raf); VP.raf = requestAnimationFrame(loop); }
+  const keep = VP.playing; VP.idx = -1; narCancel(); render(true); syncUi();
+  if (keep) { narSay(VP.idx); VP.last = performance.now(); cancelAnimationFrame(VP.raf); VP.raf = requestAnimationFrame(loop); }
 }
 $('#vPlay').onclick = () => VP.playing ? pause() : play();
 $('#vbig').onclick = () => play();
@@ -1685,9 +1764,7 @@ let lstep = 'prep';
 function markStep(k) {
   lstep = k; const order = ['prep', 'hook', 'lesson', 'quiz'], at = order.indexOf(k);
   lsteps.querySelectorAll('button').forEach((b, n) => { if (n === at) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', n < at); });
-  lmapcard.hidden = k !== 'lesson';
-  if (k !== 'lesson') stopPlay();
-  else if (lmap) setTimeout(() => { lmap.invalidateSize(); if (VP.T === 0) { overview(false); if (!reduce && !VP.playing) setTimeout(() => { if (view === 'lesson' && VP.T === 0) play(); }, 500); } }, 30);
+  if (k !== 'lesson') { lmapcard.hidden = true; stage.hidden = false; stopPlay(); clearTimeout(VP.autoT); VP.phase = null; }
 }
 lsteps.addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (b) setStep(b.dataset.s); });
 function setStep(k, i = curLesson) {
@@ -1738,6 +1815,7 @@ function renderLessonCard(i) {
   const l = LESSONS[i];
   const qr = l.qr ? `<a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener" aria-label="إثراءات: افتح الخريطة التفاعلية للسيرة النبوية"><span class="tt">إثراءات</span><div class="code">${QR_SVG}</div><small>امسح الرمز لزيارة الخريطة التفاعلية للسيرة النبوية</small></a>` : '';
   stage.innerHTML = `<div class="card">
+    <div class="replaybar"><button type="button" class="back" id="toMotion"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>إعادة العرض التوضيحي</button></div>
     <h2>الدرس ${i + 1}: ${esc(l.title)}</h2><p class="sub">${esc(l.desc)}</p>
     <div class="lvgrid${l.qr ? ' withqr' : ''}">
       <div><div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${l.video}?rel=0" title="${esc(l.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
@@ -1745,6 +1823,8 @@ function renderLessonCard(i) {
       ${qr}
     </div></div>`;
   $('#startQ').onclick = () => startQuiz(i);
+  $('#toMotion').onclick = () => { VP.T = 0; VP.ended = false; lessonPhase('motion'); };
+  lessonPhase(VP.seen[i] ? 'video' : 'motion');
 }
 
 /* ---------- الاختبار ---------- */
