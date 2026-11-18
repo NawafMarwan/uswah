@@ -184,12 +184,12 @@ footer a{color:#fffaf6}
       <div class="wzbar"><span id="wzCount" class="num"></span><div class="track"><i id="wzFill"></i></div></div>
     <section class="q" data-step="1" hidden>
       <span class="qsec">أولًا: بيانات مقدّم المقترح</span>
-      <h2 class="qt" tabindex="-1">لنبدأ بالتعرّف عليك</h2><p class="qh">لنتواصل معك بشأن مقترحك.</p>
+      <h2 class="qt" tabindex="-1">لنبدأ بالتعرّف عليك</h2><p class="qh">الجوال والبريد اختياريان، لكن أحدهما يساعدنا على التواصل معك بشأن مقترحك.</p>
       <div class="grid2">
         <div class="fld"><label for="name">الاسم<span class="req" aria-hidden="true">*</span></label><input type="text" id="name" name="name" autocomplete="name" required maxlength="120"><span class="err">اكتب اسمك.</span></div>
         <div class="fld"><label for="org">الصفة / جهة العمل</label><input type="text" id="org" name="org" autocomplete="organization-title" maxlength="160"></div>
-        <div class="fld"><label for="phone">رقم الجوال<span class="req" aria-hidden="true">*</span></label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="05xxxxxxxx" required maxlength="20" pattern="[+0-9 ()-]{8,20}"><span class="err">اكتب رقم جوال صحيحًا.</span></div>
-        <div class="fld"><label for="email">البريد الإلكتروني<span class="req" aria-hidden="true">*</span></label><input type="email" id="email" name="email" autocomplete="email" dir="ltr" required maxlength="160"><span class="err">اكتب بريدًا إلكترونيًا صحيحًا.</span></div>
+        <div class="fld"><label for="phone">رقم الجوال<span class="optl">اختياري</span></label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="05xxxxxxxx" maxlength="20" pattern="[0-9+\s\(\)\-]{8,20}"><span class="err">رقم الجوال غير صحيح.</span></div>
+        <div class="fld"><label for="email">البريد الإلكتروني<span class="optl">اختياري</span></label><input type="email" id="email" name="email" autocomplete="email" dir="ltr" maxlength="160"><span class="err">البريد الإلكتروني غير صحيح.</span></div>
       </div>
     </section>
     <section class="q" data-step="2" hidden>
@@ -204,38 +204,25 @@ footer a{color:#fffaf6}
     </section>
     <section class="q" data-step="4" hidden>
       <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
-      <h2 class="qt" tabindex="-1">ما المشكلة أو الاحتياج الذي تعالجه؟<span class="req" aria-hidden="true">*</span></h2><p class="qh">لماذا نحتاج هذه المبادرة الآن؟</p>
-      <div class="fld"><textarea id="need" name="need" required maxlength="800" rows="4" aria-label="المشكلة أو الاحتياج"></textarea><span class="err">اذكر المشكلة أو الاحتياج.</span></div>
+      <h2 class="qt" tabindex="-1">لماذا هذه المبادرة، ولمن؟</h2><p class="qh">الاحتياج الذي تعالجه، والفئة التي تستفيد منها.</p>
+      <div class="fld"><label for="need">المشكلة أو الاحتياج<span class="req" aria-hidden="true">*</span></label><textarea id="need" name="need" required maxlength="800" rows="3"></textarea><span class="err">اذكر المشكلة أو الاحتياج.</span></div>
+      <div class="fld" style="margin-top:12px"><label for="audience">الفئة المستهدفة<span class="req" aria-hidden="true">*</span></label><input type="text" id="audience" name="audience" required maxlength="250" placeholder="مثل: طلاب المرحلة الثانوية، الأسر، المعلمون…"><span class="err">اذكر الفئة المستهدفة.</span></div>
     </section>
     <section class="q" data-step="5" hidden>
-      <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
-      <h2 class="qt" tabindex="-1">من الفئة المستهدفة؟<span class="req" aria-hidden="true">*</span></h2>
-      <div class="fld"><input type="text" id="audience" name="audience" required maxlength="250" aria-label="الفئة المستهدفة" placeholder="مثل: طلاب المرحلة الثانوية، الأسر، المعلمون…"><span class="err">اذكر الفئة المستهدفة.</span></div>
-    </section>
-    <section class="q" data-step="6" hidden>
       <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
       <h2 class="qt" tabindex="-1">ما أهداف المبادرة؟<span class="req" aria-hidden="true">*</span></h2><p class="qh">اكتب كل هدف في سطر.</p>
       <div class="fld"><textarea id="goals" name="goals" required maxlength="800" rows="4" aria-label="أهداف المبادرة"></textarea><span class="err">اذكر هدفًا واحدًا على الأقل.</span></div>
     </section>
+    <section class="q" data-step="6" data-optional="1" hidden>
+      <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
+      <h2 class="qt" tabindex="-1">ما المخرجات والأثر المتوقع؟<span class="optl">اختياري</span></h2><p class="qh">ما الذي سينتج عنها (دورة، كتاب، تطبيق، فعالية…)، وما الذي سيتغير لدى المستفيدين؟</p>
+      <div class="fld"><textarea id="outputs" name="outputs" maxlength="1200" rows="4" aria-label="المخرجات والأثر المتوقع"></textarea><span class="err"></span></div>
+    </section>
     <section class="q" data-step="7" data-optional="1" hidden>
       <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
-      <h2 class="qt" tabindex="-1">ما المخرجات المتوقعة؟<span class="optl">اختياري</span></h2><p class="qh">ما الذي سينتج عنها فعليًا؟ مثل: دورة، كتاب، تطبيق، فعالية.</p>
-      <div class="fld"><textarea id="outputs" name="outputs" maxlength="800" rows="4" aria-label="المخرجات المتوقعة"></textarea><span class="err"></span></div>
-    </section>
-    <section class="q" data-step="8" data-optional="1" hidden>
-      <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
-      <h2 class="qt" tabindex="-1">ما الأثر المتوقع؟<span class="optl">اختياري</span></h2><p class="qh">ما الذي سيتغير لدى المستفيدين؟</p>
-      <div class="fld"><textarea id="impact" name="impact" maxlength="800" rows="4" aria-label="الأثر المتوقع"></textarea><span class="err"></span></div>
-    </section>
-    <section class="q" data-step="9" data-optional="1" hidden>
-      <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
-      <h2 class="qt" tabindex="-1">هل هناك شركاء أو داعمون محتملون؟<span class="optl">اختياري</span></h2>
-      <div class="fld"><textarea id="partners" name="partners" maxlength="600" rows="3" aria-label="الشركاء أو الداعمون المحتملون"></textarea><span class="err"></span></div>
-    </section>
-    <section class="q" data-step="10" data-optional="1" hidden>
-      <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
-      <h2 class="qt" tabindex="-1">كم التكلفة التقديرية بالريال؟<span class="optl">اختياري</span></h2><p class="qh">إن لم تكن متأكدًا فتخطَّ هذا السؤال.</p>
-      <div class="fld"><input type="number" id="cost" name="cost" inputmode="numeric" min="0" step="1" dir="ltr" aria-label="التكلفة التقديرية بالريال" placeholder="0"><span class="err"></span></div>
+      <h2 class="qt" tabindex="-1">الشركاء والتكلفة<span class="optl">اختياري</span></h2><p class="qh">إن لم تكن متأكدًا فتخطَّ هذا السؤال.</p>
+      <div class="fld"><label for="partners">الشركاء أو الداعمون المحتملون</label><textarea id="partners" name="partners" maxlength="600" rows="2"></textarea><span class="err"></span></div>
+      <div class="fld" style="margin-top:12px;max-width:280px"><label for="cost">التكلفة التقديرية بالريال</label><input type="number" id="cost" name="cost" inputmode="numeric" min="0" step="1" dir="ltr" placeholder="0"><span class="err">اكتب رقمًا صحيحًا.</span></div>
     </section>
     <section class="q" data-step="10b" data-optional="1" hidden>
       <span class="qsec">ثانيًا: بيانات المبادرة المقترحة</span>
@@ -349,13 +336,14 @@ const drop = $('#drop');
 drop.addEventListener('drop', e => { e.preventDefault(); addFiles([...e.dataTransfer.files]); });
 const toB64 = fl => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(fl); });
 
-const LABELS = { name: 'الاسم', org: 'الصفة / جهة العمل', phone: 'رقم الجوال', email: 'البريد الإلكتروني', title: 'اسم المبادرة المقترح', idea: 'فكرة المبادرة', need: 'المشكلة أو الاحتياج', audience: 'الفئة المستهدفة', goals: 'أهداف المبادرة', outputs: 'المخرجات المتوقعة', impact: 'الأثر المتوقع', partners: 'الشركاء أو الداعمون المحتملون', cost: 'التكلفة التقديرية (ريال)', role: 'الدور المرغوب' };
+const LABELS = { name: 'الاسم', org: 'الصفة / جهة العمل', phone: 'رقم الجوال', email: 'البريد الإلكتروني', title: 'اسم المبادرة المقترح', idea: 'فكرة المبادرة', need: 'المشكلة أو الاحتياج', audience: 'الفئة المستهدفة', goals: 'أهداف المبادرة', outputs: 'المخرجات والأثر المتوقع', partners: 'الشركاء أو الداعمون المحتملون', cost: 'التكلفة التقديرية (ريال)', role: 'الدور المرغوب' };
 
 // التحقق من خطوة واحدة؛ يعيد أول حقل ناقص أو null
 function checkStep(k) {
   const q = steps[k]; let first = null;
-  q.querySelectorAll('[required]').forEach(x => {
-    const bad = !x.value.trim() || !x.checkValidity();
+  q.querySelectorAll('input:not([type=checkbox]):not([type=file]),textarea').forEach(x => {
+    if (!x.closest('.fld')) return;
+    const bad = (x.required && !x.value.trim()) || (!!x.value.trim() && !x.checkValidity());
     x.closest('.fld').classList.toggle('bad', bad); if (bad && !first) first = x;
   });
   if (q.querySelector('input[name=role]')) { const bad = !roles().length; $('#roleRow').classList.toggle('bad', bad); if (bad && !first) first = q.querySelector('input[name=role]'); }
