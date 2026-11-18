@@ -1252,7 +1252,6 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
           <div class="vtl" id="vtl" role="slider" aria-label="شريط التقدم" tabindex="-1"></div>
           <span class="vtime num" id="vTime">0:00 / 0:00</span>
           <button type="button" class="vb vrate" id="vRate" aria-label="سرعة العرض">1×</button>
-          <button type="button" class="vb" id="vSound" aria-label="السرد الصوتي" aria-pressed="true"></button>
           <button type="button" class="vb" id="vFull" aria-label="ملء الشاشة"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
         </div>
       </div>
@@ -1572,7 +1571,7 @@ function buildLessonMap(i) {
   let acc = 0; VP.items.forEach(it => { it.start = acc; acc += it.dur; }); VP.total = acc;
   $('#vtl').innerHTML = VP.items.map(it => `<div class="sg" style="flex:${it.dur}"><i></i></div>`).join('');
   $('#lmTitle').textContent = `الدرس ${i + 1}: ${l.title}`;
-  $('#lmSub').textContent = 'عرض توضيحي مسرود يشرح الدرس على الخريطة، ثم يظهر مقطع الدرس عند انتهائه.';
+  $('#lmSub').textContent = 'عرض توضيحي يشرح الدرس على الخريطة، ثم يظهر مقطع الدرس عند انتهائه.';
   VP.T = 0; VP.idx = -1; VP.ended = false; VP.shown = 0;
   lessonView.hidden = false; lmap.invalidateSize();
   overview(false);
@@ -1588,7 +1587,9 @@ function paintVintro(l) {
 }
 /* ---------- السرد الصوتي: قارئ النصوص المدمج في المتصفح (Web Speech API) ---------- */
 const SOUND_ON = '<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>', SOUND_OFF = '<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM22 9l-6 6M16 9l6 6"/></svg>';
-const NAR = { on: true, voice: null, ok: 'speechSynthesis' in window, speaking: false, idx: -1, word: -1, boundary: false, utt: null };
+// السرد الصوتي متوقف حاليًا بطلب المركز؛ لإعادته اجعل NARRATION = true وأعد زر #vSound إلى شريط التحكم.
+const NARRATION = false;
+const NAR = { on: true, voice: null, ok: NARRATION && 'speechSynthesis' in window, speaking: false, idx: -1, word: -1, boundary: false, utt: null };
 try { NAR.on = localStorage.getItem('uswah.academy.sound') !== '0'; } catch (_) {}
 function pickVoice() {
   if (!NAR.ok) return;
@@ -1628,7 +1629,7 @@ function narSay(idx) {
   NAR.utt = u; NAR.speaking = true; NAR.idx = idx; NAR.word = -1; NAR.boundary = false;
   speechSynthesis.speak(u);
 }
-$('#vSound').onclick = () => {
+if ($('#vSound')) $('#vSound').onclick = () => {
   NAR.on = !NAR.on; try { localStorage.setItem('uswah.academy.sound', NAR.on ? '1' : '0'); } catch (_) {}
   syncSound(); if (!NAR.on) narCancel(); else if (VP.playing && VP.idx >= 0) narSay(VP.idx);
 };
