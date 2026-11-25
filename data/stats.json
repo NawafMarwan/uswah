@@ -510,7 +510,7 @@
       "title": "ليست معرفةُ شمائل النبي ﷺ مجرّدَ معرفةٍ لسيرته، بل هي طريقٌ إلى محبّته، والاقتداء بهديه، و…",
       "views": 1780,
       "url": "https://t.me/OSWAHH1/4809",
-      "category": "shamail",
+      "category": "audio",
       "media": "video",
       "source": "api"
     },
@@ -586,7 +586,7 @@
       "title": "رحلةٌ بين شمائله ﷺ... تزيدنا به معرفة... وله محبة. استمع للكتاب الصوتي \" الشمائل المحمدية …",
       "views": 1830,
       "url": "https://t.me/OSWAHH1/4806",
-      "category": "shamail",
+      "category": "audio",
       "media": "video",
       "source": "api",
       "image": "assets/designs/tg-4806.jpg",
@@ -1194,7 +1194,9 @@
     "lEkKk-q5W_k": "audio",
     "awjAz8IIaoA": "audio",
     "psZ3YEy17ig": "audio",
-    "apoWoVhZAD0": "intro"
+    "apoWoVhZAD0": "intro",
+    "tg-4809": "audio",
+    "tg-4806": "audio"
   },
   "plan_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMtpjr95s_xXTzZgIsXUZrUQkCC7YNRKxyCWXpnXPXxR7Ccjui7McYNWZ31-ixsg/pub?gid=1730564931&single=true&output=csv",
   "reports": [
