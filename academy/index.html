@@ -1293,7 +1293,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
   <section class="wrap">
     <a class="cta" href="https://uswah.sa/sira-map" target="_blank" rel="noopener">
       <div>
-        <h3>الخريطة التفاعلية للسيرة النبوية</h3>
+        <h3>خريطة السيرة النبوية التفاعلية</h3>
         <p>تابع السيرة حدثًا بعد حدث على الخريطة، مع تعريف بالأعلام ووضع عرض للمحاضرات.</p>
         <span class="go">افتح الخريطة <svg class="ic" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
       </div>
@@ -1668,7 +1668,10 @@ syncSound();
 
 /* ---------- العرض التوضيحي أولًا، ثم مقطع الدرس في مكانه ---------- */
 VP.seen = {};
+// العرض التوضيحي (الموشن جرافيك) متوقف حاليًا بطلب المركز؛ لإعادته اجعل MOTION = true فقط.
+const MOTION = false;
 function lessonPhase(ph) {
+  if (!MOTION) ph = 'video';
   clearTimeout(VP.autoT);
   VP.phase = ph;
   lmapcard.hidden = ph !== 'motion'; stage.hidden = ph !== 'video';
@@ -1833,7 +1836,7 @@ function renderLessonCard(i) {
   view = 'lesson'; curLesson = i; markStep('lesson');
   const l = LESSONS[i];
   stage.innerHTML = `<div class="card">
-    <div class="replaybar"><button type="button" class="back" id="toMotion"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>إعادة العرض التوضيحي</button></div>
+    <div class="replaybar"${MOTION ? '' : ' hidden'}><button type="button" class="back" id="toMotion"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>إعادة العرض التوضيحي</button></div>
     <h2>الدرس ${i + 1}: ${esc(l.title)}</h2>
     <div class="lvgrid">
       <div><div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${l.video}?rel=0" title="${esc(l.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
@@ -1892,7 +1895,7 @@ function renderEnrich(i) {
     <span class="tag">الدرس ${i + 1} · إثراءات</span>
     <h2>للاستزادة بعد الدرس</h2>
     <div class="egrid">
-      <a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener"><span class="tt">الخريطة التفاعلية للسيرة</span><div class="code">${QR_SVG}</div><small>امسح الرمز أو اضغط لتتابع أحداث الدرس حدثًا بعد حدث على الخريطة.</small></a>
+      <a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener"><span class="tt">خريطة السيرة النبوية التفاعلية</span><div class="code">${QR_SVG}</div><small>امسح الرمز أو اضغط لتتابع أحداث الدرس حدثًا بعد حدث على الخريطة.</small></a>
       <div class="ecol">
       <div class="ecard"><b>المقطع على يوتيوب</b><p><a href="https://youtu.be/${l.video}" target="_blank" rel="noopener">${esc(l.title)}</a></p></div></div>
     </div>

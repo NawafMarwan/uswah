@@ -113,6 +113,15 @@ def main():
                .replace("__LEAFLET_JS__", (ROOT / "scripts/vendor/leaflet.js").read_text(encoding="utf-8").replace("</script", "<\\/script"))
                .replace("__LOGO__", logo).replace("__SEED__", seed))
     OUT.write_text(html, encoding="utf-8")
+    # keep the map card on the home page in step with the data (events / people / books)
+    home = ROOT / "_src" / "uswah.html"
+    if home.exists():
+        h = home.read_text(encoding="utf-8")
+        h2 = re.sub(r'(<b class="num" id="mapEvN">)\d+(</b>)', rf"\g<1>{len(data['events'])}\g<2>", h)
+        h2 = re.sub(r'(<li><b class="num">)\d+(</b> علمًا معرَّفًا)', rf"\g<1>{len(data.get('people', {}))}\g<2>", h2)
+        h2 = re.sub(r'(<li><b class="num">)\d+(</b> كتب سيرة)', rf"\g<1>{len(data.get('books', {}))}\g<2>", h2)
+        if h2 != h:
+            home.write_text(h2, encoding="utf-8")
     print(f"✓ {OUT.relative_to(ROOT)}: {len(events)} events, {len(data['places'])} places drawn, {unmapped} place mentions kept as text only, {len(html):,} bytes")
 
 

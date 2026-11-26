@@ -154,9 +154,11 @@ const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 const toB64 = u => btoa(String.fromCharCode(...u));
 const msg = (t, info) => { const m = $('#msg'); m.textContent = t || ''; m.className = info ? 'info' : ''; };
 const store = {
-  get() { try { return JSON.parse(sessionStorage.getItem(KEY)); } catch { return null; } },
-  set(v) { try { sessionStorage.setItem(KEY, JSON.stringify(v)); } catch {} },
-  del() { try { sessionStorage.removeItem(KEY); } catch {} },
+  // localStorage (not sessionStorage): the session is shared by every tab of the site, so a page opened from a
+  // link or in a new tab stays signed in until the same 15-minute expiry.
+  get() { try { return JSON.parse(localStorage.getItem(KEY)); } catch { return null; } },
+  set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} },
+  del() { try { localStorage.removeItem(KEY); } catch {} },
 };
 
 let blobPromise;
@@ -177,15 +179,15 @@ async function derive(user, pass) {
 
 const TIMER = `<style>#gate-bar{position:fixed;z-index:99999;inset:auto 12px 12px 12px;max-width:460px;margin-inline:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#3a2236;color:#fffaf6;padding:12px 16px;border-radius:16px;box-shadow:0 12px 40px -8px rgba(0,0,0,.5);font:600 14.5px/1.6 "IBM Plex Sans Arabic",system-ui,sans-serif}#gate-bar[hidden]{display:none}#gate-bar span{flex:1 1 180px}#gate-bar b{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}#gate-bar button{font:inherit;border:0;border-radius:10px;padding:7px 14px;cursor:pointer;min-height:38px}#gate-x{background:#c2703d;color:#fff}#gate-o{background:rgba(255,255,255,.14);color:#fffaf6}</style>
 <script>(function(){var KEY='${KEY}',SESSION=${SESSION},WARN=${WARN};
-function get(){try{return JSON.parse(sessionStorage.getItem(KEY))}catch(e){return null}}
-function leave(m){try{sessionStorage.removeItem(KEY);if(m)sessionStorage.setItem(KEY+'.msg',m)}catch(e){}location.reload()}
+function get(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function leave(m){try{localStorage.removeItem(KEY);if(m)sessionStorage.setItem(KEY+'.msg',m)}catch(e){}location.reload()}
 var bar=document.createElement('div');bar.id='gate-bar';bar.setAttribute('role','alert');bar.hidden=true;
 bar.innerHTML='<span>ستنتهي جلستك خلال <b id="gate-t"></b></span><button id="gate-x" type="button">تمديد الجلسة</button><button id="gate-o" type="button">خروج</button>';
 document.body.appendChild(bar);
 var t=document.getElementById('gate-t');
 function tick(){var s=get();if(!s||Date.now()>=s.exp){leave('انتهت الجلسة. سجّل الدخول مجددًا للمتابعة.');return}
 var r=s.exp-Date.now();bar.hidden=r>WARN;if(r<=WARN){var q=Math.ceil(r/1000);t.textContent=Math.floor(q/60)+':'+('0'+q%60).slice(-2)}}
-document.getElementById('gate-x').onclick=function(){var s=get();if(s){s.exp=Date.now()+SESSION;sessionStorage.setItem(KEY,JSON.stringify(s));tick()}};
+document.getElementById('gate-x').onclick=function(){var s=get();if(s){s.exp=Date.now()+SESSION;localStorage.setItem(KEY,JSON.stringify(s));tick()}};
 document.getElementById('gate-o').onclick=function(){leave()};
 setInterval(tick,1000);document.addEventListener('visibilitychange',tick);tick();
 })();<\/script>`;
