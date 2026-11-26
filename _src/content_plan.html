@@ -131,6 +131,20 @@ footer a{color:#e8a77a;text-decoration:none;font-weight:600}
 footer small{display:block;margin-top:10px;color:#a8949f;font-size:12.5px}
 
 @media print{.topbar,.plan-tools,footer{display:none}.hero{background:none;color:#000}.hero p,.kicker,.pillbox{color:#000}.pday.past{opacity:1}}
+
+/* ===== شريط التنقل: قائمة منسدلة على الشاشات الضيقة ===== */
+.navbtn{display:none;align-items:center;gap:8px;appearance:none;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;max-width:62vw;overflow:hidden;text-overflow:ellipsis}
+.navbtn svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.navbtn .chev{width:14px;height:14px;transition:transform .2s}
+.navbtn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+@media (max-width:1080px){
+  .topbar .wrap{position:relative}
+  .navbtn{display:inline-flex;margin-inline-start:auto}
+  .topbar .tabs{display:none!important;position:absolute;top:calc(100% - 4px);inset-inline-end:var(--gutter,16px);flex-direction:column;align-items:stretch;gap:2px;min-width:230px;flex:none!important;overflow:visible!important;margin:0!important;border-radius:16px;padding:6px;background:var(--surface);box-shadow:0 18px 40px -12px rgba(0,0,0,.35);z-index:200}
+  .topbar .tabs.open{display:flex!important}
+  .topbar .tabs .tab{padding:10px 14px!important;font-size:14.5px!important;border-radius:12px;justify-content:flex-start}
+  .topbar .tabs .tab svg{display:block!important;width:18px;height:18px}
+}
 </style>
 </head>
 <body>
@@ -245,10 +259,12 @@ function render() {
     const cur = fromDay(t).slice(0, 7);
     state.month = months.includes(cur) ? cur : (months.find(m => m > cur) || months[months.length - 1]);
   }
+  if (state.project !== 'all' && !items.some(i => i.project === state.project && i.date.startsWith(state.month))) state.project = 'all';
   $('#planTools').hidden = false;
   $('#planMonths').innerHTML = months.map(m => `<button type="button" class="chip" data-month="${m}" aria-pressed="${m === state.month}">${dfMonthName.format(new Date(Date.UTC(+m.slice(0, 4), +m.slice(5, 7) - 1, 1)))}</button>`).join('');
   $('#planProjects').innerHTML = `<button type="button" class="chip" data-project="all" aria-pressed="${state.project === 'all'}">كل المشاريع</button>` +
-    plan.projects.map(p => `<button type="button" class="chip" data-project="${esc(p)}" aria-pressed="${p === state.project}"><span class="dot" style="background:${color(p)}"></span>${esc(p)}</button>`).join('');
+    // only the projects that have items in the chosen month (empty ones appear once the sheet has items for them)
+    plan.projects.filter(p => items.some(i => i.project === p && i.date.startsWith(state.month))).map(p => `<button type="button" class="chip" data-project="${esc(p)}" aria-pressed="${p === state.project}"><span class="dot" style="background:${color(p)}"></span>${esc(p)}</button>`).join('');
   // body
   const shown = items.filter(i => i.date.startsWith(state.month) && (state.project === 'all' || i.project === state.project || i.kind === 'note'));
   const byDay = new Map();
@@ -297,6 +313,23 @@ if (location.protocol.startsWith('http')) {
   fetch('data/plan.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject())
     .then(j => { load(j); render(); }).catch(() => {});
 }
+})();
+</script>
+<script>
+/* شريط التنقل على الشاشات الضيقة: زر يفتح قائمة منسدلة بالصفحات */
+(() => {
+  const nav = document.querySelector('.topbar .tabs'); if (!nav || document.querySelector('.navbtn')) return;
+  const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'navbtn'; btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-haspopup', 'true');
+  nav.id = nav.id || 'siteNav'; btn.setAttribute('aria-controls', nav.id);
+  const label = () => { const c = nav.querySelector('.tab[aria-current]'); btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>' + (c ? c.textContent.trim() : 'الصفحات') + '</span><svg class="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>'; };
+  const close = () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); };
+  nav.parentNode.insertBefore(btn, nav); label();
+  btn.addEventListener('click', e => { e.stopPropagation(); label(); const o = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', String(o)); });
+  nav.addEventListener('click', e => { if (e.target.closest('.tab')) close(); });
+  document.addEventListener('click', e => { if (!nav.contains(e.target)) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  addEventListener('hashchange', () => setTimeout(label, 0));
+  new MutationObserver(label).observe(nav, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
 })();
 </script>
 </body>

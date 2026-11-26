@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>الخريطة التفاعلية — السيرة النبوية | مركز أسوة</title>
+<title>خريطة السيرة النبوية التفاعلية | مركز أسوة</title>
 <meta name="description" content="خريطة تفاعلية تحكي السيرة النبوية بالترتيب، موثّقة بالمصادر والجزء والصفحة.">
 <meta name="theme-color" content="#3a2236">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 60V30Q8 22 16 18L32 8l16 10q8 4 8 12v30' fill='none' stroke='%239a7c6a' stroke-width='6'/%3E%3Cpath d='M18 60V34q0-5 5-8l9-6 9 6q5 3 5 8v26' fill='none' stroke='%236e8fa3' stroke-width='6'/%3E%3C/svg%3E">
@@ -12,6 +12,20 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 __LEAFLET_CSS__
+
+/* ===== شريط التنقل: قائمة منسدلة على الشاشات الضيقة ===== */
+.navbtn{display:none;align-items:center;gap:8px;appearance:none;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;max-width:62vw;overflow:hidden;text-overflow:ellipsis}
+.navbtn svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.navbtn .chev{width:14px;height:14px;transition:transform .2s}
+.navbtn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+@media (max-width:1080px){
+  .topbar .wrap{position:relative}
+  .navbtn{display:inline-flex;margin-inline-start:auto}
+  .topbar .tabs{display:none!important;position:absolute;top:calc(100% - 4px);inset-inline-end:var(--gutter,16px);flex-direction:column;align-items:stretch;gap:2px;min-width:230px;flex:none!important;overflow:visible!important;margin:0!important;border-radius:16px;padding:6px;background:var(--surface);box-shadow:0 18px 40px -12px rgba(0,0,0,.35);z-index:200}
+  .topbar .tabs.open{display:flex!important}
+  .topbar .tabs .tab{padding:10px 14px!important;font-size:14.5px!important;border-radius:12px;justify-content:flex-start}
+  .topbar .tabs .tab svg{display:block!important;width:18px;height:18px}
+}
 </style>
 <style>
 :root{
@@ -107,6 +121,7 @@ main{padding-block:18px 48px}
 .dark-tiles .leaflet-tile-pane{filter:brightness(.62) contrast(1.15) saturate(.85)}
 
 /* markers */
+.wnote{margin:4px 0 0;font-size:12.5px;color:var(--muted);line-height:1.7}
 .pm{position:relative;display:flex;align-items:center;gap:6px;transform:translate(-7px,-7px);white-space:nowrap;pointer-events:auto;cursor:pointer;direction:rtl}
 .pm i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--taupe);box-shadow:0 1px 4px rgba(0,0,0,.35)}
 .pm span{font-size:12.5px;font-weight:600;color:#2e1c2b;background:rgba(255,250,246,.9);border-radius:7px;padding:0 6px;box-shadow:0 1px 3px rgba(0,0,0,.22)}
@@ -151,7 +166,7 @@ main{padding-block:18px 48px}
 .chapcard p{margin:0 auto;max-width:640px;color:#eadbe0;font-size:clamp(15px,2.1vw,20px);line-height:1.9}
 .chapcard .cc-m{margin-top:10px;color:#c9b6c1;font-size:13.5px}
 @keyframes chapIn{0%{opacity:0;transform:scale(1.06)}12%{opacity:1;transform:none}82%{opacity:1}100%{opacity:0;visibility:hidden}}
-.scene{position:absolute;z-index:1;inset-inline-start:14px;bottom:14px;width:min(520px,47%);max-height:calc(100% - 28px);overflow:auto;scrollbar-width:thin;pointer-events:auto;color:#fffaf6;background:linear-gradient(160deg,rgba(32,16,29,.9),rgba(20,10,18,.9));border-radius:20px;border-inline-start:5px solid var(--c,var(--copper));padding:14px 18px 16px;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 40px -10px var(--c,transparent);backdrop-filter:blur(8px)}
+.scene{position:absolute;z-index:1;inset-inline-start:14px;bottom:14px;width:min(430px,36%);max-height:calc(100% - 28px);overflow:auto;scrollbar-width:thin;pointer-events:auto;color:#fffaf6;background:linear-gradient(160deg,rgba(32,16,29,.9),rgba(20,10,18,.9));border-radius:20px;border-inline-start:5px solid var(--c,var(--copper));padding:14px 18px 16px;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 40px -10px var(--c,transparent);backdrop-filter:blur(8px)}
 .scene.in{animation:sceneIn .7s cubic-bezier(.2,.9,.3,1) both}
 .scene.wait{opacity:0;pointer-events:none}
 @keyframes sceneIn{from{opacity:0;transform:translateY(28px) scale(.98)}to{opacity:1;transform:none}}
@@ -376,7 +391,7 @@ body.present .controls{background:var(--surface)}
   <div class="shape"></div><div class="shape2"></div>
   <div class="wrap">
     <span class="kicker">نتعلم.. لنتأسى</span>
-    <h1>الخريطة التفاعلية — السيرة النبوية</h1>
+    <h1>خريطة السيرة النبوية التفاعلية</h1>
     <p>قصة السيرة من إرهاصات المولد إلى لقاء الرفيق الأعلى، تُروى على الخريطة مشهدًا بعد مشهد، وكل مشهد موثّق بمصدره والجزء والصفحة.</p>
   </div>
 </section>
@@ -432,7 +447,7 @@ body.present .controls{background:var(--surface)}
       <div class="panel-h"><h2>أحداث الرحلة بالترتيب</h2><p id="listNote"></p></div>
       <div class="filters" id="filters">
         <div class="sbox"><input id="q" type="search" inputmode="search" autocomplete="off" placeholder="ابحث: حدث، علم، مكان، كتاب… (مثل: أبو بكر، بدر، الحديبية)" aria-label="بحث في أحداث الرحلة"><button type="button" id="qx" aria-label="مسح البحث" hidden>✕</button></div>
-        <div class="chips" id="fPhase" role="group" aria-label="المرحلة"></div>
+        <div class="chips" id="fPhase" role="group" aria-label="الفصل"></div>
         <div class="chips" id="fType" role="group" aria-label="نوع الحدث"></div>
         <div class="fres" id="fRes" aria-live="polite"></div>
       </div>
@@ -482,7 +497,8 @@ const ph = e => PHASES[e.phase] || ['السيرة النبوية', 'var(--copper
 const refOf = s => `${s.volume != null ? 'ج' + s.volume + ' ' : ''}ص${s.page}`;
 
 /* ---------- map ---------- */
-const map = L.map('map', { zoomControl: true, minZoom: 3, maxZoom: 16, worldCopyJump: false, zoomSnap: 0.25, attributionControl: false, zoomAnimation: !reduce, fadeAnimation: !reduce });
+const map = L.map('map', { zoomControl: false, minZoom: 3, maxZoom: 16, worldCopyJump: false, zoomSnap: 0.25, attributionControl: false, zoomAnimation: !reduce, fadeAnimation: !reduce });
+L.control.zoom({ zoomInTitle: 'تكبير', zoomOutTitle: 'تصغير' }).addTo(map);
 const WORLD_BOUNDS = L.latLngBounds([[8, 27], [43, 64]]);
 map.fitBounds(WORLD_BOUNDS, { padding: [8, 8] });
 map.setMaxBounds(L.latLngBounds([[-5, 10], [55, 85]]));
@@ -492,12 +508,12 @@ const LAYERS = {
   relief:  L.tileLayer(ESRI + 'World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 13, maxZoom: 16 }),
   imagery: L.tileLayer(ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxNativeZoom: 17, maxZoom: 16 }),
 };
-let baseKey = store.get('sira.layer2', 'imagery'); if (!LAYERS[baseKey]) baseKey = 'imagery';
+let baseKey = store.get('sira.layer3', 'terrain'); if (!LAYERS[baseKey]) baseKey = 'terrain';
 let tileOk = 0, tileErr = 0;
 Object.values(LAYERS).forEach(l => { l.on('tileload', () => { tileOk++; $('#tileWarn').hidden = true; }); l.on('tileerror', () => { tileErr++; if (!tileOk && tileErr > 6) $('#tileWarn').hidden = false; }); });
 function setBase(k) {
   Object.values(LAYERS).forEach(l => map.hasLayer(l) && map.removeLayer(l));
-  LAYERS[k].addTo(map); baseKey = k; store.set('sira.layer2', k); document.body.classList.toggle('sat', k === 'imagery');
+  LAYERS[k].addTo(map); baseKey = k; store.set('sira.layer3', k); document.body.classList.toggle('sat', k === 'imagery');
   document.querySelectorAll('#layers button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === k));
 }
 setBase(baseKey);
@@ -545,13 +561,14 @@ function declutter(active) {
   const placed = [];
   const hit = r => placed.some(q => !(r.right < q.left || r.left > q.right || r.bottom < q.top || r.top > q.bottom));
   const items = Object.keys(markers).map(id => ({ id, el: elOf(id) })).filter(x => x.el && !x.el.classList.contains('hide'));
+  items.forEach(x => { const d = x.el.querySelector('i'); if (d) { const r = d.getBoundingClientRect(); placed.push({ left: r.left - 2, right: r.right + 2, top: r.top - 2, bottom: r.bottom + 2 }); } });
   items.sort((a, b) => (active.has(b.id) - active.has(a.id)) || ((PL[a.id].minz || 0) - (PL[b.id].minz || 0)));
   for (const x of items) {
     const sp = x.el.querySelector('span'); sp.style.transform = '';
     const isA = active.has(x.id);
     if (x.el.classList.contains('nolabel') && !isA) continue;
     const base = sp.getBoundingClientRect();
-    const tries = isA ? [0, 24, -24, 48, -48, 72, -72] : [0];
+    const tries = isA ? [0, 22, -22, 44, -44, 66, -66, 88, -88, 110, -110] : [0];
     let done = false;
     for (const dy of tries) {
       const r = { left: base.left, right: base.right, top: base.top + dy, bottom: base.bottom + dy };
@@ -638,8 +655,8 @@ function ageOf(e) {
   const d = e.date || {}, a = e.age != null ? e.age : d.age, lab = e.age_label || d.age_label;
   if (a != null) return { v: a, t: lab || (a <= 0 ? 'عند مولده ﷺ' : 'عمره ﷺ ' + yrs(Math.round(a))) };
   if (lab) return { v: null, t: lab };
-  if (d.bi_year) return { v: 39 + d.bi_year, t: 'عمره ﷺ نحو ' + (39 + d.bi_year) + ' سنة' };
   if (d.hijri_year) return { v: 52 + d.hijri_year, t: 'عمره ﷺ نحو ' + (52 + d.hijri_year) + ' سنة' };
+  if (d.bi_year) return { v: 39 + d.bi_year, t: 'عمره ﷺ نحو ' + (39 + d.bi_year) + ' سنة' };
   return null;
 }
 const cleanQuote = t => String(t || '').replace(/\s*\[[^\]]{1,8}\]/g, '').replace(/\s*\(\s*\)/g, '').replace(/\s+/g, ' ').trim();
@@ -657,7 +674,8 @@ function showChapter(c, auto) {
   if (reduce) { holdExtra = 0; return; }
   const ages = EV.map((e, i) => CHAP_OF[i] === c.k ? ageOf(e) : null).filter(a => a && a.v != null).map(a => a.v);
   const lo = ages.length ? Math.round(Math.min(...ages)) : 0, hi = ages.length ? Math.round(Math.max(...ages)) : 0;
-  const span = !ages.length ? '' : lo === hi ? ` · في عمر ${hi} سنة` : lo === 0 ? ` · من المولد إلى عمر ${hi} سنة` : ` · من عمر ${lo} إلى ${hi} سنة`;
+  const preBirth = EV.some((e, i) => CHAP_OF[i] === c.k && /قبل الولادة|قبل المولد/.test(e.age_label || (e.date && e.date.age_label) || ''));
+  const span = !ages.length ? '' : lo === hi ? ` · في عمر ${hi} سنة` : preBirth ? ` · من قبل المولد إلى عمر ${hi} سنة` : lo === 0 ? ` · من المولد إلى عمر ${hi} سنة` : ` · من عمر ${lo} إلى ${hi} سنة`;
   card.style.setProperty('--c', c.color);
   card.innerHTML = `<div class="cc-n">الفصل ${ORD[c.n] || c.n + 1}</div><h2>${esc(c.name)}</h2><p>${esc(c.tag)}</p><div class="cc-m">${scenes(c.count)}${span}</div>`;
   card.hidden = false; card.classList.remove('show'); void card.offsetWidth; card.classList.add('show');
@@ -734,14 +752,14 @@ function renderEvent() {
   const places = (e.places || []).filter(x => PL[x]);
   $('#eventPanel').innerHTML = `<div class="ph" style="--c:${pc}"><i></i>${esc(pn)}</div>
     <h2>${esc(e.title)}</h2>
-    <span class="when">${esc(e.date && e.date.label || '')}</span>
+    <span class="when">${esc(e.date && e.date.label || '')}</span>${e.date && e.date.note ? `<p class="wnote">في تاريخه أقوال أخرى: ${esc(e.date.note)}</p>` : ''}
     <div class="chips">${places.map(id => `<button type="button" class="chip" data-place="${esc(id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>${esc(PL[id].ar)}</button>`).join('')}</div>
     ${e.type === 'letter' ? '<p class="cover">الخط على الخريطة يبيّن جهة الكتاب فقط، وليس الطريق الذي سلكه الرسول.</p>' : ''}
     ${(e.hidden_places || []).length ? `<div class="chips hid" title="لم يتيسر تحديد موضعها على الخريطة بدقة"><span class="hl">مواضع أخرى في الحدث (لا تُعرض على الخريطة):</span>${e.hidden_places.map(n => `<span class="chip person">${esc(n)}</span>`).join('')}</div>` : ''}
     <p class="summary">${esc(e.summary)}</p>
     ${e.details ? `<details class="more"><summary>تفصيل الحدث</summary><div class="body">${esc(e.details)}</div></details>` : ''}
     ${(e.key_people || []).length ? `<div class="chips">${e.key_people.map(n => PEOPLE_IDX[n] ? `<button type="button" class="chip person def" data-person="${esc(PEOPLE_IDX[n])}" title="تعريف">${esc(n)}</button>` : `<span class="chip person">${esc(n)}</span>`).join('')}</div>` : ''}
-    <div class="srcs"><h3>المصادر (${(e.sources || []).length})</h3>${(e.sources || []).map(s => `<details class="src"><summary><b>${esc(s.book)}</b><span class="ref">${esc(refOf(s))}</span>${BOOKS[s.book_id] ? `<button type="button" class="binfo" data-book="${s.book_id}">عن الكتاب</button>` : ''}</summary><blockquote>«${esc(s.quote)}»${s.numbering === 'auto' ? '<small>الترقيم آلي من المكتبة الشاملة</small>' : ''}</blockquote></details>`).join('')}</div>
+    <div class="srcs"><h3>المصادر (${(e.sources || []).length})</h3>${(e.sources || []).map(s => `<details class="src"><summary><b>${esc(s.book)}</b><span class="ref">${esc(refOf(s))}</span>${BOOKS[s.book_id] ? `<button type="button" class="binfo" data-book="${s.book_id}">نبذة عن الكتاب</button>` : ''}</summary><blockquote>«${esc(s.quote)}»${s.numbering === 'auto' ? '<small>الترقيم آلي من المكتبة الشاملة</small>' : ''}</blockquote></details>`).join('')}</div>
     <div id="pcard">${selPlace && places.includes(selPlace) ? placeCard(selPlace) : ''}</div>`;
 }
 function setProgress() {
@@ -814,7 +832,7 @@ document.addEventListener('click', e => { const b = e.target.closest('[data-pop]
 const shortBook = b => String(b).split(' - ')[0].replace(/ مع زيادات$/, '');
 function renderCaption() {
   const e = EV[idx], c = $('#caption'); if (!c) return;
-  if (!e) { c.innerHTML = `<div class="cph">الخريطة التفاعلية — السيرة النبوية</div><h2>اضغط «تشغيل الرحلة»</h2>`; return; }
+  if (!e) { c.innerHTML = `<div class="cph">خريطة السيرة النبوية التفاعلية</div><h2>اضغط «تشغيل الرحلة»</h2>`; return; }
   const refs = (e.sources || []).slice(0, 3).map(s => `${esc(shortBook(s.book))} ${esc(refOf(s))}`).join(' · ');
   c.innerHTML = `<div class="cph">${esc(ph(e)[0])}</div><h2>${esc(e.title)}</h2><span class="cw">${esc(e.date && e.date.label || '')}</span><p>${esc(e.summary)}</p><div class="csrc">المصادر: ${refs}</div>`;
 }
@@ -839,7 +857,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hid
 const row = (k, v, note) => v ? `<div><dt>${k}</dt><dd>${v}${note ? `<span class="approx">${esc(note)}</span>` : ''}</dd></div>` : '';
 function bookCard(id) {
   const b = BOOKS[id]; if (!b) return;
-  openModal(`<div class="mh"><div><div class="mk">عن الكتاب</div><h3 id="mTitle">${esc(b.title)}</h3></div><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
+  openModal(`<div class="mh"><div><div class="mk">نبذة عن الكتاب</div><h3 id="mTitle">${esc(b.title)}</h3></div><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
     <dl>${row('المؤلف', esc(b.author_full))}${row('وفاة المؤلف', esc(b.author_death))}${row('زمن التأليف', esc(b.written), b.written_approx ? 'تقريبي' : '')}
     ${row('نوع الكتاب', b.kind ? `<span class="badge">${esc(b.kind)}</span>` : '', '')}${row('عن النوع', esc(b.kind_note))}${row('الطبعة في الشاملة', esc(b.edition))}${row('ملاحظة', esc(b.note))}</dl>
     ${(b.sources || []).length ? `<div class="msrc"><h4>مستند هذه المعلومات</h4>${b.sources.map(s => `<blockquote>«${esc(s.quote)}»<small>${esc(s.book)} — ${esc(refOf(s))}</small></blockquote>`).join('')}</div>` : ''}`);
@@ -881,12 +899,12 @@ const TYPES = [
 const HAY = EV.map(e => norm([e.title, e.summary, e.details, (e.key_people || []).join(' '), (e.places || []).map(id => PL[id] && PL[id].ar || '').join(' '), (e.sources || []).map(x => x.book).join(' '), e.date && e.date.label].join(' ')));
 const F = { q: '', phase: '', type: '' };
 const usedTypes = new Set(EV.map(e => e.type));
-$('#fPhase').innerHTML = `<button type="button" class="chip" data-p="" aria-pressed="true">كل المراحل</button>` + Object.keys(PHASES).filter(k => EV.some(e => e.phase === k)).map(k => `<button type="button" class="chip ph" style="--c:${PHASES[k][1]}" data-p="${k}" aria-pressed="false">${esc(PHASES[k][0])}</button>`).join('');
+$('#fPhase').innerHTML = `<button type="button" class="chip" data-p="" aria-pressed="true">كل الفصول</button>` + CHAPS.map(c => `<button type="button" class="chip ph" style="--c:${c.color}" data-p="${c.k}" aria-pressed="false">${esc(c.name)}</button>`).join('');
 $('#fType').innerHTML = `<button type="button" class="chip" data-t="" aria-pressed="true">كل الأنواع</button>` + TYPES.filter(t => t[1].some(x => usedTypes.has(x))).map((t, i) => `<button type="button" class="chip" data-t="${i}" aria-pressed="false">${esc(t[0])}</button>`).join('');
 const TYPE_IDX = TYPES.filter(t => t[1].some(x => usedTypes.has(x)));
 function matches(i) {
   const e = EV[i];
-  if (F.phase && e.phase !== F.phase) return false;
+  if (F.phase && CHAP_OF[i] !== F.phase) return false;
   if (F.type !== '' && !TYPE_IDX[+F.type][1].includes(e.type)) return false;
   if (F.q) { const ws = norm(F.q).split(/\s+/).filter(Boolean); if (!ws.every(w => HAY[i].includes(w))) return false; }
   return true;
@@ -963,6 +981,23 @@ $('#year').textContent = new Date().getFullYear();
 setPlayUi(); renderIntro(); setProgress(); refreshMarkers();
 setTimeout(() => map.invalidateSize(), 200);
 addEventListener('resize', () => map.invalidateSize());
+})();
+</script>
+<script>
+/* شريط التنقل على الشاشات الضيقة: زر يفتح قائمة منسدلة بالصفحات */
+(() => {
+  const nav = document.querySelector('.topbar .tabs'); if (!nav || document.querySelector('.navbtn')) return;
+  const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'navbtn'; btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-haspopup', 'true');
+  nav.id = nav.id || 'siteNav'; btn.setAttribute('aria-controls', nav.id);
+  const label = () => { const c = nav.querySelector('.tab[aria-current]'); btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>' + (c ? c.textContent.trim() : 'الصفحات') + '</span><svg class="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>'; };
+  const close = () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); };
+  nav.parentNode.insertBefore(btn, nav); label();
+  btn.addEventListener('click', e => { e.stopPropagation(); label(); const o = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', String(o)); });
+  nav.addEventListener('click', e => { if (e.target.closest('.tab')) close(); });
+  document.addEventListener('click', e => { if (!nav.contains(e.target)) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  addEventListener('hashchange', () => setTimeout(label, 0));
+  new MutationObserver(label).observe(nav, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
 })();
 </script>
 </body>

@@ -36,7 +36,7 @@ def card(i, p):
     if phases:
         meta.append(ar_count(len(phases), "مرحلة واحدة", "مرحلتان", "مراحل", "مرحلة"))
     if spins:
-        meta.append(ar_count(len(spins), "مشروع منبثق", "مشروعان منبثقان", "مشاريع منبثقة", "مشروعًا منبثقًا"))
+        meta.append(ar_count(len(spins), "مشروع منبثق واحد", "مشروعان منبثقان", "مشاريع منبثقة", "مشروعًا منبثقًا"))
     out = [f'<article class="proj{" sup" if sup else ""}" id="proj-{e(p["id"])}">']
     out.append(f'<header class="ph"><span class="pn num">{i}</span><h2>{e(p["title"])}</h2>{badge}</header>')
     out.append(f'<p class="pgoal"><b>الهدف العام</b>{e(p["goal"])}</p>')
