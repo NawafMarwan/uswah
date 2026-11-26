@@ -8,7 +8,7 @@ The real pages live in _src/ (plain; Jekyll never publishes "_" folders). This s
     never written anywhere;
   * writes the small public wrapper pages (index.html, uswah.html, stats/, plan/, content_plan.html):
     a login form that fetches a blob, decrypts it in the browser and shows the page. The session lasts
-    15 minutes; two minutes before the end a bar offers to extend it, otherwise the visitor is sent
+    30 minutes; two minutes before the end a bar offers to extend it, otherwise the visitor is sent
     back to the login form.
 
     python3 scripts/protect.py                  # encrypt + wrappers (needs SITE_USER / SITE_PASSWORD)
@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "_src"
 ENC = ROOT / "assets" / "enc"
 
-SESSION_S = int(os.environ.get("GATE_SESSION_SECONDS") or 15 * 60)
+SESSION_S = int(os.environ.get("GATE_SESSION_SECONDS") or 30 * 60)
 WARN_S = int(os.environ.get("GATE_WARN_SECONDS") or 2 * 60)
 ITER = int(os.environ.get("GATE_ITER") or 600_000)
 SALT = hashlib.sha256(b"uswah-gate-v1").digest()[:16]  # public; only has to be unique to this site
@@ -155,7 +155,7 @@ const toB64 = u => btoa(String.fromCharCode(...u));
 const msg = (t, info) => { const m = $('#msg'); m.textContent = t || ''; m.className = info ? 'info' : ''; };
 const store = {
   // localStorage (not sessionStorage): the session is shared by every tab of the site, so a page opened from a
-  // link or in a new tab stays signed in until the same 15-minute expiry.
+  // link or in a new tab stays signed in until the same 30-minute expiry.
   get() { try { return JSON.parse(localStorage.getItem(KEY)); } catch { return null; } },
   set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} },
   del() { try { localStorage.removeItem(KEY); } catch {} },

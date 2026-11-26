@@ -41,14 +41,14 @@ small{display:block;margin-top:14px;color:var(--muted);font-size:12.5px}
     <button class="go" id="go" type="submit">دخول</button>
   </form>
   <div id="msg" role="status" aria-live="polite"></div>
-  <small>تنتهي الجلسة بعد 15 دقيقة، وسيُعرض عليك تمديدها قبل ذلك.</small>
+  <small>تنتهي الجلسة بعد 30 دقيقة، وسيُعرض عليك تمديدها قبل ذلك.</small>
 </main>
 <script>
 (() => {
 'use strict';
 const BLOB = "uswah", PREFIX = "../", HEAD = "window.__ROOT__='../';window.__PAGE__='plan';";
 const WRAPS = [{"iv": "MfCUfgMZkcwZdt5h", "ct": "3FQn+zRM9R7gJDALf+hdNhswvc2XTqJa+pVQ0OopagiyE3COKXysLWKvKOHN9apA"}];
-const SALT = 'gM42qaRx9/hxsAH5CRkZZQ==', ITER = 600000, SESSION = 900000, WARN = 120000, KEY = 'uswah.gate';
+const SALT = 'gM42qaRx9/hxsAH5CRkZZQ==', ITER = 600000, SESSION = 1800000, WARN = 120000, KEY = 'uswah.gate';
 const $ = s => document.querySelector(s);
 // Clean addresses: /sira-map.html -> /sira-map, /uswah.html -> /, /stats/index.html -> /stats/
 try {
@@ -60,7 +60,7 @@ const toB64 = u => btoa(String.fromCharCode(...u));
 const msg = (t, info) => { const m = $('#msg'); m.textContent = t || ''; m.className = info ? 'info' : ''; };
 const store = {
   // localStorage (not sessionStorage): the session is shared by every tab of the site, so a page opened from a
-  // link or in a new tab stays signed in until the same 15-minute expiry.
+  // link or in a new tab stays signed in until the same 30-minute expiry.
   get() { try { return JSON.parse(localStorage.getItem(KEY)); } catch { return null; } },
   set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} },
   del() { try { localStorage.removeItem(KEY); } catch {} },
