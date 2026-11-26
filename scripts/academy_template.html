@@ -633,7 +633,7 @@ footer.site::before{content:"";position:absolute;inset:auto 0 -50% 0;height:100%
     <a class="cta" href="https://uswah.sa/sira-map" target="_blank" rel="noopener">
       <div>
         <h3>الخريطة التفاعلية للسيرة النبوية</h3>
-        <p>تابع السيرة حدثًا بعد حدث على الخريطة، وكل حدث موثّق بمصدره والجزء والصفحة، مع تعريف بالأعلام ووضع عرض للمحاضرات.</p>
+        <p>تابع السيرة حدثًا بعد حدث على الخريطة، مع تعريف بالأعلام ووضع عرض للمحاضرات.</p>
         <span class="go">افتح الخريطة <svg class="ic" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
       </div>
       <div class="mini" aria-hidden="true"><svg viewBox="0 0 150 120"><path d="M30 92 C 55 70, 80 62, 118 28" fill="none" stroke="#fff" stroke-width="2.4" stroke-dasharray="5 6" opacity=".85"/></svg><i style="inset-inline-start:22px;top:86px"></i><i style="inset-inline-start:112px;top:22px"></i></div>
@@ -871,7 +871,7 @@ function openCourse() {
   const pts = (l.points || []).map((x, k) => `<li style="--i:${k}">${CHECK}<span>${esc(x)}</span></li>`).join('');
   const kick = done ? `أتممتَ دروس العهد المكي (${N} من ${N})` : `الدرس ${i + 1} من ${N} · العهد المكي`;
   openModal(`<div class="mh"><span class="kick2">${kick}</span><button class="mx" type="button" aria-label="إغلاق">✕</button></div>
-    <h3 class="lt" id="mt">${esc(l.title)}</h3><p class="ld">${esc(l.desc.split(' — أسئلتها')[0])}</p>
+    <h3 class="lt" id="mt">${esc(l.title)}</h3>
     <div class="cprog" style="margin-top:10px"><span><b class="num">${n}</b> من <span class="num">${N}</span> دروس</span><div class="bar"><i style="width:${n / N * 100}%"></i></div></div>
     ${pts ? `<h4>أبرز ما ستتعلمه</h4><ul class="pts">${pts}</ul>` : ''}
     ${stations ? `<h4>محطات الدرس على الخريطة</h4><div class="stn">${stations}</div>` : ''}
@@ -1053,7 +1053,7 @@ function enterItem(idx, instant) {
   // الشرح: عنوان + كلمات تُضاء تدريجيًا كالترجمة النصية
   const words = (st.x || '').split(/\s+/).filter(Boolean);
   VP.nWords = words.length; VP.shown = 0;
-  cap.innerHTML = `<div class="vm">الخطوة ${k + 1} من ${VP.steps.length} · 📍 ${esc(st.pn)}</div><h3>${esc(st.t)}</h3><div class="vtx" id="vtx">${words.map(w => `<span class="w">${esc(w)}</span>`).join(' ')}</div>${st.s ? `<div class="vs">المصدر: ${esc(st.s)}</div>` : ''}`;
+  cap.innerHTML = `<div class="vm">الخطوة ${k + 1} من ${VP.steps.length} · 📍 ${esc(st.pn)}</div><h3>${esc(st.t)}</h3><div class="vtx" id="vtx">${words.map(w => `<span class="w">${esc(w)}</span>`).join(' ')}</div>`;
   cap.classList.remove('in'); void cap.offsetWidth; cap.classList.add('in');
   // الكاميرا
   if (instant || reduce) lmap.setView(st.ll, Math.max(10, lmap.getZoom()), { animate: false });
@@ -1157,7 +1157,7 @@ function renderHook(i) {
   stage.querySelectorAll('.hopts button').forEach(b => b.onclick = () => {
     const k = +b.dataset.k, ok = k === 0;
     stage.querySelectorAll('.hopts button').forEach(x => { x.disabled = true; const kk = +x.dataset.k; x.classList.add(kk === 0 ? 'right' : x === b ? 'wrong' : 'dim'); });
-    $('#hookOut').innerHTML = `<div class="reveal"><b>${ok ? 'أحسنت التخمين! 👏' : 'ليس تمامًا… والجواب يفاجئ كثيرين'}</b><p>${esc(h.reveal)}</p>${h.src ? `<small>المصدر: ${esc(h.src)}</small>` : ''}</div>
+    $('#hookOut').innerHTML = `<div class="reveal"><b>${ok ? 'أحسنت التخمين! 👏' : 'ليس تمامًا… والجواب يفاجئ كثيرين'}</b><p>${esc(h.reveal)}</p></div>
       <div class="mrow" style="margin-top:14px"><button type="button" class="btn primary" id="toLesson">ابدأ الدرس الآن</button></div>`;
     $('#toLesson').onclick = () => setStep('lesson');
     if (ok) burst();
@@ -1168,10 +1168,10 @@ function renderLessonCard(i) {
   const l = LESSONS[i];
   stage.innerHTML = `<div class="card">
     <div class="replaybar"><button type="button" class="back" id="toMotion"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>إعادة العرض التوضيحي</button></div>
-    <h2>الدرس ${i + 1}: ${esc(l.title)}</h2><p class="sub">${esc(l.desc)}</p>
+    <h2>الدرس ${i + 1}: ${esc(l.title)}</h2>
     <div class="lvgrid">
       <div><div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${l.video}?rel=0" title="${esc(l.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-      <div class="actions"><button type="button" class="btn primary" id="startQ"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1.9-1.1 1.6M12 17h.01"/></svg>أسئلة الدرس</button><button type="button" class="btn" id="toReading">التالي: القراءة الموجهة</button><a class="btn" href="${l.videoUrl}" target="_blank" rel="noopener">فتح في يوتيوب</a></div></div>
+      <div class="actions"><button type="button" class="btn primary" id="startQ"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1.9-1.1 1.6M12 17h.01"/></svg>أسئلة الدرس</button><button type="button" class="btn" id="toReading">التالي: القراءة الموجهة</button><a class="btn" href="https://youtu.be/${l.video}" target="_blank" rel="noopener">فتح في يوتيوب</a></div></div>
     </div><div id="mini"></div></div>`;
   $('#startQ').onclick = () => renderMini(i);
   $('#toReading').onclick = () => setStep('reading', i);
@@ -1200,7 +1200,7 @@ function renderMini(i) {
   box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
 }
 
-/* ---------- القراءة الموجهة: نص من المصدر بحروفه ---------- */
+/* ---------- القراءة الموجهة: نص بحروفه (لا يُعرض مصدره في النموذج) ---------- */
 function renderReading(i) {
   view = 'reading'; markStep('reading');
   const l = LESSONS[i], r = l.reading;
@@ -1212,11 +1212,8 @@ function renderReading(i) {
   stage.innerHTML = `<div class="card reading">
     <span class="tag">الدرس ${i + 1} · القراءة الموجهة</span>
     <h2>${esc(r.title)}</h2>
-    <p class="rsrc">من كتاب <b>«${esc(r.book)}»</b> لـ${esc(r.author)} · ص <span class="num">${esc(r.page)}</span></p>
-    <div class="guide"><b>اقرأ النص بتأنٍّ،</b> وانتبه إلى: تاريخ المولد ومكانه، ومن سمّاه ﷺ، وأول من أرضعه. ستجد أسئلة عنه في الاختبار.</div>
+    <div class="guide"><b>اقرأ النص بتأنٍّ،</b> وانتبه إلى: مكان المولد، ومن سمّاه ﷺ، وأول من أرضعه ومن أرضعت معه. ستجد أسئلة عنه في الاختبار.</div>
     <article class="page">${r.body.map(t => `<p>${esc(t)}</p>`).join('')}</article>
-    ${r.foot && r.foot.length ? `<details class="foot"><summary>حواشي الصفحة</summary>${r.foot.map(t => `<p>${esc(t)}</p>`).join('')}</details>` : ''}
-    <p class="rcite">المصدر: ${esc(r.src)}</p>
     <div class="mrow"><button type="button" class="btn primary" id="readDone">${done ? 'التالي: الاختبار' : '✓ أنهيت القراءة'}</button></div></div>`;
   $('#readDone').onclick = () => { S.read = S.read || {}; S.read[l.id] = true; save(); setStep('quiz', i); };
 }
@@ -1229,9 +1226,9 @@ function renderEnrich(i) {
     <span class="tag">الدرس ${i + 1} · إثراءات</span>
     <h2>للاستزادة بعد الدرس</h2>
     <div class="egrid">
-      <a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener"><span class="tt">الخريطة التفاعلية للسيرة</span><div class="code">${QR_SVG}</div><small>امسح الرمز أو اضغط لتتابع أحداث الدرس حدثًا بعد حدث، موثقة بمصادرها.</small></a>
-      <div class="ecol">${l.reading ? `<div class="ecard"><b>المصدر الذي قرأت منه</b><p>«${esc(l.reading.book)}» لـ${esc(l.reading.author)}، ص ${esc(l.reading.page)}.</p></div>` : ''}
-      <div class="ecard"><b>المقطع على يوتيوب</b><p><a href="${l.videoUrl}" target="_blank" rel="noopener">${esc(l.title)}</a></p></div></div>
+      <a class="qr" href="${SIRA_MAP_URL}" target="_blank" rel="noopener"><span class="tt">الخريطة التفاعلية للسيرة</span><div class="code">${QR_SVG}</div><small>امسح الرمز أو اضغط لتتابع أحداث الدرس حدثًا بعد حدث على الخريطة.</small></a>
+      <div class="ecol">
+      <div class="ecard"><b>المقطع على يوتيوب</b><p><a href="https://youtu.be/${l.video}" target="_blank" rel="noopener">${esc(l.title)}</a></p></div></div>
     </div>
     <div class="mrow">${passed && next ? `<button type="button" class="btn ok" id="eNext">الانتقال إلى الدرس التالي</button>` : ''}<button type="button" class="btn" id="eMap">العودة إلى الخريطة</button></div></div>`;
   const n = $('#eNext'); if (n) n.onclick = () => openLesson(i + 1);
@@ -1379,7 +1376,7 @@ const norm = t => String(t ?? '').replace(/[ً-ٰٟـ]/g, '').replace(/[إأآٱ
 const INDEX = [
   { kind: 'path', title: 'العهد المكي', sub: 'من البعثة إلى الهجرة · 3 دروس', hay: norm('العهد المكي مكة البعثة الهجرة مسار'), act: () => { showHome({ scroll: false }); openCourse(); } },
   { kind: 'path', title: 'العهد المدني', sub: 'يفتح بعد إتمام العهد المكي', hay: norm('العهد المدني المدينة المنورة'), act: () => md.fire('click') },
-  ...LESSONS.map((l, i) => ({ kind: 'lesson', i, title: `الدرس ${i + 1}: ${l.title}`, sub: l.desc, hay: norm([l.title, l.desc, ...l.questions.map(q => q[0] + ' ' + q[1])].join(' ')), act: () => { if (!isUnlocked(i)) { toast('هذا الدرس مقفل — أنهِ الدرس السابق واجتز اختباره أولًا.'); return; } openLesson(i); } })),
+  ...LESSONS.map((l, i) => ({ kind: 'lesson', i, title: `الدرس ${i + 1}: ${l.title}`, sub: (l.points || []).join('، '), hay: norm([l.title, ...(l.points || []), ...l.questions.map(q => q[0] + ' ' + q[1])].join(' ')), act: () => { if (!isUnlocked(i)) { toast('هذا الدرس مقفل — أنهِ الدرس السابق واجتز اختباره أولًا.'); return; } openLesson(i); } })),
 ];
 const qIn = $('#q'), resBox = $('#results');
 let shown = [];
