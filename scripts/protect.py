@@ -42,6 +42,7 @@ PAGES = {
     "plan/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='plan';"),
     "projects/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='projects';"),
     "lifecycle/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='lifecycle';"),
+    "initiative-card/index.html": ("uswah", "../", "window.__ROOT__='../';window.__PAGE__='card';"),
     "content_plan.html": ("content_plan", "", ""),
     "sira-map.html": ("sira_map", "", ""),
 }
